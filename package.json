@@ -15,5 +15,18 @@
   "bugs": {
     "url": "https://github.com/Elifaz/jor/issues"
   },
-  "homepage": "https://github.com/Elifaz/jor#readme"
+  "homepage": "https://github.com/Elifaz/jor#readme",
+  "devDependencies": {
+  "gulp": "^3.9.1",
+  "gulp-concat": "^2.6.0",
+  "gulp-react": "^3.1.0",
+  "gulp-sass": "^2.3.2",
+  "gulp-util": "^3.0.7",
+  "gulp-watch": "^4.3.9"
+},
+"dependencies": {
+  "express": "^4.14.0",
+  "react": "^15.2.1",
+  "react-dom": "^15.2.1"
+}
 }
