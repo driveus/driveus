@@ -1,0 +1,19 @@
+{
+  "name": "jor",
+  "version": "1.0.0",
+  "description": "Optimize Local Travel ($ & Time)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elifaz/jor.git"
+  },
+  "author": "Jor Team - Elifaz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Elifaz/jor/issues"
+  },
+  "homepage": "https://github.com/Elifaz/jor#readme"
+}
