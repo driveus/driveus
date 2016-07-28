@@ -1,0 +1,30 @@
+$primary-color: gray;
+$secondary-color: #444;
+$header-text-color: white;
+$child-width: (300 / 10) * 5 + px;
+$child-radius: 5px;
+$center: 0 auto;
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+* {
+  margin: 0;
+}
+
+#container {
+  text-align: center;
+  background-color: $primary-color;
+  color: $header-text-color;
+}
+
+.secondary {
+  @include border-radius($child-radius);
+  margin: $center;
+  background-color: $secondary-color;
+  width: $child-width;
+}
