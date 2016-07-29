@@ -1,9 +1,3 @@
-const UBER_API_KEY;
-const LYFT_API_KEY;
-const GMAP_API_KEY;
-const UBER_URL;
-const LYFT_URL;
-
 const ROUTE_SELECTED = 'ROUTE_SELECTED';
 export function selectRoute(route) {
   // selectRoute is an ActionCreator
@@ -18,10 +12,8 @@ export function selectRoute(route) {
 // React promise looks cool
 export const FETCH_ROUTES = 'FETCH_ROUTES';
 export function fetchRoutes(location) {
-  const uberUrl; // `${UBER_URL}` plus location query
-  const lyftUrl; // `${LYFT_URL}` plus location query
-  const request; // somehow juggle API calls
 
+  // post location to server
   return {
     type: FETCH_ROUTES,
     payload: request
