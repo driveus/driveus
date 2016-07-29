@@ -1,5 +1,5 @@
 {
-  "name": "jor",
+  "name": "drivus",
   "version": "1.0.0",
   "description": "Optimize Local Travel ($ & Time)",
   "main": "app.js",
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Elifaz/jor.git"
   },
-  "author": "Jor Team - Elifaz",
+  "author": "Drivus Team - Elifaz",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Elifaz/jor/issues"

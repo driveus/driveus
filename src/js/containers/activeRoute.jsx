@@ -1,0 +1,28 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+class ActiveRoute extends Component {
+  render() {
+    let route;
+    if (!this.props.route) {
+      route = 'Nothing selected';
+    }
+    else {
+      route = 'Selected route: ' + this.props.route.display_name;
+    }
+    return (
+      <div>{route}</div>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    route: state.activeRoute
+  };
+}
+
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ bookRide: bookRide }, dispatch)
+// }
+export default connect(mapStateToProps)(ActiveRoute);
