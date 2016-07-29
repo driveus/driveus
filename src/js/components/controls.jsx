@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // Components
-import FindRoute from './findRoute.jsx';
+import FindRoute from '../containers/findRoute.jsx';
 
 class Controls extends Component {
   render() {

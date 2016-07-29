@@ -5,8 +5,10 @@ import Route from './route.jsx';
 
 class RouteList extends Component {
   renderRoutes() {
-    return this.props.routes.map(function(route) {
-      return <Route key={route} route={route} />
+    return this.props.routes.map((route) => {
+      if (route.currency) {
+        return <Route key={route.display_name} route={route} selectRoute={this.props.selectRoute} />
+      }
     });
   }
   render() {
