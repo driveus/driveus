@@ -2,7 +2,6 @@ const pg = require('pg');
 require('dotenv').config({path: '../.env'});
 pg.defaults.ssl = true;
 
-
 const config = {
                 user: process.env.DB_USER ,
                 password: process.env.DB_PASS ,
@@ -20,5 +19,5 @@ pool.on('error', function(e) {
 })
 
 export default db;
-//You can do things like this with it
+//You can use it like this
 //db.query('select * from UberHist where data1 like $1', ['abc']).then((res) => {console.log(res)})
