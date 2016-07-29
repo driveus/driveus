@@ -19,5 +19,5 @@ pool.on('error', function(e) {
 })
 
 export default db;
-//You can use it like this
+//You can use it like this:
 //db.query('select * from UberHist where data1 like $1', ['abc']).then((res) => {console.log(res)})
