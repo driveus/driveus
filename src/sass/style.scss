@@ -1,0 +1,80 @@
+$primary-color: gray;
+$secondary-color: #444;
+$header-text-color: white;
+$child-width: 60%;
+$child-radius: 5px;
+$center: 0 auto;
+$list-padding: 10px;
+$uber-color: #222233;
+$lyft-color: #F36C9E;
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+* {
+  margin: 0;
+}
+
+#container {
+  text-align: center;
+  background-color: $primary-color;
+  color: $header-text-color;
+}
+.search-box {
+  @include border-radius($child-radius);
+  margin: $center;
+  background-color: $secondary-color;
+  width: $child-width;
+  margin-bottom: 30px;
+  padding: 10px;
+}
+.location-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  input {
+    width: 60%;
+  }
+}
+.uber {
+  background-color: $uber-color;
+}
+.lyft {
+  background-color: $lyft-color;
+}
+.list-item {
+  padding: $list-padding;
+  list-style-type: none;
+  text-align: left;
+  width: 300px;
+}
+.list-container {
+  overflow: hidden;
+  margin: $center;
+  width: 90%;
+  ul {
+    padding: 0px;
+  }
+}
+.uber-list-container {
+  float: left;
+  width: 50%;
+  background-color: $uber-color;
+}
+.lyft-list-container {
+  float: right;
+  width: 50%;
+  background-color: $lyft-color;
+}
+// this is a temp class
+.map-display {
+  margin: $center;
+  height: 250px;
+  width: 90%;
+  background-color: $secondary-color;
+
+}
