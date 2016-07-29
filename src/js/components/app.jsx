@@ -7,7 +7,6 @@ import RouteLists from '../containers/routeLists.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.submitLocation = this.submitLocation.bind(this);
   }
 
@@ -24,9 +23,8 @@ class App extends Component {
       <div>
         <div>Jor / Luber / ABRoute</div>
         <Controls getLocation={this.submitLocation} />
-        <div className="list-container">
-          <RouteLists />
-        </div>
+        <div className="map-display">Omg its a map</div>
+        <RouteLists />
       </div>
     );
   }

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 
+// Components
 import Route from './route.jsx';
 
 class RouteList extends Component {
-  constructor(props) {
-    super(props);
-  }
   renderRoutes() {
     return this.props.routes.map(function(route) {
       return <Route key={route} route={route} />

@@ -37,7 +37,7 @@ $lyft-color: #F36C9E;
   flex-direction: column;
   width: 100%;
   input {
-    width: 80%;
+    width: 60%;
   }
 }
 .uber {
@@ -69,4 +69,12 @@ $lyft-color: #F36C9E;
   float: right;
   width: 50%;
   background-color: $lyft-color;
+}
+// this is a temp class
+.map-display {
+  margin: $center;
+  height: 250px;
+  width: 90%;
+  background-color: $secondary-color;
+
 }

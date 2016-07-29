@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
 class FindRoute extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const getLocation = this.props.getLocation;
     return (
