@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 import FindRoute from './findRoute.jsx';
 
 class Controls extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="search-box">
