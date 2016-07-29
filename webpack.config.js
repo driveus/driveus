@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
   devtool: "cheap-eval-source-map",
   entry: {
-    app: [path.join(__dirname, 'src/js/app.jsx')]
+    app: [path.join(__dirname, 'src/js/index.jsx')]
   },
   output: {
     path: path.join(__dirname, 'public'),
