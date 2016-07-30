@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div>
         <div>DrivUs / Jor / Luber / ABRoute</div>
-        <Controls getLocation={this.submitLocation} />
+        <Controls />
         <div className="map-display">Omg its a map</div>
         <ActiveRoute />
         <RouteLists />

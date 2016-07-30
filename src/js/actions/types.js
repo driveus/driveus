@@ -1,0 +1,4 @@
+export const ROUTE_SELECTED = 'ROUTE_SELECTED';
+export const ROUTE_DESELECTED = 'ROUTE_DESELECTED';
+
+export const FETCH_ROUTES = 'FETCH_ROUTES';

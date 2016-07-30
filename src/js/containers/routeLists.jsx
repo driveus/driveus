@@ -22,7 +22,7 @@ class RouteLists extends Component {
         <RouteList
           routes={this.props.routes[1]}
           classStyle={1}
-          selectRoute={this.props.selectRoute} 
+          selectRoute={this.props.selectRoute}
           />
       </div>
     );
@@ -35,7 +35,7 @@ function mapStateToProps(state) {
 // All returns return as props to route container
 function mapDispatchToProps(dispatch) {
   // When selectRoute is called, the result is passed to all reducers
-  return bindActionCreators({ selectRoute: selectRoute }, dispatch);
+  return bindActionCreators({ selectRoute }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RouteLists);

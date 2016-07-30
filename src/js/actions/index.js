@@ -1,4 +1,7 @@
-export const ROUTE_SELECTED = 'ROUTE_SELECTED';
+import { ROUTE_SELECTED } from './types';
+import { ROUTE_DESELECTED } from './types';
+import { FETCH_ROUTES } from './types';
+
 export function selectRoute(route) {
   // selectRoute is an ActionCreator
   // it needs to return an action and object with type prop
@@ -8,23 +11,32 @@ export function selectRoute(route) {
     payload: route
   };
 }
+export function deselectRoute() {
+  console.log('A route has been deselected');
+  return {
+    type: ROUTE_DESELECTED,
+    payload: null
+  };
+}
 // React promise looks cool
-export const FETCH_ROUTES = 'FETCH_ROUTES';
 export function fetchRoutes(location) {
   // post location to server
   console.log(location);
-  // axios.post('/location', {
+  // axios.post('/uber', {
   //   data: location
   // })
   // .then(function (response) {
   //   console.log(response);
+  // });
+  // axios.post('/lyft', {
+  //   data: location
   // })
-  // .catch(function (error) {
-  //   console.log(error);
+  // .then(function (response) {
+  //   console.log(response);
   // });
 
   return {
     type: FETCH_ROUTES,
     payload: location
-  }
+  };
 }
