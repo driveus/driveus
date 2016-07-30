@@ -22,18 +22,18 @@ export function deselectRoute() {
 export function fetchRoutes(location) {
   // post location to server
   console.log(location);
-  // axios.post('/uber', {
-  //   data: location
-  // })
-  // .then(function (response) {
-  //   console.log(response);
-  // });
-  // axios.post('/lyft', {
-  //   data: location
-  // })
-  // .then(function (response) {
-  //   console.log(response);
-  // });
+  axios.post('/api/uber', {
+    data: 123
+  })
+  .then(function (response) {
+    console.log(response);
+  });
+  axios.post('/api/lyft', {
+    data: 123
+  })
+  .then(function (response) {
+    console.log(response);
+  });
 
   return {
     type: FETCH_ROUTES,

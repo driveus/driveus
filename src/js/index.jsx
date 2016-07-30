@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 // import { Router, browserHistory } from 'react-router';
 // import routes from './routes';
 
 import App from './components/app.jsx';
 import reducers from './reducers';
+import promise from 'redux-promise';
 import css from '../sass/style.scss';
 
-const store = createStore(reducers);
+const middleWareStore = applyMiddleware(promise)(createStore);
 
 // Provider store must be set up in order for redux data to work correctly
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={middleWareStore(reducers)}>
     <App />
   </Provider>,
   document.getElementById('container')
