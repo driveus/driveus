@@ -14,8 +14,16 @@ class RouteLists extends Component {
   render() {
     return (
       <div className="list-container">
-        <RouteList routes={this.props.routes[0]} classStyle={0} selectRoute={this.props.selectRoute} />
-        <RouteList routes={this.props.routes[1]} classStyle={1} selectRoute={this.props.selectRoute} />
+        <RouteList
+          routes={this.props.routes[0]}
+          classStyle={0}
+          selectRoute={this.props.selectRoute}
+          />
+        <RouteList
+          routes={this.props.routes[1]}
+          classStyle={1}
+          selectRoute={this.props.selectRoute} 
+          />
       </div>
     );
   }

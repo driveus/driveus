@@ -1,6 +1,6 @@
 import { FETCH_ROUTES } from '../actions/index';
 
-export default function(state=[], action) {
+export default function(state=[[],[]], action) {
   // Link up API call to populate list with real data
   switch (action.type) {
     case FETCH_ROUTES:

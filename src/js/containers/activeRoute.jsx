@@ -5,12 +5,8 @@ import { connect } from 'react-redux';
 class ActiveRoute extends Component {
   render() {
     let route;
-    if (!this.props.route) {
-      route = 'Nothing selected';
-    }
-    else {
-      route = 'Selected route: ' + this.props.route.display_name;
-    }
+    if (!this.props.route) { route = 'Nothing selected'; }
+    else { route = 'Selected route: ' + this.props.route.display_name; }
     return (
       <div>{route}</div>
     );
