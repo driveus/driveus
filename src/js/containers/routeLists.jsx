@@ -8,6 +8,9 @@ import { bindActionCreators } from 'redux';
 import RouteList from '../components/routeList.jsx';
 
 class RouteLists extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div className="list-container">
@@ -19,9 +22,7 @@ class RouteLists extends Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    routes: state.routes
-  };
+  return { routes: state.routes };
 }
 // All returns return as props to route container
 function mapDispatchToProps(dispatch) {
