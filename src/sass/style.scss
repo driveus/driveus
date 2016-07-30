@@ -72,6 +72,31 @@ $lyft-color: #F36C9E;
   width: 50%;
   background-color: $lyft-color;
 }
+.selected-route-container {
+  position: fixed;
+  top: 25%;
+  right: 30%;
+  left: 30%;
+  background-color: #fff;
+  color: $secondary-color;
+  z-index: 101;
+}
+.lightbox-background {
+  background: black;
+  opacity: .5;
+  position: fixed;
+  z-index: 100;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+.lightbox-hide {
+  display: none;
+}
+.lightbox-show {
+  display: inherit;
+}
 // this is a temp class
 .map-display {
   margin: $center;

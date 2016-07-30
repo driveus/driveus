@@ -1,4 +1,4 @@
-import { FETCH_ROUTES } from '../actions/index';
+import { FETCH_ROUTES } from '../actions/types';
 
 export default function(state=[[],[]], action) {
   // Link up API call to populate list with real data
