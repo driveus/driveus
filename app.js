@@ -4,6 +4,7 @@ const path = require('path');
 // Local dependencies
 const app = express();
 const port = process.env.PORT || 3000;
+const routes = require('./server/routes.js')(app);
 
 // Logs request method on every incoming request
 app.use(function(req,res,next) {
