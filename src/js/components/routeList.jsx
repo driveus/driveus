@@ -7,7 +7,11 @@ class RouteList extends Component {
   renderRoutes() {
     return this.props.routes.map((route) => {
       if (route.currency) {
-        return <Route key={route.display_name} route={route} selectRoute={this.props.selectRoute} />
+        return <Route
+          key={route.display_name}
+          route={route}
+          selectRoute={this.props.selectRoute}
+          />
       }
     });
   }

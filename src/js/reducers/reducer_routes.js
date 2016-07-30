@@ -1,5 +1,13 @@
-export default function() {
+import { FETCH_ROUTES } from '../actions/index';
+
+export default function(state=[[],[]], action) {
   // Link up API call to populate list with real data
+  switch (action.type) {
+    case FETCH_ROUTES:
+    // Need to wipe old route state? Cache?
+      return [[],[]];
+  }
+  // default return, still dummy data
   return [
     [{
       "product_id": "26546650-e557-4a7b-86e7-6a3942445247",

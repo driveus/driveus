@@ -61,11 +61,13 @@ $lyft-color: #F36C9E;
   }
 }
 .uber-list-container {
+  overflow: hidden;
   float: left;
   width: 50%;
   background-color: $uber-color;
 }
 .lyft-list-container {
+  overflow: hidden;
   float: right;
   width: 50%;
   background-color: $lyft-color;
