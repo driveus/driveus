@@ -30,14 +30,24 @@ $lyft-color: #F36C9E;
   width: $child-width;
   margin-bottom: 30px;
   padding: 10px;
+  display: flex;
 }
 .location-form {
   align-items: center;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 60%;
   input {
-    width: 60%;
+    width: 90%;
+    padding: 0;
+  }
+}
+.expand-search {
+  float: left;
+  width: 20%;
+  overflow: hidden;
+  button {
+    width: 90%;
   }
 }
 .uber {
@@ -103,5 +113,4 @@ $lyft-color: #F36C9E;
   height: 250px;
   width: 90%;
   background-color: $secondary-color;
-
 }

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Route extends Component {
   render() {
     return (
-      // Add more when there is real data
+      // restyle/restructure probably needed
       <li className="list-item"
         onClick={() => this.props.selectRoute(this.props.route)}>
         <div>{this.props.route.display_name}</div>

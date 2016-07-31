@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchRoutes } from '../actions/index';
+import { fetchRoutes } from '../actions/axios';
 
 // Components
 import FindRoute from '../components/findRoute.jsx';
+import ExpandSearch from '../components/expandSearch.jsx';
 
 class Controls extends Component {
   constructor(props) {
@@ -19,33 +20,36 @@ class Controls extends Component {
   setLocation(e) {
     switch (e.target.name) {
       case 'startLocation':
-      this.setState({
-        startLocation: e.target.value
-      });
-      break;
+        this.setState({ startLocation: e.target.value });
+        break;
       case 'endLocation':
-      this.setState({
-        endLocation: e.target.value
-      });
-      break;
+        this.setState({ endLocation: e.target.value });
+        break;
       default:
-      return;
+        return;
     }
   }
   submitLocation(e) {
     e.preventDefault();
     if (this.state.startLocation && this.state.endLocation) {
-      this.props.fetchRoutes('placeholder');
+      let coords = {
+        start: this.state.startLocation,
+        end: this.state.endLocation
+      }
+      this.props.fetchRoutes(coords);
       this.setState({
         startLocation: '',
         endLocation: ''
       });
     }
   }
-
   render() {
     return (
       <div className="search-box">
+        <ExpandSearch
+          currentLocation={this.props.currentLocation}
+          expandSearch={this.props.fetchRoutes}
+          />
         <FindRoute
           setLocation={this.setLocation}
           submitLocation={this.submitLocation}
@@ -57,8 +61,13 @@ class Controls extends Component {
   }
 };
 
+function mapStateToProps(state) {
+  return {
+    currentLocation: state.currentLocation
+  }
+}
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchRoutes }, dispatch);
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
-export default connect(null, mapDispatchToProps)(Controls);
+export default connect(mapStateToProps, mapDispatchToProps)(Controls);
