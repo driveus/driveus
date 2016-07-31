@@ -1,13 +1,18 @@
-import { ROUTE_SELECTED } from '../actions/types';
-import { ROUTE_DESELECTED } from '../actions/types';
+import {
+  ROUTE_SELECTED,
+  ROUTE_DESELECTED
+} from '../actions/types';
 
 // state is not application state, only responsible for reducer state
 export default function(state=null, action) {
   switch(action.type) {
     case ROUTE_SELECTED:
+      console.log('A route has been selected:', action.payload);
       return action.payload;
+
     case ROUTE_DESELECTED:
-      return action.payload;
+      console.log('A route has been deselected');
+      return null;
   }
   return state;
 }

@@ -7,10 +7,11 @@ import { createStore, applyMiddleware } from 'redux';
 
 import App from './components/app.jsx';
 import reducers from './reducers';
-import promise from 'redux-promise';
+import thunk from 'redux-thunk';
 import css from '../sass/style.scss';
 
-const middleWareStore = applyMiddleware(promise)(createStore);
+// Required for using react-thunk middleware that allows for multiple dispatches in one action
+const middleWareStore = applyMiddleware(thunk)(createStore);
 
 // Provider store must be set up in order for redux data to work correctly
 ReactDOM.render(
@@ -20,7 +21,8 @@ ReactDOM.render(
   document.getElementById('container')
 );
 
-/* replace <App /> with
+/* ROUTING STUFF - probably unnecessary
+  replace <App /> with
   <Router history={browserHistory} routes={routes} />
  make new file -> routes.js
 

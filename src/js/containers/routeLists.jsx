@@ -10,17 +10,30 @@ import RouteList from '../components/routeList.jsx';
 class RouteLists extends Component {
   constructor(props) {
     super(props);
+    // this.findCheapest = this.findCheapest.bind(this);
   }
+  // findCheapest(routes) {
+  //   return routes.map(function(list) {
+  //     if (list.length) {
+  //       return list.reduce(function(acc, curr) {
+  //         if (curr.high_estimate < acc.high_estimate) {
+  //           acc = curr;
+  //         }
+  //         return acc;
+  //       });
+  //     }
+  //   });
+  // }
   render() {
     return (
       <div className="list-container">
         <RouteList
-          routes={this.props.routes[0]}
+          routes={this.props.uberRoutes}
           classStyle={0}
           selectRoute={this.props.selectRoute}
           />
         <RouteList
-          routes={this.props.routes[1]}
+          routes={this.props.lyftRoutes}
           classStyle={1}
           selectRoute={this.props.selectRoute}
           />
@@ -30,7 +43,10 @@ class RouteLists extends Component {
 }
 
 function mapStateToProps(state) {
-  return { routes: state.routes };
+  return {
+    uberRoutes: state.routes.uber,
+    lyftRoutes: state.routes.lyft
+  };
 }
 // All returns return as props to route container
 function mapDispatchToProps(dispatch) {
