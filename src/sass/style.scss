@@ -2,7 +2,7 @@ $primary-color: gray;
 $secondary-color: #444;
 $header-text-color: white;
 $child-width: 60%;
-$child-radius: 5px;
+$default-radius: 5px;
 $center: 0 auto;
 $list-padding: 10px;
 $uber-color: #222233;
@@ -17,14 +17,20 @@ $lyft-color: #F36C9E;
 * {
   margin: 0;
 }
-
-#container {
-  text-align: center;
+html, body {
+  height: 100%;
+}
+body {
   background-color: $primary-color;
+}
+#container {
+  min-width: 1000px;
+  max-width: 1200px;
+  margin: $center;
+  text-align: center;
   color: $header-text-color;
 }
 .search-box {
-  @include border-radius($child-radius);
   margin: $center;
   background-color: $secondary-color;
   width: $child-width;
@@ -39,7 +45,7 @@ $lyft-color: #F36C9E;
   width: 60%;
   input {
     width: 90%;
-    padding: 0;
+    padding: 0px 0px 0px 5px;
   }
 }
 .expand-search {
@@ -49,6 +55,9 @@ $lyft-color: #F36C9E;
   button {
     width: 90%;
   }
+}
+.submit-btn {
+  margin-top: 10px;
 }
 .uber {
   background-color: $uber-color;
@@ -60,7 +69,6 @@ $lyft-color: #F36C9E;
   padding: $list-padding;
   list-style-type: none;
   text-align: left;
-  width: 300px;
 }
 .list-container {
   overflow: hidden;
@@ -108,9 +116,15 @@ $lyft-color: #F36C9E;
   display: inherit;
 }
 // this is a temp class
-.map-display {
+.map-container {
   margin: $center;
-  height: 250px;
+  box-shadow: inset 10px 10px 37px -17px rgba(0,0,0,0.75);
+}
+#map-display {
+  padding: 5px;
+  box-sizing: border-box;
+  margin: $center;
+  height: 500px;
   width: 90%;
   background-color: $secondary-color;
 }

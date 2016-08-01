@@ -4,14 +4,15 @@ import React, { Component } from 'react';
 import Controls from '../containers/controls.jsx';
 import RouteLists from '../containers/routeLists.jsx';
 import ActiveRoute from '../containers/activeRoute.jsx';
+import MapView from './mapView.jsx';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <div>DrivUs / Jor / Luber / ABRoute</div>
+        <h1>DrivUs / Jor / Luber / ABRoute</h1>
         <Controls />
-        <div className="map-display">Omg its a map</div>
+        <MapView />
         <ActiveRoute />
         <RouteLists />
       </div>
