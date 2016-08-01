@@ -58,28 +58,29 @@ function parseLyft(rides, etas) {
 }
 
 function lyftRequest(coords = [37.7874963, -122.4020974, 37.787933, -122.4096868], res) {
-  const results = [];  //idx1 will be rides, idx2 will be etas
   const rides = lyftRides(coords);
   const etas = lyftEtas(coords);
+  let etasResponse;
+  let ridesResponse;
 
   //wait for both promises. When second one returns, send data to parseLyft function
-  rides.then(function(resp) {
-    resp = JSON.parse(resp)['cost_estimates'];
-    if (results[1]) {
-      res.json(parseLyft(resp, results[1]));
+  rides.then(function(apiResp) {
+    apiResp = JSON.parse(apiResp)['cost_estimates'];
+    if (etasResponse) {
+      res.json(parseLyft(apiResp, etasResponse));
     }
     else {
-      results[0] = resp;
+      ridesResponse = apiResp;
     }
   });
 
-  etas.then(function(resp) {
-    resp = JSON.parse(resp)['eta_estimates'];
-    if (results[0]) {
-      res.json(parseLyft(results[0], resp));
+  etas.then(function(apiResp) {
+    apiResp = JSON.parse(apiResp)['eta_estimates'];
+    if (ridesResponse) {
+      res.json(parseLyft(ridesResponse, apiResp));
     }
     else {
-      results[1] = resp;
+      etasResponse = apiResp;
     }
   })
 }

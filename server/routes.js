@@ -10,7 +10,6 @@ module.exports = function(app) {
   app.all('/api/lyft', function(req, res) {
     //TODO:get coors from req
     let coords;
-    console.log(req)
     if (req.body) {
       coords = req.body.coords
     }
