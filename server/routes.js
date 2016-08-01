@@ -1,12 +1,20 @@
+var lyft = require('./lyft.js');
+require('./uber.js');
+
+
 module.exports = function(app) {
   app.all('/api/uber', function(req, res) {
     res.json(uberDummyData);
   })
 
   app.all('/api/lyft', function(req, res) {
-    res.json(lyftDummyData);
+    lyft.lyftRideTypes(req, res, function(err, lyftData) {
+      if (err) {console.log(err)}
+      res.json(lyftData);
+    });
   })
 };
+
 const uberDummyData = [{
       "product_id": "26546650-e557-4a7b-86e7-6a3942445247",
       "currency": "USD",
@@ -63,37 +71,37 @@ const uberDummyData = [{
       "distance": 5.34
     }
   ];
-
-const lyftDummyData = [{
-    "ride_type": "lyft_plus",
-    "duration": 913,
-    "distance": 3.29,
-    "high_estimate": 2355,
-    "primetime_percentage": "25%",
-    "currency": "USD",
-    "low_estimate": 1561,
-    "display_name": "Lyft Plus",
-    "primetime_confirmation_token": null
-  },
-  {
-    "ride_type": "lyft_line",
-    "duration": 913,
-    "distance": 3.29,
-    "high_estimate": 475,
-    "primetime_percentage": "0%",
-    "currency": "USD",
-    "low_estimate": 475,
-    "display_name": "Lyft Line",
-    "primetime_confirmation_token": null
-  },
-  {
-    "ride_type": "lyft",
-    "duration": 913,
-    "distance": 3.29,
-    "high_estimate": 1755,
-    "primetime_percentage": "25%",
-    "currency": "USD",
-    "low_estimate": 1052,
-    "display_name": "Lyft",
-    "primetime_confirmation_token": null
-  }];
+  
+// const lyftDummyData = [{
+//     "ride_type": "lyft_plus",
+//     "duration": 913,
+//     "distance": 3.29,
+//     "high_estimate": 2355,
+//     "primetime_percentage": "25%",
+//     "currency": "USD",
+//     "low_estimate": 1561,
+//     "display_name": "Lyft Plus",
+//     "primetime_confirmation_token": null
+//   },
+//   {
+//     "ride_type": "lyft_line",
+//     "duration": 913,
+//     "distance": 3.29,
+//     "high_estimate": 475,
+//     "primetime_percentage": "0%",
+//     "currency": "USD",
+//     "low_estimate": 475,
+//     "display_name": "Lyft Line",
+//     "primetime_confirmation_token": null
+//   },
+//   {
+//     "ride_type": "lyft",
+//     "duration": 913,
+//     "distance": 3.29,
+//     "high_estimate": 1755,
+//     "primetime_percentage": "25%",
+//     "currency": "USD",
+//     "low_estimate": 1052,
+//     "display_name": "Lyft",
+//     "primetime_confirmation_token": null
+//   }];
