@@ -66,7 +66,6 @@ function lyftRequest(coords = [37.7874963, -122.4020974, 37.787933, -122.4096868
   rides.then(function(resp) {
     resp = JSON.parse(resp)['cost_estimates'];
     if (results[1]) {
-      console.log('returning rides', parseLyft(resp, results[1]))
       res.json(parseLyft(resp, results[1]));
     }
     else {
@@ -77,7 +76,6 @@ function lyftRequest(coords = [37.7874963, -122.4020974, 37.787933, -122.4096868
   etas.then(function(resp) {
     resp = JSON.parse(resp)['eta_estimates'];
     if (results[0]) {
-      console.log('returning etas', parseLyft(results[0], resp));
       res.json(parseLyft(results[0], resp));
     }
     else {
