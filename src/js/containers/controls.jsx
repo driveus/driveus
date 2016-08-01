@@ -44,12 +44,19 @@ class Controls extends Component {
     }
   }
   render() {
+    let expandSearch;
+    if (!this.props.currentLocation) { expandSearch = null; }
+    else {
+      expandSearch =
+      <ExpandSearch
+        currentLocation={this.props.currentLocation}
+        expandSearch={this.props.fetchRoutes} />
+    }
     return (
       <div className="search-box">
-        <ExpandSearch
-          currentLocation={this.props.currentLocation}
-          expandSearch={this.props.fetchRoutes}
-          />
+        <div className="expand-search">
+          {expandSearch}
+        </div>
         <FindRoute
           setLocation={this.setLocation}
           submitLocation={this.submitLocation}

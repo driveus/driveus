@@ -16,7 +16,7 @@ class RouteList extends Component {
     });
   }
   render() {
-    const style = this.props.classStyle === 0 ? 'uber-list-container' : 'lyft-list-container';
+    let style = this.props.classStyle === 0 ? 'uber-list-container' : 'lyft-list-container';
     return (
       <div className={style}>
         <ul>
