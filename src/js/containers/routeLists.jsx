@@ -8,22 +8,6 @@ import { bindActionCreators } from 'redux';
 import RouteList from '../components/routeList.jsx';
 
 class RouteLists extends Component {
-  constructor(props) {
-    super(props);
-    // this.findCheapest = this.findCheapest.bind(this);
-  }
-  // findCheapest(routes) {
-  //   return routes.map(function(list) {
-  //     if (list.length) {
-  //       return list.reduce(function(acc, curr) {
-  //         if (curr.high_estimate < acc.high_estimate) {
-  //           acc = curr;
-  //         }
-  //         return acc;
-  //       });
-  //     }
-  //   });
-  // }
   render() {
     return (
       <div className="list-container">

@@ -16,12 +16,12 @@ export default function(state={uber:[],lyft:[]}, action) {
       return state;
 
     case RECEIVE_ROUTES_UBER:
-      console.log('Received Uber routes!')
+      console.log('Received Uber routes!', action.routes)
       return Object.assign({}, state, {
         uber: action.routes
       });
     case RECEIVE_ROUTES_LYFT:
-      console.log('Received Lyft routes!')
+      console.log('Received Lyft routes!', action.routes)
       return Object.assign({}, state, {
         lyft: action.routes
       });

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Controls from '../containers/controls.jsx';
 import RouteLists from '../containers/routeLists.jsx';
 import ActiveRoute from '../containers/activeRoute.jsx';
-import MapView from './mapView.jsx';
+import MapView from '../containers/mapView.jsx';
 
 class App extends Component {
   render() {
