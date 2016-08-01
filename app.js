@@ -1,10 +1,16 @@
 // Module dependencies
 const express = require('express');
 const path = require('path');
+const dotenv = require('dotenv').config()
+const bodyParser = require('body-parser');
 // Local dependencies
 const app = express();
 const port = process.env.PORT || 3000;
 const routes = require('./server/routes.js')(app);
+
+//Request parsing middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Logs request method on every incoming request
 app.use(function(req,res,next) {
