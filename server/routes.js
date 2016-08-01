@@ -8,10 +8,14 @@ module.exports = function(app) {
   })
 
   app.all('/api/lyft', function(req, res) {
-    lyft.lyftRideTypes(req, res, function(err, lyftData) {
-      if (err) {console.log(err)}
-      res.json(lyftData);
-    });
+    //TODO:get coors from req
+    let coords;
+    console.log(req)
+    if (req.body) {
+      coords = req.body.coords
+    }
+    //This function sends the response
+    lyft.lyftRequest(coords, res);
   })
 };
 
