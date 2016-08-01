@@ -13,8 +13,19 @@ class MapView extends Component {
         key: `USA`,
         defaultAnimation: 2,
       }],
-      scrollwheel: false
+      mapOptions: {
+        scrollwheel: false,
+        lat: 37.7749,
+        lng: -122.4194
+      }
     }
+  }
+  initMap() {
+    var map = new google.maps.Map(document.getElementById('map-display'), {
+      center: {lat: -34.397, lng: 150.644},
+      scrollwheel: false,
+      zoom: 8
+    });
   }
   render() {
     return (
@@ -30,15 +41,16 @@ class MapView extends Component {
           }
           googleMapElement={
             <GoogleMap
-              ref={(map) => {(this._googleMapComponent = map); console.log(map)}}
+              ref={(map) => (this._googleMapComponent = map)}
+              options={this.state.mapOptions}
               defaultZoom={14}
-              defaultCenter={{ lat: 37.7749, lng: -122.4194 }}
-              >
+              defaultCenter={{
+                lat: this.state.mapOptions.lat,
+                lng: this.state.mapOptions.lng
+              }}>
               {this.state.markers.map((marker) => {
                 return (
-                  <Marker
-                    {...marker}
-                    />
+                  <Marker {...marker} />
                 );
               })}
             </GoogleMap>

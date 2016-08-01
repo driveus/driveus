@@ -31,10 +31,12 @@ class Controls extends Component {
   }
   submitLocation(e) {
     e.preventDefault();
-    if (this.state.startLocation && this.state.endLocation) {
+    let startLocation = e.target.startLocation.value;
+    let endLocation = e.target.endLocation.value;
+    if (startLocation && endLocation) {
       let coords = {
-        start: this.state.startLocation,
-        end: this.state.endLocation
+        start: startLocation,
+        end: endLocation
       }
       this.props.fetchRoutes(coords);
       this.setState({
