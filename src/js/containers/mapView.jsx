@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 class MapView extends Component {
-  
+
   componentDidMount() {
     let map = new google.maps.Map(document.querySelector('.map-container'), {
       center: this.props.currentLocation.start || { lat: 37.773972, lng: -122.431297 },
@@ -11,20 +11,27 @@ class MapView extends Component {
       zoom: 10
     });
     this.setState({
-      map: map
+      map: map,
+      markers: []
     });
   }
+  componentWillReceiveProps() {
+    if (this.props.currentLocation.start && this.props.currentLocation.end) {
+      for (let marker of this.props.routeMarkers) {
+        marker.setMap(null);
+      }
+    }
+  }
   componentDidUpdate() {
-    let startMarker = new google.maps.Marker({
-      position: this.props.currentLocation.start || null,
-      map: this.state.map,
-      animation: 2
-    });
-    let endMarker = new google.maps.Marker({
-      position: this.props.currentLocation.end || null,
-      map: this.state.map,
-      animation: 2
-    });
+    let markers = this.props.routeMarkers,
+        bounds = new google.maps.LatLngBounds();
+    for (let i = 0; i < markers.length; i++) {
+      if (markers[i].position) {
+        markers[i].setMap(this.state.map);
+        bounds.extend(markers[i].getPosition());
+      }
+    }
+    this.state.map.fitBounds(bounds);
   }
   render() {
     return (
@@ -38,7 +45,8 @@ class MapView extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentLocation: state.currentLocation
+    currentLocation: state.currentLocation,
+    routeMarkers: state.routeMarkers
   }
 }
 export default connect(mapStateToProps)(MapView);
