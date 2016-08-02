@@ -27,7 +27,8 @@ export function getCoords(location) {
               start: startCoords,
               end: endCoords
             }
-            dispatch(fetchRoutes(route));
+            dispatch(fetchUber(route));
+            dispatch(fetchLyft(route));
             dispatch(setMarkers(route));
           }
         });
@@ -36,23 +37,33 @@ export function getCoords(location) {
   }
 }
 // Insert some middleware that calculates the coords from the location??
-export function fetchRoutes(coords) {
+export function fetchUber(coords) {
   return function(dispatch) {
     // Send initial action type flag that routes have been requested
-    dispatch(requestRoutes(coords))
-    Promise.all([
-      axiosRequest('uber', coords),
-      axiosRequest('lyft', coords)
-    ])
-    .then(function (response) {
-      // Will likely have to structure this in a better way
-      dispatch(receiveRoutesUber(coords, response[0].data))
-      dispatch(receiveRoutesLyft(coords, response[1].data))
-    })
-    .catch(function(err) {
-      console.log(err);
-      dispatch(invalidRoutes());
-    })
+    axiosRequest('uber', coords)
+      .then(function (response) {
+        // Will likely have to structure this in a better way
+        dispatch(receiveRoutesUber(coords, response.data[0]))
+      })
+      .catch(function(err) {
+        console.log(err);
+        dispatch(invalidRoutes());
+      })
+  }
+}
+
+export function fetchLyft(coords) {
+  return function(dispatch) {
+    // Send initial action type flag that routes have been requested
+    axiosRequest('lyft', coords)
+      .then(function (response) {
+        // Will likely have to structure this in a better way
+        dispatch(receiveRoutesLyft(coords, response.data[0]))
+      })
+      .catch(function(err) {
+        console.log(err);
+        dispatch(invalidRoutes());
+      })
   }
 }
 

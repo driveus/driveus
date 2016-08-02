@@ -4,13 +4,13 @@ let subprocess = Bluebird.promisify(childProcess.exec, {context: childProcess});
 
 function uberRides(coords) {
   //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/price?start_latitude=${coords[0]}&start_longitude=${coords[1]}&end_latitude=${coords[2]}&end_longitude=${coords[3]}'`;
+  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/price?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}&end_latitude=${coords.end.lat}&end_longitude=${coords.end.lng}'`;
   return subprocess(uberReq);
 }
 
 function uberEtas(coords) {
   //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/time?start_latitude=${coords[0]}&start_longitude=${coords[1]}'`;
+  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/time?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}'`;
   return subprocess(uberReq);
 }
 
@@ -37,10 +37,12 @@ function parseUber(rides, etas) {
     }
   }
   rides = rides.filter((ride) => !ride.product_id);
+  console.log('Hit ParseUber: ', rides);
   return rides;
 }
 
-function uberRequest(coords = [37.7874963, -122.4020974, 37.787933, -122.4096868], res) {
+function uberRequest(coords = { start: { lat: 37.7873057, lng: -122.39937120000002 },
+  end: { lat: 37.79030300000001, lng: -122.42877299999998 } }, res) {
   const rides = uberRides(coords);
   const etas = uberEtas(coords);
   let etasResponse;

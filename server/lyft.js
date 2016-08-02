@@ -21,13 +21,14 @@ setInterval(generateToken, 3000000);
 
 function lyftRides(coords) {
   //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' curl -X GET -H 'Authorization: bearer <bearer_token>' 'https://api.lyft.com/v1/cost?start_lat=${coords[0]}&start_lng=${coords[1]}&end_lat=${coords[2]}&end_lng=${coords[3]}'`;
+  const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' curl -X GET -H 'Authorization: bearer <bearer_token>' 'https://api.lyft.com/v1/cost?start_lat=${coords.start.lat}&start_lng=${coords.start.lng}&end_lat=${coords.end.lat}&end_lng=${coords.end.lng}'`;
   return subprocess(lyftReq);
 }
 
 function lyftEtas(coords) {
   //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' 'https://api.lyft.com/v1/eta?lat=${coords[0]}&lng=${coords[1]}'`;
+  const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' 'https://api.lyft.com/v1/eta?lat=${coords.start.lat}&lng=${coords.start.lng}'`;
+  console.log('Lyft Etas: ', coords);
   return subprocess(lyftReq);
 }
 
@@ -54,6 +55,7 @@ function parseLyft(rides, etas) {
     }
   }
   // console.log("PARSED:", rides);
+  console.log('Lyft Rides: ', rides);
   return rides;
 }
 
@@ -67,6 +69,7 @@ function lyftRequest(coords = [37.7874963, -122.4020974, 37.787933, -122.4096868
   rides.then(function(apiResp) {
     apiResp = JSON.parse(apiResp)['cost_estimates'];
     if (etasResponse) {
+      console.log('Lyft Resp: ', apiResp);
       res.json(parseLyft(apiResp, etasResponse));
     }
     else {
@@ -77,6 +80,7 @@ function lyftRequest(coords = [37.7874963, -122.4020974, 37.787933, -122.4096868
   etas.then(function(apiResp) {
     apiResp = JSON.parse(apiResp)['eta_estimates'];
     if (ridesResponse) {
+      console.log('Lyft Resp: ', apiResp);
       res.json(parseLyft(ridesResponse, apiResp));
     }
     else {
