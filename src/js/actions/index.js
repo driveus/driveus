@@ -38,6 +38,7 @@ export function requestRoutes(coords) {
   return {
     type: REQUEST_ROUTES,
     coords
+    routes: null
   }
 }
 export function receiveRoutesUber(coords, data) {

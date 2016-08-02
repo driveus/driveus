@@ -2,6 +2,7 @@
 export const ROUTE_SELECTED = 'ROUTE_SELECTED';
 export const ROUTE_DESELECTED = 'ROUTE_DESELECTED';
 export const SET_MARKERS = 'SET_MARKERS';
+
 // API call flags
 export const REQUEST_ROUTES = 'REQUEST_ROUTES';
 
