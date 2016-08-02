@@ -7,7 +7,7 @@ module.exports = function(app) {
   app.all('/api/uber', function(req, res) {
     let coords;
     if (req.body) {
-      coords = req.body.coords
+      coords = req.body.coords;
     }
     //This function sends the response
     uber.uberRequest(coords, res);
@@ -17,7 +17,7 @@ module.exports = function(app) {
     //TODO:get coords from req
     let coords;
     if (req.body) {
-      coords = req.body.coords
+      coords = req.body.coords;
     }
     //This function sends the response
     lyft.lyftRequest(coords, res);

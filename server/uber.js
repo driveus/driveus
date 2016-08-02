@@ -1,16 +1,16 @@
 let childProcess = require('child_process');
-let Bluebird = require('bluebird')
+let Bluebird = require('bluebird');
 let subprocess = Bluebird.promisify(childProcess.exec, {context: childProcess});
 
 function uberRides(coords) {
   //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/price?start_latitude=${coords[0]}&start_longitude=${coords[1]}&end_latitude=${coords[2]}&end_longitude=${coords[3]}'`
+  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/price?start_latitude=${coords[0]}&start_longitude=${coords[1]}&end_latitude=${coords[2]}&end_longitude=${coords[3]}'`;
   return subprocess(uberReq);
 }
 
 function uberEtas(coords) {
   //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/time?start_latitude=${coords[0]}&start_longitude=${coords[1]}'`
+  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/time?start_latitude=${coords[0]}&start_longitude=${coords[1]}'`;
   return subprocess(uberReq);
 }
 
@@ -18,13 +18,13 @@ function parseUber(rides, etas) {
   rides = rides.map(function(obj) {
     out = {};
     out.product_id = obj.product_id;
-    out.display_name = obj['display_name']// === 'POOL' : 'uberPOOL';
+    out.display_name = obj['display_name'];// === 'POOL' : 'uberPOOL';
     out.duration = obj['duration'];
     out.distance = obj['distance'];
     out.high_estimate = obj['high_estimate'] * 100;
     out.low_estimate = obj['low_estimate'] * 100;
     out.avg_estimate = ((obj['high_estimate'] + obj['low_estimate']) * 100 / 2);
-    out.price_multiplier = obj['surge_multiplier']
+    out.price_multiplier = obj['surge_multiplier'];
     return out;
   });
   //add the ETA to the corresponding object

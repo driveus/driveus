@@ -27,7 +27,7 @@ function lyftRides(coords) {
 
 function lyftEtas(coords) {
   //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' 'https://api.lyft.com/v1/eta?lat=${coords[0]}&lng=${coords[1]}'`
+  const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' 'https://api.lyft.com/v1/eta?lat=${coords[0]}&lng=${coords[1]}'`;
   return subprocess(lyftReq);
 }
 
