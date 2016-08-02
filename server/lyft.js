@@ -21,7 +21,7 @@ setInterval(generateToken, 3000000);
 
 function lyftRides(coords) {
   //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' curl -X GET -H 'Authorization: bearer <bearer_token>' 'https://api.lyft.com/v1/cost?start_lat=${coords[0]}&start_lng=${coords[1]}&end_lat=${coords[2]}&end_lng=${coords[3]}'`;
+  const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' 'https://api.lyft.com/v1/cost?start_lat=${coords[0]}&start_lng=${coords[1]}&end_lat=${coords[2]}&end_lng=${coords[3]}'`;
   return subprocess(lyftReq);
 }
 
