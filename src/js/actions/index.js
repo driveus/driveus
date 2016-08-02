@@ -1,6 +1,7 @@
 import {
   ROUTE_SELECTED,
   ROUTE_DESELECTED,
+  SET_MARKERS,
   REQUEST_ROUTES,
   RECEIVE_ROUTES_UBER,
   RECEIVE_ROUTES_LYFT,
@@ -17,6 +18,21 @@ export function deselectRoute() {
   return {
     type: ROUTE_DESELECTED,
   };
+}
+export function setMarkers(coords) {
+  let markers = [];
+  markers.push(new google.maps.Marker({
+    position: coords.start,
+    animation: 2
+  }));
+  markers.push(new google.maps.Marker({
+    position: coords.end,
+    animation: 2
+  }));
+  return {
+    type: SET_MARKERS,
+    payload: markers
+  }
 }
 export function requestRoutes(coords) {
   return {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchRoutes } from '../actions/axios';
+import { getCoords } from '../actions/requests';
 
 // Components
 import FindRoute from '../components/findRoute.jsx';
@@ -17,6 +17,10 @@ class Controls extends Component {
     this.setLocation = this.setLocation.bind(this);
     this.submitLocation = this.submitLocation.bind(this);
   }
+  componentWillMount() {
+    let geocoder = new google.maps.Geocoder();
+    this.setState({ geocoder: geocoder });
+  }
   setLocation(e) {
     switch (e.target.name) {
       case 'startLocation':
@@ -31,14 +35,14 @@ class Controls extends Component {
   }
   submitLocation(e) {
     e.preventDefault();
-    let startLocation = e.target.startLocation.value;
-    let endLocation = e.target.endLocation.value;
+    let startLocation = e.target.startLocation.value,
+        endLocation = e.target.endLocation.value;
     if (startLocation && endLocation) {
-      let coords = {
+      let location = {
         start: startLocation,
         end: endLocation
       }
-      this.props.fetchRoutes(coords);
+      this.props.getCoords(location)
       this.setState({
         startLocation: '',
         endLocation: ''
@@ -47,7 +51,7 @@ class Controls extends Component {
   }
   render() {
     let expandSearch;
-    if (!this.props.currentLocation) { expandSearch = null; }
+    if (!this.props.currentLocation.start) { expandSearch = null; }
     else {
       expandSearch =
       <ExpandSearch
@@ -76,7 +80,7 @@ function mapStateToProps(state) {
   }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchRoutes }, dispatch);
+  return bindActionCreators({ getCoords }, dispatch);
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

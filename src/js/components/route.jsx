@@ -7,7 +7,7 @@ class Route extends Component {
       <li className="list-item"
         onClick={() => this.props.selectRoute(this.props.route)}>
         <div>{this.props.route.display_name}</div>
-        <div>Cost: {this.props.route.high_estimate/100}$ {this.props.route.currency}</div>
+        <div>Cost: {this.props.route.high_estimate/100}$</div>
         <div>Duration: {Math.round(this.props.route.duration/60)} minutes</div>
       </li>
     );
