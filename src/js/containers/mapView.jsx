@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 class MapView extends Component {
-  constructor(props) {
-    super(props);
-  }
+  
   componentDidMount() {
     let map = new google.maps.Map(document.querySelector('.map-container'), {
       center: this.props.currentLocation.start || { lat: 37.773972, lng: -122.431297 },
