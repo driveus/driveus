@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 
 class FindRoute extends Component {
   componentDidMount() {
-    // let defaultBounds = new google.maps.LatLngBounds(
-    //   new google.maps.LatLng(37.7749, -123.4194),
-    //   new google.maps.LatLng(38.7749, -122.4194));
-    //
       let inputs = document.getElementsByClassName('search-input');
-      // let options = {
-      //   bounds: defaultBounds,
-      // };
       for (let input of inputs) {
         new google.maps.places.Autocomplete(input);
       }

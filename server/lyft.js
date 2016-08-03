@@ -59,7 +59,7 @@ function parseLyft(rides, etas) {
   return rides;
 }
 
-function lyftRequest(coords = [37.7874963, -122.4020974, 37.787933, -122.4096868], res) {
+function lyftRequest(coords, res) {
   const rides = lyftRides(coords);
   const etas = lyftEtas(coords);
   let etasResponse;

@@ -26,7 +26,7 @@ module.exports = function(app) {
   })
 };
 
-  
+
 // const lyftDummyData = [{
 //     "ride_type": "lyft_plus",
 //     "duration": 913,
