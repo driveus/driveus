@@ -26,18 +26,20 @@ class Controls extends Component {
   // submitLocation(e) {
   onFormSubmit(e) {
     e.preventDefault();
-    let startLocation = e.target.startLocation.value,
-        endLocation = e.target.endLocation.value;
-    if (startLocation && endLocation) {
-      let location = {
-        start: startLocation,
-        end: endLocation
+    if (this.props.canRequestRoutes) {
+      let startLocation = e.target.startLocation.value,
+      endLocation = e.target.endLocation.value;
+      if (startLocation && endLocation) {
+        let location = {
+          start: startLocation,
+          end: endLocation
+        }
+        this.props.getCoords(location)
+        this.setState({
+          startLocation: '',
+          endLocation: ''
+        });
       }
-      this.props.getCoords(location)
-      this.setState({
-        startLocation: '',
-        endLocation: ''
-      });
     }
   }
   handleLocationChange(e) {
@@ -105,6 +107,7 @@ class Controls extends Component {
 
 function mapStateToProps(state) {
   return {
+    canRequestRoutes: state.requestRoute,
     currentLocation: state.currentLocation
   }
 }

@@ -41,8 +41,7 @@ function parseUber(rides, etas) {
   return rides;
 }
 
-function uberRequest(coords = { start: { lat: 37.7873057, lng: -122.39937120000002 },
-  end: { lat: 37.79030300000001, lng: -122.42877299999998 } }, res) {
+function uberRequest(coords, res) {
   const rides = uberRides(coords);
   const etas = uberEtas(coords);
   let etasResponse;

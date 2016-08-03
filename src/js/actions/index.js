@@ -36,8 +36,7 @@ export function setMarkers(coords) {
 }
 export function requestRoutes(coords) {
   return {
-    type: REQUEST_ROUTES,
-    coords
+    type: REQUEST_ROUTES
   }
 }
 export function receiveRoutesUber(coords, data) {

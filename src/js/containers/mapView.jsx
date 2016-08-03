@@ -23,15 +23,17 @@ class MapView extends Component {
     }
   }
   componentDidUpdate() {
-    let markers = this.props.routeMarkers,
-        bounds = new google.maps.LatLngBounds();
-    for (let i = 0; i < markers.length; i++) {
-      if (markers[i].position) {
-        markers[i].setMap(this.state.map);
-        bounds.extend(markers[i].getPosition());
+    if (this.props.routeMarkers.length) {
+      let markers = this.props.routeMarkers,
+      bounds = new google.maps.LatLngBounds();
+      for (let i = 0; i < markers.length; i++) {
+        if (markers[i].position) {
+          markers[i].setMap(this.state.map);
+          bounds.extend(markers[i].getPosition());
+        }
       }
+      this.state.map.fitBounds(bounds);
     }
-    this.state.map.fitBounds(bounds);
   }
   render() {
     return (
