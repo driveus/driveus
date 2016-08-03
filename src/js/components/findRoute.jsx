@@ -27,7 +27,7 @@ class FindRoute extends Component {
             />
           <input
             className="search-input"
-            placeholder="Enter your desination"
+            placeholder="Enter your destination"
             name="endLocation"
             />
           <button className="submit-btn">Submit</button>
