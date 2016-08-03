@@ -39,7 +39,7 @@ export function receiveRoutesLyft(coords, data) {
     routes: data
   }
 }
-export function receiveExpandedRoutes(coords, data) {
+export function receiveRoutesExpanded(coords, data) {
   return {
     type: RECEIVE_EXPANDED_ROUTES,
     coords: coords,

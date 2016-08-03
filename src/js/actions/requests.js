@@ -2,6 +2,7 @@ import {
   requestRoutes,
   receiveRoutesLyft,
   receiveRoutesUber,
+  receiveRoutesExpanded,
   noExpandedRoutes,
   invalidRoutes
 } from './index';
@@ -46,7 +47,7 @@ export function fetchUber(coords) {
   return function(dispatch) {
     axiosRequest('uber', coords)
     .then(function (response) {
-      dispatch(receiveRoutesUber(coords, response.data))
+      dispatch(receiveRoutesUber(coords, response.data));
     })
     .catch(function(err) {
       console.log(err);
@@ -59,7 +60,7 @@ export function fetchLyft(coords) {
   return function(dispatch) {
     axiosRequest('lyft', coords)
     .then(function (response) {
-      dispatch(receiveRoutesLyft(coords, response.data))
+      dispatch(receiveRoutesLyft(coords, response.data));
     })
     .catch(function(err) {
       console.log(err);
@@ -69,9 +70,20 @@ export function fetchLyft(coords) {
 }
 
 export function fetchExpanded(coords) {
-  // rebuild for real data
+  // ==TEMP==============
+  dispatch(noExpandedRoutes());
+  return;
+  // ====================
   return function(dispatch) {
-    dispatch(noExpandedRoutes());
+    axiosRequest('expand', coords)
+    .then(function (response) {
+      console.log(response);
+      dispatch(receiveRoutesExpanded(coords, response.data));
+    })
+    .catch(function(err) {
+      console.log(err);
+      dispatch(noExpandedRoutes());
+    })
   }
 }
 

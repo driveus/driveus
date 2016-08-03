@@ -21,7 +21,7 @@ ReactDOM.render(
   <Provider store={finalStore}>
     <App />
   </Provider>,
-  document.getElementById('container')
+  document.getElementById('app')
 );
 
 /* ROUTING STUFF - probably unnecessary
