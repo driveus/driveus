@@ -43,7 +43,7 @@ export function fetchUber(coords) {
     axiosRequest('uber', coords)
       .then(function (response) {
         // Will likely have to structure this in a better way
-        dispatch(receiveRoutesUber(coords, response.data[0]))
+        dispatch(receiveRoutesUber(coords, response.data))
       })
       .catch(function(err) {
         console.log(err);
@@ -58,7 +58,7 @@ export function fetchLyft(coords) {
     axiosRequest('lyft', coords)
       .then(function (response) {
         // Will likely have to structure this in a better way
-        dispatch(receiveRoutesLyft(coords, response.data[0]))
+        dispatch(receiveRoutesLyft(coords, response.data))
       })
       .catch(function(err) {
         console.log(err);

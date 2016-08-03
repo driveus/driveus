@@ -56,7 +56,6 @@ export function receiveRoutesLyft(coords, data) {
 }
 export function invalidRoutes() {
   return {
-    type: INVALID_ROUTES,
-    coords
+    type: INVALID_ROUTES
   }
 }

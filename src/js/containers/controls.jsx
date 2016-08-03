@@ -4,36 +4,27 @@ import { bindActionCreators } from 'redux';
 import { getCoords } from '../actions/requests';
 
 // Components
-import FindRoute from '../components/findRoute.jsx';
+import LocationSearch from '../containers/location_search.jsx';
 import ExpandSearch from '../components/expandSearch.jsx';
 
 class Controls extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       startLocation: '',
       endLocation: ''
-    }
-    this.setLocation = this.setLocation.bind(this);
-    this.submitLocation = this.submitLocation.bind(this);
+    };
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleLocationAutoComplete = this.handleLocationAutoComplete.bind(this)
   }
-  componentWillMount() {
-    let geocoder = new google.maps.Geocoder();
-    this.setState({ geocoder: geocoder });
-  }
-  setLocation(e) {
-    switch (e.target.name) {
-      case 'startLocation':
-        this.setState({ startLocation: e.target.value });
-        break;
-      case 'endLocation':
-        this.setState({ endLocation: e.target.value });
-        break;
-      default:
-        return;
-    }
-  }
-  submitLocation(e) {
+  // componentWillMount() {
+  //   let geocoder = new google.maps.Geocoder();
+  //   this.setState({ geocoder: geocoder });
+  // }
+  // submitLocation(e) {
+  onFormSubmit(e) {
     e.preventDefault();
     let startLocation = e.target.startLocation.value,
         endLocation = e.target.endLocation.value;
@@ -49,6 +40,30 @@ class Controls extends Component {
       });
     }
   }
+  handleLocationChange(e) {
+    switch (e.target.name) {
+      case 'startLocation':
+        this.setState({ startLocation: e.target.value });
+        break;
+      case 'endLocation':
+        this.setState({ endLocation: e.target.value });
+        break;
+      default:
+        return;
+    }
+  }
+  handleLocationAutoComplete(address, tripNode) {
+    switch (tripNode) {
+      case 'startLocation':
+        this.setState({ startLocation: address });
+        break;
+      case 'endLocation':
+        this.setState({ endLocation: address });
+        break;
+      default:
+        return;
+    }
+  }
   render() {
     let expandSearch;
     if (!this.props.currentLocation.start) { expandSearch = null; }
@@ -56,19 +71,33 @@ class Controls extends Component {
       expandSearch =
       <ExpandSearch
         currentLocation={this.props.currentLocation}
-        expandSearch={this.props.fetchRoutes} />
+        expandSearch={this.props.fetchRoutes} 
+      />
     }
     return (
       <div className="search-box">
         <div className="expand-search">
           {expandSearch}
         </div>
-        <FindRoute
-          setLocation={this.setLocation}
-          submitLocation={this.submitLocation}
-          startLocation={this.state.startLocation}
-          endLocation={this.state.endLocation}
+        <form onSubmit={this.onFormSubmit} className="location-form">
+          <LocationSearch
+            tripNode="startLocation"
+            onLocationChange={this.handleLocationChange}
+            onAutoComplete={this.handleLocationAutoComplete}
+            value={this.state.startLocation}
+            name="startLocation"
+            placeholder="Pickup"
           />
+          <LocationSearch
+            tripNode="endLocation"
+            onLocationChange={this.handleLocationChange}
+            onAutoComplete={this.handleLocationAutoComplete}
+            value={this.state.endLocation}
+            name="endLocation"
+            placeholder="Dropoff"
+          />
+          <button className="submit-btn">Submit</button>
+        </form>
       </div>
     );
   }
