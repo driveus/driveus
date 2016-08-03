@@ -2,7 +2,17 @@
   "presets": ["react", "es2015"],
   "env": {
     "development": {
-      "presets": ["react-hmre"]
+		"presets": ["react-hmre"],
+      	"plugins": [["react-transform", {
+        "transforms": [{
+          "transform": "react-transform-hmr",
+          "imports": ["react"],
+          "locals": ["module"]
+        }]
+      }]]
+    },
+    "production": {
+      "plugins": ["transform-react-constant-elements"]
     }
   }
 }
