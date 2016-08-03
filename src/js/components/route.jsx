@@ -13,14 +13,15 @@ class Route extends Component {
   }
   render() {
     let eta = Math.round(this.props.route.eta/60);
+    let totalTime = Math.round((this.props.route.duration + this.props.route.eta)/60)
     let minutes = eta <= 1 ? 'minute' : 'minutes';
     return (
-      // restyle/restructure probably needed
       <li className="list-item"
         onClick={this.setActiveRoute}>
         <div className="route-name">{this.props.route.display_name}</div>
         <div className="route-cost">Cost: ${this.props.route.high_estimate/100}</div>
-        <div className="route-eta">ETA: {eta} {minutes}</div>
+        <div className="driver-eta">Pickup: {eta} {minutes}</div>
+        <div className="route-duration">Total: {totalTime} {minutes}</div>
       </li>
     );
   }

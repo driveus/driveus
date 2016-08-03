@@ -48,7 +48,8 @@ class MapView extends Component {
 function mapStateToProps(state) {
   return {
     currentLocation: state.currentLocation,
-    routeMarkers: state.routeMarkers
+    routeMarkers: state.routeMarkers,
+    expandedMarkers: state.expandedMarkers
   }
 }
 export default connect(mapStateToProps)(MapView);
