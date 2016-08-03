@@ -36,9 +36,7 @@ export function setMarkers(coords) {
 }
 export function requestRoutes(coords) {
   return {
-    type: REQUEST_ROUTES,
-    coords
-    routes: null
+    type: REQUEST_ROUTES
   }
 }
 export function receiveRoutesUber(coords, data) {
@@ -57,7 +55,6 @@ export function receiveRoutesLyft(coords, data) {
 }
 export function invalidRoutes() {
   return {
-    type: INVALID_ROUTES,
-    coords
+    type: INVALID_ROUTES
   }
 }

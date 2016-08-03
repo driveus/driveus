@@ -15,7 +15,6 @@ module.exports = function(app) {
   })
 
   app.all('/api/lyft', function(req, res) {
-    console.log(req.body.data)
     //TODO:get coords from req
     console.log('lyft hit: ', req.body.data)
     let coords;

@@ -10,7 +10,6 @@ const port = process.env.PORT || 3000;
 //Request parsing middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-const routes = require('./server/routes.js')(app);
 
 const routes = require('./server/routes.js')(app);
 // Logs request method on every incoming request
