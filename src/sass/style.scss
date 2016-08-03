@@ -108,6 +108,18 @@ body {
   width: 100px;
   height: 30px;
   margin: 5px;
+  background-color: #fff;
+  color: $secondary-color;
+  border: none;
+  &:hover {
+    background-color: #f2f2f2;
+  }
+  &:active {
+    background-color: #fff;
+  }
+  &:focus {
+    outline: none;
+  }
 }
 .lightbox-background {
   background: black;

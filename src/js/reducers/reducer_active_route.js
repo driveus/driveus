@@ -7,7 +7,7 @@ import {
 export default function(state={route:null,class:null}, action) {
   switch(action.type) {
     case ROUTE_SELECTED:
-      console.log('A route has been selected:', action.payload);
+      console.log('A route has been selected');
       return action.payload;
 
     case ROUTE_DESELECTED:
