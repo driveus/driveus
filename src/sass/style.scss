@@ -103,6 +103,7 @@ body {
   z-index: 101;
   min-height: 250px;
   border-radius: $default-radius;
+  box-shadow: 2px 2px 23px -2px rgba(0,0,0,0.3);
 }
 #order-btn {
   width: 100px;
@@ -115,7 +116,7 @@ body {
     background-color: #f2f2f2;
   }
   &:active {
-    background-color: #fff;
+    box-shadow: inset 0px 0px 10px -2px rgba(0,0,0,0.75);
   }
   &:focus {
     outline: none;

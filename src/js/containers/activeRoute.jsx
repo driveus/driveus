@@ -7,6 +7,7 @@ class ActiveRoute extends Component {
   render() {
     if (!this.props.route) { return <div></div>; }
     let eta = Math.round(this.props.route.eta/60),
+        totalTime = Math.round((this.props.route.duration + this.props.route.eta)/60),
         minutes = eta <= 1 ? 'minute' : 'minutes',
         backgroundColor = this.props.style === 0 ? 'uber' : 'lyft',
         classes = 'selected-route-container ' + backgroundColor;
@@ -16,7 +17,8 @@ class ActiveRoute extends Component {
         <div className={classes}>
           <h1>{this.props.route.display_name}</h1>
           <p>Cost: ${this.props.route.high_estimate/100}</p>
-          <p>ETA: {eta} {minutes}</p>
+          <p>Pickup: {eta} {minutes}</p>
+          <p>Total: {totalTime} {minutes}</p>
           <button id="order-btn">Order Ride</button>
         </div>
       </div>
