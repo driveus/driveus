@@ -92,12 +92,22 @@ body {
 }
 .selected-route-container {
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   top: 25%;
   right: 30%;
   left: 30%;
-  background-color: #fff;
-  color: $secondary-color;
+  color: #fff;
   z-index: 101;
+  min-height: 250px;
+  border-radius: $default-radius;
+}
+#order-btn {
+  width: 100px;
+  height: 30px;
+  margin: 5px;
 }
 .lightbox-background {
   background: black;

@@ -4,7 +4,7 @@ import {
 } from '../actions/types';
 
 // state is not application state, only responsible for reducer state
-export default function(state=null, action) {
+export default function(state={route:null,class:null}, action) {
   switch(action.type) {
     case ROUTE_SELECTED:
       console.log('A route has been selected:', action.payload);
@@ -12,7 +12,7 @@ export default function(state=null, action) {
 
     case ROUTE_DESELECTED:
       console.log('A route has been deselected');
-      return null;
+      return {route:null,class:null};
   }
   return state;
 }
