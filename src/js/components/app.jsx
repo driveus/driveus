@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>DrivUs / Jor / Luber / ABRoute</h1>
+        <h1>DrivUs</h1>
         <Controls />
         <MapView />
         <ActiveRoute />
