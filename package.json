@@ -4,7 +4,7 @@
   "description": "Optimize Local Travel ($ & Time)",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "BABEL_ENV=production karma start --single-run=false",
     "start": "node app.js"
   },
   "repository": {
@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "axios": "^0.13.1",
+    "babel-plugin-transform-react-constant-elements": "^6.9.1",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "dotenv": "^2.0.0",
@@ -56,6 +57,7 @@
     "react-google-maps": "^4.11.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
+    "redux-mock-store": "^1.1.2",
     "redux-thunk": "^2.1.0",
     "request": "^2.74.0",
     "webpack-dev-middleware": "^1.6.1",

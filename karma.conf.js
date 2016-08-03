@@ -7,8 +7,10 @@
 //As we start adding more testing files, lines 15 and 18 would change to 'tests.webpack.js'
 //which basically loops through the test folder and tests each file with the extension -- ...test.js
 const webpackConfig = require('./webpack.config.js');
+const webpack = require('webpack');
 module.exports = function (config) {
   config.set({
+    browsers: ["Chrome"],
     singleRun: true,
     frameworks: [ 'mocha'],
     files: [
@@ -40,7 +42,8 @@ module.exports = function (config) {
     plugins: [
       'karma-mocha',
       'karma-sourcemap-loader',
-      'karma-webpack'
+      'karma-webpack',
+      "karma-chrome-launcher"
     ],
     //watches for changes in the code
     //haven't tested this feature yet

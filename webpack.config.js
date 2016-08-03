@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const hotReload = 'webpack-hot-middleware/client';
+
+
 module.exports = {
   devtool: "inline-source-map",
   entry: [
@@ -33,5 +35,9 @@ module.exports = {
         presets: ['react', 'es2015', 'react-hmre']
       }
     }]
+  },
+  externals: {
+    "react/;ob/ExecutionEnvironment": true,
+    "react/lib/ReactContext" : "window"
   }
 };

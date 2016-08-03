@@ -13,7 +13,16 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 
 // Webpack in dev mode - Hot reloading
 const compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath}));
+app.use(webpackDevMiddleware(compiler, 
+  {
+    noInfo: true, 
+    lazy: false,
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: true
+    }
+  }
+));
 app.use(webpackHotMiddleware(compiler));
 
 
