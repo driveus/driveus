@@ -1,10 +1,11 @@
 import {
   ROUTE_SELECTED,
   ROUTE_DESELECTED,
-  SET_MARKERS,
   REQUEST_ROUTES,
   RECEIVE_ROUTES_UBER,
   RECEIVE_ROUTES_LYFT,
+  RECEIVE_EXPANDED_ROUTES,
+  NO_EXPANDED_ROUTES,
   INVALID_ROUTES
 } from './types';
 
@@ -18,21 +19,6 @@ export function deselectRoute() {
   return {
     type: ROUTE_DESELECTED,
   };
-}
-export function setMarkers(coords) {
-  let markers = [];
-  markers.push(new google.maps.Marker({
-    position: coords.start,
-    animation: 2
-  }));
-  markers.push(new google.maps.Marker({
-    position: coords.end,
-    animation: 2
-  }));
-  return {
-    type: SET_MARKERS,
-    payload: markers
-  }
 }
 export function requestRoutes(coords) {
   return {
@@ -51,6 +37,18 @@ export function receiveRoutesLyft(coords, data) {
     type: RECEIVE_ROUTES_LYFT,
     coords: coords,
     routes: data
+  }
+}
+export function receiveRoutesExpanded(coords, data) {
+  return {
+    type: RECEIVE_EXPANDED_ROUTES,
+    coords: coords,
+    routes: data
+  }
+}
+export function noExpandedRoutes() {
+  return {
+    type: NO_EXPANDED_ROUTES
   }
 }
 export function invalidRoutes() {

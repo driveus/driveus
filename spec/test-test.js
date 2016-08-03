@@ -28,15 +28,13 @@ describe('Testing', function() {
     store = mockStore(initialState);
   })
 
-
-
-
   describe('First test please work?', function () {
   	it('should do something', function() {
   		const wrapper = shallow(<App />);
   		expect(wrapper).toExist();
   	})
   })
+  
   describe('Google should work', function() {
   	it('should provide a map', function() {
   		const mapViewWrapper = shallow(<Provider><MapView /></Provider>);
