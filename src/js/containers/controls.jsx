@@ -64,7 +64,6 @@ class Controls extends Component {
     let expandSearch;
     if (!this.props.currentLocation.start) { expandSearch = null; }
     else {
-      console.log(this.props.fetchExpanded)
       expandSearch =
       <ExpandSearch
         currentLocation={this.props.currentLocation}

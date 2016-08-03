@@ -20,6 +20,7 @@ export function setMarkers(coords) {
 }
 export function setExpandedMarkers(coords) {
   let markers = [];
+  // style the markers or something?
   markers.push(new google.maps.Marker({
     position: coords.start,
     animation: 2
@@ -29,7 +30,7 @@ export function setExpandedMarkers(coords) {
     animation: 2
   }));
   return {
-    type: SET_MARKERS,
+    type: SET_EXPANDED_MARKERS,
     payload: markers
   }
 }

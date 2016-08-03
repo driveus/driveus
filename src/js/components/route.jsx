@@ -16,7 +16,6 @@ class Route extends Component {
     let totalTime = Math.round((this.props.route.duration + this.props.route.eta)/60)
     let minutes = eta <= 1 ? 'minute' : 'minutes';
     return (
-      // restyle/restructure probably needed
       <li className="list-item"
         onClick={this.setActiveRoute}>
         <div className="route-name">{this.props.route.display_name}</div>
