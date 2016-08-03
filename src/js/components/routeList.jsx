@@ -11,6 +11,7 @@ class RouteList extends Component {
           key={route.display_name}
           route={route}
           selectRoute={this.props.selectRoute}
+          classStyle={this.props.classStyle}
           />
       }
     });

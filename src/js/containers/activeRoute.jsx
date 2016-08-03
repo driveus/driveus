@@ -4,18 +4,20 @@ import { deselectRoute } from '../actions/index.js';
 import { bindActionCreators } from 'redux';
 
 class ActiveRoute extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     if (!this.props.route) { return <div></div>; }
+    let eta = Math.round(this.props.route.eta/60),
+        minutes = eta <= 1 ? 'minute' : 'minutes',
+        backgroundColor = this.props.style === 0 ? 'uber' : 'lyft',
+        classes = 'selected-route-container ' + backgroundColor;
     return (
       <div>
         <div onClick={this.props.deselectRoute} className="lightbox-background"></div>
-        <div className="selected-route-container">
-          <div>{this.props.route.display_name}</div>
-          <div>Cost: {this.props.route.high_estimate}$ {this.props.route.currency}</div>
-          <div>Duration: {this.props.route.duration}</div>
+        <div className={classes}>
+          <h1>{this.props.route.display_name}</h1>
+          <p>Cost: ${this.props.route.high_estimate/100}</p>
+          <p>ETA: {eta} {minutes}</p>
+          <button id="order-btn">Order Ride</button>
         </div>
       </div>
     );
@@ -24,10 +26,10 @@ class ActiveRoute extends Component {
 
 function mapStateToProps(state) {
   return {
-    route: state.activeRoute
+    route: state.activeRoute.route,
+    style: state.activeRoute.style
   };
 }
-// Maybe mapDispatchToProps for ride booking?
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ deselectRoute }, dispatch)
 }

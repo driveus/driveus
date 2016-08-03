@@ -17,10 +17,6 @@ class Controls extends Component {
     this.setLocation = this.setLocation.bind(this);
     this.submitLocation = this.submitLocation.bind(this);
   }
-  componentWillMount() {
-    let geocoder = new google.maps.Geocoder();
-    this.setState({ geocoder: geocoder });
-  }
   setLocation(e) {
     switch (e.target.name) {
       case 'startLocation':
@@ -35,18 +31,20 @@ class Controls extends Component {
   }
   submitLocation(e) {
     e.preventDefault();
-    let startLocation = e.target.startLocation.value,
-        endLocation = e.target.endLocation.value;
-    if (startLocation && endLocation) {
-      let location = {
-        start: startLocation,
-        end: endLocation
+    if (this.props.canRequestRoutes) {
+      let startLocation = e.target.startLocation.value,
+      endLocation = e.target.endLocation.value;
+      if (startLocation && endLocation) {
+        let location = {
+          start: startLocation,
+          end: endLocation
+        }
+        this.props.getCoords(location)
+        this.setState({
+          startLocation: '',
+          endLocation: ''
+        });
       }
-      this.props.getCoords(location)
-      this.setState({
-        startLocation: '',
-        endLocation: ''
-      });
     }
   }
   render() {
@@ -76,6 +74,7 @@ class Controls extends Component {
 
 function mapStateToProps(state) {
   return {
+    canRequestRoutes: state.requestRoute,
     currentLocation: state.currentLocation
   }
 }
