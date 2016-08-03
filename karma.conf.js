@@ -8,8 +8,6 @@
 //which basically loops through the test folder and tests each file with the extension -- ...test.js
 const webpackConfig = require('./webpack.config.js');
 const webpack = require('webpack');
-
-
 module.exports = function (config) {
   config.set({
     browsers: ["Chrome"],
