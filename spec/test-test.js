@@ -27,43 +27,44 @@ describe('Testing', function() {
   // })
 
   // describe('First test please work?', function () {
-  // 	it('should do something', function() {
-  // 		const wrapper = shallow(<App />);
-  // 		expect(wrapper).toExist();
-  // 	})
+  //   it('should do something', function() {
+  //     const wrapper = shallow(<App />);
+  //     expect(wrapper).toExist();
+  //   })
   // })
 
-  describe('Google should work', function() {
-  	it('should provide a map', function() {
-  		const mapViewWrapper = shallow(<Provider><MapView /></Provider>);
-  		expect(mapViewWrapper).toExist();
-  	})
+  // describe('Google should work', function() {
+  //   it('should provide a map', function() {
+  //     const mapViewWrapper = shallow(<Provider><MapView /></Provider>);
+  //     expect(mapViewWrapper).toExist();
+  //   })
 
-    // it('should provide a map', function() {
-    //   const mapViewWrapper = shallow(<Provider store={store}><MapView /></Provider>);
-    //   console.log('the props are~~~~~~', Object.keys(mapViewWrapper.props()))
-    //   // expect(mapViewWrapper.props).toExist();
-    // })
-  })
-  
+  //   // it('should provide a map', function() {
+  //   //   const mapViewWrapper = shallow(<Provider store={store}><MapView /></Provider>);
+  //   //   console.log('the props are~~~~~~', Object.keys(mapViewWrapper.props()))
+  //   //   // expect(mapViewWrapper.props).toExist();
+  //   // })
+  // })
+
 })
 // describe('Children should contain passed properties of Parents', function() {
-// 	it('should contain the method selectRoute', function() {
-// 		const routeWrapper = shallow(<Route />);
-// 		const routeListsWrapper = shallow(<RouteLists />);
-// 		expect(wrapper.props().selectRoute).to.be.defined;
-// 	})
-// 	it('should contain a method that equals the parent method', function() {
-// 		const routeWrapper = shallow(<Route />);
-// 		const routeListsWrapper = shallow(<RouteLists />);
-// 		expect(routeWrapper.props().selectRoute).toEqual(routeListsWrapper.props().selectRoute);
-// 	})
+//   it('should contain the method selectRoute', function() {
+//     const routeWrapper = shallow(<Route />);
+//     const routeListsWrapper = shallow(<RouteLists />);
+//     expect(wrapper.props().selectRoute).to.be.defined;
+//   })
+//   it('should contain a method that equals the parent method', function() {
+//     const routeWrapper = shallow(<Route />);
+//     const routeListsWrapper = shallow(<RouteLists />);
+//     expect(routeWrapper.props().selectRoute).toEqual(routeListsWrapper.props().selectRoute);
+//   })
 // })
 
 // describe('It should manage API requests', function() {
-// 	// it('should contact Google for lat/lng', function() {
-// 	// 	const getCoords = actions.getCoords;
-// 	// 	const address = "4011 Wesley Drive, Little Rock, AR, United States"
-// 		// expect(getCoords(address).toEqual)
-// 	})
+//   // it('should contact Google for lat/lng', function() {
+//   //  const getCoords = actions.getCoords;
+//   //  const address = "4011 Wesley Drive, Little Rock, AR, United States"
+//     // expect(getCoords(address).toEqual)
+//   })
 // })
+

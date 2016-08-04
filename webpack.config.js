@@ -36,7 +36,7 @@ module.exports = {
     }]
   },
   externals: {
-    "react/;ob/ExecutionEnvironment": true,
+    "react/lib/ExecutionEnvironment": true,
     "react/lib/ReactContext": "window"
   }
 };

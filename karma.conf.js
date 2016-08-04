@@ -20,10 +20,8 @@ module.exports = function(config) {
       './spec/test-test.js'
     ],
     preprocessors: {
-      // './tests.webpack.js': ['webpack', 'sourcemap'],
       './spec/test-test.js': ['webpack']
     },
-    // reporters: [ 'dots' ],
     webpack: {
       module: {
         devtool: 'inline-source-map',
