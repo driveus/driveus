@@ -38,7 +38,7 @@ function parseLyft(rides, etas) {
   // console.log(rides);
   // console.log(etas);
   rides = rides.map(function(obj) {
-    out = {};
+    const out = {};
     out.display_name = obj.display_name;
     out.duration = obj['estimated_duration_seconds'];
     out.distance = obj['estimated_distance_miles'];

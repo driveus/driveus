@@ -18,7 +18,7 @@ function uberEtas(coords) {
 
 function parseUber(rides, etas) {
   rides = rides.map(function(obj) {
-    out = {};
+    const out = {};
     out.product_id = obj.product_id;
     out.display_name = obj['display_name'];// === 'POOL' : 'uberPOOL';
     out.duration = obj['duration'];
