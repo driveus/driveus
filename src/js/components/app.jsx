@@ -6,6 +6,7 @@ import Controls from '../containers/controls.jsx';
 import RouteLists from '../containers/routeLists.jsx';
 import ActiveRoute from '../containers/activeRoute.jsx';
 import MapView from '../containers/mapView.jsx';
+import Footer from '../containers/footer.jsx';
 
 class App extends Component {
   render() {
@@ -13,12 +14,15 @@ class App extends Component {
       <div id="wrapper">
         <Header />
         <div id="container">
-          <h1 id="site-title">DriveUs</h1>
+          <h1 id="site-title">
+              DriveUs
+            </h1>
           <Controls />
           <MapView />
           <ActiveRoute />
           <RouteLists />
         </div>
+        <Footer />
       </div>
     );
   }

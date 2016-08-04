@@ -35,8 +35,6 @@ function lyftEtas(coords) {
 }
 
 function parseLyft(rides, etas) {
-  // console.log(rides);
-  // console.log(etas);
   rides = rides.map(function(obj) {
     const out = {};
     out.display_name = obj.display_name;

@@ -4,7 +4,7 @@ import {
   RECEIVE_ROUTES_LYFT,
   INVALID_ROUTES_UBER,
 } from '../actions/types';
-// Setting state to this default feels ghetto... probably a better way
+
 export default function(state={uber:[],lyft:[]}, action) {
   switch (action.type) {
     case INVALID_ROUTES_UBER:
