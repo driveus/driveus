@@ -1,7 +1,7 @@
 let childProcess = require('child_process');
 let Bluebird = require('bluebird')
 let subprocess = Bluebird.promisify(childProcess.exec, {context: childProcess});
-const db = require('./db.js')
+const db = require('./db.js');
 let lyftToken;
 
 function generateToken() {
@@ -36,7 +36,7 @@ function parseLyft(rides, etas) {
   // console.log(rides);
   // console.log(etas);
   rides = rides.map(function(obj) {
-    out = {};
+    const out = {};
     out.display_name = obj.display_name;
     out.duration = obj['estimated_duration_seconds'];
     out.distance = obj['estimated_distance_miles'];
