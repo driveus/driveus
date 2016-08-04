@@ -1,3 +1,5 @@
+'use strict';
+
 const pg = require('pg');
 require('dotenv').config({path: '../.env'});
 pg.defaults.ssl = true;

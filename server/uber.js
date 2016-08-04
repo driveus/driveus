@@ -1,3 +1,5 @@
+'use strict';
+
 let childProcess = require('child_process');
 let Bluebird = require('bluebird');
 let subprocess = Bluebird.promisify(childProcess.exec, {context: childProcess});

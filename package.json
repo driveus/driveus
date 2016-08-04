@@ -7,6 +7,9 @@
     "test": "BABEL_ENV=production karma start --single-run=false",
     "start": "node app.js"
   },
+  "engine": {
+    "node": "6.2.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Elifaz/jor.git"
@@ -17,7 +20,24 @@
     "url": "https://github.com/Elifaz/jor/issues"
   },
   "homepage": "https://github.com/Elifaz/jor#readme",
-  "devDependencies": {
+  "dependencies": {
+    "axios": "^0.13.1",
+    "babel-plugin-transform-react-constant-elements": "^6.9.1",
+    "bluebird": "^3.4.1",
+    "body-parser": "^1.15.2",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "pg": "^6.0.3",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "react-google-maps": "^4.11.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-mock-store": "^1.1.2",
+    "redux-thunk": "^2.1.0",
+    "request": "^2.74.0",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.12.2",
     "babel": "^6.5.2",
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",
@@ -43,24 +63,5 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
-  },
-  "dependencies": {
-    "axios": "^0.13.1",
-    "babel-plugin-transform-react-constant-elements": "^6.9.1",
-    "bluebird": "^3.4.1",
-    "body-parser": "^1.15.2",
-    "dotenv": "^2.0.0",
-    "express": "^4.14.0",
-    "pg": "^6.0.3",
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1",
-    "react-google-maps": "^4.11.0",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2",
-    "redux-mock-store": "^1.1.2",
-    "redux-thunk": "^2.1.0",
-    "request": "^2.74.0",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.12.2"
   }
 }
