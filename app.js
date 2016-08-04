@@ -2,7 +2,7 @@
 const express = require('express');
 const path = require('path');
 if(process.env.NODE_ENV !== 'production') {
-  const dotenv = require('dotenv').config()
+  const dotenv = require('dotenv').config();
 }
 const bodyParser = require('body-parser');
 // Local dependencies
