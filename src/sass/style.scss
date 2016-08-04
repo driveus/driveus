@@ -1,6 +1,7 @@
 $primary-color: gray;
 $secondary-color: #444;
 $header-text-color: white;
+$off-white: #f3f3f5;
 $child-width: 60%;
 $default-radius: 5px;
 $center: 0 auto;
@@ -36,7 +37,7 @@ body {
 #site-title {
   font-family: "Arial", sans-serif;
   font-size: 50px;
-  background-color: #f3f3f5;
+  background-color: $off-white;
   color: #222;
   padding: 15px;
 }
@@ -97,6 +98,8 @@ body {
   margin: $center;
   ul {
     padding: 0px;
+  }
+  li:first-child {
   }
   li:last-child {
     border-bottom-right-radius: $default-radius;
