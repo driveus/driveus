@@ -1,8 +1,10 @@
+'use strict';
+
 let childProcess = require('child_process');
 let Bluebird = require('bluebird')
 let subprocess = Bluebird.promisify(childProcess.exec, {context: childProcess});
+const db = require('./db.js');
 let lyftToken;
-
 
 function generateToken() {
   //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
@@ -33,15 +35,11 @@ function lyftEtas(coords) {
 }
 
 function parseLyft(apiResponses) {
-  // console.log(rides);
-  // console.log(etas);
   var rides = JSON.parse(apiResponses[0])['cost_estimates'];
   var etas = JSON.parse(apiResponses[1])['eta_estimates'];
-  console.log('RIDES: ', rides);
-  console.log('etas: ', etas);
 
   rides = rides.map(function(obj) {
-    out = {};
+    const out = {};
     out.display_name = obj.display_name;
     out.duration = obj['estimated_duration_seconds'];
     out.distance = obj['estimated_distance_miles'];
@@ -59,7 +57,6 @@ function parseLyft(apiResponses) {
       }
     }
   }
-  // console.log("PARSED:", rides);
   console.log('Lyft Rides: ', rides);
   return rides;
 }

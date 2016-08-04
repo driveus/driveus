@@ -1,3 +1,5 @@
+'use strict';
+
 let childProcess = require('child_process');
 let Bluebird = require('bluebird');
 let subprocess = Bluebird.promisify(childProcess.exec, {context: childProcess});
@@ -22,7 +24,7 @@ function parseUber(apiResponses) {
   var etas = JSON.parse(apiResponses[1])['times'];
 
   rides = rides.map(function(obj) {
-    out = {};
+    const out = {};
     out.product_id = obj.product_id;
     out.display_name = obj['display_name'];// === 'POOL' : 'uberPOOL';
     out.duration = obj['duration'];
@@ -42,6 +44,7 @@ function parseUber(apiResponses) {
       }
     }
   }
+  //Filter out rides that we weren't able to match up ETAs on (ie. UberWAV)
   rides = rides.filter((ride) => !ride.product_id);
   console.log('Hit ParseUber: ', rides);
   return rides;

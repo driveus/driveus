@@ -1,3 +1,5 @@
+'use strict';
+
 var lyft = require('./lyft.js');
 var uber = require('./uber.js');
 var genRadius = require('./generate_radius.js');

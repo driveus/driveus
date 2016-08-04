@@ -1,7 +1,9 @@
 // Module dependencies
 const express = require('express');
 const path = require('path');
-const dotenv = require('dotenv').config()
+if(process.env.NODE_ENV !== 'production') {
+  const dotenv = require('dotenv').config();
+}
 const bodyParser = require('body-parser');
 // Local dependencies
 const app = express();
@@ -13,7 +15,16 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 
 // Webpack in dev mode - Hot reloading
 const compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath}));
+app.use(webpackDevMiddleware(compiler, 
+  {
+    noInfo: true,
+    lazy: false,
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: true
+    }
+  }
+));
 app.use(webpackHotMiddleware(compiler));
 
 

@@ -1,19 +1,24 @@
 $primary-color: gray;
 $secondary-color: #444;
 $header-text-color: white;
+$off-white: #f3f3f5;
 $child-width: 60%;
 $default-radius: 5px;
 $center: 0 auto;
 $list-padding: 10px;
-$uber-color: #222233;
-$lyft-color: #F36C9E;
+$default-box-shadow: 2px 2px 23px -2px rgba(0,0,0,0.3);
+$min-width: 750px;
+$max-width: 1000px;
+// Company styles
+$uber-color-primary: #222233;
+$uber-color-secondary: #161629;
+$uber-color-hover: #363663;
+$uber-color-active: #2d2d52;
+$lyft-color-primary: #CF5596;
+$lyft-color-secondary: #E75FA8;
+$lyft-color-hover: #ee91c2;
+$lyft-color-active: #ea7bb6;
 
-@mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  -ms-border-radius: $radius;
-  border-radius: $radius;
-}
 * {
   margin: 0;
 }
@@ -23,18 +28,46 @@ html, body {
 body {
   background-color: $primary-color;
 }
+#header {
+  background-color: rgba(0,0,0,.6);
+  min-height: 40px;
+  margin-bottom: 20px;
+  min-width: $min-width;
+}
+#footer {
+  color: #d9d9d9;
+  background-color: rgba(0,0,0,.6);
+  padding-left: 10px;
+  min-height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  min-width: $min-width;
+}
+#site-title {
+  font-family: "Arial", sans-serif;
+  font-size: 50px;
+  color: #222;
+  padding: 15px;
+  background-color: $off-white;
+}
 #container {
-  min-width: 1000px;
-  max-width: 1200px;
+  min-width: $min-width;
+  max-width: $max-width;
   margin: $center;
   text-align: center;
   color: $header-text-color;
+  // background: linear-gradient(90deg, #482BBD 0%, #e70b81 100%);
+  background-color: $secondary-color;
+  box-shadow: $default-box-shadow;
+  border-radius: $default-radius;
+  overflow: hidden;
+  margin-bottom: 50px;
 }
 .search-box {
   margin: $center;
-  background-color: $secondary-color;
   width: $child-width;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   padding: 10px;
   display: flex;
 }
@@ -60,35 +93,72 @@ body {
   margin-top: 10px;
 }
 .uber {
-  background-color: $uber-color;
+  background-color: $uber-color-primary;
 }
 .lyft {
-  background-color: $lyft-color;
+  background-color: $lyft-color-primary;
 }
 .list-item {
+  cursor: pointer;
   padding: $list-padding;
   list-style-type: none;
   text-align: left;
 }
 .list-container {
-  overflow: hidden;
   margin: $center;
-  width: 90%;
   ul {
     padding: 0px;
   }
+  li:first-child {
+  }
+  li:last-child {
+    border-bottom-right-radius: $default-radius;
+    border-bottom-left-radius: $default-radius;
+  }
 }
 .uber-list-container {
+  box-shadow: $default-box-shadow;
   overflow: hidden;
   float: left;
   width: 50%;
-  background-color: $uber-color;
+  li {
+    &:nth-child(even) {
+      background-color: $uber-color-primary
+    }
+    &:nth-child(odd) {
+      background-color: $uber-color-secondary
+    }
+    &:hover {
+      background-color: $uber-color-hover;
+    }
+    &:active {
+      background-color: $uber-color-active;
+    }
+  }
 }
 .lyft-list-container {
+  box-shadow: $default-box-shadow;
   overflow: hidden;
   float: right;
   width: 50%;
-  background-color: $lyft-color;
+  li {
+    &:nth-child(even) {
+      background-color: $lyft-color-primary;
+    }
+    &:nth-child(odd) {
+      background-color: $lyft-color-secondary;
+    }
+    &:hover {
+      background-color: $lyft-color-hover;
+    }
+    &:active {
+      background-color: $lyft-color-active;
+    }
+  }
+}
+.route-name {
+  font-weight: bold;
+  font-size: 20px;
 }
 .selected-route-container {
   position: fixed;
@@ -103,6 +173,7 @@ body {
   z-index: 101;
   min-height: 250px;
   border-radius: $default-radius;
+  box-shadow: 2px 2px 23px -2px rgba(0,0,0,0.3);
 }
 #order-btn {
   width: 100px;
@@ -115,7 +186,7 @@ body {
     background-color: #f2f2f2;
   }
   &:active {
-    background-color: #fff;
+    box-shadow: inset 0px 0px 10px -2px rgba(0,0,0,0.75);
   }
   &:focus {
     outline: none;
@@ -137,17 +208,15 @@ body {
 .lightbox-show {
   display: inherit;
 }
-// this is a temp class
 .map-container {
   height: 100%;
   margin: $center;
   box-shadow: inset 10px 10px 37px -17px rgba(0,0,0,0.75);
 }
 #map-display {
-  padding: 5px;
+  padding: 3px;
   box-sizing: border-box;
   margin: $center;
   height: 500px;
-  width: 90%;
   background-color: $secondary-color;
 }

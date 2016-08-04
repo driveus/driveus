@@ -1,5 +1,7 @@
+'use strict';
+
 const pg = require('pg');
-require('dotenv').config({path: '../.env'});
+require('dotenv').config({path: '.env'});
 pg.defaults.ssl = true;
 
 const config = {
@@ -16,8 +18,8 @@ const pool = new pg.Pool(config);
 
 pool.on('error', function(e) {
   console.log(e);
-})
+});
 
-export default db;
+module.exports.db = pool;
 //You can use it like this:
 //db.query('select * from UberHist where data1 like $1', ['abc']).then((res) => {console.log(res)})

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCoords } from '../actions/requests';
-
+import { getCoords, fetchExpanded } from '../actions/requests';
 // Components
-import LocationSearch from '../containers/location_search.jsx';
+import LocationSearch from '../components/locationSearch.jsx';
 import ExpandSearch from '../components/expandSearch.jsx';
 
 class Controls extends Component {
@@ -19,26 +18,27 @@ class Controls extends Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleLocationAutoComplete = this.handleLocationAutoComplete.bind(this)
   }
-  // componentWillMount() {
-  //   let geocoder = new google.maps.Geocoder();
-  //   this.setState({ geocoder: geocoder });
-  // }
-  // submitLocation(e) {
+  componentWillReceiveProps() {
+    this.setState({
+      startLocation: '',
+      endLocation: ''
+    });
+  }
   onFormSubmit(e) {
     e.preventDefault();
     if (this.props.canRequestRoutes) {
       let startLocation = e.target.startLocation.value,
-      endLocation = e.target.endLocation.value;
+          endLocation = e.target.endLocation.value;
       if (startLocation && endLocation) {
         let location = {
           start: startLocation,
           end: endLocation
         }
-        this.props.getCoords(location)
         this.setState({
-          startLocation: '',
-          endLocation: ''
-        });
+          startPlaceholder: startLocation,
+          endPlaceholder: endLocation
+        })
+        this.props.getCoords(location)
       }
     }
   }
@@ -68,12 +68,12 @@ class Controls extends Component {
   }
   render() {
     let expandSearch;
-    if (!this.props.currentLocation.start) { expandSearch = null; }
+    if (!this.props.currentAddress.start) { expandSearch = null; }
     else {
       expandSearch =
       <ExpandSearch
-        currentLocation={this.props.currentLocation}
-        expandSearch={this.props.fetchRoutes} 
+        currentLocation={this.props.currentAddress}
+        expandSearch={this.props.fetchExpanded}
       />
     }
     return (
@@ -88,7 +88,7 @@ class Controls extends Component {
             onAutoComplete={this.handleLocationAutoComplete}
             value={this.state.startLocation}
             name="startLocation"
-            placeholder="Pickup"
+            placeholder={this.state.startPlaceholder || "Pickup"}
           />
           <LocationSearch
             tripNode="endLocation"
@@ -96,7 +96,7 @@ class Controls extends Component {
             onAutoComplete={this.handleLocationAutoComplete}
             value={this.state.endLocation}
             name="endLocation"
-            placeholder="Dropoff"
+            placeholder={this.state.endPlaceholder || "Dropoff"}
           />
           <button className="submit-btn">Submit</button>
         </form>
@@ -108,11 +108,12 @@ class Controls extends Component {
 function mapStateToProps(state) {
   return {
     canRequestRoutes: state.requestRoute,
-    currentLocation: state.currentLocation
+    currentCoords: state.currentCoords,
+    currentAddress: state.currentAddress
   }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getCoords }, dispatch);
+  return bindActionCreators({ getCoords: getCoords, fetchExpanded: fetchExpanded}, dispatch);
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

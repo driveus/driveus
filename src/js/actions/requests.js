@@ -1,15 +1,22 @@
 import {
+  setAddress,
   requestRoutes,
   receiveRoutesLyft,
   receiveRoutesUber,
-  setMarkers,
+  receiveRoutesExpanded,
+  noExpandedRoutes,
   invalidRoutes
 } from './index';
+import {
+  setMarkers,
+  setExpandedMarkers
+} from './markers';
 
 import axios from 'axios';
 
 export function getCoords(location) {
   return function(dispatch) {
+    dispatch(setAddress(location));
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: location.start }, (results, status) => {
       if (status == 'OK') {
@@ -41,26 +48,44 @@ export function getCoords(location) {
 export function fetchUber(coords) {
   return function(dispatch) {
     axiosRequest('uber', coords)
-      .then(function (response) {
-        dispatch(receiveRoutesUber(coords, response.data))
-      })
-      .catch(function(err) {
-        console.log(err);
-        dispatch(invalidRoutes());
-      })
+    .then(function (response) {
+      dispatch(receiveRoutesUber(coords, response.data));
+    })
+    .catch(function(err) {
+      console.log(err);
+      dispatch(invalidRoutes());
+    })
   }
 }
 
 export function fetchLyft(coords) {
   return function(dispatch) {
     axiosRequest('lyft', coords)
-      .then(function (response) {
-        dispatch(receiveRoutesLyft(coords, response.data))
-      })
-      .catch(function(err) {
-        console.log(err);
-        dispatch(invalidRoutes());
-      })
+    .then(function (response) {
+      dispatch(receiveRoutesLyft(coords, response.data));
+    })
+    .catch(function(err) {
+      console.log(err);
+      dispatch(invalidRoutes());
+    })
+  }
+}
+
+export function fetchExpanded(coords) {
+  // ==TEMP==============
+  dispatch(noExpandedRoutes());
+  return;
+  // ====================
+  return function(dispatch) {
+    axiosRequest('expand', coords)
+    .then(function (response) {
+      console.log(response);
+      dispatch(receiveRoutesExpanded(coords, response.data));
+    })
+    .catch(function(err) {
+      console.log(err);
+      dispatch(noExpandedRoutes());
+    })
   }
 }
 
