@@ -18,6 +18,12 @@ class Controls extends Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleLocationAutoComplete = this.handleLocationAutoComplete.bind(this)
   }
+  componentWillReceiveProps() {
+    this.setState({
+      startLocation: '',
+      endLocation: ''
+    });
+  }
   onFormSubmit(e) {
     e.preventDefault();
     if (this.props.canRequestRoutes) {
@@ -28,11 +34,11 @@ class Controls extends Component {
           start: startLocation,
           end: endLocation
         }
-        this.props.getCoords(location)
         this.setState({
-          startLocation: '',
-          endLocation: ''
-        });
+          startPlaceholder: startLocation,
+          endPlaceholder: endLocation
+        })
+        this.props.getCoords(location)
       }
     }
   }
@@ -82,7 +88,7 @@ class Controls extends Component {
             onAutoComplete={this.handleLocationAutoComplete}
             value={this.state.startLocation}
             name="startLocation"
-            placeholder="Pickup"
+            placeholder={this.state.startPlaceholder || "Pickup"}
           />
           <LocationSearch
             tripNode="endLocation"
@@ -90,7 +96,7 @@ class Controls extends Component {
             onAutoComplete={this.handleLocationAutoComplete}
             value={this.state.endLocation}
             name="endLocation"
-            placeholder="Dropoff"
+            placeholder={this.state.endPlaceholder || "Dropoff"}
           />
           <button className="submit-btn">Submit</button>
         </form>

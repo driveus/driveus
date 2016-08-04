@@ -7,7 +7,7 @@ export default class LocationSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 'LocationSearch'.concat(this.props.tripNode), 
+      id: 'LocationSearch'.concat(this.props.tripNode),
     }
   }
 
@@ -18,13 +18,15 @@ export default class LocationSearch extends Component {
     );
     autocomplete.addListener('place_changed', () => {
       let place = autocomplete.getPlace()
-      this.props.onAutoComplete(place.formatted_address, this.props.tripNode)
+      if (place.formatted_address) {
+        this.props.onAutoComplete(place.formatted_address, this.props.tripNode)
+      }
     });
   }
 
   render() {
     return (
-        <input 
+        <input
           placeholder={this.props.placeholder}
           id={this.state.id}
           value={this.props.value}

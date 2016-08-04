@@ -32,7 +32,15 @@ body {
   min-height: 40px;
   margin-bottom: 20px;
   width: 100%;
-  z-index: 9999;
+}
+#footer {
+  color: #d9d9d9;
+  background-color: rgba(0,0,0,.6);
+  padding-left: 10px;
+  min-height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  width: 100%;
 }
 #site-title {
   font-family: "Arial", sans-serif;
@@ -200,7 +208,7 @@ body {
   box-shadow: inset 10px 10px 37px -17px rgba(0,0,0,0.75);
 }
 #map-display {
-  padding-bottom: 15px;
+  padding: 3px;
   box-sizing: border-box;
   margin: $center;
   height: 500px;
