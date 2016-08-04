@@ -17,7 +17,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, 
   {
-    noInfo: true, 
+    noInfo: true,
     lazy: false,
     watchOptions: {
       aggregateTimeout: 300,
