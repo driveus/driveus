@@ -32,9 +32,14 @@ function lyftEtas(coords) {
   return subprocess(lyftReq);
 }
 
-function parseLyft(rides, etas) {
+function parseLyft(apiResponses) {
   // console.log(rides);
   // console.log(etas);
+  var rides = JSON.parse(apiResponses[0])['cost_estimates'];
+  var etas = JSON.parse(apiResponses[1])['eta_estimates'];
+  console.log('RIDES: ', rides);
+  console.log('etas: ', etas);
+
   rides = rides.map(function(obj) {
     out = {};
     out.display_name = obj.display_name;
@@ -59,38 +64,14 @@ function parseLyft(rides, etas) {
   return rides;
 }
 
-function lyftRequest(coords, res) {
+function lyftRequest(coords) {
   const rides = lyftRides(coords);
   const etas = lyftEtas(coords);
-  let etasResponse;
-  let ridesResponse;
 
-  //wait for both promises. When second one returns, send data to parseLyft function
-  rides.then(function(apiResp) {
-    apiResp = JSON.parse(apiResp)['cost_estimates'];
-    if (etasResponse) {
-      console.log('Lyft Resp: ', apiResp);
-      res.json(parseLyft(apiResp, etasResponse));
-    }
-    else {
-      ridesResponse = apiResp;
-    }
-  });
-
-  etas.then(function(apiResp) {
-    apiResp = JSON.parse(apiResp)['eta_estimates'];
-    if (ridesResponse) {
-      console.log('Lyft Resp: ', apiResp);
-      res.json(parseLyft(ridesResponse, apiResp));
-    }
-    else {
-      etasResponse = apiResp;
-    }
-  })
+  return Promise.all([rides, etas]);
 }
 
 
 
-
-
+module.exports.parseLyft = parseLyft;
 module.exports.lyftRequest = lyftRequest;
