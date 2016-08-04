@@ -68,11 +68,11 @@ class Controls extends Component {
   }
   render() {
     let expandSearch;
-    if (!this.props.currentLocation.start) { expandSearch = null; }
+    if (!this.props.currentAddress.start) { expandSearch = null; }
     else {
       expandSearch =
       <ExpandSearch
-        currentLocation={this.props.currentLocation}
+        currentLocation={this.props.currentAddress}
         expandSearch={this.props.fetchExpanded}
       />
     }
@@ -108,7 +108,8 @@ class Controls extends Component {
 function mapStateToProps(state) {
   return {
     canRequestRoutes: state.requestRoute,
-    currentLocation: state.currentLocation
+    currentCoords: state.currentCoords,
+    currentAddress: state.currentAddress
   }
 }
 function mapDispatchToProps(dispatch) {

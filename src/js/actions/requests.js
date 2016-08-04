@@ -1,4 +1,5 @@
 import {
+  setAddress,
   requestRoutes,
   receiveRoutesLyft,
   receiveRoutesUber,
@@ -15,6 +16,7 @@ import axios from 'axios';
 
 export function getCoords(location) {
   return function(dispatch) {
+    dispatch(setAddress(location));
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: location.start }, (results, status) => {
       if (status == 'OK') {
