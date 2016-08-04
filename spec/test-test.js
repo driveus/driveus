@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import { mount, shallow } from 'enzyme';
 import expect from 'expect';
 import { Provider } from 'react-redux';
-
-
 import Test from "../src/js/containers/routeLists.jsx";
 import App from "../src/js/components/app.jsx";
 import MapView from '../src/js/containers/mapView.jsx';
@@ -13,28 +11,28 @@ import RoutesLists from '../src/js/containers/routeLists.jsx';
 import Route from '../src/js/components/route.jsx';
 
 // const middlewares = [ thunk ]
-const mockStore = configureMockStore();
-var store;
+// const mockStore = configureMockStore();
+// var store;
 describe('Testing', function() {
-  beforeEach(function() {
-    var initialState = {
-      routes: null,
-      activeRoute: null,
-      currentLocation: null,
-      routeMarkers: null,
-      requestRoute: null
-    }
+  // beforeEach(function() {
+  //   var initialState = {
+  //     routes: null,
+  //     activeRoute: null,
+  //     currentLocation: null,
+  //     routeMarkers: null,
+  //     requestRoute: null
+  //   }
 
-    store = mockStore(initialState);
-  })
+  //   store = mockStore(initialState);
+  // })
 
-  describe('First test please work?', function () {
-  	it('should do something', function() {
-  		const wrapper = shallow(<App />);
-  		expect(wrapper).toExist();
-  	})
-  })
-  
+  // describe('First test please work?', function () {
+  // 	it('should do something', function() {
+  // 		const wrapper = shallow(<App />);
+  // 		expect(wrapper).toExist();
+  // 	})
+  // })
+
   describe('Google should work', function() {
   	it('should provide a map', function() {
   		const mapViewWrapper = shallow(<Provider><MapView /></Provider>);
