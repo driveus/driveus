@@ -78,9 +78,6 @@ class Controls extends Component {
     }
     return (
       <div className="search-box">
-        <div className="expand-search">
-          {expandSearch}
-        </div>
         <form onSubmit={this.onFormSubmit} className="location-form">
           <LocationSearch
             tripNode="startLocation"
@@ -89,7 +86,7 @@ class Controls extends Component {
             value={this.state.startLocation}
             name="startLocation"
             placeholder={this.state.startPlaceholder || "Pickup"}
-          />
+            />
           <LocationSearch
             tripNode="endLocation"
             onLocationChange={this.handleLocationChange}
@@ -97,8 +94,11 @@ class Controls extends Component {
             value={this.state.endLocation}
             name="endLocation"
             placeholder={this.state.endPlaceholder || "Dropoff"}
-          />
-          <button className="submit-btn">Submit</button>
+            />
+          <div className="form-submit">
+            <button className="form-btn">Submit</button>
+            {expandSearch}
+          </div>
         </form>
       </div>
     );

@@ -8,7 +8,8 @@ class ActiveRoute extends Component {
     if (!this.props.route) { return <div></div>; }
     let eta = Math.round(this.props.route.eta/60),
         totalTime = Math.round((this.props.route.duration + this.props.route.eta)/60),
-        minutes = eta <= 1 ? 'minute' : 'minutes',
+        etaMinutes = eta <= 1 ? 'minute' : 'minutes',
+        totalMinutes = totalTime <= 1 ? 'minute' : 'minutes',
         backgroundColor = this.props.style === 0 ? 'uber' : 'lyft',
         classes = 'selected-route-container ' + backgroundColor;
     return (
@@ -16,9 +17,9 @@ class ActiveRoute extends Component {
         <div onClick={this.props.deselectRoute} className="lightbox-background"></div>
         <div className={classes}>
           <h1>{this.props.route.display_name}</h1>
-          <p>Cost: ${this.props.route.high_estimate/100}</p>
-          <p>Pickup: {eta} {minutes}</p>
-          <p>Total: {totalTime} {minutes}</p>
+          <h1>${this.props.route.high_estimate/100}</h1>
+          <p>Pickup: {eta} {etaMinutes}</p>
+          <p>Total: {totalTime} {totalMinutes}</p>
           <button id="order-btn">Order Ride</button>
         </div>
       </div>
