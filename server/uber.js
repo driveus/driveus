@@ -27,8 +27,8 @@ function uberEtas(coords) {
 }
 
 function parseUber(apiResponses) {
-  var rides = JSON.parse(apiResponses[0])['prices'];
-  var etas = JSON.parse(apiResponses[1])['times'];
+  var rides = apiResponses[0]['prices'];
+  var etas = apiResponses[1]['times'];
   // console.log('ParseUber hit. Coords: ', apiResponses[2]);
   var coords = apiResponses[2];
 
