@@ -14,9 +14,7 @@ class App extends Component {
       <div id="wrapper">
         <Header />
         <div id="container">
-          <h1 id="site-title">
-              DriveUs
-            </h1>
+          <h1 id="site-title">DriveUs</h1>
           <Controls />
           <MapView />
           <ActiveRoute />
