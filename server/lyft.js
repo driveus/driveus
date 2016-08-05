@@ -30,13 +30,14 @@ function lyftRides(coords) {
 function lyftEtas(coords) {
   //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
   const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' 'https://api.lyft.com/v1/eta?lat=${coords.start.lat}&lng=${coords.start.lng}'`;
-  console.log('Lyft Etas: ', coords);
+  // console.log('Lyft Etas: ', coords);
   return subprocess(lyftReq);
 }
 
 function parseLyft(apiResponses) {
   var rides = JSON.parse(apiResponses[0])['cost_estimates'];
   var etas = JSON.parse(apiResponses[1])['eta_estimates'];
+  var coords = apiResponses[2];
 
   rides = rides.map(function(obj) {
     const out = {};
@@ -57,15 +58,18 @@ function parseLyft(apiResponses) {
       }
     }
   }
-  console.log('Lyft Rides: ', rides);
-  return rides;
+  // console.log('Lyft Rides: ', rides);
+  return {
+    rides: rides,
+    coords: coords
+  };
 }
 
 function lyftRequest(coords) {
   const rides = lyftRides(coords);
   const etas = lyftEtas(coords);
 
-  return Promise.all([rides, etas]);
+  return Promise.all([rides, etas, coords]);
 }
 
 

@@ -43,13 +43,40 @@ module.exports = function(app) {
 
   app.all('/api/expandSearch', function(req, res) {
     console.log('Expanded Search activated', dummyCoords) // , req.body.data)
-    // res.json('test');
     let coords;
     if (req.body) {
       coords = req.body.data;
     }
-    //This function grabs points around a center
-    expandSearch.expandSearch(dummyCoords);
+    expandSearch.expandSearch(dummyCoords)
+      .then(function(data) {
+        // console.log('Expanded Search response data: ', data);
+        var optimalPrice = {};
+        var optimalTime = {};
+        // console.log('Uber Promise List', data);
+        for (var i = 0; i < data[0].length; i++) {
+          var result = uber.parseUber(data[0][i]);
+          console.log('Parsed Uber Result: ', result);
+          optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
+          optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
+        }
+        for (var j = 0; j < data[1].length; j++) {
+          var result = lyft.parseLyft(data[1][j]);
+          console.log('Parsed Lyft Result: ', result);
+          optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
+          optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
+        }
+        res.json({
+          minPrice: optimalPrice.ride,
+          minPrice_coords: optimalPrice.coords || null,
+          minTime: optimalTime.ride,
+          minTime_coords: optimalTime.coords || null
+        })
+      })
+      .catch(function(err) {
+        console.log('Some Uber call failed', err);
+      })
+  
+
       // .then(function(data) {
       //   res.json(data);
       // })
