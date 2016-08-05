@@ -72,7 +72,7 @@ class Controls extends Component {
     else {
       expandSearch =
       <ExpandSearch
-        currentLocation={this.props.currentAddress}
+        currentLocation={this.props.currentCoords}
         expandSearch={this.props.fetchExpanded}
       />
     }

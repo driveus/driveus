@@ -2,8 +2,8 @@
 
 var lyft = require('./lyft.js');
 var uber = require('./uber.js');
-// var genRadius = require('./generate_radius.js');
-// var expandSearch = require('./expand_search.js');
+var genRadius = require('./generate_radius.js');
+var expandSearch = require('./expand_search.js');
 
 module.exports = function(app) {
   app.all('/api/uber', function(req, res) {
@@ -40,12 +40,12 @@ module.exports = function(app) {
   })
 
   app.all('/api/expandSearch', function(req, res) {
-    console.log('Expanded Search activated', dummyCoords) // , req.body.data)
     let coords;
     if (req.body) {
       coords = req.body.data;
     }
-    expandSearch.expandSearch(dummyCoords)
+    console.log('Expanded Search activated', coords) // , req.body.data)
+    expandSearch.expandSearch(coords)
       .then(function(data) {
         // console.log('Expanded Search response data: ', data);
         var optimalPrice = {};
@@ -73,7 +73,7 @@ module.exports = function(app) {
       .catch(function(err) {
         console.log('Some Uber call failed', err);
       })
-  
+
 
       // .then(function(data) {
       //   res.json(data);

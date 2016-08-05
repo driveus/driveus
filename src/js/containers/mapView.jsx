@@ -16,9 +16,15 @@ class MapView extends Component {
     });
   }
   componentWillReceiveProps() {
-    if (this.props.currentCoords.start && this.props.currentCoords.end) {
+    if (this.props.currentCoords.start || this.props.currentCoords.end) {
       for (let marker of this.props.routeMarkers) {
         marker.setMap(null);
+      }
+      for (let marker in this.props.expandedMarkers) {
+        if (this.props.expandedMarkers[marker]) {
+          this.props.expandedMarkers[marker].setMap(null);
+          this.props.expandedMarkers[marker]=null;
+        }
       }
     }
   }
@@ -33,6 +39,14 @@ class MapView extends Component {
         }
       }
       this.state.map.fitBounds(bounds);
+    }
+    if (this.props.expandedMarkers.price || this.props.expandedMarkers.time) {
+      let markers = this.props.expandedMarkers;
+      for (let data in markers) {
+        if (markers[data].position) {
+          markers[data].setMap(this.state.map);
+        }
+      }
     }
   }
   render() {
