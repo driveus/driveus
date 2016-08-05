@@ -20,7 +20,7 @@ class Route extends Component {
     return (
       <li className="list-item"
         onClick={this.setActiveRoute}>
-        <div className="route-cost">${this.props.route.high_estimate/100}</div>
+        <div className="route-cost">${Math.round(this.props.route.high_estimate/100)}</div>
         <div className="route-name">{this.props.route.display_name}</div>
         <div className="driver-eta">Pickup: {eta} {etaMinutes}</div>
         <div className="route-duration">Total: {totalTime} {totalMinutes}{disclaimer}</div>
