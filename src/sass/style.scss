@@ -7,7 +7,8 @@ $default-radius: 5px;
 $center: 0 auto;
 $list-padding: 10px;
 $default-box-shadow: 2px 2px 23px -2px rgba(0,0,0,0.3);
-
+$min-width: 750px;
+$max-width: 1000px;
 // Company styles
 $uber-color-primary: #222233;
 $uber-color-secondary: #161629;
@@ -31,26 +32,35 @@ body {
   background-color: black;
   min-height: 40px;
   margin-bottom: 20px;
-  width: 100%;
-  z-index: 9999;
+  min-width: $min-width;
+}
+#footer {
+  color: #d9d9d9;
+  background-color: rgba(0,0,0,.6);
+  padding-left: 10px;
+  min-height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  min-width: $min-width;
 }
 #site-title {
   font-family: "Arial", sans-serif;
   font-size: 50px;
-  background-color: black;
-  color: $off-white;
+  color: #222;
   padding: 15px;
+  border-bottom: 1px solid #222;
 }
 #container {
-  min-width: 1000px;
-  max-width: 1200px;
+  min-width: $min-width;
+  max-width: $max-width;
   margin: $center;
   text-align: center;
   color: $header-text-color;
-  background-color: $secondary-color;
+  // background: linear-gradient(90deg, #482BBD 0%, #e70b81 100%);
+  background-color: $off-white;
   box-shadow: $default-box-shadow;
-  border-radius: $default-radius;
-  overflow: hidden;
+  border-top-right-radius: $default-radius;
+  border-top-left-radius: $default-radius;
   margin-bottom: 50px;
 }
 .search-box {
@@ -62,6 +72,7 @@ body {
   display: flex;
 }
 .location-form {
+  margin: $center;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -69,18 +80,19 @@ body {
   input {
     width: 90%;
     padding: 0px 0px 0px 5px;
+    line-height: 18px;
   }
 }
-.expand-search {
-  float: left;
-  width: 20%;
+.form-submit {
+  display: flex;
   overflow: hidden;
   button {
     width: 90%;
   }
 }
-.submit-btn {
-  margin-top: 10px;
+.form-btn {
+  height: 30px;
+  margin: 5px;
 }
 .uber {
   background-color: $uber-color-primary;
@@ -93,11 +105,17 @@ body {
   padding: $list-padding;
   list-style-type: none;
   text-align: left;
+  height: 70px;
 }
 .list-container {
+  overflow: hidden;
+  background-color: $secondary-color;
   margin: $center;
   ul {
     padding: 0px;
+  }
+  li {
+    padding-right: 15px;
   }
   li:first-child {
   }
@@ -145,6 +163,18 @@ body {
       background-color: $lyft-color-active;
     }
   }
+}
+.route-name {
+  font-weight: bold;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+.route-cost {
+  float: right;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 70px;
+  height: 70px;
 }
 .selected-route-container {
   position: fixed;
@@ -200,7 +230,7 @@ body {
   box-shadow: inset 10px 10px 37px -17px rgba(0,0,0,0.75);
 }
 #map-display {
-  padding-bottom: 15px;
+  padding: 1px;
   box-sizing: border-box;
   margin: $center;
   height: 500px;

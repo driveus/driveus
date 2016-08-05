@@ -44,7 +44,8 @@ class ActiveRoute extends Component {
     if (!this.props.route) { return <div></div>; }
     let eta = Math.round(this.props.route.eta/60),
         totalTime = Math.round((this.props.route.duration + this.props.route.eta)/60),
-        minutes = eta <= 1 ? 'minute' : 'minutes',
+        etaMinutes = eta <= 1 ? 'minute' : 'minutes',
+        totalMinutes = totalTime <= 1 ? 'minute' : 'minutes',
         backgroundColor = this.props.style === 0 ? 'uber' : 'lyft',
         classes = 'selected-route-container ' + backgroundColor;
     return (

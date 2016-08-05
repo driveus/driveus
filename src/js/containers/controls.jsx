@@ -18,6 +18,12 @@ class Controls extends Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleLocationAutoComplete = this.handleLocationAutoComplete.bind(this)
   }
+  componentWillReceiveProps() {
+    this.setState({
+      startLocation: '',
+      endLocation: ''
+    });
+  }
   onFormSubmit(e) {
     e.preventDefault();
     if (this.props.canRequestRoutes) {
@@ -28,11 +34,11 @@ class Controls extends Component {
           start: startLocation,
           end: endLocation
         }
-        this.props.getCoords(location)
         this.setState({
-          startLocation: '',
-          endLocation: ''
-        });
+          startPlaceholder: startLocation,
+          endPlaceholder: endLocation
+        })
+        this.props.getCoords(location)
       }
     }
   }
@@ -62,19 +68,16 @@ class Controls extends Component {
   }
   render() {
     let expandSearch;
-    if (!this.props.currentLocation.start) { expandSearch = null; }
+    if (!this.props.currentAddress.start) { expandSearch = null; }
     else {
       expandSearch =
       <ExpandSearch
-        currentLocation={this.props.currentLocation}
+        currentLocation={this.props.currentAddress}
         expandSearch={this.props.fetchExpanded}
       />
     }
     return (
       <div className="search-box">
-        <div className="expand-search">
-          {expandSearch}
-        </div>
         <form onSubmit={this.onFormSubmit} className="location-form">
           <LocationSearch
             tripNode="startLocation"
@@ -82,17 +85,20 @@ class Controls extends Component {
             onAutoComplete={this.handleLocationAutoComplete}
             value={this.state.startLocation}
             name="startLocation"
-            placeholder="Pickup"
-          />
+            placeholder={this.state.startPlaceholder || "Pickup"}
+            />
           <LocationSearch
             tripNode="endLocation"
             onLocationChange={this.handleLocationChange}
             onAutoComplete={this.handleLocationAutoComplete}
             value={this.state.endLocation}
             name="endLocation"
-            placeholder="Dropoff"
-          />
-          <button className="submit-btn">Submit</button>
+            placeholder={this.state.endPlaceholder || "Dropoff"}
+            />
+          <div className="form-submit">
+            <button className="form-btn">Submit</button>
+            {expandSearch}
+          </div>
         </form>
       </div>
     );
@@ -102,7 +108,8 @@ class Controls extends Component {
 function mapStateToProps(state) {
   return {
     canRequestRoutes: state.requestRoute,
-    currentLocation: state.currentLocation
+    currentCoords: state.currentCoords,
+    currentAddress: state.currentAddress
   }
 }
 function mapDispatchToProps(dispatch) {

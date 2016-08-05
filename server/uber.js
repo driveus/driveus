@@ -1,22 +1,36 @@
 'use strict';
 
-let childProcess = require('child_process');
-let Bluebird = require('bluebird');
-let subprocess = Bluebird.promisify(childProcess.exec, {context: childProcess});
+let rp = require('request-promise');
 
 function uberRides(coords) {
-  //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/price?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}&end_latitude=${coords.end.lat}&end_longitude=${coords.end.lng}'`;
-  return subprocess(uberReq);
+  console.log('Hit Uber Rides: ', coords);
+  let options = {
+    uri: `https://api.uber.com/v1/estimates/price?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}&end_latitude=${coords.end.lat}&end_longitude=${coords.end.lng}`,
+    headers: {
+      'Authorization': `Token ${process.env.UBER_TOKEN}`
+    },
+    json: true
+  }
+  return rp(options)
 }
 
 function uberEtas(coords) {
-  //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/time?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}'`;
-  return subprocess(uberReq);
+  console.log('Hit Uber Etas: ', coords);
+  let options = {
+    uri: `https://api.uber.com/v1/estimates/time?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}`,
+    headers: {
+      'Authorization': `Token ${process.env.UBER_TOKEN}`
+    },
+    json: true
+  }
+  return rp(options)
 }
 
-function parseUber(rides, etas) {
+function parseUber(apiResponses) {
+  console.log('ParseUber hit');
+  var rides = apiResponses[0]['prices'];
+  var etas = apiResponses[1]['times'];
+
   rides = rides.map(function(obj) {
     const out = {};
     out.product_id = obj["product_id"];
@@ -43,36 +57,16 @@ function parseUber(rides, etas) {
   return rides;
 }
 
-function uberRequest(coords, res) {
+function uberRequest(coords) {
+  console.log('uberRequest details triggered: ', coords);
   const rides = uberRides(coords);
   const etas = uberEtas(coords);
-  let etasResponse;
-  let ridesResponse;
 
-  //wait for both promises. When second one returns, send data to parseLyft function
-  rides.then(function(apiResp) {
-    apiResp = JSON.parse(apiResp)['prices'];
-    if (etasResponse) {
-      res.json(parseUber(apiResp, etasResponse));
-    }
-    else {
-      ridesResponse = apiResp;
-    }
-  });
-
-  etas.then(function(apiResp) {
-    apiResp = JSON.parse(apiResp)['times'];
-    if (ridesResponse) {
-      res.json(parseUber(ridesResponse, apiResp));
-    }
-    else {
-      etasResponse = apiResp;
-    }
-  })
+  return Promise.all([rides, etas]);
 }
 
 
 
 
-
+module.exports.parseUber = parseUber;
 module.exports.uberRequest = uberRequest;

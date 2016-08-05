@@ -1,4 +1,5 @@
 import {
+  SET_ADDRESS,
   ROUTE_SELECTED,
   ROUTE_DESELECTED,
   REQUEST_ROUTES,
@@ -10,6 +11,12 @@ import {
   CURRENT_ADDRESS
 } from './types';
 
+export function setAddress(address) {
+  return {
+    type: SET_ADDRESS,
+    payload: address
+  };
+}
 export function selectRoute(route) {
   return {
     type: ROUTE_SELECTED,

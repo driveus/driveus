@@ -6,7 +6,7 @@ class MapView extends Component {
 
   componentDidMount() {
     let map = new google.maps.Map(document.querySelector('.map-container'), {
-      center: this.props.currentLocation.start || { lat: 37.773972, lng: -122.431297 },
+      center: this.props.currentCoords.start || { lat: 37.773972, lng: -122.431297 },
       scrollwheel: false,
       zoom: 10
     });
@@ -16,7 +16,7 @@ class MapView extends Component {
     });
   }
   componentWillReceiveProps() {
-    if (this.props.currentLocation.start && this.props.currentLocation.end) {
+    if (this.props.currentCoords.start && this.props.currentCoords.end) {
       for (let marker of this.props.routeMarkers) {
         marker.setMap(null);
       }
@@ -47,7 +47,7 @@ class MapView extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentLocation: state.currentLocation,
+    currentCoords: state.currentCoords,
     routeMarkers: state.routeMarkers,
     expandedMarkers: state.expandedMarkers
   }
