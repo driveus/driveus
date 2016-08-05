@@ -6,7 +6,7 @@ class ExpandSearch extends Component {
       <button
         className="form-btn"
         onClick={() => this.props.expandSearch(this.props.currentLocation)}>
-        Expand Search
+        Better Deals
       </button>
     );
   }

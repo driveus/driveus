@@ -6,7 +6,6 @@ var uber = require('./uber.js');
 // var expandSearch = require('./expand_search.js');
 
 module.exports = function(app) {
-    //TODO:get coors from req
   app.all('/api/uber', function(req, res) {
     console.log('uber hit: ', req.body.data)
     let coords;
@@ -24,7 +23,6 @@ module.exports = function(app) {
   })
 
   app.all('/api/lyft', function(req, res) {
-    //TODO:get coords from req
     console.log('lyft hit: ', req.body.data)
     let coords;
     if (req.body) {
