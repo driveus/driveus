@@ -11,16 +11,6 @@ class ActiveRoute extends Component {
   }
   
   orderRide() {
-
-    // console.log('COORDS***********', this.props.currentCoords);
-    // console.log('ADDRESS***********', this.props.currentAddress);
-
-    // const lyftRoutes = {
-    //   "Lyft": "lyft",
-    //   "Lyft Line": "lyft_line",
-    //   "Lyft Plus": "lyft_plus"
-    // }
-
     let startAdd = this.props.currentAddress.start;
     let endAdd = this.props.currentAddress.end;
     let startLat = this.props.currentCoords.start.lat;
@@ -41,7 +31,7 @@ class ActiveRoute extends Component {
         console.log('************LYFT ORDER***********', orderLyft)
     }
 
-    
+
   }
 
   render() {

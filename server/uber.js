@@ -27,9 +27,11 @@ function uberEtas(coords) {
 }
 
 function parseUber(apiResponses) {
-  console.log('ParseUber hit');
+  console.log('apiResponse', apiResponses);
   var rides = apiResponses[0]['prices'];
   var etas = apiResponses[1]['times'];
+  // console.log('ParseUber hit. Coords: ', apiResponses[2]);
+  var coords = apiResponses[2];
 
   rides = rides.map(function(obj) {
     const out = {};
@@ -54,15 +56,18 @@ function parseUber(apiResponses) {
   //Filter out rides that we weren't able to match up ETAs on (ie. UberWAV)
   rides = rides.filter((ride) => !ride.display_name.match(/(ASSIST|UberWAV)/i));
   console.log('Hit ParseUber: ', rides);
-  return rides;
+  return {
+    rides: rides,
+    coords: coords
+  };
 }
 
 function uberRequest(coords) {
-  console.log('uberRequest details triggered: ', coords);
+  // console.log('uberRequest details triggered: ', coords);
   const rides = uberRides(coords);
   const etas = uberEtas(coords);
 
-  return Promise.all([rides, etas]);
+  return Promise.all([rides, etas, coords]);
 }
 
 

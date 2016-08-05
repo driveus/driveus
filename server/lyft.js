@@ -58,6 +58,7 @@ function lyftEtas(coords) {
 function parseLyft(apiResponses) {
   var rides = apiResponses[0]['cost_estimates'];
   var etas = apiResponses[1]['eta_estimates'];
+  var coords = apiResponses[2];
 
   rides = rides.map(function(obj) {
     const out = {};
@@ -78,15 +79,18 @@ function parseLyft(apiResponses) {
       }
     }
   }
-  console.log('Lyft Rides: ', rides);
-  return rides;
+  // console.log('Lyft Rides: ', rides);
+  return {
+    rides: rides,
+    coords: coords
+  };
 }
 
 function lyftRequest(coords) {
   const rides = lyftRides(coords);
   const etas = lyftEtas(coords);
 
-  return Promise.all([rides, etas]);
+  return Promise.all([rides, etas, coords]);
 }
 
 

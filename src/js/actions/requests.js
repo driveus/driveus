@@ -52,7 +52,7 @@ export function fetchUber(coords) {
   return function(dispatch) {
     axiosRequest('uber', coords)
     .then(function (response) {
-      dispatch(receiveRoutesUber(coords, response.data));
+      dispatch(receiveRoutesUber(coords, response.data.rides));
     })
     .catch(function(err) {
       console.log(err);
@@ -65,7 +65,7 @@ export function fetchLyft(coords) {
   return function(dispatch) {
     axiosRequest('lyft', coords)
     .then(function (response) {
-      dispatch(receiveRoutesLyft(coords, response.data));
+      dispatch(receiveRoutesLyft(coords, response.data.rides));
     })
     .catch(function(err) {
       console.log(err);
