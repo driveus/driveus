@@ -12,15 +12,15 @@ class App extends Component {
   render() {
     return (
       <div id="wrapper">
-        <Header />
         <div id="container">
           <h1 id="site-title">DriveUs</h1>
           <Controls />
-          <MapView />
           <ActiveRoute />
-          <RouteLists />
+            <div className="information-view">
+              <MapView />
+              <RouteLists />
+          </div>
         </div>
-        <Footer />
       </div>
     );
   }
