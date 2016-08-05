@@ -16,7 +16,7 @@ class App extends Component {
           <h1 id="site-title">DriveUs</h1>
           <Controls />
           <ActiveRoute />
-            <div className="control-view">
+            <div className="information-view">
               <MapView />
               <RouteLists />
           </div>
