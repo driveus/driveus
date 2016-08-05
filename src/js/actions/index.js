@@ -8,7 +8,6 @@ import {
   RECEIVE_EXPANDED_ROUTES,
   NO_EXPANDED_ROUTES,
   INVALID_ROUTES,
-  CURRENT_ADDRESS
 } from './types';
 
 export function setAddress(address) {
@@ -62,11 +61,5 @@ export function noExpandedRoutes() {
 export function invalidRoutes() {
   return {
     type: INVALID_ROUTES
-  }
-}
-export function getCurrAddress(address) {
-  return {
-    type: CURRENT_ADDRESS,
-    address: address
   }
 }

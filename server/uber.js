@@ -52,7 +52,7 @@ function parseUber(apiResponses) {
     }
   }
   //Filter out rides that we weren't able to match up ETAs on (ie. UberWAV)
-  // rides = rides.filter((ride) => !ride.product_id);
+  rides = rides.filter((ride) => !ride.display_name.match(/(ASSIST|UberWAV)/i));
   console.log('Hit ParseUber: ', rides);
   return rides;
 }
