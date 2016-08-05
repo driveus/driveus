@@ -1,19 +1,30 @@
 'use strict';
 
-let childProcess = require('child_process');
-let Bluebird = require('bluebird')
-let subprocess = Bluebird.promisify(childProcess.exec, {context: childProcess});
 const db = require('./db.js');
+let rp = require('request-promise');
 let lyftToken;
 
 function generateToken() {
-  //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const lyftReq = `curl -X POST -H "Content-Type: application/json" --user "${process.env.LYFT_ID}:${process.env.LYFT_SECRET}" -d '{"grant_type": "client_credentials", "scope": "public"}' 'https://api.lyft.com/oauth/token'`;
-  subprocess(lyftReq).then(function(resp) {
-    lyftToken = JSON.parse(resp)['access_token'];
+  let authorziation = new Buffer(process.env.LYFT_ID + ':' + process.env.LYFT_SECRET).toString('base64');
+  let options = {
+    method: 'POST',
+    uri: 'https://api.lyft.com/oauth/token',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${authorziation}`
+    },
+    body: {
+      grant_type: "client_credentials",
+      scope: "public",
+    },
+    json: true
+  }
+  return rp(options)
+  .then(function(resp) {
+    lyftToken = resp['access_token'];
   })
-  .catch(function(e) {
-    console.log(e);
+  .catch(function(err) {
+    console.log(err);
   })
 }
 
@@ -22,16 +33,26 @@ generateToken();
 setInterval(generateToken, 3000000);
 
 function lyftRides(coords) {
-  //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' curl -X GET -H 'Authorization: bearer <bearer_token>' 'https://api.lyft.com/v1/cost?start_lat=${coords.start.lat}&start_lng=${coords.start.lng}&end_lat=${coords.end.lat}&end_lng=${coords.end.lng}'`;
-  return subprocess(lyftReq);
+  let options = {
+    uri: `https://api.lyft.com/v1/cost?start_lat=${coords.start.lat}&start_lng=${coords.start.lng}&end_lat=${coords.end.lat}&end_lng=${coords.end.lng}`,
+    headers: {
+      'Authorization': `Bearer ${lyftToken}`
+    },
+    json: true
+  }
+  return rp(options);
 }
 
 function lyftEtas(coords) {
-  //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const lyftReq = `curl -X GET -H 'Authorization: Bearer ${lyftToken}' 'https://api.lyft.com/v1/eta?lat=${coords.start.lat}&lng=${coords.start.lng}'`;
-  // console.log('Lyft Etas: ', coords);
-  return subprocess(lyftReq);
+  let options = {
+    uri: `https://api.lyft.com/v1/eta?lat=${coords.start.lat}&lng=${coords.start.lng}`,
+    headers: {
+      'Authorization': `Bearer ${lyftToken}`
+    },
+    json: true
+  }
+  return rp(options);
+
 }
 
 function parseLyft(apiResponses) {

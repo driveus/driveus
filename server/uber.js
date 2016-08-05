@@ -1,21 +1,29 @@
 'use strict';
 
-let childProcess = require('child_process');
-let Bluebird = require('bluebird');
-let subprocess = Bluebird.promisify(childProcess.exec, {context: childProcess});
+let rp = require('request-promise');
 
 function uberRides(coords) {
-  // console.log('Hit Uber Rides: ', coords);
-  //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/price?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}&end_latitude=${coords.end.lat}&end_longitude=${coords.end.lng}'`;
-  return subprocess(uberReq);
+  console.log('Hit Uber Rides: ', coords);
+  let options = {
+    uri: `https://api.uber.com/v1/estimates/price?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}&end_latitude=${coords.end.lat}&end_longitude=${coords.end.lng}`,
+    headers: {
+      'Authorization': `Token ${process.env.UBER_TOKEN}`
+    },
+    json: true
+  }
+  return rp(options)
 }
 
 function uberEtas(coords) {
-  // console.log('Hit Uber Etas: ', coords);
-  //TODO: use https library instead of curl. (I had trouble with autorization headers  -john)
-  const uberReq = `curl -H 'Authorization: Token ${process.env.UBER_TOKEN}' 'https://api.uber.com/v1/estimates/time?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}'`;
-  return subprocess(uberReq);
+  console.log('Hit Uber Etas: ', coords);
+  let options = {
+    uri: `https://api.uber.com/v1/estimates/time?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}`,
+    headers: {
+      'Authorization': `Token ${process.env.UBER_TOKEN}`
+    },
+    json: true
+  }
+  return rp(options)
 }
 
 function parseUber(apiResponses) {

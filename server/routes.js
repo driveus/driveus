@@ -2,8 +2,8 @@
 
 var lyft = require('./lyft.js');
 var uber = require('./uber.js');
-var genRadius = require('./generate_radius.js');
-var expandSearch = require('./expand_search.js');
+// var genRadius = require('./generate_radius.js');
+// var expandSearch = require('./expand_search.js');
 
 module.exports = function(app) {
     //TODO:get coors from req
@@ -106,11 +106,11 @@ module.exports = function(app) {
 
 const dummyCoords = {
   start: {
-    lat: 37.7905123, 
+    lat: 37.7905123,
     lng: -122.3891332
   },
   end: {
-    lat: 37.7749, 
+    lat: 37.7749,
     lng: -122.4194
   }
 }
