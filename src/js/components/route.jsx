@@ -15,8 +15,8 @@ class Route extends Component {
     let eta = Math.round(this.props.route.eta/60),
         totalTime = Math.round((this.props.route.duration + this.props.route.eta)/60),
         etaMinutes = eta <= 1 ? 'minute' : 'minutes',
-        totalMinutes = totalTime <= 1 ? 'minute' : 'minutes',
-        disclaimer = this.props.carpool ? '*' : '';
+        totalMinutes = totalTime <= 1 ? 'minute' : 'minutes';
+        // disclaimer = this.props.carpool ? '*' : '';
     return (
       <li className="list-item"
         onClick={this.setActiveRoute}>
