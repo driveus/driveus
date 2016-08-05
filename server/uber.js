@@ -19,7 +19,7 @@ function uberEtas(coords) {
 function parseUber(rides, etas) {
   rides = rides.map(function(obj) {
     const out = {};
-    out.product_id = obj.product_id;
+    out.product_id = obj["product_id"];
     out.display_name = obj['display_name'];// === 'POOL' : 'uberPOOL';
     out.duration = obj['duration'];
     out.distance = obj['distance'];
@@ -34,12 +34,11 @@ function parseUber(rides, etas) {
     for (let ride of rides) {
       if (eta.product_id === ride.product_id) {
         ride.eta = eta.estimate;
-        delete ride.product_id;
       }
     }
   }
   //Filter out rides that we weren't able to match up ETAs on (ie. UberWAV)
-  rides = rides.filter((ride) => !ride.product_id);
+  // rides = rides.filter((ride) => !ride.product_id);
   console.log('Hit ParseUber: ', rides);
   return rides;
 }

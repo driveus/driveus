@@ -6,7 +6,8 @@ import {
   RECEIVE_ROUTES_LYFT,
   RECEIVE_EXPANDED_ROUTES,
   NO_EXPANDED_ROUTES,
-  INVALID_ROUTES
+  INVALID_ROUTES,
+  CURRENT_ADDRESS
 } from './types';
 
 export function selectRoute(route) {
@@ -54,5 +55,11 @@ export function noExpandedRoutes() {
 export function invalidRoutes() {
   return {
     type: INVALID_ROUTES
+  }
+}
+export function getCurrAddress(address) {
+  return {
+    type: CURRENT_ADDRESS,
+    address: address
   }
 }

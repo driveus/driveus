@@ -4,7 +4,8 @@ import {
   receiveRoutesUber,
   receiveRoutesExpanded,
   noExpandedRoutes,
-  invalidRoutes
+  invalidRoutes,
+  getCurrAddress
 } from './index';
 import {
   setMarkers,
@@ -15,6 +16,8 @@ import axios from 'axios';
 
 export function getCoords(location) {
   return function(dispatch) {
+    console.log('This is the format of the location', location)
+    dispatch(getCurrAddress(location));
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: location.start }, (results, status) => {
       if (status == 'OK') {
