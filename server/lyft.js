@@ -56,8 +56,8 @@ function lyftEtas(coords) {
 }
 
 function parseLyft(apiResponses) {
-  var rides = JSON.parse(apiResponses[0])['cost_estimates'];
-  var etas = JSON.parse(apiResponses[1])['eta_estimates'];
+  var rides = apiResponses[0]['cost_estimates'];
+  var etas = apiResponses[1]['eta_estimates'];
   var coords = apiResponses[2];
 
   rides = rides.map(function(obj) {

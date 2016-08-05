@@ -73,13 +73,17 @@ export function fetchLyft(coords) {
 
 export function fetchExpanded(coords) {
   // ==TEMP==============
-  dispatch(noExpandedRoutes());
-  return;
+  // dispatch(noExpandedRoutes());
+  // return;
   // ====================
   return function(dispatch) {
-    axiosRequest('expand', coords)
+    axiosRequest('expandSearch', coords)
     .then(function (response) {
-      console.log(response);
+      let expandedCoords = {
+          price: response.data.minPrice_coords,
+          time: response.data.minTime_coords
+        }
+      dispatch(setExpandedMarkers(expandedCoords));
       dispatch(receiveRoutesExpanded(coords, response.data));
     })
     .catch(function(err) {

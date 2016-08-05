@@ -9,14 +9,14 @@ Number.prototype.toDeg = function() {
 }
 
 function createPointOnRadius(startPoint, bearing, dist) {
-  dist = dist / 6371;  
-  bearing = bearing.toRad();  
+  dist = dist / 6371;
+  bearing = bearing.toRad();
 
   const lat1 = startPoint.lat.toRad();
   const lng1 = startPoint.lng.toRad();
   const lat2 = Math.asin(Math.sin(lat1) * Math.cos(dist) + Math.cos(lat1) * Math.sin(dist) * Math.cos(bearing));
   const lng2 = lng1 + Math.atan2(
-                      Math.sin(bearing) * Math.sin(dist) * Math.cos(lat1), 
+                      Math.sin(bearing) * Math.sin(dist) * Math.cos(lat1),
                       Math.cos(dist) - Math.sin(lat1) * Math.sin(lat2)
                     );
 
@@ -49,7 +49,7 @@ function createGeoRadius(coords) {
   const radius = 1;  // 1km
 
   const promiseList = [];
-  const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
+  const bearings = [0, /*45*/, 90, /*135*/, 180, /*225*/, 270, /*315*/];
   bearings.forEach(function(bearing) {
     var newPoint = createPointOnRadius(startPoint, bearing, radius)
     promiseList.push(reverseGeoCode(newPoint))
@@ -67,7 +67,7 @@ module.exports.createGeoRadius = createGeoRadius;
 /*
 var map = new google.maps.Map(document.getElementById("map"), mapOpt);
 
-var mapOpt = { 
+var mapOpt = {
    // mapTypeId: google.maps.MapTypeId.TERRAIN,
    center: pointA,
    zoom: 13
@@ -93,7 +93,7 @@ locations.forEach(function(location) {
       position: location,
       map: map
    });
-   
+
 })
 
 */
