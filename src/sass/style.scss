@@ -61,7 +61,6 @@ body {
   box-shadow: $default-box-shadow;
   border-top-right-radius: $default-radius;
   border-top-left-radius: $default-radius;
-  overflow: hidden;
   margin-bottom: 50px;
 }
 .search-box {
@@ -109,6 +108,8 @@ body {
   height: 70px;
 }
 .list-container {
+  overflow: hidden;
+  background-color: $secondary-color;
   margin: $center;
   ul {
     padding: 0px;
