@@ -43,12 +43,15 @@ body {
   font-size: 14px;
   min-width: $min-width;
 }
+
 #site-title {
-  font-family: "Arial", sans-serif;
+  font-family: "Fira Sans", "Arial", sans-serif;
   font-size: 30px;
-  color: #222;
+  font-size: 40px;
+  color: white;
   padding: 5px;
-  border-bottom: 1px solid #222;
+  padding: 9px;
+  // border-bottom: 1px solid #fff;
 }
 #app {
   height: inherit;
@@ -64,13 +67,23 @@ body {
   flex-direction: column;
   height: 100%;
   text-align: center;
-  color: $header-text-color;
+  // color: $header-text-color;
   // background: linear-gradient(90deg, #482BBD 0%, #e70b81 100%);
-  background-color: $off-white;
+  // background-color: $off-white;
+  // background: url("http://static1.squarespace.com/static/5567846ee4b07c004ad4db4e/t/557b6f81e4b0db2f0d087a44/1432847002645/uberpool_v2.jpg?format=1400w");
   // box-shadow: $default-box-shadow;
   // border-top-right-radius: $default-radius;
   // border-top-left-radius: $default-radius;
   // margin-bottom: 50px;
+}
+
+.headerImage{
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  width: 100%;
+  -webkit-filter: blur(5px);
+  top: 0;
 }
 .information-view {
   flex: 1;
@@ -80,28 +93,55 @@ body {
   margin: $center;
   width: $child-width;
   padding: 10px;
-  width: 100%;
+  width: 400px;
+  // background: url("http://img12.deviantart.net/65e4/i/2013/003/6/6/png_floating_terrain_by_moonglowlilly-d5qb58m.png");
 }
 .location-form {
   margin: $center;
   align-items: center;
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 100%;
   input {
-    width: 90%;
+    width: 700px;
     padding: 0px 0px 0px 5px;
     line-height: 2em;
-    font-size: 1em;
+    font-size: 1.5em;
+    background: none;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid white;
+    text-align: center;
+    border-bottom: 1px solid #bbb6b6;
+    text-align: center;
+    color: #4aefd3;
+    font-weight: 300;
+    
   }
 }
 .form-submit {
+  color: green;
   display: flex;
 }
 .form-btn {
-  height: 30px;
-  width: 100px;
-  margin: 10px 5px 0px 5px;
+  width: 157px;
+    margin-top: 10px;
+    color: #4aefcd;
+    font-size: 20px;
+    background: none;
+    text-align: center;
+    padding: 15px;
+    top: 0;
+    border: 1px solid white;
+    border-radius: 3px;
+    margin-left: 551px;
+    transition-duration: 200ms;
+    &:hover {
+      background-color: white;
+      color:black;
+    }
+
 }
 .uber {
   background-color: $uber-color-primary;

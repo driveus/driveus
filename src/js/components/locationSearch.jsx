@@ -26,6 +26,8 @@ export default class LocationSearch extends Component {
 
   render() {
     return (
+      <div>
+        <img className="headerImage" src="http://static1.squarespace.com/static/5567846ee4b07c004ad4db4e/t/557b6f81e4b0db2f0d087a44/1432847002645/uberpool_v2.jpg" />
         <input
           placeholder={this.props.placeholder}
           id={this.state.id}
@@ -33,6 +35,7 @@ export default class LocationSearch extends Component {
           onChange={this.props.onLocationChange}
           name={this.props.name}
         />
+      </div>
     );
   }
 }
