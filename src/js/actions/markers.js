@@ -4,18 +4,18 @@ import {
 } from './types';
 
 export function setMarkers(coords) {
-  let markers = [];
-  markers.push(new google.maps.Marker({
+  let newMarkers = {};
+  newMarkers.start = new google.maps.Marker({
     position: coords.start,
     animation: 2
-  }));
-  markers.push(new google.maps.Marker({
+  });
+  newMarkers.end = new google.maps.Marker({
     position: coords.end,
     animation: 2
-  }));
+  });
   return {
     type: SET_MARKERS,
-    payload: markers
+    payload: newMarkers
   }
 }
 export function setExpandedMarkers(coords) {

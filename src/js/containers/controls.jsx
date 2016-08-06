@@ -93,12 +93,12 @@ class Controls extends Component {
             placeholder={this.state.endPlaceholder || "Dropoff"}
             />
           <div className="form-submit">
-            <button className="form-btn">Submit</button>
             <ExpandSearch
               classStyle={isActive}
               currentLocation={this.props.currentCoords}
               expandSearch={canExpand}
               />
+              <button className="form-btn">Submit</button>
           </div>
         </form>
       </div>
