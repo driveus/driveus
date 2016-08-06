@@ -117,10 +117,16 @@ body {
 .price {
   background-color: #325461;
   border-radius: 0 !important;
+  &:hover {
+    background-color: #3e6675;
+  }
 }
 .time {
   background-color: #279a80;
   border-radius: 0 !important;
+  &:hover {
+    background-color: #2ca98c;
+  }
 }
 .list-item {
   cursor: pointer;

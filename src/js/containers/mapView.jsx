@@ -9,7 +9,7 @@ class MapView extends Component {
       center: this.props.currentCoords.start || { lat: 37.773972, lng: -122.431297 },
       scrollwheel: false,
       zoom: 10,
-      disableDefaultUI: true,
+      // disableDefaultUI: true,
     });
     this.setState({
       map: map,
@@ -18,8 +18,8 @@ class MapView extends Component {
   }
   componentWillReceiveProps() {
     if (this.props.currentCoords.start || this.props.currentCoords.end) {
-      for (let marker of this.props.routeMarkers) {
-        marker.setMap(null);
+      for (let marker in this.props.routeMarkers) {
+        this.props.routeMarkers[marker].setMap(null);
       }
       for (let marker in this.props.expandedMarkers) {
         if (this.props.expandedMarkers[marker]) {
@@ -30,25 +30,29 @@ class MapView extends Component {
     }
   }
   componentDidUpdate() {
-    if (this.props.routeMarkers.length) {
+    if (this.props.routeMarkers.start) {
       let markers = this.props.routeMarkers,
       bounds = new google.maps.LatLngBounds();
-      for (let i = 0; i < markers.length; i++) {
-        if (markers[i].position) {
-          markers[i].setMap(this.state.map);
-          bounds.extend(markers[i].getPosition());
+      for (let data in markers) {
+        if (markers[data].position) {
+          markers[data].setMap(this.state.map);
+          bounds.extend(markers[data].getPosition());
         }
       }
       this.state.map.fitBounds(bounds);
       // this.state.map.setZoom(this.state.map.getZoom() - 1);
     }
     if (this.props.expandedMarkers.price || this.props.expandedMarkers.time) {
-      let markers = this.props.expandedMarkers;
+      let markers = this.props.expandedMarkers,
+          bounds = new google.maps.LatLngBounds();
       for (let data in markers) {
         if (markers[data].position) {
           markers[data].setMap(this.state.map);
+          bounds.extend(markers[data].getPosition());
         }
       }
+      bounds.extend(this.props.routeMarkers['start'].getPosition());
+      this.state.map.fitBounds(bounds);
     }
   }
   render() {
