@@ -256,6 +256,10 @@ body {
   margin: $center;
   background-color: $secondary-color;
 }
+.inactive-expand {
+  opacity: .5;
+  pointer-events: none;
+}
 // MOBILE-ISH ******************************************
 @media (max-width: 885px) {
   #container {
@@ -311,7 +315,6 @@ body {
     input {
       margin: 0;
       padding: 0 0 0 10px;
-      border: none;
       border-top: 1px inset gray;
       width: 100%;
       font-size: 1em;
