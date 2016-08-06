@@ -25,7 +25,7 @@ class ActiveRoute extends Component {
         endLat = this.props.currentCoords.end.lat,
         endLng = this.props.currentCoords.end.lng;
     if(this.props.route.display_name.match(/uber/i)) {
-      let uberUrl = "https://m.uber.com/ul/?client_id=37yHG1-x8iwme2fjogxoa3wU_4n2vWd5exCpEB8u&action=setPickup";
+      let uberUrl = "uber://?client_id=37yHG1-x8iwme2fjogxoa3wU_4n2vWd5exCpEB8u&action=setPickup";
       let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d`
       let orderUber = uberUrl + uberCoords;
       this.setState({orderCab: orderUber})
@@ -54,7 +54,7 @@ class ActiveRoute extends Component {
           <h1>{cost}</h1>
           <p>Pickup: {eta} {etaMinutes}</p>
           <p>Total: {totalTime} {totalMinutes}</p>
-            <a href={this.state.orderCab}>
+            <a href={this.state.orderCab} target="_blank">
              <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
            </a>
         </div>
