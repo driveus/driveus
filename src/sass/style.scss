@@ -330,5 +330,9 @@ body {
     width: 50%;
     font-size: 1.5em;
     height: 3em;
+    cursor: pointer;
+    &:active {
+      background-color: #8c8c8c;
+    }
   }
 }
