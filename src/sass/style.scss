@@ -99,9 +99,13 @@ body {
   display: flex;
 }
 .form-btn {
+  background-color: #e6e6e6;
   height: 30px;
   width: 100px;
   margin: 10px 5px 0px 5px;
+  &:active {
+    background-color: #cccccc;
+  }
 }
 .uber {
   background-color: $uber-color-primary;
@@ -331,8 +335,5 @@ body {
     font-size: 1.5em;
     height: 3em;
     cursor: pointer;
-    &:active {
-      background-color: #8c8c8c;
-    }
   }
 }

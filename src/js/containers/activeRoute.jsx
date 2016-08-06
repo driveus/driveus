@@ -12,7 +12,29 @@ class ActiveRoute extends Component {
         1: 'lyft',
         price: 'price',
         time: 'time'
-      }
+      },
+      orderCab: null
+    }
+    this.orderRide = this.orderRide.bind(this);
+  }
+  orderRide() {
+    let startAdd = this.props.currentAddress.start,
+        endAdd = this.props.currentAddress.end,
+        startLat = this.props.currentCoords.start.lat,
+        startLng = this.props.currentCoords.start.lng,
+        endLat = this.props.currentCoords.end.lat,
+        endLng = this.props.currentCoords.end.lng;
+    if(this.props.route.display_name.match(/uber/i)) {
+      let uberUrl = "https://m.uber.com/ul/?client_id=37yHG1-x8iwme2fjogxoa3wU_4n2vWd5exCpEB8u&action=setPickup";
+      let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d`
+      let orderUber = uberUrl + uberCoords;
+      this.setState({orderCab: orderUber})
+
+    } else if (this.props.route.display_name.match(/lyft/i)) {
+        let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
+        let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`
+        let orderLyft = lyftUrl + lyftCoods;
+        this.setState({orderCab: orderLyft})
     }
   }
   render() {
@@ -32,7 +54,9 @@ class ActiveRoute extends Component {
           <h1>{cost}</h1>
           <p>Pickup: {eta} {etaMinutes}</p>
           <p>Total: {totalTime} {totalMinutes}</p>
-          <button id="order-btn">Order Ride</button>
+            <a href={this.state.orderCab} target="_blank">
+             <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
+           </a>
         </div>
       </div>
     );
@@ -41,6 +65,8 @@ class ActiveRoute extends Component {
 
 function mapStateToProps(state) {
   return {
+    currentAddress: state.currentAddress,
+    currentCoords: state.currentCoords,
     route: state.activeRoute.route,
     style: state.activeRoute.style
   };
