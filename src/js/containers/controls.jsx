@@ -67,14 +67,11 @@ class Controls extends Component {
     }
   }
   render() {
-    let expandSearch;
-    if (!this.props.currentAddress.start) { expandSearch = null; }
-    else {
-      expandSearch =
-      <ExpandSearch
-        currentLocation={this.props.currentCoords}
-        expandSearch={this.props.fetchExpanded}
-      />
+    let isActive = 'inactive-expand',
+        canExpand = null;
+    if (this.props.currentAddress.start) {
+      isActive = 'active-expand';
+      canExpand = this.props.fetchExpanded
     }
     return (
       <div className="search-box">
@@ -96,8 +93,12 @@ class Controls extends Component {
             placeholder={this.state.endPlaceholder || "Dropoff"}
             />
           <div className="form-submit">
-            <button className="form-btn">Submit</button>
-            {expandSearch}
+            <ExpandSearch
+              classStyle={isActive}
+              currentLocation={this.props.currentCoords}
+              expandSearch={canExpand}
+              />
+              <button className="form-btn">Submit</button>
           </div>
         </form>
       </div>
