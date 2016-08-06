@@ -270,33 +270,33 @@ body {
     overflow: visible;
   }
   .list-item {
-    height: 220px;
+    height: 12em;
   }
   .route-name {
-    font-size: 40px;
+    font-size: 1.5em;
     margin-bottom: 10px;
   }
   .driver-eta, .route-duration {
-    font-size: 30px;
+    font-size: 1.2em;
   }
   .route-cost {
     float: none;
-    font-size: 60px;
+    font-size: 3em;
   }
   .selected-route-container {
     right: 10%;
     left: 10%;
-    min-height: 400px;
+    min-height: 20em;
     h1 {
-      font-size: 4em;
-    }
-    p {
       font-size: 2em;
     }
-    #order-btn {
-      width: 300px;
+    p {
       font-size: 1.5em;
-      height: 4em;
+    }
+    #order-btn {
+      width: 6em;
+      font-size: 1.5em;
+      height: 3em;
     }
   }
   #map-display {
@@ -316,7 +316,7 @@ body {
       border: none;
       border-top: 1px inset gray;
       width: 100%;
-      font-size: 2em;
+      font-size: 1em;
       height: 3em;
     }
   }
@@ -327,7 +327,7 @@ body {
     margin: 0;
     border: 1px solid $secondary-color;
     width: 50%;
-    font-size: 2em;
+    font-size: 1.5em;
     height: 3em;
   }
 }
