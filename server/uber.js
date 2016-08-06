@@ -1,10 +1,11 @@
 'use strict';
 
-let rp = require('request-promise');
+const rp = require('request-promise');
 
+//Input start & end coordinates, output a promise that will return Uber ride info
 function uberRides(coords) {
   console.log('Hit Uber Rides: ', coords);
-  let options = {
+  const options = {
     uri: `https://api.uber.com/v1/estimates/price?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}&end_latitude=${coords.end.lat}&end_longitude=${coords.end.lng}`,
     headers: {
       'Authorization': `Token ${process.env.UBER_TOKEN}`
@@ -14,9 +15,10 @@ function uberRides(coords) {
   return rp(options)
 }
 
+//Input start & end coordinates, output a promise that will return Uber car ETAs
 function uberEtas(coords) {
   console.log('Hit Uber Etas: ', coords);
-  let options = {
+  const options = {
     uri: `https://api.uber.com/v1/estimates/time?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}`,
     headers: {
       'Authorization': `Token ${process.env.UBER_TOKEN}`
@@ -26,11 +28,12 @@ function uberEtas(coords) {
   return rp(options)
 }
 
+//Input Uber's responses from the rides & etas API calls, output an array
+// of ride options with all relevant properties combined from the two calls.
 function parseUber(apiResponses) {
-  var rides = apiResponses[0]['prices'];
-  var etas = apiResponses[1]['times'];
-  // console.log('ParseUber hit. Coords: ', apiResponses[2]);
-  var coords = apiResponses[2];
+  let rides = apiResponses[0]['prices'];
+  const etas = apiResponses[1]['times'];
+  const coords = apiResponses[2];
 
   rides = rides.map(function(obj) {
     const out = {};
@@ -68,9 +71,6 @@ function uberRequest(coords) {
 
   return Promise.all([rides, etas, coords]);
 }
-
-
-
 
 module.exports.parseUber = parseUber;
 module.exports.uberRequest = uberRequest;

@@ -1,12 +1,13 @@
 'use strict';
 
 const db = require('./db.js');
-let rp = require('request-promise');
+const rp = require('request-promise');
 let lyftToken;
 
+//Uses our Lyft ID and Secret to generate a token valid for 1 hour to make API calls
 function generateToken() {
-  let authorziation = new Buffer(process.env.LYFT_ID + ':' + process.env.LYFT_SECRET).toString('base64');
-  let options = {
+  const authorziation = new Buffer(process.env.LYFT_ID + ':' + process.env.LYFT_SECRET).toString('base64');
+  const options = {
     method: 'POST',
     uri: 'https://api.lyft.com/oauth/token',
     headers: {
@@ -32,8 +33,9 @@ generateToken();
 //Token expires every hour
 setInterval(generateToken, 3000000);
 
+//Input start & end coordinates, output a promise that will return Lyft ride info
 function lyftRides(coords) {
-  let options = {
+  const options = {
     uri: `https://api.lyft.com/v1/cost?start_lat=${coords.start.lat}&start_lng=${coords.start.lng}&end_lat=${coords.end.lat}&end_lng=${coords.end.lng}`,
     headers: {
       'Authorization': `Bearer ${lyftToken}`
@@ -43,6 +45,7 @@ function lyftRides(coords) {
   return rp(options);
 }
 
+//Input start & end coordinates, output a promise that will return Lyft car ETAs
 function lyftEtas(coords) {
   let options = {
     uri: `https://api.lyft.com/v1/eta?lat=${coords.start.lat}&lng=${coords.start.lng}`,
@@ -55,10 +58,12 @@ function lyftEtas(coords) {
 
 }
 
+//Input Lyft's responses from the rides & etas API calls, output an array
+// of ride options with all relevant properties combined from the two calls.
 function parseLyft(apiResponses) {
-  var rides = apiResponses[0]['cost_estimates'];
-  var etas = apiResponses[1]['eta_estimates'];
-  var coords = apiResponses[2];
+  let rides = apiResponses[0]['cost_estimates'];
+  const etas = apiResponses[1]['eta_estimates'];
+  const coords = apiResponses[2];
 
   rides = rides.map(function(obj) {
     const out = {};
@@ -79,7 +84,6 @@ function parseLyft(apiResponses) {
       }
     }
   }
-  // console.log('Lyft Rides: ', rides);
   return {
     rides: rides,
     coords: coords
@@ -92,8 +96,6 @@ function lyftRequest(coords) {
 
   return Promise.all([rides, etas, coords]);
 }
-
-
 
 module.exports.parseLyft = parseLyft;
 module.exports.lyftRequest = lyftRequest;
