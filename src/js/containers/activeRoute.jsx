@@ -17,7 +17,7 @@ class ActiveRoute extends Component {
         <div onClick={this.props.deselectRoute} className="lightbox-background"></div>
         <div className={classes}>
           <h1>{this.props.route.display_name}</h1>
-          <h1>${this.props.route.high_estimate/100}</h1>
+          <h1>${Math.round(this.props.route.high_estimate/100)}</h1>
           <p>Pickup: {eta} {etaMinutes}</p>
           <p>Total: {totalTime} {totalMinutes}</p>
           <button id="order-btn">Order Ride</button>

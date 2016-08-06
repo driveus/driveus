@@ -109,6 +109,14 @@ body {
 .lyft {
   background-color: $lyft-color-primary;
 }
+.price {
+  background-color: #006622;
+  border-radius: 0 !important;
+}
+.time {
+  background-color: #e6b800;
+  border-radius: 0 !important;
+}
 .list-item {
   cursor: pointer;
   padding: $list-padding;

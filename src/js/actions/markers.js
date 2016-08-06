@@ -24,7 +24,7 @@ export function setExpandedMarkers(coords) {
       // style the markers or something?
       let marker = new google.maps.Marker({
         position: coords[data].start,
-        animation: 2
+        animation: 2,
       });
       newMarkers[data] = marker
   }
