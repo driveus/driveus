@@ -54,7 +54,7 @@ class ActiveRoute extends Component {
           <h1>{cost}</h1>
           <p>Pickup: {eta} {etaMinutes}</p>
           <p>Total: {totalTime} {totalMinutes}</p>
-            <a href={this.state.orderCab} target="_blank">
+            <a href={this.state.orderCab}>
              <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
            </a>
         </div>
