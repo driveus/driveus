@@ -1,25 +1,39 @@
 'use strict';
+const massive = require('massive')
+const db = massive.connectSync(process.env.DB_CONNSTRING);
 
-const pg = require('pg');
-require('dotenv').config({path: '.env'});
-pg.defaults.ssl = true;
+function saveUber(parsedData) {
+  for (let ride of parsedData.rides) {
+  queryObj = {ride_type: ride.display_name,
+              duration: '00:' + Math.floor(ride.duration/60) + ':' + (ride.duration%60),
+              low_est: ride.low_estimate/100,
+              high_est: ride.high_estimate/100,
+              eta: '00:' + Math.floor(ride.eta/60) + ':' + (ride.duration%60),
+              price_multiplier: ride.price_multiplier,
+              start_lat: parsedData.coords.start.lat,
+              start_lng: parsedData.coords.start.lng,
+              end_lat: parsedData.coords.end.lat,
+              end_lng: parsedData.coords.end.lng,
+              distance_miles: ride.distance};
+  db.uberhist.save(queryObj);
+  }
+}
 
-const config = {
-                user: process.env.DB_USER ,
-                password: process.env.DB_PASS ,
-                host: process.env.DB_HOST,
-                port: process.env.DB_PORT,
-                database: process.env.DB_DATABASE,
-                max: 10,
-                idleTimeoutMillis: 30000,
-               };
-
-const pool = new pg.Pool(config);
-
-pool.on('error', function(e) {
-  console.log(e);
-});
-
-module.exports.db = pool;
-//You can use it like this:
-//db.query('select * from UberHist where data1 like $1', ['abc']).then((res) => {console.log(res)})
+function saveLyft(parsedData) {
+  for (let ride of parsedData.rides) {
+  queryObj = {ride_type: ride.display_name,
+              duration: '00:' + Math.floor(ride.duration/60) + ':' + (ride.duration%60),
+              low_est: ride.low_estimate/100,
+              high_est: ride.high_estimate/100,
+              eta: '00:' + Math.floor(ride.eta/60) + ':' + (ride.duration%60),
+              price_multiplier: ride.price_multiplier,
+              start_lat: parsedData.coords.start.lat,
+              start_lng: parsedData.coords.start.lng,
+              end_lat: parsedData.coords.end.lat,
+              end_lng: parsedData.coords.end.lng,
+              distance_miles: ride.distance};
+  db.lyfthist.save(queryObj);
+  }
+}
+module.exports.saveUber = saveUber;
+module.exports.saveLyft = saveLyft;
