@@ -19,18 +19,16 @@ export function setMarkers(coords) {
   }
 }
 export function setExpandedMarkers(coords) {
-  let markers = [];
-  // style the markers or something?
-  markers.push(new google.maps.Marker({
-    position: coords.start,
-    animation: 2
-  }));
-  markers.push(new google.maps.Marker({
-    position: coords.end,
-    animation: 2
-  }));
+  let newMarkers = {}
+  for (let data in coords) {
+      let marker = new google.maps.Marker({
+        position: coords[data].start,
+        animation: 2,
+      });
+      newMarkers[data] = marker
+  }
   return {
     type: SET_EXPANDED_MARKERS,
-    payload: markers
+    payload: newMarkers
   }
 }

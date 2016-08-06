@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 // Components
-import Header from './header.jsx';
 import Controls from '../containers/controls.jsx';
 import RouteLists from '../containers/routeLists.jsx';
 import ActiveRoute from '../containers/activeRoute.jsx';
@@ -16,9 +15,9 @@ class App extends Component {
           <h1 id="site-title">DriveUs</h1>
           <Controls />
           <ActiveRoute />
-            <div className="information-view">
-              <MapView />
-              <RouteLists />
+          <div className="information-view">
+            <MapView />
+            <RouteLists />
           </div>
         </div>
       </div>

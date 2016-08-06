@@ -5,7 +5,7 @@ import ActiveRouteReducer from './reducer_active_route';
 import CurrentCoordsReducer from './reducer_current_coords';
 import CurrentAddressReducer from './reducer_current_address';
 import RouteMarkersReducer from './reducer_route_marker';
-import RouteExpandedMarkersReducer from './reducer_route_marker';
+import RouteExpandedMarkersReducer from './reducer_expanded_marker';
 import RequestRouteReducer from './reducer_request_routes';
 import SetAddress from './reducer_current_address';
 

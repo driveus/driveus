@@ -15,7 +15,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 
 // Webpack in dev mode - Hot reloading
 const compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, 
+app.use(webpackDevMiddleware(compiler,
   {
     noInfo: true,
     lazy: false,

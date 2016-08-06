@@ -1,10 +1,11 @@
 'use strict';
 
-let rp = require('request-promise');
+const rp = require('request-promise');
 
+//Input start & end coordinates, output a promise that will return Uber ride info
 function uberRides(coords) {
   console.log('Hit Uber Rides: ', coords);
-  let options = {
+  const options = {
     uri: `https://api.uber.com/v1/estimates/price?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}&end_latitude=${coords.end.lat}&end_longitude=${coords.end.lng}`,
     headers: {
       'Authorization': `Token ${process.env.UBER_TOKEN}`
@@ -14,9 +15,10 @@ function uberRides(coords) {
   return rp(options)
 }
 
+//Input start & end coordinates, output a promise that will return Uber car ETAs
 function uberEtas(coords) {
   console.log('Hit Uber Etas: ', coords);
-  let options = {
+  const options = {
     uri: `https://api.uber.com/v1/estimates/time?start_latitude=${coords.start.lat}&start_longitude=${coords.start.lng}`,
     headers: {
       'Authorization': `Token ${process.env.UBER_TOKEN}`
@@ -26,23 +28,25 @@ function uberEtas(coords) {
   return rp(options)
 }
 
+//Input Uber's responses from the rides & etas API calls, output an array
+// of ride options with all relevant properties combined from the two calls.
 function parseUber(apiResponses) {
-  console.log('apiResponse', apiResponses);
-  var rides = apiResponses[0]['prices'];
-  var etas = apiResponses[1]['times'];
-  // console.log('ParseUber hit. Coords: ', apiResponses[2]);
-  var coords = apiResponses[2];
+
+  let rides = apiResponses[0]['prices'];
+  const etas = apiResponses[1]['times'];
+  const coords = apiResponses[2];
 
   rides = rides.map(function(obj) {
     const out = {};
-    out.product_id = obj["product_id"];
-    out.display_name = obj['display_name'];// === 'POOL' : 'uberPOOL';
+    out.product_id = obj.product_id;
+    out.display_name = obj['display_name'].replace(/^(uber)?/i, "Uber");
     out.duration = obj['duration'];
     out.distance = obj['distance'];
     out.high_estimate = obj['high_estimate'] * 100;
     out.low_estimate = obj['low_estimate'] * 100;
     out.avg_estimate = ((obj['high_estimate'] + obj['low_estimate']) * 100 / 2);
     out.price_multiplier = obj['surge_multiplier'];
+    if (out.display_name === 'POOL') { out.display_name = 'UberPOOL'; }
     return out;
   });
   //add the ETA to the corresponding object
@@ -69,9 +73,6 @@ function uberRequest(coords) {
 
   return Promise.all([rides, etas, coords]);
 }
-
-
-
 
 module.exports.parseUber = parseUber;
 module.exports.uberRequest = uberRequest;

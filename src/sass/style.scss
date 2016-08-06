@@ -7,15 +7,15 @@ $default-radius: 5px;
 $center: 0 auto;
 $list-padding: 10px;
 $default-box-shadow: 2px 2px 23px -2px rgba(0,0,0,0.3);
-$min-width: 750px;
+$min-width: 400px;
 $max-width: 1000px;
 // Company styles
 $uber-color-primary: #222233;
 $uber-color-secondary: #161629;
 $uber-color-hover: #363663;
 $uber-color-active: #2d2d52;
-$lyft-color-primary: #CF5596;
-$lyft-color-secondary: #E75FA8;
+$lyft-color-primary: #EA0B8C;
+$lyft-color-secondary: #ef43a7;
 $lyft-color-hover: #ee91c2;
 $lyft-color-active: #ea7bb6;
 
@@ -32,7 +32,7 @@ body {
   background-color: black;
   min-height: 40px;
   margin-bottom: 20px;
-  min-width: $min-width;
+  // min-width: $min-width;
 }
 #footer {
   color: #d9d9d9;
@@ -41,7 +41,7 @@ body {
   min-height: 25px;
   line-height: 25px;
   font-size: 14px;
-  min-width: $min-width;
+  // min-width: $min-width;
 }
 
 #site-title {
@@ -60,7 +60,7 @@ body {
   height: inherit;
 }
 #container {
-  min-width: $min-width;
+  // min-width: $min-width;
   // max-width: $max-width;
   margin: $center;
   display: flex;
@@ -125,6 +125,7 @@ body {
   display: flex;
 }
 .form-btn {
+<<<<<<< HEAD
   width: 157px;
     margin-top: 10px;
     color: #4aefcd;
@@ -142,12 +143,29 @@ body {
       color:black;
     }
 
+=======
+  background-color: #e6e6e6;
+  height: 30px;
+  width: 100px;
+  margin: 10px 5px 0px 5px;
+  &:active {
+    background-color: #cccccc;
+  }
+>>>>>>> de74001c6da3bc2243bcbb16818333b2b3441504
 }
 .uber {
-  background-color: $uber-color-primary;
+  background-color: $uber-color-secondary;
 }
 .lyft {
   background-color: $lyft-color-primary;
+}
+.price {
+  background-color: #006622;
+  border-radius: 0 !important;
+}
+.time {
+  background-color: #e6b800;
+  border-radius: 0 !important;
 }
 .list-item {
   cursor: pointer;
@@ -246,11 +264,13 @@ body {
   width: 100px;
   height: 30px;
   margin: 5px;
-  background-color: #fff;
-  color: $secondary-color;
-  border: none;
+  background: none;
+  color: $off-white;
+  border: 1px solid $off-white;
+  transition-duration: 150ms;
   &:hover {
     background-color: #f2f2f2;
+    color: #222;
   }
   &:active {
     box-shadow: inset 0px 0px 10px -2px rgba(0,0,0,0.75);
@@ -287,4 +307,82 @@ body {
   box-sizing: border-box;
   margin: $center;
   background-color: $secondary-color;
+}
+.inactive-expand {
+  opacity: .5;
+  pointer-events: none;
+}
+// MOBILE-ISH ******************************************
+@media (max-width: 885px) {
+  #container {
+    flex-direction: column;
+  }
+  .information-view {
+    flex-direction: column;
+  }
+  .list-container {
+    overflow: visible;
+  }
+  .list-item {
+    height: 12em;
+  }
+  .route-name {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  .driver-eta, .route-duration {
+    font-size: 1em;
+  }
+  .route-cost {
+    float: none;
+    font-size: 3em;
+  }
+  .selected-route-container {
+    right: 10%;
+    left: 10%;
+    min-height: 20em;
+    h1 {
+      font-size: 2em;
+    }
+    p {
+      font-size: 1.5em;
+    }
+    #order-btn {
+      margin-top: 1em;
+      width: 6em;
+      font-size: 1.5em;
+      height: 3em;
+    }
+  }
+  #map-display {
+    flex: none;
+    height: 300px;
+    pointer-events: none;
+    // display: none;
+  }
+  .search-box {
+    padding: 0;
+  }
+  .location-form {
+    width: 100%;
+    input {
+      margin: 0;
+      padding: 0 0 0 10px;
+      border-top: 1px inset gray;
+      width: 100%;
+      font-size: 1em;
+      height: 3em;
+    }
+  }
+  .form-submit {
+    width: 100%;
+  }
+  .form-btn {
+    margin: 0;
+    border: 1px solid $secondary-color;
+    width: 50%;
+    font-size: 1.5em;
+    height: 3em;
+    cursor: pointer;
+  }
 }

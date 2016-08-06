@@ -26,13 +26,18 @@ module.exports = {
       test: /\.scss$/,
       loaders: ["style", "css", "sass"],
       include: path.join(__dirname, 'src')
+    },
+    {
+      // Doesn't work :(
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      loader:'file'
     }, {
       test: /\.js$/,
       loader: 'babel-loader',
       exclude: /node_modules/,
       query: {
         presets: ['react', 'es2015', 'react-hmre']
-      }
+      },
     }]
   },
   externals: {
