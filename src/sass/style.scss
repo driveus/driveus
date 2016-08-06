@@ -130,6 +130,7 @@ body {
   height: 70px;
 }
 .list-container {
+  flex: 1;
   width: 100%;
   overflow: scroll;
   background-color: $secondary-color;
@@ -281,6 +282,7 @@ body {
     padding: 2px;
   }
   .list-container {
+    flex: 0;
     overflow: visible;
   }
   .list-item {
