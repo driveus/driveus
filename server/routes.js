@@ -2,6 +2,7 @@
 
 var lyft = require('./lyft.js');
 var uber = require('./uber.js');
+const db = require('./db.js');
 var genRadius = require('./generate_radius.js');
 var expandSearch = require('./expand_search.js');
 
@@ -15,7 +16,9 @@ module.exports = function(app) {
     //This function sends the response
     uber.uberRequest(coords)
     .then(function(data) {
-      res.json(uber.parseUber(data))
+      const parsedData = uber.parseUber(data);
+      db.saveUber(parsedData);
+      res.json(parsedData);
     })
     .catch(function(err) {
       console.log(err);
@@ -31,7 +34,9 @@ module.exports = function(app) {
     //This function sends the response
     lyft.lyftRequest(coords)
     .then(function(data) {
-      res.json(lyft.parseLyft(data))
+      const parsedData = lyft.parseLyft(data);
+      db.saveLyft(parsedData);
+      res.json(parsedData);
     })
     .catch(function(err) {
       console.log(err);
