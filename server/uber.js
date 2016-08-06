@@ -35,13 +35,14 @@ function parseUber(apiResponses) {
   rides = rides.map(function(obj) {
     const out = {};
     out.product_id = obj.product_id;
-    out.display_name = obj['display_name'];// === 'POOL' : 'uberPOOL';
+    out.display_name = obj['display_name'].replace(/^(uber)?/i, "Uber");
     out.duration = obj['duration'];
     out.distance = obj['distance'];
     out.high_estimate = obj['high_estimate'] * 100;
     out.low_estimate = obj['low_estimate'] * 100;
     out.avg_estimate = ((obj['high_estimate'] + obj['low_estimate']) * 100 / 2);
     out.price_multiplier = obj['surge_multiplier'];
+    if (out.display_name === 'POOL') { out.display_name = 'UberPOOL'; }
     return out;
   });
   //add the ETA to the corresponding object
