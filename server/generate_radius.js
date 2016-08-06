@@ -46,7 +46,7 @@ function reverseGeoCode(geoPoint) {
 
 function createGeoRadius(coords) {
   const startPoint = coords.start
-  const radius = 1;  // 1km
+  const radius = .25;  // 1km
 
   const promiseList = [];
   const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
