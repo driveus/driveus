@@ -5,8 +5,10 @@ import { bindActionCreators } from 'redux';
 
 class ActiveRoute extends Component {
   constructor(props) {
-    super(props)
-
+    super(props);
+    this.state = {
+     orderCab: null
+    }
     this.orderRide = this.orderRide.bind(this);
   }
   
@@ -23,20 +25,18 @@ class ActiveRoute extends Component {
       let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d`
       let orderUber = uberUrl + uberCoords;
 
-      console.log('************UBER ORDER***********', orderUber)
+      this.setState({orderRide: orderUber})
+
     } else if (this.props.route.display_name.match(/lyft/i)) {
         let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
         let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`
         let orderLyft = lyftUrl + lyftCoods;
-        console.log('************LYFT ORDER***********', orderLyft)
+
+        this.setState({orderCab: orderLyft})
     }
-
-
   }
 
   render() {
-    // console.log('This is the data I have right now*********',this.props.route.product_id);
-
     if (!this.props.route) { return <div></div>; }
     let eta = Math.round(this.props.route.eta/60),
         totalTime = Math.round((this.props.route.duration + this.props.route.eta)/60),
@@ -52,7 +52,9 @@ class ActiveRoute extends Component {
           <p>Cost: ${this.props.route.high_estimate/100}</p>
           <p>Pickup: {eta} {etaMinutes}</p>
           <p>Total: {totalTime} {totalMinutes}</p>
-          <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
+          <a href={this.state.orderCab}>
+            <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
+          </a>
         </div>
       </div>
     );
