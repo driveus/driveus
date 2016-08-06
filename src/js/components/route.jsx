@@ -18,7 +18,7 @@ class Route extends Component {
         totalMinutes = totalTime <= 1 ? 'minute' : 'minutes';
         // disclaimer = this.props.carpool ? '*' : '';
     return (
-      <li className="list-item"
+      <li className={`list-item ${this.props.classStyle}`}
         onClick={this.setActiveRoute}>
         <div className="route-cost">${Math.round(this.props.route.high_estimate/100)}</div>
         <div className="route-name">{this.props.route.display_name}</div>

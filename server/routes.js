@@ -64,9 +64,9 @@ module.exports = function(app) {
           optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
         }
         res.json({
-          minPrice: optimalPrice.ride,
+          minPrice: optimalPrice.ride || null,
           minPrice_coords: optimalPrice.coords || null,
-          minTime: optimalTime.ride,
+          minTime: optimalTime.ride || null,
           minTime_coords: optimalTime.coords || null
         })
       })
