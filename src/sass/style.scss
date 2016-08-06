@@ -125,7 +125,6 @@ body {
   display: flex;
 }
 .form-btn {
-<<<<<<< HEAD
   width: 157px;
     margin-top: 10px;
     color: #4aefcd;
@@ -142,16 +141,6 @@ body {
       background-color: white;
       color:black;
     }
-
-=======
-  background-color: #e6e6e6;
-  height: 30px;
-  width: 100px;
-  margin: 10px 5px 0px 5px;
-  &:active {
-    background-color: #cccccc;
-  }
->>>>>>> de74001c6da3bc2243bcbb16818333b2b3441504
 }
 .uber {
   background-color: $uber-color-secondary;
