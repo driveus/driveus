@@ -118,14 +118,17 @@ body {
   background-color: #325461;
   border-radius: 0 !important;
   &:hover {
-    background-color: #3e6675;
+    background-color: #426d7d;
   }
+}
+.price, .time {
+  transition-duration: 125ms;
 }
 .time {
   background-color: #279a80;
   border-radius: 0 !important;
   &:hover {
-    background-color: #2ca98c;
+    background-color: #30b597;
   }
 }
 .list-item {
