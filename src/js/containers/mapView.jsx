@@ -8,8 +8,10 @@ class MapView extends Component {
     let map = new google.maps.Map(document.querySelector('.map-container'), {
       center: this.props.currentCoords.start || { lat: 37.773972, lng: -122.431297 },
       scrollwheel: false,
-      zoom: 10
+      zoom: 10,
+      disableDefaultUI: true,
     });
+    console.log(google)
     this.setState({
       map: map,
       markers: []
@@ -32,6 +34,7 @@ class MapView extends Component {
     if (this.props.routeMarkers.length) {
       let markers = this.props.routeMarkers,
       bounds = new google.maps.LatLngBounds();
+      console.log(bounds)
       for (let i = 0; i < markers.length; i++) {
         if (markers[i].position) {
           markers[i].setMap(this.state.map);
@@ -39,6 +42,7 @@ class MapView extends Component {
         }
       }
       this.state.map.fitBounds(bounds);
+      this.state.map.setZoom(this.state.map.getZoom() - 1);
     }
     if (this.props.expandedMarkers.price || this.props.expandedMarkers.time) {
       let markers = this.props.expandedMarkers;
