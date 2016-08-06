@@ -21,6 +21,7 @@ $lyft-color-active: #ea7bb6;
 
 * {
   margin: 0;
+  font-family: sans-serif;
 }
 html, body {
   height: 100%
@@ -275,7 +276,7 @@ body {
   background-color: $secondary-color;
 }
 .inactive-expand {
-  opacity: .7;
+  opacity: .5;
   pointer-events: none;
 }
 // MOBILE-ISH ******************************************
@@ -347,7 +348,8 @@ body {
       margin: 0;
       padding: 0 0 0 10px;
       // border-top: 1px inset gray;
-      border: 1px solid gray;
+      border: none;
+      border-bottom: 1px solid gray;
       width: 100%;
       font-size: 1em;
       height: 3em;
