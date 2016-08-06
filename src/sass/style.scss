@@ -7,7 +7,7 @@ $default-radius: 5px;
 $center: 0 auto;
 $list-padding: 10px;
 $default-box-shadow: 2px 2px 23px -2px rgba(0,0,0,0.3);
-$min-width: 750px;
+$min-width: 400px;
 $max-width: 1000px;
 // Company styles
 $uber-color-primary: #222233;
@@ -32,7 +32,7 @@ body {
   background-color: rgba(0,0,0,.6);
   min-height: 40px;
   margin-bottom: 20px;
-  min-width: $min-width;
+  // min-width: $min-width;
 }
 #footer {
   color: #d9d9d9;
@@ -41,7 +41,7 @@ body {
   min-height: 25px;
   line-height: 25px;
   font-size: 14px;
-  min-width: $min-width;
+  // min-width: $min-width;
 }
 #site-title {
   font-family: "Arial", sans-serif;
@@ -57,7 +57,7 @@ body {
   height: inherit;
 }
 #container {
-  min-width: $min-width;
+  // min-width: $min-width;
   // max-width: $max-width;
   margin: $center;
   display: flex;
@@ -129,8 +129,6 @@ body {
   width: 100%;
   overflow: scroll;
   background-color: $secondary-color;
-  border-bottom-right-radius: $default-radius;
-  border-bottom-left-radius: $default-radius;
   margin: $center;
   ul {
     padding: 0px;
@@ -257,4 +255,84 @@ body {
   box-sizing: border-box;
   margin: $center;
   background-color: $secondary-color;
+}
+.inactive-expand {
+  opacity: .5;
+  pointer-events: none;
+}
+// MOBILE-ISH ******************************************
+@media (max-width: 885px) {
+  #container {
+    flex-direction: column;
+  }
+  .information-view {
+    flex-direction: column;
+  }
+  .list-container {
+    overflow: visible;
+  }
+  .list-item {
+    height: 12em;
+  }
+  .route-name {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  .driver-eta, .route-duration {
+    font-size: 1em;
+  }
+  .route-cost {
+    float: none;
+    font-size: 3em;
+  }
+  .selected-route-container {
+    right: 10%;
+    left: 10%;
+    min-height: 20em;
+    h1 {
+      font-size: 2em;
+    }
+    p {
+      font-size: 1.5em;
+    }
+    #order-btn {
+      width: 6em;
+      font-size: 1.5em;
+      height: 3em;
+    }
+  }
+  #map-display {
+    flex: none;
+    height: 300px;
+    pointer-events: none;
+    // display: none;
+  }
+  .search-box {
+    padding: 0;
+  }
+  .location-form {
+    width: 100%;
+    input {
+      margin: 0;
+      padding: 0 0 0 10px;
+      border-top: 1px inset gray;
+      width: 100%;
+      font-size: 1em;
+      height: 3em;
+    }
+  }
+  .form-submit {
+    width: 100%;
+  }
+  .form-btn {
+    margin: 0;
+    border: 1px solid $secondary-color;
+    width: 50%;
+    font-size: 1.5em;
+    height: 3em;
+    cursor: pointer;
+    &:active {
+      background-color: #8c8c8c;
+    }
+  }
 }

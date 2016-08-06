@@ -21,7 +21,6 @@ export function setMarkers(coords) {
 export function setExpandedMarkers(coords) {
   let newMarkers = {}
   for (let data in coords) {
-      // style the markers or something?
       let marker = new google.maps.Marker({
         position: coords[data].start,
         animation: 2,
