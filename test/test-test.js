@@ -1,19 +1,19 @@
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk';
-import React, { Component } from 'react';
-import { mount, shallow } from 'enzyme';
-import expect from 'expect';
-import { Provider } from 'react-redux';
-import Test from "../src/js/containers/routeLists.jsx";
-import App from "../src/js/components/app.jsx";
-import MapView from '../src/js/containers/mapView.jsx';
-import RoutesLists from '../src/js/containers/routeLists.jsx';
-import Route from '../src/js/components/route.jsx';
+// import configureMockStore from 'redux-mock-store'
+// import thunk from 'redux-thunk';
+// import React, { Component } from 'react';
+// import { mount, shallow } from 'enzyme';
+// import expect from 'expect';
+// import { Provider } from 'react-redux';
+// import Test from "../src/js/containers/routeLists.jsx";
+// import App from "../src/js/components/app.jsx";
+// import MapView from '../src/js/containers/mapView.jsx';
+// import RoutesLists from '../src/js/containers/routeLists.jsx';
+// import Route from '../src/js/components/route.jsx';
 
 // const middlewares = [ thunk ]
 // const mockStore = configureMockStore();
 // var store;
-describe('Testing', function() {
+// describe('Testing', function() {
   // beforeEach(function() {
   //   var initialState = {
   //     routes: null,
@@ -46,7 +46,7 @@ describe('Testing', function() {
   //   // })
   // })
 
-})
+// })
 // describe('Children should contain passed properties of Parents', function() {
 //   it('should contain the method selectRoute', function() {
 //     const routeWrapper = shallow(<Route />);
@@ -67,4 +67,3 @@ describe('Testing', function() {
 //     // expect(getCoords(address).toEqual)
 //   })
 // })
-
