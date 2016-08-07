@@ -41,13 +41,13 @@ function reverseGeoCode(geoPoint) {
     json: true
   }
   return rp(options).then((resp) => {
-    return resp.results[0].geometry.location
+    return resp.results[0].geometry.location;
   })
 }
 
 // Accepts a starting lat/lng and generates valid lat/lng coordinates at each bearing 
 function createGeoRadius(coords) {
-  const startPoint = coords.start
+  const startPoint = coords.start;
   const radius = .5;  // 1km
 
   // Creates promiseList array and instantiates with the validated start point
@@ -55,10 +55,10 @@ function createGeoRadius(coords) {
   // const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
   const bearings = [0, 90, 180, 270];
   bearings.forEach((bearing) => {
-    let newPoint = createPointOnRadius(startPoint, bearing, radius)
-    promiseList.push(reverseGeoCode(newPoint))
+    let newPoint = createPointOnRadius(startPoint, bearing, radius);
+    promiseList.push(reverseGeoCode(newPoint));
   });
-  return Promise.all(promiseList)
+  return Promise.all(promiseList);
 
 }
 
