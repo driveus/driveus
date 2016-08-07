@@ -38,7 +38,6 @@ export function setExpandedMarkers(coords) {
   }
       newMarkers.price = priceMarker;
       newMarkers.time = timeMarker;
-      console.log('flkasdjfsad', newMarkers)
   return {
     type: SET_EXPANDED_MARKERS,
     payload: newMarkers
