@@ -14,6 +14,7 @@ class ExpandSearch extends Component {
   render() {
     return (
       <button
+        type="button"
         className={`form-btn ${this.props.classStyle}`}
         onClick={this.search}>
         Better Deals

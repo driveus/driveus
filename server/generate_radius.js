@@ -45,7 +45,7 @@ function reverseGeoCode(geoPoint) {
   })
 }
 
-// Accepts a starting lat/lng and generates valid lat/lng coordinates at each bearing 
+// Accepts a starting lat/lng and generates valid lat/lng coordinates at each bearing
 function createGeoRadius(coords) {
   const startPoint = coords.start;
   const radius = .5;  // 1km
