@@ -40,6 +40,12 @@ function checkIfOptimalTime(rideOptions, optimalTime) {
         optimalTime.coords = rideOptions.coords;
       }
     }
+    if ((option.duration + option.eta) === (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'uberTAXI') {
+      if (option.avg_estimate < optimalTime.ride.avg_estimate || option.distance < optimalTime.ride.distance) {
+        optimalTime.ride = option;
+        optimalTime.coords = rideOptions.coords;
+      }
+    }
   })
   console.log('OPTIMAL TIME OPTION: ', 'Product: ', optimalTime.ride.display_name,  'Estimate: ',  optimalTime.ride.avg_estimate,  'TotalTime: ',  optimalTime.ride.eta + optimalTime.ride.duration,  'Coords: ',  optimalTime.coords.start);
   return optimalTime;
@@ -47,7 +53,6 @@ function checkIfOptimalTime(rideOptions, optimalTime) {
 
 // Receives the user's selected starting location
 function expandSearch(startCoords) {
-
   const uberPromiseList = [];
   const lyftPromiseList = [];
 
