@@ -3,6 +3,10 @@ import {
   SET_EXPANDED_MARKERS
 } from './types';
 
+
+
+
+
 export function setMarkers(coords) {
   let markers = [];
   markers.push(new google.maps.Marker({
@@ -19,13 +23,16 @@ export function setMarkers(coords) {
   }
 }
 export function setExpandedMarkers(coords) {
-  let newMarkers = {}
+  let newMarkers = {};
+
   for (let data in coords) {
-      let marker = new google.maps.Marker({
-        position: coords[data].start,
-        animation: 2,
-      });
-      newMarkers[data] = marker
+    let path = (data === 'price') ? require('../../assets/price.svg') : require('../../assets/time.svg');
+    let marker = new google.maps.Marker({
+      position: coords[data].start,
+      animation: 2,
+      icon: path
+    });
+    newMarkers[data] = marker
   }
   return {
     type: SET_EXPANDED_MARKERS,
