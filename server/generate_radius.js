@@ -8,10 +8,10 @@ Number.prototype.toDeg = function() {
   return this * 180 / Math.PI;
 }
 
+// Returns a new lat/lng pair at a specific bearing and distance (radius) from a starting point
 function createPointOnRadius(startPoint, bearing, dist) {
   dist = dist / 6371;
   bearing = bearing.toRad();
-
   const lat1 = startPoint.lat.toRad();
   const lng1 = startPoint.lng.toRad();
   const lat2 = Math.asin(Math.sin(lat1) * Math.cos(dist) + Math.cos(lat1) * Math.sin(dist) * Math.cos(bearing));
@@ -26,6 +26,7 @@ function createPointOnRadius(startPoint, bearing, dist) {
   return {lat: newLat, lng: newLng};
 }
 
+// Accepts a lat/lng pair and checks for closest valid point on land
 function reverseGeoCode(geoPoint) {
   const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
   const googlekey = process.env.GOOGLE_KEY;
@@ -39,61 +40,26 @@ function reverseGeoCode(geoPoint) {
     },
     json: true
   }
-  return rp(options).then(function(resp){
-    return resp.results[0].geometry.location
+  return rp(options).then((resp) => {
+    return resp.results[0].geometry.location;
   })
 }
 
+// Accepts a starting lat/lng and generates valid lat/lng coordinates at each bearing 
 function createGeoRadius(coords) {
-  const startPoint = coords.start
-  const radius = 1;  // 1km
+  const startPoint = coords.start;
+  const radius = .5;  // 1km
 
-  const promiseList = [];
-  const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
-  bearings.forEach(function(bearing) {
-    var newPoint = createPointOnRadius(startPoint, bearing, radius)
-    promiseList.push(reverseGeoCode(newPoint))
+  // Creates promiseList array and instantiates with the validated start point
+  const promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
+  // const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
+  const bearings = [0, 90, 180, 270];
+  bearings.forEach((bearing) => {
+    let newPoint = createPointOnRadius(startPoint, bearing, radius);
+    promiseList.push(reverseGeoCode(newPoint));
   });
-  return Promise.all(promiseList)
+  return Promise.all(promiseList);
 
 }
 
 module.exports.createGeoRadius = createGeoRadius;
-
-
-
-
-
-/*
-var map = new google.maps.Map(document.getElementById("map"), mapOpt);
-
-var mapOpt = {
-   // mapTypeId: google.maps.MapTypeId.TERRAIN,
-   center: pointA,
-   zoom: 13
-};
-
-// Draw the circle
-new google.maps.Circle({
-   center: pointA,
-   radius: radius * 1000,       // Convert to meters
-   fillColor: '#FF0000',
-   fillOpacity: 0.2,
-   map: map
-});
-
-// Show marker at circle center
-new google.maps.Marker({
-   position: pointA,
-   map: map
-});
-
-locations.forEach(function(location) {
-   new google.maps.Marker({
-      position: location,
-      map: map
-   });
-
-})
-
-*/
