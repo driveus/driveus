@@ -14,15 +14,10 @@ module.exports = function(app) {
       coords = req.body.data;
     }
     uber.uberRequest(coords)
-<<<<<<< 8f818bf7fd9c701fbf1c1ed8013ce82de28936e2
     .then(function(data) {
       const parsedData = uber.parseUber(data);
       db.saveUber(parsedData);
       res.json(parsedData);
-=======
-    .then((data) => {
-      res.json(uber.parseUber(data))
->>>>>>> [fixes] Commented code, removeds some console.logs, migrated towards es6,
     })
     .catch((err) => {
       console.log(err);
@@ -36,15 +31,10 @@ module.exports = function(app) {
       coords = req.body.data;
     }
     lyft.lyftRequest(coords)
-<<<<<<< 8f818bf7fd9c701fbf1c1ed8013ce82de28936e2
     .then(function(data) {
       const parsedData = lyft.parseLyft(data);
       db.saveLyft(parsedData);
       res.json(parsedData);
-=======
-    .then((data) => {
-      res.json(lyft.parseLyft(data))
->>>>>>> [fixes] Commented code, removeds some console.logs, migrated towards es6,
     })
     .catch((err) => {
       console.log(err);
@@ -61,7 +51,7 @@ module.exports = function(app) {
       .then((data) => {
         let optimalPrice = {};
         let optimalTime = {};
-        for (let i = 0; i < data[0].length; i++) { 
+        for (let i = 0; i < data[0].length; i++) {
           let result = uber.parseUber(data[0][i]);
           console.log('Parsed Uber Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
