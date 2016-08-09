@@ -2,7 +2,6 @@
 
 var lyft = require('./lyft.js');
 var uber = require('./uber.js');
-const db = require('./db.js');
 var genRadius = require('./generate_radius.js');
 var expandSearch = require('./expand_search.js');
 
@@ -13,52 +12,53 @@ module.exports = function(app) {
     if (req.body) {
       coords = req.body.data;
     }
+    //This function sends the response
     uber.uberRequest(coords)
     .then(function(data) {
-      const parsedData = uber.parseUber(data);
-      db.saveUber(parsedData);
-      res.json(parsedData);
+      res.json(uber.parseUber(data));
     })
-    .catch((err) => {
+    .catch(function(err) {
       console.log(err);
     })
   })
 
-  app.all('/api/lyft', (req, res) => {
+  app.all('/api/lyft', function(req, res) {
     console.log('lyft hit: ', req.body.data)
     let coords;
     if (req.body) {
       coords = req.body.data;
     }
+    //This function sends the response
     lyft.lyftRequest(coords)
     .then(function(data) {
-      const parsedData = lyft.parseLyft(data);
-      db.saveLyft(parsedData);
-      res.json(parsedData);
+      res.json(lyft.parseLyft(data));
     })
-    .catch((err) => {
+    .catch(function(err) {
       console.log(err);
     })
+
   })
 
-  // Will respond with cheapest and fastest ride options based on various bearings/radius around start point
-  app.all('/api/expandSearch', (req, res) => {
+  app.all('/api/expandSearch', function(req, res) {
     let coords;
     if (req.body) {
       coords = req.body.data;
     }
+    console.log('Expanded Search activated', coords) // , req.body.data)
     expandSearch.expandSearch(coords)
-      .then((data) => {
-        let optimalPrice = {};
-        let optimalTime = {};
-        for (let i = 0; i < data[0].length; i++) {
-          let result = uber.parseUber(data[0][i]);
+      .then(function(data) {
+        // console.log('Expanded Search response data: ', data);
+        var optimalPrice = {};
+        var optimalTime = {};
+        // console.log('Uber Promise List', data);
+        for (var i = 0; i < data[0].length; i++) {
+          var result = uber.parseUber(data[0][i], true);
           console.log('Parsed Uber Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
           optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
         }
-        for (let j = 0; j < data[1].length; j++) {
-          let result = lyft.parseLyft(data[1][j]);
+        for (var j = 0; j < data[1].length; j++) {
+          var result = lyft.parseLyft(data[1][j], true);
           console.log('Parsed Lyft Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
           optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
@@ -70,34 +70,45 @@ module.exports = function(app) {
           minTime_coords: optimalTime.coords || null
         })
       })
-      .catch((err) => {
+      .catch(function(err) {
         console.log('Some Uber call failed', err);
       })
+
+
+      // .then(function(data) {
+      //   res.json(data);
+      // })
+      // .catch(function(err) {
+      //   console.log('At least 1 geoRadius point failed to return');
+      // })
   })
 
-  app.all('/api/genRadius', function(req, res) {
-    let coords;
-    if (req.body) {
-      coords = req.body.data;
-    }
-    genRadius.createGeoRadius(coords)
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        console.log('At least 1 geoRadius point failed to return');
-      })
-  })
+  // app.all('/api/genRadius', function(req, res) {
+  //   console.log('Generating Radius Of Coordinates', dummyCoords) // , req.body.data)
+  //   // res.json('test');
+  //   let coords;
+  //   if (req.body) {
+  //     coords = req.body.data;
+  //   }
+  //   //This function grabs points around a center
+  //   genRadius.createGeoRadius(dummyCoords)
+  //     .then(function(data) {
+  //       res.json(data);
+  //     })
+  //     .catch(function(err) {
+  //       console.log('At least 1 geoRadius point failed to return');
+  //     })
+  // })
 
 };
 
-// const dummyCoords = {
-//   start: {
-//     lat: 37.7905123,
-//     lng: -122.3891332
-//   },
-//   end: {
-//     lat: 37.7749,
-//     lng: -122.4194
-//   }
-// }
+const dummyCoords = {
+  start: {
+    lat: 37.7905123,
+    lng: -122.3891332
+  },
+  end: {
+    lat: 37.7749,
+    lng: -122.4194
+  }
+}

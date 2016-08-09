@@ -21,10 +21,10 @@ function generateToken() {
     json: true
   }
   return rp(options)
-  .then((resp) => {
+  .then(function(resp) {
     lyftToken = resp['access_token'];
   })
-  .catch((err) => {
+  .catch(function(err) {
     console.log(err);
   })
 }
@@ -60,12 +60,12 @@ function lyftEtas(coords) {
 
 //Input Lyft's responses from the rides & etas API calls, output an array
 // of ride options with all relevant properties combined from the two calls.
-function parseLyft(apiResponses) {
+function parseLyft(apiResponses, isExpandedSearch = false) {
   let rides = apiResponses[0]['cost_estimates'];
   const etas = apiResponses[1]['eta_estimates'];
   const coords = apiResponses[2];
 
-  rides = rides.map((obj) => {
+  rides = rides.map(function(obj) {
     const out = {};
     out.display_name = obj.display_name;
     out.duration = obj['estimated_duration_seconds'];
@@ -84,10 +84,9 @@ function parseLyft(apiResponses) {
       }
     }
   }
-  return {
-    rides: rides,
-    coords: coords
-  };
+  const results = {rides: rides, coords: coords};
+  db.saveLyft(results, isExpandedSearch);
+  return results;
 }
 
 function lyftRequest(coords) {
