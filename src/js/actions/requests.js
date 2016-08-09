@@ -1,4 +1,5 @@
 import {
+  setDirections,
   setAddress,
   requestRoutes,
   receiveRoutesLyft,
@@ -16,6 +17,7 @@ import axios from 'axios';
 
 export function getCoords(location) {
   return function(dispatch) {
+    dispatch(getDirections(location));
     dispatch(setAddress(location));
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: location.start }, (results, status) => {
@@ -81,6 +83,8 @@ export function fetchExpanded(coords) {
         ctime: response.data.minTime.display_name,
         cprice: response.data.minPrice.display_name
       }
+      // dispatch(getExpandedDirections(expandedCoords.price));
+      // dispatch(getExpandedDirections(expandedCoords.time));
       dispatch(setExpandedMarkers(expandedCoords));
       let expandedRoutes = {
         price: response.data.minPrice,
@@ -92,6 +96,23 @@ export function fetchExpanded(coords) {
       console.log(err);
       dispatch(noExpandedRoutes());
     })
+  }
+}
+
+export function getDirections(location) {
+  return function (dispatch) {
+    let directionsService = new google.maps.DirectionsService;
+    directionsService.route({
+      origin: location.start,
+      destination: location.end,
+      travelMode: 'WALKING'
+    }, function(response, status) {
+      if (status === 'OK') {
+        dispatch(setDirections(response));
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
   }
 }
 

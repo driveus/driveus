@@ -5,14 +5,19 @@ import { bindActionCreators } from 'redux';
 class MapView extends Component {
 
   componentDidMount() {
-    let map = new google.maps.Map(document.querySelector('.map-container'), {
+      let directionsDisplay = new google.maps.DirectionsRenderer({
+        suppressMarkers: true
+      });
+      let map = new google.maps.Map(document.querySelector('.map-container'), {
       center: this.props.currentCoords.start || { lat: 37.773972, lng: -122.431297 },
       scrollwheel: false,
       zoom: 10,
       // disableDefaultUI: true,
     });
+    directionsDisplay.setMap(map);
     this.setState({
       map: map,
+      directionsDisplay: directionsDisplay,
       markers: []
     });
   }
@@ -30,6 +35,10 @@ class MapView extends Component {
     }
   }
   componentDidUpdate() {
+    if (this.props.directions) {
+      this.state.directionsDisplay.setDirections(this.props.directions);
+      console.log(this.props.directions.routes[0].legs[0].duration.value/60);
+    }
     if (this.props.routeMarkers.start) {
       let markers = this.props.routeMarkers,
       bounds = new google.maps.LatLngBounds();
@@ -43,6 +52,7 @@ class MapView extends Component {
       // this.state.map.setZoom(this.state.map.getZoom() - 1);
     }
     if (this.props.expandedMarkers.price || this.props.expandedMarkers.time) {
+      this.state.directionsDisplay.set('directions', null);
       let markers = this.props.expandedMarkers,
           bounds = new google.maps.LatLngBounds();
       for (let data in markers) {
@@ -69,7 +79,8 @@ function mapStateToProps(state) {
   return {
     currentCoords: state.currentCoords,
     routeMarkers: state.routeMarkers,
-    expandedMarkers: state.expandedMarkers
+    expandedMarkers: state.expandedMarkers,
+    directions: state.directions
   }
 }
 export default connect(mapStateToProps)(MapView);

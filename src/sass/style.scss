@@ -140,13 +140,23 @@ body {
 .lyft {
   background-color: $lyft-color-primary;
 }
+.expanded-routes {
+  .price:hover {
+    background-color: #426d7d;
 
+  }
+  .time:hover {
+    background-color: #30b597;
+  }
+}
 .price {
   background-color: #325461;
   border-radius: 0 !important;
-  &:hover {
-    background-color: #426d7d;
-  }
+}
+.disclaimer {
+  font-size: 12px;
+  color: $off-white;
+  opacity: .6
 }
 
 .price,
@@ -157,9 +167,6 @@ body {
 .time {
   background-color: #279a80;
   border-radius: 0 !important;
-  &:hover {
-    background-color: #30b597;
-  }
 }
 
 .list-item {
@@ -167,7 +174,7 @@ body {
   padding: $list-padding;
   list-style-type: none;
   text-align: left;
-  height: 70px;
+  min-height: 70px;
 }
 
 .list-container {
@@ -417,5 +424,8 @@ body {
   .price,
   .time {
     height: 10em !important;
+  }
+  .disclaimer {
+    font-size: .9em;
   }
 }

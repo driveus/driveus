@@ -1,4 +1,5 @@
 import {
+  SET_DIRECTIONS,
   SET_ADDRESS,
   ROUTE_SELECTED,
   ROUTE_DESELECTED,
@@ -10,6 +11,12 @@ import {
   INVALID_ROUTES
 } from './types';
 
+export function setDirections(directions) {
+  return {
+    type: SET_DIRECTIONS,
+    payload: directions
+  }
+}
 export function setAddress(address) {
   return {
     type: SET_ADDRESS,

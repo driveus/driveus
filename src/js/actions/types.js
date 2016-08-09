@@ -1,6 +1,7 @@
 // Active route selection and lightbox triggers
 export const ROUTE_SELECTED = 'ROUTE_SELECTED';
 export const ROUTE_DESELECTED = 'ROUTE_DESELECTED';
+export const SET_DIRECTIONS = 'SET_DIRECTIONS';
 export const SET_ADDRESS = 'SET_ADDRESS';
 export const SET_MARKERS = 'SET_MARKERS';
 export const SET_EXPANDED_MARKERS = 'SET_EXPANDED_MARKERS';

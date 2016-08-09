@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div id="wrapper">
         <div id="container">
-          <h1 id="site-title">DriveUs</h1>
+          <h1 id="site-title">Search for Taxi deals</h1>
           <Controls />
           <ActiveRoute />
           <div className="information-view">
