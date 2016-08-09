@@ -3,10 +3,6 @@ import {
   SET_EXPANDED_MARKERS
 } from './types';
 
-
-
-
-
 export function setMarkers(coords) {
   let newMarkers = {};
   newMarkers.start = new google.maps.Marker({

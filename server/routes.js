@@ -51,7 +51,7 @@ module.exports = function(app) {
       .then((data) => {
         let optimalPrice = {};
         let optimalTime = {};
-        for (let i = 0; i < data[0].length; i++) { 
+        for (let i = 0; i < data[0].length; i++) {
           let result = uber.parseUber(data[0][i]);
           console.log('Parsed Uber Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
