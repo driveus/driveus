@@ -21,6 +21,7 @@ $lyft-color-active: #ea7bb6;
 
 * {
   margin: 0;
+  font-family: sans-serif;
 }
 html, body {
   height: 100%
@@ -50,8 +51,13 @@ body {
   font-size: 40px;
   color: white;
   padding: 5px;
+<<<<<<< HEAD
   padding: 9px;
   // border-bottom: 1px solid #fff;
+=======
+  border-bottom: 1px solid #222;
+  background-color: $off-white;
+>>>>>>> fb2e41bebd8314c8cfda3f1dd11e702d88d6635b
 }
 #app {
   height: inherit;
@@ -69,8 +75,12 @@ body {
   text-align: center;
   // color: $header-text-color;
   // background: linear-gradient(90deg, #482BBD 0%, #e70b81 100%);
+<<<<<<< HEAD
   // background-color: $off-white;
   // background: url("http://static1.squarespace.com/static/5567846ee4b07c004ad4db4e/t/557b6f81e4b0db2f0d087a44/1432847002645/uberpool_v2.jpg?format=1400w");
+=======
+  background-color: white;
+>>>>>>> fb2e41bebd8314c8cfda3f1dd11e702d88d6635b
   // box-shadow: $default-box-shadow;
   // border-top-right-radius: $default-radius;
   // border-top-left-radius: $default-radius;
@@ -103,7 +113,8 @@ body {
   flex-direction: column;
   width: 100%;
   input {
-    width: 700px;
+    min-width: 600px;
+    width: 60%;
     padding: 0px 0px 0px 5px;
     line-height: 2em;
     font-size: 1.5em;
@@ -149,12 +160,21 @@ body {
   background-color: $lyft-color-primary;
 }
 .price {
-  background-color: #006622;
+  background-color: #325461;
   border-radius: 0 !important;
+  &:hover {
+    background-color: #426d7d;
+  }
+}
+.price, .time {
+  transition-duration: 125ms;
 }
 .time {
-  background-color: #e6b800;
+  background-color: #279a80;
   border-radius: 0 !important;
+  &:hover {
+    background-color: #30b597;
+  }
 }
 .list-item {
   cursor: pointer;
@@ -188,6 +208,7 @@ body {
   float: left;
   width: 50%;
   li {
+    transition-duration: 125ms;
     &:nth-child(even) {
       background-color: $uber-color-primary
     }
@@ -208,6 +229,7 @@ body {
   float: right;
   width: 50%;
   li {
+    transition-duration: 125ms;
     &:nth-child(even) {
       background-color: $lyft-color-primary;
     }
@@ -302,14 +324,19 @@ body {
   pointer-events: none;
 }
 // MOBILE-ISH ******************************************
-@media (max-width: 885px) {
+@media (max-width: 955px) {
   #container {
     flex-direction: column;
   }
   .information-view {
     flex-direction: column;
   }
+  #site-title {
+    font-size: 22px;
+    padding: 2px;
+  }
   .list-container {
+    flex: 0;
     overflow: visible;
   }
   .list-item {
@@ -345,19 +372,23 @@ body {
   }
   #map-display {
     flex: none;
-    height: 300px;
-    pointer-events: none;
-    // display: none;
+    height: 330px;
   }
   .search-box {
     padding: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
   }
   .location-form {
     width: 100%;
     input {
+      min-width: 0;
       margin: 0;
       padding: 0 0 0 10px;
-      border-top: 1px inset gray;
+      border: none;
+      border-bottom: 1px solid gray;
+      box-sizing: border-box;
       width: 100%;
       font-size: 1em;
       height: 3em;
@@ -365,13 +396,22 @@ body {
   }
   .form-submit {
     width: 100%;
+    background-color: gray;
   }
   .form-btn {
+    border-radius: $default-radius;
+    background-color: $off-white;
     margin: 0;
     border: 1px solid $secondary-color;
     width: 50%;
     font-size: 1.5em;
-    height: 3em;
+    height: 2.2em;
     cursor: pointer;
+    &:active {
+      background-color: #f2f2f2;
+    }
+  }
+  .price, .time {
+    height: 10em !important;
   }
 }

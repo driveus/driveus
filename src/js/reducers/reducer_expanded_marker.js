@@ -1,5 +1,5 @@
 import {
-  SET_EXPANDED_MARKERS,
+  SET_EXPANDED_MARKERS
 } from '../actions/types';
 
 // state is not application state, only responsible for reducer state

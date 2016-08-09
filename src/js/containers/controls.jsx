@@ -12,11 +12,24 @@ class Controls extends Component {
     super(props);
     this.state = {
       startLocation: '',
-      endLocation: ''
+      endLocation: '',
+      startPlaceholder: 'Pickup',
+      endPlaceholder: 'Dropoff',
+      currentLocation: null
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleLocationAutoComplete = this.handleLocationAutoComplete.bind(this)
+  }
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({
+        currentLocation: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+      });
+    });
   }
   componentWillReceiveProps() {
     this.setState({
@@ -82,7 +95,7 @@ class Controls extends Component {
             onAutoComplete={this.handleLocationAutoComplete}
             value={this.state.startLocation}
             name="startLocation"
-            placeholder={this.state.startPlaceholder || "Pickup"}
+            placeholder={this.state.startPlaceholder}
             />
           <LocationSearch
             tripNode="endLocation"
@@ -90,15 +103,15 @@ class Controls extends Component {
             onAutoComplete={this.handleLocationAutoComplete}
             value={this.state.endLocation}
             name="endLocation"
-            placeholder={this.state.endPlaceholder || "Dropoff"}
+            placeholder={this.state.endPlaceholder}
             />
           <div className="form-submit">
-            <button className="form-btn">Submit</button>
             <ExpandSearch
               classStyle={isActive}
               currentLocation={this.props.currentCoords}
               expandSearch={canExpand}
               />
+              <button className="form-btn">Submit</button>
           </div>
         </form>
       </div>

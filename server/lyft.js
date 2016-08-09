@@ -21,10 +21,10 @@ function generateToken() {
     json: true
   }
   return rp(options)
-  .then(function(resp) {
+  .then((resp) => {
     lyftToken = resp['access_token'];
   })
-  .catch(function(err) {
+  .catch((err) => {
     console.log(err);
   })
 }
@@ -66,7 +66,7 @@ function parseLyft(apiResponses) {
   const etas = apiResponses[1]['eta_estimates'];
   const coords = apiResponses[2];
 
-  rides = rides.map(function(obj) {
+  rides = rides.map((obj) => {
     const out = {};
     out.display_name = obj.display_name;
     out.duration = obj['estimated_duration_seconds'];
