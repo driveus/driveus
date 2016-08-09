@@ -15,7 +15,7 @@ function saveUber(parsedData, isExpandedSearch) {
                       end_lat: parsedData.coords.end.lat,
                       end_lng: parsedData.coords.end.lng,
                       distance_miles: ride.distance,
-                      expandedSearch: isExpandedSearch
+                      expanded_search: isExpandedSearch
                      };
     db.uberhist.save(queryObj, (err) => {
       if (err) {

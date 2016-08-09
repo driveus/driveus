@@ -33,7 +33,7 @@ function parseUber(apiResponses, isExpandedSearch = false) {
   const etas = apiResponses[1]['times'];
   const coords = apiResponses[2];
 
-  rides = rides.map(function(obj) {
+  rides = rides.map((obj) => {
     const out = {};
     out.product_id = obj.product_id;
     out.display_name = obj['display_name'].replace(/^(uber)?/i, "Uber");

@@ -6,7 +6,7 @@ var genRadius = require('./generate_radius.js');
 var expandSearch = require('./expand_search.js');
 
 module.exports = function(app) {
-  app.all('/api/uber', function(req, res) {
+  app.all('/api/uber', (req, res) => {
     console.log('uber hit: ', req.body.data)
     let coords;
     if (req.body) {
@@ -17,12 +17,12 @@ module.exports = function(app) {
     .then(function(data) {
       res.json(uber.parseUber(data));
     })
-    .catch(function(err) {
+    .catch((err) => {
       console.log(err);
     })
   })
 
-  app.all('/api/lyft', function(req, res) {
+  app.all('/api/lyft', (req, res) => {
     console.log('lyft hit: ', req.body.data)
     let coords;
     if (req.body) {
@@ -30,35 +30,35 @@ module.exports = function(app) {
     }
     //This function sends the response
     lyft.lyftRequest(coords)
-    .then(function(data) {
+    .then((data) => {
       res.json(lyft.parseLyft(data));
     })
-    .catch(function(err) {
+    .catch((err) => {
       console.log(err);
     })
-
   })
 
-  app.all('/api/expandSearch', function(req, res) {
+// Will respond with cheapest and fastest ride options based on various bearings/radius around start point
+  app.all('/api/expandSearch', (req, res) => {
     let coords;
     if (req.body) {
       coords = req.body.data;
     }
     console.log('Expanded Search activated', coords) // , req.body.data)
     expandSearch.expandSearch(coords)
-      .then(function(data) {
+      .then((data) => {
         // console.log('Expanded Search response data: ', data);
-        var optimalPrice = {};
-        var optimalTime = {};
+        let optimalPrice = {};
+        let optimalTime = {};
         // console.log('Uber Promise List', data);
-        for (var i = 0; i < data[0].length; i++) {
-          var result = uber.parseUber(data[0][i], true);
+        for (let i = 0; i < data[0].length; i++) {
+          let result = uber.parseUber(data[0][i], true);
           console.log('Parsed Uber Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
           optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
         }
-        for (var j = 0; j < data[1].length; j++) {
-          var result = lyft.parseLyft(data[1][j], true);
+        for (let j = 0; j < data[1].length; j++) {
+          const result = lyft.parseLyft(data[1][j], true);
           console.log('Parsed Lyft Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
           optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
@@ -70,7 +70,7 @@ module.exports = function(app) {
           minTime_coords: optimalTime.coords || null
         })
       })
-      .catch(function(err) {
+      .catch((err) => {
         console.log('Some Uber call failed', err);
       })
 
@@ -83,32 +83,21 @@ module.exports = function(app) {
       // })
   })
 
-  // app.all('/api/genRadius', function(req, res) {
-  //   console.log('Generating Radius Of Coordinates', dummyCoords) // , req.body.data)
-  //   // res.json('test');
-  //   let coords;
-  //   if (req.body) {
-  //     coords = req.body.data;
-  //   }
-  //   //This function grabs points around a center
-  //   genRadius.createGeoRadius(dummyCoords)
-  //     .then(function(data) {
-  //       res.json(data);
-  //     })
-  //     .catch(function(err) {
-  //       console.log('At least 1 geoRadius point failed to return');
-  //     })
-  // })
+  app.all('/api/genRadius', (req, res) => {
+    console.log('Generating Radius Of Coordinates', dummyCoords) // , req.body.data)
+    // res.json('test');
+    let coords;
+    if (req.body) {
+      coords = req.body.data;
+    }
+    //This function grabs points around a center
+    genRadius.createGeoRadius(dummyCoords)
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        console.log('At least 1 geoRadius point failed to return');
+      })
+  })
 
 };
-
-const dummyCoords = {
-  start: {
-    lat: 37.7905123,
-    lng: -122.3891332
-  },
-  end: {
-    lat: 37.7749,
-    lng: -122.4194
-  }
-}
