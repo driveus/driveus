@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 const uber = require('../server/uber.js');
 const lyft = require('../server/lyft.js');
 const chai = require('chai');
@@ -17,15 +18,15 @@ const dummyCoords = {
 
 describe('Uber', () => {
   it('uberRequest() should return promises', (done) => {
-    uber.uberRequest(dummyCoords)
-    .then(done());
+    const promise = uber.uberRequest(dummyCoords);
+    (promise.then).should.be.a('function');
+    done();
   });
   it('The responses should parse to an object of rides and coords', function(done) {
-    this.timeout(50000)
     uber.uberRequest(dummyCoords).then((data) => {
-      rides = uber.parseUber(data);
-      rides.should.have.property('rides');
-      rides.should.have.property('coords');
+      const parsed = uber.parseUber(data);
+      parsed.should.have.property('rides');
+      parsed.should.have.property('coords');
       done();
     })
   })
@@ -33,7 +34,16 @@ describe('Uber', () => {
 
 describe('Lyft', () => {
   it('lyftRequest() should return promises', (done) => {
-    const promises = lyft.lyftRequest(dummyCoords)
-    .then(done());
+    const promise = lyft.lyftRequest(dummyCoords);
+    (promise.then).should.be.a('function');
+    done();
   });
+  it('The responses should parse to an object of rides and coords', (done) => {
+    lyft.lyftRequest(dummyCoords).then((data) => {
+      const parsed = lyft.parseLyft(data);
+      parsed.should.have.property('rides');
+      parsed.should.have.property('coords');
+      done();
+    })
+  })
 })
