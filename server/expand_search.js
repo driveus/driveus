@@ -1,6 +1,7 @@
-var lyft = require('./lyft.js');
-var uber = require('./uber.js');
-var genRadius = require('./generate_radius.js')
+'use strict';
+const lyft = require('./lyft.js');
+const uber = require('./uber.js');
+const genRadius = require('./generate_radius.js')
 
 function checkIfOptimalPrice(rideOptions, optimalPrice) {
   if (!optimalPrice.ride) {
