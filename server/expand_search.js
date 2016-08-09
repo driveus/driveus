@@ -8,11 +8,11 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
     optimalPrice.coords = rideOptions.coords;
   }
   rideOptions.rides.forEach((option) => {
-    if (option.avg_estimate < optimalPrice.ride.avg_estimate && option.display_name !== 'uberTAXI') {
+    if (option.avg_estimate < optimalPrice.ride.avg_estimate && option.display_name !== 'UberTAXI') {
       optimalPrice.ride = option;
       optimalPrice.coords = rideOptions.coords;
     }
-    if (option.avg_estimate === optimalPrice.ride.avg_estimate && option.display_name !== 'uberTAXI') {
+    if (option.avg_estimate === optimalPrice.ride.avg_estimate && option.display_name !== 'UberTAXI') {
       if ((option.eta + option.duration < optimalPrice.ride.eta + optimalPrice.ride.duration ) ||
           option.distance < optimalPrice.ride.distance) {
         optimalPrice.ride = option;
