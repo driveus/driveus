@@ -1,30 +1,25 @@
 import React, { Component } from 'react';
 
 // Components
-import Controls from './controls.jsx';
+import Controls from '../containers/controls.jsx';
 import RouteLists from '../containers/routeLists.jsx';
+import ActiveRoute from '../containers/activeRoute.jsx';
+import MapView from '../containers/mapView.jsx';
+import Footer from '../containers/footer.jsx';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.submitLocation = this.submitLocation.bind(this);
-  }
-
-  submitLocation(e) {
-    e.preventDefault();
-    var start = e.target.startLocation.value;
-    var end = e.target.endLocation.value;
-    if (start && end) {
-      console.log(start, end);
-    }
-  }
   render() {
     return (
-      <div>
-        <div>Jor / Luber / ABRoute</div>
-        <Controls getLocation={this.submitLocation} />
-        <div className="map-display">Omg its a map</div>
-        <RouteLists />
+      <div id="wrapper">
+        <div id="container">
+          <h1 id="site-title">DriveUs</h1>
+          <Controls />
+          <ActiveRoute />
+          <div className="information-view">
+            <MapView />
+            <RouteLists />
+          </div>
+        </div>
       </div>
     );
   }

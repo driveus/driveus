@@ -1,37 +1,69 @@
 {
-  "name": "jor",
+  "name": "drivus",
   "version": "1.0.0",
   "description": "Optimize Local Travel ($ & Time)",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=production karma start --single-run=false",
+    "start": "node app.js"
+  },
+  "engine": {
+    "node": "6.2.2"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Elifaz/jor.git"
   },
-  "author": "Jor Team - Elifaz",
+  "author": "Drivus Team - Elifaz",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Elifaz/jor/issues"
   },
   "homepage": "https://github.com/Elifaz/jor#readme",
-  "devDependencies": {
-    "babel-core": "^6.11.4",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
-    "node-sass": "^3.8.0",
-    "style-loader": "^0.13.1",
-    "css-loader": "^0.23.1",
-    "sass-loader": "^4.0.0",
-    "webpack": "^1.13.1"
-  },
   "dependencies": {
+    "axios": "^0.13.1",
+    "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
+    "massive": "^2.4.0",
+    "pg": "^6.0.3",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-react-constant-elements": "^6.9.1",
+    "redux-mock-store": "^1.1.2",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.12.2",
+    "babel": "^6.5.2",
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-register": "^6.11.6",
+    "css-loader": "^0.23.1",
+    "enzyme": "^2.4.1",
+    "expect": "^1.20.2",
+    "karma": "^1.1.2",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-cli": "1.0.0",
+    "karma-mocha": "^1.1.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.5.3",
+    "node-sass": "^3.8.0",
+    "null-loader": "^0.1.1",
+    "react-addons-test-utils": "^15.2.1",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1"
   }
 }
