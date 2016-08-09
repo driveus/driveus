@@ -8,16 +8,28 @@ class MapView extends Component {
       let directionsDisplay = new google.maps.DirectionsRenderer({
         suppressMarkers: true
       });
+      let priceDisplay = new google.maps.DirectionsRenderer({
+        suppressMarkers: true
+      })
+      let timeDisplay = new google.maps.DirectionsRenderer({
+        suppressMarkers: true
+      })
       let map = new google.maps.Map(document.querySelector('.map-container'), {
       center: this.props.currentCoords.start || { lat: 37.773972, lng: -122.431297 },
       scrollwheel: false,
       zoom: 10,
-      // disableDefaultUI: true,
+      disableDefaultUI: true,
+      scaleControl: true,
+      zoomControl: true
     });
     directionsDisplay.setMap(map);
+    priceDisplay.setMap(map);
+    timeDisplay.setMap(map);
     this.setState({
       map: map,
       directionsDisplay: directionsDisplay,
+      priceDisplay: priceDisplay,
+      timeDisplay: timeDisplay,
       markers: []
     });
   }
@@ -37,7 +49,6 @@ class MapView extends Component {
   componentDidUpdate() {
     if (this.props.directions) {
       this.state.directionsDisplay.setDirections(this.props.directions);
-      console.log(this.props.directions.routes[0].legs[0].duration.value/60);
     }
     if (this.props.routeMarkers.start) {
       let markers = this.props.routeMarkers,
@@ -49,7 +60,6 @@ class MapView extends Component {
         }
       }
       this.state.map.fitBounds(bounds);
-      // this.state.map.setZoom(this.state.map.getZoom() - 1);
     }
     if (this.props.expandedMarkers.price || this.props.expandedMarkers.time) {
       this.state.directionsDisplay.set('directions', null);
@@ -66,8 +76,15 @@ class MapView extends Component {
     }
   }
   render() {
+      let walkingDistance;
+    if (this.props.directions && this.props.directions.routes[0].legs[0].duration.value < 2500) {
+      let time = this.props.directions.routes[0].legs[0].duration.text,
+          message = `Walking: ${time}`;
+      walkingDistance = <div className="walking-distance">{message}</div>;
+    }
     return (
       <div id="map-display">
+        {walkingDistance}
         <div className="map-container">
         </div>
       </div>
@@ -80,7 +97,7 @@ function mapStateToProps(state) {
     currentCoords: state.currentCoords,
     routeMarkers: state.routeMarkers,
     expandedMarkers: state.expandedMarkers,
-    directions: state.directions
+    directions: state.directions,
   }
 }
 export default connect(mapStateToProps)(MapView);

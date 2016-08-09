@@ -1,5 +1,7 @@
 import {
   setDirections,
+  setExpandedDirectionsPrice,
+  setExpandedDirectionsTime,
   setAddress,
   requestRoutes,
   receiveRoutesLyft,
@@ -17,7 +19,7 @@ import axios from 'axios';
 
 export function getCoords(location) {
   return function(dispatch) {
-    dispatch(getDirections(location));
+    dispatch(getDirections(location.start, location.end));
     dispatch(setAddress(location));
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: location.start }, (results, status) => {
@@ -83,9 +85,9 @@ export function fetchExpanded(coords) {
         ctime: response.data.minTime.display_name,
         cprice: response.data.minPrice.display_name
       }
-      // dispatch(getExpandedDirections(expandedCoords.price));
-      // dispatch(getExpandedDirections(expandedCoords.time));
       dispatch(setExpandedMarkers(expandedCoords));
+      dispatch(getDirections(coords.start, expandedCoords.price.start, 'Price'));
+      dispatch(getDirections(coords.start, expandedCoords.time.start, 'Time'));
       let expandedRoutes = {
         price: response.data.minPrice,
         time: response.data.minTime
@@ -99,16 +101,18 @@ export function fetchExpanded(coords) {
   }
 }
 
-export function getDirections(location) {
+export function getDirections(start, end, flag=null) {
   return function (dispatch) {
     let directionsService = new google.maps.DirectionsService;
     directionsService.route({
-      origin: location.start,
-      destination: location.end,
+      origin: start,
+      destination: end,
       travelMode: 'WALKING'
     }, function(response, status) {
       if (status === 'OK') {
-        dispatch(setDirections(response));
+        if (flag === 'Price') { dispatch(setExpandedDirectionsPrice(response)); }
+        else if (flag === 'Time') { dispatch(setExpandedDirectionsTime(response)); }
+        else { dispatch(setDirections(response)); }
       } else {
         window.alert('Directions request failed due to ' + status);
       }

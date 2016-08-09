@@ -316,6 +316,7 @@ body {
 }
 
 #map-display {
+  color: #222;
   flex: 1;
   width: 100%;
   padding: 1px;
@@ -328,11 +329,28 @@ body {
   opacity: .5;
   pointer-events: none;
 }
+<<<<<<< 3d9775813d936df1819e2a29eba99ea96c7a82dd
 
+=======
+.walking-distance {
+  margin: $center;
+  color: $off-white;
+  background-color: $secondary-color;
+  opacity: .8;
+  left: 0;
+  padding: 5px 0px;
+  position: absolute;
+  width: 50%;
+  z-index: 50;
+}
+>>>>>>> [Feature] Added google walking distance to for expandsearch calculation
 // MOBILE-ISH ******************************************
 @media (max-width: 955px) {
   #container {
     flex-direction: column;
+  }
+  .walking-distance {
+    width: 100%;
   }
   .information-view {
     flex-direction: column;

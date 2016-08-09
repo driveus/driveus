@@ -24,12 +24,12 @@ export function setExpandedMarkers(coords) {
   for (let data in coords) {
     let pStart = coords.price.start;
     let tStart = coords.time.start;
-    let path = (pStart.lat === tStart.lat && 
-                pStart.lng === tStart.lng && 
-                coords.cTime === coords.cPrice) ? 
+    let path = (pStart.lat === tStart.lat &&
+                pStart.lng === tStart.lng &&
+                coords.cTime === coords.cPrice) ?
                 require('../../assets/price-time.svg') :
-               (data === 'price') ? 
-                require('../../assets/price.svg') : 
+               (data === 'price') ?
+                require('../../assets/price.svg') :
                 require('../../assets/time.svg');
 
     let marker = new google.maps.Marker({

@@ -1,5 +1,7 @@
 import {
   SET_DIRECTIONS,
+  SET_EXPANDED_DIRECTIONS_PRICE,
+  SET_EXPANDED_DIRECTIONS_TIME,
   SET_ADDRESS,
   ROUTE_SELECTED,
   ROUTE_DESELECTED,
@@ -15,6 +17,18 @@ export function setDirections(directions) {
   return {
     type: SET_DIRECTIONS,
     payload: directions
+  }
+}
+export function setExpandedDirectionsPrice(directions) {
+  return {
+    type: SET_EXPANDED_DIRECTIONS_PRICE,
+    payload: directions.routes[0].legs[0]
+  }
+}
+export function setExpandedDirectionsTime(directions) {
+  return {
+    type: SET_EXPANDED_DIRECTIONS_TIME,
+    payload: directions.routes[0].legs[0]
   }
 }
 export function setAddress(address) {

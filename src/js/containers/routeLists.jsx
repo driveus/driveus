@@ -37,10 +37,12 @@ class RouteLists extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state)
   return {
     uberRoutes: state.routes.uber,
     lyftRoutes: state.routes.lyft,
-    expandedRoutes: state.expandedRoutes
+    expandedRoutes: state.expandedRoutes,
+    expandedDirections: state.expandedDirections
   };
 }
 // All returns return as props to route container
