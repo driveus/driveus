@@ -1,5 +1,5 @@
 'use strict';
-
+const db = require('./db.js');
 const rp = require('request-promise');
 
 //Input start & end coordinates, output a promise that will return Uber ride info
@@ -28,7 +28,7 @@ function uberEtas(coords) {
 
 //Input Uber's responses from the rides & etas API calls, output an array
 // of ride options with all relevant properties combined from the two calls.
-function parseUber(apiResponses) {
+function parseUber(apiResponses, isExpandedSearch = false) {
   let rides = apiResponses[0]['prices'];
   const etas = apiResponses[1]['times'];
   const coords = apiResponses[2];
@@ -57,10 +57,10 @@ function parseUber(apiResponses) {
   }
   //Filter out rides that we weren't able to match up ETAs on (ie. UberWAV)
   rides = rides.filter((ride) => !ride.product_id);
-  return {
-    rides: rides,
-    coords: coords
-  };
+
+  const results = {rides: rides, coords: coords};
+  db.saveUber(results, isExpandedSearch);
+  return results;
 }
 
 function uberRequest(coords) {

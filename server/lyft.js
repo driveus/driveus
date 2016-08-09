@@ -60,7 +60,7 @@ function lyftEtas(coords) {
 
 //Input Lyft's responses from the rides & etas API calls, output an array
 // of ride options with all relevant properties combined from the two calls.
-function parseLyft(apiResponses) {
+function parseLyft(apiResponses, isExpandedSearch = false) {
   let rides = apiResponses[0]['cost_estimates'];
   const etas = apiResponses[1]['eta_estimates'];
   const coords = apiResponses[2];
@@ -84,10 +84,9 @@ function parseLyft(apiResponses) {
       }
     }
   }
-  return {
-    rides: rides,
-    coords: coords
-  };
+  const results = {rides: rides, coords: coords};
+  db.saveLyft(results, isExpandedSearch);
+  return results;
 }
 
 function lyftRequest(coords) {
