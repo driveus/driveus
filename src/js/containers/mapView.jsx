@@ -11,6 +11,7 @@ class MapView extends Component {
       zoom: 10,
       // disableDefaultUI: true,
     });
+    console.log('All the properties we have', map)
     this.setState({
       map: map,
       markers: []

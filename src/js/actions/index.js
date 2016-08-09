@@ -1,4 +1,4 @@
-import {
+ import {
   SET_ADDRESS,
   ROUTE_SELECTED,
   ROUTE_DESELECTED,
@@ -8,6 +8,7 @@ import {
   RECEIVE_EXPANDED_ROUTES,
   NO_EXPANDED_ROUTES,
   INVALID_ROUTES,
+  EMAIL_REQUEST
 } from './types';
 
 export function setAddress(address) {

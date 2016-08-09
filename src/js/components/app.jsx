@@ -8,6 +8,7 @@ import MapView from '../containers/mapView.jsx';
 import Footer from '../containers/footer.jsx';
 
 class App extends Component {
+  
   render() {
     return (
       <div id="wrapper">

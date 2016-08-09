@@ -1,10 +1,13 @@
 'use strict';
 
-var lyft = require('./lyft.js');
-var uber = require('./uber.js');
+const lyft = require('./lyft.js');
+const uber = require('./uber.js');
 const db = require('./db.js');
-var genRadius = require('./generate_radius.js');
-var expandSearch = require('./expand_search.js');
+const genRadius = require('./generate_radius.js');
+const expandSearch = require('./expand_search.js');
+const nodemailer = require('nodemailer');
+const express = require('express');
+const router = express.Router();
 
 module.exports = function(app) {
   app.all('/api/uber', function(req, res) {
@@ -88,6 +91,23 @@ module.exports = function(app) {
         console.log('At least 1 geoRadius point failed to return');
       })
   })
+
+
+
+  app.post('/email', function(req, res) {
+    const emailContent = req.body.data;
+
+    const transporter = nodemailer.createTransport("smtps:driveushelp@gmail.com:driveus123@smtp.gmail.com")
+    
+    transporter.sendMail(emailContent, function(error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Messsage sent: ' + info.response)
+      };
+    });   
+  });
+
 
 };
 

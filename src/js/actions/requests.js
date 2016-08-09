@@ -101,3 +101,16 @@ function axiosRequest(target, coords) {
     data: coords
   });
 }
+const emailContent = {
+  from: 'driveushelp@gmail.com',
+  to: 'slape.john@gmail.com',
+  subject: 'Here is your link to order a ride',
+  text: 'order_ride_link'
+}
+function emailRequest(emailContent) {
+  return axios.post('/email', {
+    data: emailContent 
+  });
+}
+
+emailRequest(emailContent);

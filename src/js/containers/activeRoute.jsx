@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { deselectRoute } from '../actions/index.js';
 import { bindActionCreators } from 'redux';
 
+
 class ActiveRoute extends Component {
   constructor(props) {
     super(props);
@@ -13,9 +14,25 @@ class ActiveRoute extends Component {
         price: 'price',
         time: 'time'
       },
-      orderCab: null
+      orderCab: null,
+      MobileBrowser: false,
+      userEmailInput: null
     }
     this.orderRide = this.orderRide.bind(this);
+    this.checkBrowser = this.checkBrowser.bind(this);
+  }
+
+  checkBrowser() { 
+    if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
+      this.setState({MobileBrowser: true});
+    }
+
+    if (this.state.MobileBrowser) {
+      this.orderRide();
+    } else {
+      // this.emailInput();
+      return <input value={this.state.userEmailInput} onSubmit={this.emailInput} />
+    }
   }
   orderRide() {
     let startAdd = this.props.currentAddress.start,
@@ -39,6 +56,12 @@ class ActiveRoute extends Component {
     }
   }
 
+  emailInput(e) {
+    this.setState({userEmailInput: e.target.value});
+
+    
+  }
+
   render() {
     if (!this.props.route) { return <div></div>; }
     let eta = Math.round(this.props.route.eta/60),
@@ -56,9 +79,10 @@ class ActiveRoute extends Component {
           <h1>{cost}</h1>
           <p>Pickup: {eta} {etaMinutes}</p>
           <p>Total: {totalTime} {totalMinutes}</p>
-            <a href={this.state.orderCab} target="_blank">
-             <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
-           </a>
+          <a href={this.state.orderCab} target="_blank">
+           <button id="order-btn" onClick={this.checkBrowser}>Order Ride</button>
+          </a>
+          {this.emailInput}
         </div>
       </div>
     );
