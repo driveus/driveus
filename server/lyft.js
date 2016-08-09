@@ -60,7 +60,8 @@ function lyftEtas(coords) {
 
 //Input Lyft's responses from the rides & etas API calls, output an array
 // of ride options with all relevant properties combined from the two calls.
-function parseLyft(apiResponses, isExpandedSearch = false) {
+function parseLyft(apiResponses, isExpandedSearch) {
+  isExpandedSearch = isExpandedSearch === undefined ? false : true;
   let rides = apiResponses[0]['cost_estimates'];
   const etas = apiResponses[1]['eta_estimates'];
   const coords = apiResponses[2];
