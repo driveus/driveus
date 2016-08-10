@@ -19,25 +19,26 @@ export function setMarkers(coords) {
   }
 }
 export function setExpandedMarkers(coords) {
-  let newMarkers = {},
-      priceMarker,
-      timeMarker;
-  if (coords.price) {
-    priceMarker = new google.maps.Marker({
-      position: coords['price'].start,
+  let newMarkers = {};
+
+  for (let data in coords) {
+    let pStart = coords.price.start;
+    let tStart = coords.time.start;
+    let path = (pStart.lat === tStart.lat && 
+                pStart.lng === tStart.lng && 
+                coords.cTime === coords.cPrice) ? 
+                require('../../assets/price-time.svg') :
+               (data === 'price') ? 
+                require('../../assets/price.svg') : 
+                require('../../assets/time.svg');
+
+    let marker = new google.maps.Marker({
+      position: coords[data].start,
       animation: 2,
-      icon: 'http://www.googlemapsmarkers.com/v1/426d7d/'
+      icon: path
     });
+    newMarkers[data] = marker
   }
-  if (coords.time) {
-    timeMarker = new google.maps.Marker({
-      position: coords['time'].start,
-      animation: 2,
-      icon: 'http://www.googlemapsmarkers.com/v1/279a80/'
-    });
-  }
-      newMarkers.price = priceMarker;
-      newMarkers.time = timeMarker;
   return {
     type: SET_EXPANDED_MARKERS,
     payload: newMarkers

@@ -22,7 +22,8 @@ class Route extends Component {
       <li className={`list-item ${this.props.classStyle}`}
         onClick={this.setActiveRoute}>
         <div className="route-cost">{cost}</div>
-        <div className="route-name">{this.props.route.display_name}</div>
+        <div className="route-name">{this.props.route.display_name} 
+        <img src={this.props.marker} className="marker-tag"/></div>
         <div className="driver-eta">Pickup: {eta} {etaMinutes}</div>
         <div className="route-duration">Total: {totalTime} {totalMinutes}</div>
       </li>

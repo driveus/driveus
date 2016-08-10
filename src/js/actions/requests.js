@@ -77,7 +77,9 @@ export function fetchExpanded(coords) {
     .then(function (response) {
       let expandedCoords = {
         price: response.data.minPrice_coords,
-        time: response.data.minTime_coords
+        time: response.data.minTime_coords, 
+        ctime: response.data.minTime.display_name,
+        cprice: response.data.minPrice.display_name
       }
       dispatch(setExpandedMarkers(expandedCoords));
       let expandedRoutes = {
