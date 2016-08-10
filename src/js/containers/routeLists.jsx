@@ -23,12 +23,12 @@ class RouteLists extends Component {
         {expandedRoutes}
         <RouteList
           routes={this.props.uberRoutes}
-          classStyle={0}
+          classStyle={'uber'}
           selectRoute={this.props.selectRoute}
           />
         <RouteList
           routes={this.props.lyftRoutes}
-          classStyle={1}
+          classStyle={'lyft'}
           selectRoute={this.props.selectRoute}
           />
       </div>
@@ -37,7 +37,6 @@ class RouteLists extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     uberRoutes: state.routes.uber,
     lyftRoutes: state.routes.lyft,

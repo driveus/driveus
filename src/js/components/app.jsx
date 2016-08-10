@@ -5,7 +5,6 @@ import Controls from '../containers/controls.jsx';
 import RouteLists from '../containers/routeLists.jsx';
 import ActiveRoute from '../containers/activeRoute.jsx';
 import MapView from '../containers/mapView.jsx';
-import Footer from '../containers/footer.jsx';
 
 class App extends Component {
   render() {

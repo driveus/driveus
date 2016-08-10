@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // Components
 import Route from './route.jsx';
 
-// Fast and Cheap images 
+// Fast and Cheap images
 let time = require('../../assets/time-w-baloon.svg');
 let price = require('../../assets/price-w-baloon.svg');
 let priceTime = require('../../assets/price-time-w-baloon.svg');
@@ -23,8 +23,8 @@ class ExpandedRouteList extends Component {
       let marker = route === 'time' ? time : price;
       let eprice = this.props.routes.price;
       let etime = this.props.routes.time;
-      if (eprice.avg_estimate === etime.avg_estimate && 
-          eprice.display_name === etime.display_name && 
+      if (eprice.avg_estimate === etime.avg_estimate &&
+          eprice.display_name === etime.display_name &&
           eprice.duration     === etime.duration) {
         marker = priceTime;
         routes.push(
@@ -37,7 +37,7 @@ class ExpandedRouteList extends Component {
           />
           );
         return routes;
-      } 
+      }
       if (this.props.routes[route] !== null) {
       routes.push(
           <Route
@@ -49,7 +49,6 @@ class ExpandedRouteList extends Component {
           />
         );
       }
-    }
       return routes;
     }
   render() {
