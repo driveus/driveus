@@ -7,20 +7,22 @@ class RouteList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      0: 'uber-list-container',
-      1: 'lyft-list-container',
+      uber: 'uber-list-container',
+      lyft: 'lyft-list-container',
     };
   }
   renderRoutes() {
+    // Div formatting including carpool disclaimer for certain services
     return this.props.routes.map((route) => {
       if (route.high_estimate) {
-        // let carpool = false;
-        // if (route.display_name === 'uberPOOL' || route.display_name === 'Lyft Line') { carpool = true; }
+        let carpool = false;
+        if (route.display_name === 'UberPOOL' || route.display_name === 'Lyft Line') { carpool = true; }
         return <Route
           key={route.display_name}
           route={route}
           selectRoute={this.props.selectRoute}
           classStyle={this.props.classStyle}
+          carpool={carpool}
           />
       }
     });

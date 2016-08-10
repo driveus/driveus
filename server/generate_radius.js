@@ -1,4 +1,7 @@
-var rp = require("request-promise");
+'use strict';
+
+require('dotenv').config();
+const rp = require("request-promise");
 
 Number.prototype.toRad = function() {
   return this * Math.PI / 180;
@@ -10,6 +13,10 @@ Number.prototype.toDeg = function() {
 
 // Returns a new lat/lng pair at a specific bearing and distance (radius) from a starting point
 function createPointOnRadius(startPoint, bearing, dist) {
+  if (!startPoint || typeof bearing !== 'number' || typeof dist !== 'number') {
+    return 'Invalid Input(s)';
+  }
+
   dist = dist / 6371;
   bearing = bearing.toRad();
   const lat1 = startPoint.lat.toRad();
@@ -28,11 +35,13 @@ function createPointOnRadius(startPoint, bearing, dist) {
 
 // Accepts a lat/lng pair and checks for closest valid point on land
 function reverseGeoCode(geoPoint) {
+  if (!geoPoint) {
+    return 'Undefined or Null input';
+  }
   const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
   const googlekey = process.env.GOOGLE_KEY;
   const lat = geoPoint.lat;
   const lng = geoPoint.lng;
-
   var options = {
     uri: `${baseUrl}?latlng=${lat},${lng}&key=${googlekey}`,
     headers: {
@@ -40,9 +49,13 @@ function reverseGeoCode(geoPoint) {
     },
     json: true
   }
-  return rp(options).then((resp) => {
-    return resp.results[0].geometry.location;
-  })
+  return rp(options)
+          .then((resp) => {
+            return resp.results[0].geometry.location;
+          })
+          .catch((err) => {
+            return 'Reversing Geocode Failed';
+          })
 }
 
 // Accepts a starting lat/lng and generates valid lat/lng coordinates at each bearing
@@ -52,8 +65,8 @@ function createGeoRadius(coords) {
 
   // Creates promiseList array and instantiates with the validated start point
   const promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
-  // const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
-  const bearings = [0, 90, 180, 270];
+  const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
+  // const bearings = [0, 90, 180, 270];
   bearings.forEach((bearing) => {
     var newPoint = createPointOnRadius(startPoint, bearing, radius);
     promiseList.push(reverseGeoCode(newPoint));
@@ -63,3 +76,5 @@ function createGeoRadius(coords) {
 }
 
 module.exports.createGeoRadius = createGeoRadius;
+module.exports.createPointOnRadius = createPointOnRadius;
+module.exports.reverseGeoCode = reverseGeoCode;

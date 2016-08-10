@@ -7,7 +7,11 @@ import CurrentAddressReducer from './reducer_current_address';
 import RouteMarkersReducer from './reducer_route_marker';
 import RouteExpandedMarkersReducer from './reducer_expanded_marker';
 import RequestRouteReducer from './reducer_request_routes';
-import SetAddress from './reducer_current_address';
+// <<<<<<< HEAD
+// import SetAddress from './reducer_current_address';
+// =======
+import DirectionsReducer from './reducer_directions';
+import ExpandedDirectionsReducer from './reducer_expanded_directions';
 
 const rootReducer = combineReducers({
   routes: RoutesReducer,
@@ -18,6 +22,8 @@ const rootReducer = combineReducers({
   routeMarkers: RouteMarkersReducer,
   expandedMarkers: RouteExpandedMarkersReducer,
   requestRoute: RequestRouteReducer,
+  directions: DirectionsReducer,
+  expandedDirections: ExpandedDirectionsReducer
 });
 
 export default rootReducer;

@@ -1,6 +1,7 @@
-var lyft = require('./lyft.js');
-var uber = require('./uber.js');
-var genRadius = require('./generate_radius.js')
+'use strict';
+const lyft = require('./lyft.js');
+const uber = require('./uber.js');
+const genRadius = require('./generate_radius.js')
 
 function checkIfOptimalPrice(rideOptions, optimalPrice) {
   if (!optimalPrice.ride) {
@@ -8,11 +9,11 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
     optimalPrice.coords = rideOptions.coords;
   }
   rideOptions.rides.forEach((option) => {
-    if (option.avg_estimate < optimalPrice.ride.avg_estimate && option.display_name !== 'uberTAXI') {
+    if (option.avg_estimate < optimalPrice.ride.avg_estimate && option.display_name !== 'UberTAXI') {
       optimalPrice.ride = option;
       optimalPrice.coords = rideOptions.coords;
     }
-    if (option.avg_estimate === optimalPrice.ride.avg_estimate && option.display_name !== 'uberTAXI') {
+    if (option.avg_estimate === optimalPrice.ride.avg_estimate && option.display_name !== 'UberTAXI') {
       if ((option.eta + option.duration < optimalPrice.ride.eta + optimalPrice.ride.duration ) ||
           option.distance < optimalPrice.ride.distance) {
         optimalPrice.ride = option;
@@ -30,17 +31,11 @@ function checkIfOptimalTime(rideOptions, optimalTime) {
     optimalTime.coords = rideOptions.coords;
   }
   rideOptions.rides.forEach((option) => {
-    if ((option.duration + option.eta) < (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'uberTAXI') {
+    if ((option.duration + option.eta) < (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'UberTAXI') {
       optimalTime.ride = option;
       optimalTime.coords = rideOptions.coords;
     }
-    if ((option.duration + option.eta) === (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'uberTAXI') {
-      if (option.avg_estimate < optimalTime.ride.avg_estimate || option.distance < optimalTime.ride.distance) {
-        optimalTime.ride = option;
-        optimalTime.coords = rideOptions.coords;
-      }
-    }
-    if ((option.duration + option.eta) === (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'uberTAXI') {
+    if ((option.duration + option.eta) === (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'UberTAXI') {
       if (option.avg_estimate < optimalTime.ride.avg_estimate || option.distance < optimalTime.ride.distance) {
         optimalTime.ride = option;
         optimalTime.coords = rideOptions.coords;
