@@ -34,6 +34,7 @@
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "request": "^2.74.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "request-promise": "^4.1.0"
   },
   "devDependencies": {
@@ -49,7 +50,6 @@
     "css-loader": "^0.23.1",
     "enzyme": "^2.4.1",
     "expect": "^1.20.2",
-    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "karma": "^1.1.2",
     "karma-chrome-launcher": "^1.0.1",
