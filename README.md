@@ -17,11 +17,7 @@ LYFT_ID: a Lyft app Client ID
 
 LYFT_SECRET: a Lyft app Client Secret
 
-UBER_TOKEN: an Uber Rides app Server Token
-
-
-##Usage
-From the root of the project directory, run "npm install", followed by "npm start".  The app should now be accessible at localhost:3000.  
+UBER_TOKEN: an Uber Rides app Server Token 
 
 Enter an origin and destination address, then Submit.  You will be shown a list of Uber and Lyft products, along with their prices and estimated times.  Click on your desired ride.  If you are on mobile, the appropriate app will open directly and be pre-populated with the addresses you entered.  If you are on a computer, you will have the option of emailing a link to yourself that will open the app.
 
