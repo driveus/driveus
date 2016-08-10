@@ -4,7 +4,7 @@
   "description": "Optimize Local Travel ($ & Time)",
   "main": "app.js",
   "scripts": {
-    "test": "NODE_ENV=production karma start --single-run=false",
+    "test": "mocha",
     "start": "node app.js"
   },
   "engine": {
