@@ -280,6 +280,12 @@ body {
   opacity: .5;
   pointer-events: none;
 }
+
+.active-expand {
+  opacity: 1;
+  height: 100px;
+  width: 100px;
+}
 // MOBILE-ISH ******************************************
 @media (max-width: 955px) {
   #container {

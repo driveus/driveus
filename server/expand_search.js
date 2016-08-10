@@ -47,12 +47,13 @@ function checkIfOptimalTime(rideOptions, optimalTime) {
 }
 
 // Receives the user's selected starting location
-function expandSearch(startCoords) {
+function expandSearch(startCoords, radius) {
   const uberPromiseList = [];
   const lyftPromiseList = [];
 
-  return genRadius.createGeoRadius(startCoords) // generates a radius of GPS points around a starting point
+  return genRadius.createGeoRadius(startCoords, radius) // generates a radius of GPS points around a starting point
     .then((data) => {
+      console.log(data);
       data.forEach((coordPair) => { // For all coordinates around starting point, generates Start and End pairs based on destination
         const newStartEnd = {
           start: coordPair,

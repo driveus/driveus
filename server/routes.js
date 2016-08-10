@@ -41,11 +41,13 @@ module.exports = function(app) {
 // Will respond with cheapest and fastest ride options based on various bearings/radius around start point
   app.all('/api/expandSearch', (req, res) => {
     let coords;
+    let radius;
     if (req.body) {
-      coords = req.body.data;
+      coords = req.body.data.coords;
+      radius = req.body.data.radius;
     }
     console.log('Expanded Search activated', coords) // , req.body.data)
-    expandSearch.expandSearch(coords)
+    expandSearch.expandSearch(coords, radius)
       .then((data) => {
         // console.log('Expanded Search response data: ', data);
         let optimalPrice = {};
@@ -53,13 +55,13 @@ module.exports = function(app) {
         // console.log('Uber Promise List', data);
         for (let i = 0; i < data[0].length; i++) {
           let result = uber.parseUber(data[0][i], true);
-          console.log('Parsed Uber Result: ', result);
+          // console.log('Parsed Uber Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
           optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
         }
         for (let j = 0; j < data[1].length; j++) {
           const result = lyft.parseLyft(data[1][j], true);
-          console.log('Parsed Lyft Result: ', result);
+          // console.log('Parsed Lyft Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
           optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
         }
@@ -71,7 +73,7 @@ module.exports = function(app) {
         })
       })
       .catch((err) => {
-        console.log('Some Uber call failed', err);
+        console.log('Some Uber or Lyft call failed', err);
       })
 
 
