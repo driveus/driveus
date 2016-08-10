@@ -1,4 +1,5 @@
-var rp = require("request-promise");
+'use strict';
+const rp = require("request-promise");
 
 Number.prototype.toRad = function() {
   return this * Math.PI / 180;
