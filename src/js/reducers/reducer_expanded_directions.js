@@ -6,7 +6,6 @@ import {
 } from '../actions/types';
 
 export default function (state={price:null,time:null}, action) {
-
   switch (action.type) {
     case SET_EXPANDED_DIRECTIONS_TIME:
       return Object.assign({}, state, {
