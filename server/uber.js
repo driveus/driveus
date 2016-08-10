@@ -10,7 +10,7 @@ function uberRides(coords) {
       'Authorization': `Token ${process.env.UBER_TOKEN}`
     },
     json: true
-  }
+  };
   return rp(options)
 }
 
@@ -22,8 +22,8 @@ function uberEtas(coords) {
       'Authorization': `Token ${process.env.UBER_TOKEN}`
     },
     json: true
-  }
-  return rp(options)
+  };
+  return rp(options);
 }
 
 //Input Uber's responses from the rides & etas API calls, output an array
@@ -37,13 +37,13 @@ function parseUber(apiResponses, isExpandedSearch) {
   rides = rides.map((obj) => {
     const out = {};
     out.product_id = obj.product_id;
-    out.display_name = obj['display_name'].replace(/^(uber)?/i, "Uber");
-    out.duration = obj['duration'];
-    out.distance = obj['distance'];
-    out.high_estimate = obj['high_estimate'] * 100;
-    out.low_estimate = obj['low_estimate'] * 100;
-    out.avg_estimate = ((obj['high_estimate'] + obj['low_estimate']) * 100 / 2);
-    out.price_multiplier = obj['surge_multiplier'];
+    out.display_name = obj.display_name.replace(/^(uber)?/i, "Uber");
+    out.duration = obj.duration;
+    out.distance = obj.distance;
+    out.high_estimate = obj.high_estimate * 100;
+    out.low_estimate = obj.low_estimate * 100;
+    out.avg_estimate = ((obj.high_estimate + obj.low_estimate) * 100 / 2);
+    out.price_multiplier = obj.surge_multiplier;
     if (out.display_name === 'POOL') { out.display_name = 'UberPOOL'; }
     return out;
   });

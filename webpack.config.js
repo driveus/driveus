@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const hotReload = 'webpack-hot-middleware/client';
 
 module.exports = {
@@ -15,7 +16,8 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin("style.css")
   ],
   module: {
     loaders: [{
@@ -24,11 +26,12 @@ module.exports = {
       include: path.join(__dirname, 'src')
     }, {
       test: /\.scss$/,
-      loaders: ["style", "css", "sass"],
+      loader: ExtractTextPlugin.extract(
+        "style", "css", "sass"),
+      // DEV -> loader: ["style", "css", "sass"],
       include: path.join(__dirname, 'src')
     },
     {
-      // Doesn't work :(
       test: /\.(jpe?g|png|gif|svg)$/i,
       loader:'file'
     }, {

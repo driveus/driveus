@@ -19,14 +19,14 @@ function generateToken() {
       scope: "public",
     },
     json: true
-  }
+  };
   return rp(options)
   .then((resp) => {
     lyftToken = resp['access_token'];
   })
   .catch((err) => {
     console.log(err);
-  })
+  });
 }
 
 generateToken();
@@ -47,13 +47,13 @@ function lyftRides(coords) {
 
 //Input start & end coordinates, output a promise that will return Lyft car ETAs
 function lyftEtas(coords) {
-  let options = {
+  const options = {
     uri: `https://api.lyft.com/v1/eta?lat=${coords.start.lat}&lng=${coords.start.lng}`,
     headers: {
       'Authorization': `Bearer ${lyftToken}`
     },
     json: true
-  }
+  };
   return rp(options);
 
 }
@@ -69,11 +69,11 @@ function parseLyft(apiResponses, isExpandedSearch) {
   rides = rides.map((obj) => {
     const out = {};
     out.display_name = obj.display_name;
-    out.duration = obj['estimated_duration_seconds'];
-    out.distance = obj['estimated_distance_miles'];
-    out.high_estimate = obj['estimated_cost_cents_max'];
-    out.low_estimate = obj['estimated_cost_cents_min'];
-    out.avg_estimate = ((obj['estimated_cost_cents_max'] + obj['estimated_cost_cents_min']) / 2);
+    out.duration = obj.estimated_duration_seconds;
+    out.distance = obj.estimated_distance_miles;
+    out.high_estimate = obj.estimated_cost_cents_max;
+    out.low_estimate = obj.estimated_cost_cents_min;
+    out.avg_estimate = ((obj.estimated_cost_cents_max + obj.estimated_cost_cents_min) / 2);
     out.price_multiplier = 1 + (parseFloat(obj.primetime_percentage) / 100);
     return out;
   });

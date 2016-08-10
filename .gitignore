@@ -1,6 +1,10 @@
 bower_components
 node_modules
-public
+src
+test
 .env
 Gulpfile.js
 npm-debug.log
+webpack.config.js
+tests.webpack.config.js
+.babelrc

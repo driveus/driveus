@@ -26,14 +26,13 @@ class ExpandedRouteList extends Component {
       if (eprice.avg_estimate === etime.avg_estimate &&
           eprice.display_name === etime.display_name &&
           eprice.duration     === etime.duration) {
-        marker = priceTime;
         routes.push(
           <Route
           key={key++}
           route={this.props.routes.price}
           selectRoute={this.props.selectRoute}
           classStyle={route}
-          marker={marker}
+          marker={priceTime}
           />
           );
         return routes;
