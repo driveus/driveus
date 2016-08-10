@@ -6,7 +6,7 @@ $child-width: 60%;
 $default-radius: 5px;
 $center: 0 auto;
 $list-padding: 10px;
-$default-box-shadow: 2px 2px 23px -2px rgba(0,0,0,0.3);
+$default-box-shadow: 2px 2px 23px -2px rgba(0, 0, 0, 0.3);
 $min-width: 400px;
 $max-width: 1000px;
 // Company styles
@@ -18,32 +18,37 @@ $lyft-color-primary: #EA0B8C;
 $lyft-color-secondary: #ef43a7;
 $lyft-color-hover: #ee91c2;
 $lyft-color-active: #ea7bb6;
-
 * {
   margin: 0;
   font-family: sans-serif;
 }
-html, body {
+
+html,
+body {
   height: 100%
 }
+
 body {
   background-color: $primary-color;
 }
+
 #header {
-  background-color: rgba(0,0,0,.6);
+  background-color: rgba(0, 0, 0, .6);
   min-height: 40px;
   margin-bottom: 20px;
   // min-width: $min-width;
 }
+
 #footer {
   color: #d9d9d9;
-  background-color: rgba(0,0,0,.6);
+  background-color: rgba(0, 0, 0, .6);
   padding-left: 10px;
   min-height: 25px;
   line-height: 25px;
   font-size: 14px;
   // min-width: $min-width;
 }
+
 #site-title {
   font-family: "Arial", sans-serif;
   font-size: 30px;
@@ -52,12 +57,15 @@ body {
   border-bottom: 1px solid #222;
   background-color: $off-white;
 }
+
 #app {
   height: inherit;
 }
+
 #wrapper {
   height: inherit;
 }
+
 #container {
   // min-width: $min-width;
   // max-width: $max-width;
@@ -74,16 +82,28 @@ body {
   // border-top-left-radius: $default-radius;
   // margin-bottom: 50px;
 }
+
 .information-view {
   flex: 1;
   display: flex;
 }
+
+.routesTest {
+  position: inherit;
+}
+
+.marker-tag {
+  margin-left: 10px;
+  margin-top: 2px;
+}
+
 .search-box {
   margin: $center;
   width: $child-width;
   padding: 10px;
   width: 100%;
 }
+
 .location-form {
   margin: $center;
   align-items: center;
@@ -98,9 +118,11 @@ body {
     font-size: 1em;
   }
 }
+
 .form-submit {
   display: flex;
 }
+
 .form-btn {
   background-color: #e6e6e6;
   height: 30px;
@@ -110,12 +132,15 @@ body {
     background-color: #cccccc;
   }
 }
+
 .uber {
   background-color: $uber-color-secondary;
 }
+
 .lyft {
   background-color: $lyft-color-primary;
 }
+
 .price {
   background-color: #325461;
   border-radius: 0 !important;
@@ -123,9 +148,12 @@ body {
     background-color: #426d7d;
   }
 }
-.price, .time {
+
+.price,
+.time {
   transition-duration: 125ms;
 }
+
 .time {
   background-color: #279a80;
   border-radius: 0 !important;
@@ -133,6 +161,7 @@ body {
     background-color: #30b597;
   }
 }
+
 .list-item {
   cursor: pointer;
   padding: $list-padding;
@@ -140,6 +169,7 @@ body {
   text-align: left;
   height: 70px;
 }
+
 .list-container {
   flex: 1;
   width: 100%;
@@ -152,13 +182,13 @@ body {
   li {
     padding-right: 15px;
   }
-  li:first-child {
-  }
+  li:first-child {}
   li:last-child {
     border-bottom-right-radius: $default-radius;
     border-bottom-left-radius: $default-radius;
   }
 }
+
 .uber-list-container {
   box-shadow: $default-box-shadow;
   overflow: hidden;
@@ -180,6 +210,7 @@ body {
     }
   }
 }
+
 .lyft-list-container {
   box-shadow: $default-box-shadow;
   overflow: hidden;
@@ -201,11 +232,13 @@ body {
     }
   }
 }
+
 .route-name {
   font-weight: bold;
   font-size: 20px;
   padding-bottom: 5px;
 }
+
 .route-cost {
   float: right;
   font-size: 36px;
@@ -213,6 +246,7 @@ body {
   line-height: 70px;
   height: 70px;
 }
+
 .selected-route-container {
   position: fixed;
   display: flex;
@@ -226,8 +260,9 @@ body {
   z-index: 101;
   min-height: 250px;
   border-radius: $default-radius;
-  box-shadow: 2px 2px 23px -2px rgba(0,0,0,0.3);
+  box-shadow: 2px 2px 23px -2px rgba(0, 0, 0, 0.3);
 }
+
 #order-btn {
   width: 100px;
   height: 30px;
@@ -241,12 +276,13 @@ body {
     color: #222;
   }
   &:active {
-    box-shadow: inset 0px 0px 10px -2px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 10px -2px rgba(0, 0, 0, 0.75);
   }
   &:focus {
     outline: none;
   }
 }
+
 .lightbox-background {
   background: black;
   opacity: .5;
@@ -257,17 +293,21 @@ body {
   top: 0px;
   bottom: 0px;
 }
+
 .lightbox-hide {
   display: none;
 }
+
 .lightbox-show {
   display: inherit;
 }
+
 .map-container {
   height: 100%;
   margin: $center;
-  box-shadow: inset 10px 10px 37px -17px rgba(0,0,0,0.75);
+  box-shadow: inset 10px 10px 37px -17px rgba(0, 0, 0, 0.75);
 }
+
 #map-display {
   flex: 1;
   width: 100%;
@@ -276,10 +316,12 @@ body {
   margin: $center;
   background-color: $secondary-color;
 }
+
 .inactive-expand {
   opacity: .5;
   pointer-events: none;
 }
+
 // MOBILE-ISH ******************************************
 @media (max-width: 955px) {
   #container {
@@ -292,6 +334,9 @@ body {
     font-size: 22px;
     padding: 2px;
   }
+  .marker-tag {
+    margin-left: 10px;
+  }
   .list-container {
     flex: 0;
     overflow: visible;
@@ -303,7 +348,8 @@ body {
     font-size: 1.5em;
     margin-bottom: 10px;
   }
-  .driver-eta, .route-duration {
+  .driver-eta,
+  .route-duration {
     font-size: 1em;
   }
   .route-cost {
@@ -368,7 +414,8 @@ body {
       background-color: #f2f2f2;
     }
   }
-  .price, .time {
+  .price,
+  .time {
     height: 10em !important;
   }
 }

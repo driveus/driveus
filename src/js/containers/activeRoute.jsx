@@ -46,9 +46,6 @@ class ActiveRoute extends Component {
         totalMinutes = totalTime <= 1 ? 'minute' : 'minutes',
         backgroundColor = this.state.style[this.props.style],
         classes = 'selected-route-container ' + backgroundColor;
-
-        console.log(cost);
-        console.log(this.props.route.high_estimate);
     return (
       <div>
         <div onClick={this.props.deselectRoute} className="lightbox-background"></div>
