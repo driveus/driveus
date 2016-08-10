@@ -7,8 +7,7 @@
   RECEIVE_ROUTES_LYFT,
   RECEIVE_EXPANDED_ROUTES,
   NO_EXPANDED_ROUTES,
-  INVALID_ROUTES,
-  EMAIL_REQUEST
+  INVALID_ROUTES
 } from './types';
 
 export function setAddress(address) {

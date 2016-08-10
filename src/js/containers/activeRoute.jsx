@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 class ActiveRoute extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props)
     this.state = {
       style: {
         0: 'uber',
@@ -15,25 +16,14 @@ class ActiveRoute extends Component {
         time: 'time'
       },
       orderCab: null,
-      MobileBrowser: false,
-      userEmailInput: null
+      // MobileBrowser: false,
+      // userEmailInput: "",
+      inputElement: null
     }
     this.orderRide = this.orderRide.bind(this);
-    this.checkBrowser = this.checkBrowser.bind(this);
+    this.emailInput = this.emailInput.bind(this);
   }
 
-  checkBrowser() { 
-    if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
-      this.setState({MobileBrowser: true});
-    }
-
-    if (this.state.MobileBrowser) {
-      this.orderRide();
-    } else {
-      // this.emailInput();
-      return <input value={this.state.userEmailInput} onSubmit={this.emailInput} />
-    }
-  }
   orderRide() {
     let startAdd = this.props.currentAddress.start,
         endAdd = this.props.currentAddress.end,
@@ -41,6 +31,7 @@ class ActiveRoute extends Component {
         startLng = this.props.currentCoords.start.lng,
         endLat = this.props.currentCoords.end.lat,
         endLng = this.props.currentCoords.end.lng;
+
     if(this.props.route.display_name.match(/uber/i)) {
       let uberUrl = "uber://?client_id=37yHG1-x8iwme2fjogxoa3wU_4n2vWd5exCpEB8u&action=setPickup";
       let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d`
@@ -54,12 +45,38 @@ class ActiveRoute extends Component {
 
         this.setState({orderCab: orderLyft})
     }
-  }
+
+
+
+    if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
+      console.log('**************This is for mobile', this.state.orderCab)
+      return <a href={this.state.orderCab} target="_blank"></a>
+
+
+      // this.setState({MobileBrowser: true});
+    } else {
+      console.log('This is for DESKTOP**************');
+      this.setState({inputElement: <form key={this.props.route.display_name} onSubmit={this.emailInput}>
+              <input type="text" name="email"/> </form>})
+    }
+}
 
   emailInput(e) {
-    this.setState({userEmailInput: e.target.value});
+    e.preventDefault();
+    function emailRequest(emailContent) {
+      console.log('IS the data coming here?', emailContent)
+      return axios.post('/email', {
+      data: emailContent 
+    });
 
-    
+    let emailBody = {
+      from: 'driveushelp@gmail.com',
+      to: e.target.email.value,
+      subject: 'Here is your ride order',
+      text: this.state.orderCab 
+    }
+    console.log('going here?', emailBody); 
+    emailRequest(emailBody);
   }
 
   render() {
@@ -71,6 +88,7 @@ class ActiveRoute extends Component {
         totalMinutes = totalTime <= 1 ? 'minute' : 'minutes',
         backgroundColor = this.state.style[this.props.style],
         classes = 'selected-route-container ' + backgroundColor;
+        console.log(this.state.inputElement);
     return (
       <div>
         <div onClick={this.props.deselectRoute} className="lightbox-background"></div>
@@ -78,11 +96,9 @@ class ActiveRoute extends Component {
           <h1>{this.props.route.display_name}</h1>
           <h1>{cost}</h1>
           <p>Pickup: {eta} {etaMinutes}</p>
-          <p>Total: {totalTime} {totalMinutes}</p>
-          <a href={this.state.orderCab} target="_blank">
-           <button id="order-btn" onClick={this.checkBrowser}>Order Ride</button>
-          </a>
-          {this.emailInput}
+          <p>Total: {totalTime} {totalMinutes}</p> 
+          <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
+          <div>{this.state.inputElement}</div>
         </div>
       </div>
     );
