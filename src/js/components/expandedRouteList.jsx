@@ -48,8 +48,8 @@ class ExpandedRouteList extends Component {
           />
         );
       }
-      return routes;
     }
+    return routes;
   }
   render() {
     return (
