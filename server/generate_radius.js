@@ -1,6 +1,5 @@
 'use strict';
 
-require('dotenv').config();
 const rp = require('request-promise');
 
 Number.prototype.toRad = function() {
