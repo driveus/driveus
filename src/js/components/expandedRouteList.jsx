@@ -39,8 +39,7 @@ class ExpandedRouteList extends Component {
         return routes;
       }
       if (this.props.routes[route] !== null) {
-      routes.push(
-          <Route
+        routes.push(<Route
           key={key++}
           route={this.props.routes[route]}
           selectRoute={this.props.selectRoute}
@@ -51,6 +50,7 @@ class ExpandedRouteList extends Component {
       }
       return routes;
     }
+  }
   render() {
     return (
       <div className="expanded-routes">
