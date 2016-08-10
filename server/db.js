@@ -1,6 +1,6 @@
 'use strict';
 
-const massive = require('massive')
+const massive = require('massive');
 const db = massive.connectSync({connectionString: process.env.DB_CONNSTRING});
 
 function saveUber(parsedData, isExpandedSearch) {
@@ -22,7 +22,7 @@ function saveUber(parsedData, isExpandedSearch) {
       if (err) {
         console.log(err);
       }
-    })
+    });
   }
 }
 
@@ -46,7 +46,7 @@ function saveLyft(parsedData, isExpandedSearch) {
       if (err) {
         console.log(err);
       }
-    })
+    });
   }
 }
 module.exports.saveUber = saveUber;
