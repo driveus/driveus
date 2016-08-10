@@ -41,7 +41,6 @@ function reverseGeoCode(geoPoint) {
   const googlekey = process.env.GOOGLE_KEY;
   const lat = geoPoint.lat;
   const lng = geoPoint.lng;
-  console.log(geoPoint);  
   var options = {
     uri: `${baseUrl}?latlng=${lat},${lng}&key=${googlekey}`,
     headers: {
@@ -54,7 +53,7 @@ function reverseGeoCode(geoPoint) {
             return resp.results[0].geometry.location;
           })
           .catch((err) => {
-            return 'Reversing Geocode Failed'
+            return 'Reversing Geocode Failed';
           })
 }
 
