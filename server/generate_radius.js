@@ -13,7 +13,7 @@ Number.prototype.toDeg = function() {
 // Returns a new lat/lng pair at a specific bearing and distance (radius) from a starting point
 function createPointOnRadius(startPoint, bearing, dist) {
   if (!startPoint || typeof bearing !== 'number' || typeof dist !== 'number') {
-    return 'Invalid Input(s)'
+    return 'Invalid Input(s)';
   }
 
   dist = dist / 6371;
@@ -35,7 +35,7 @@ function createPointOnRadius(startPoint, bearing, dist) {
 // Accepts a lat/lng pair and checks for closest valid point on land
 function reverseGeoCode(geoPoint) {
   if (!geoPoint) {
-    return 'Undefined or Null input'
+    return 'Undefined or Null input';
   }
   const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
   const googlekey = process.env.GOOGLE_KEY;

@@ -130,7 +130,7 @@ describe('genRadius.createGeoRadius', () => {
   });
 
   it('createGeoRadius should return the result at bearing 0 as the second result', () => {
-    let expectedResult = {lat: 37.79199290802959, lng: -122.39990869999998}
+    let expectedResult = {lat: 37.79199290802959, lng: -122.39990869999998};
     return genRadius.createGeoRadius(dummyCoords).then((data) => {
       Math.round(data[1].lat*100).should.equal(Math.round(expectedResult.lat*100));    
       Math.round(data[1].lng*100).should.equal(Math.round(expectedResult.lng*100));

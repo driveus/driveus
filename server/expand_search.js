@@ -31,17 +31,11 @@ function checkIfOptimalTime(rideOptions, optimalTime) {
     optimalTime.coords = rideOptions.coords;
   }
   rideOptions.rides.forEach((option) => {
-    if ((option.duration + option.eta) < (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'uberTAXI') {
+    if ((option.duration + option.eta) < (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'UberTAXI') {
       optimalTime.ride = option;
       optimalTime.coords = rideOptions.coords;
     }
-    if ((option.duration + option.eta) === (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'uberTAXI') {
-      if (option.avg_estimate < optimalTime.ride.avg_estimate || option.distance < optimalTime.ride.distance) {
-        optimalTime.ride = option;
-        optimalTime.coords = rideOptions.coords;
-      }
-    }
-    if ((option.duration + option.eta) === (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'uberTAXI') {
+    if ((option.duration + option.eta) === (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'UberTAXI') {
       if (option.avg_estimate < optimalTime.ride.avg_estimate || option.distance < optimalTime.ride.distance) {
         optimalTime.ride = option;
         optimalTime.coords = rideOptions.coords;
