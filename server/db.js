@@ -1,4 +1,5 @@
 'use strict';
+
 const massive = require('massive')
 const db = massive.connectSync({connectionString: process.env.DB_CONNSTRING});
 
