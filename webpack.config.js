@@ -15,7 +15,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoErrorsPlugin()
   ],
   module: {
     loaders: [{
@@ -24,10 +24,11 @@ module.exports = {
       include: path.join(__dirname, 'src')
     }, {
       test: /\.scss$/,
-      loader: ["style", "css", "sass"],
+      loaders: ["style", "css", "sass"],
       include: path.join(__dirname, 'src')
     },
     {
+      // Doesn't work :(
       test: /\.(jpe?g|png|gif|svg)$/i,
       loader:'file'
     }, {
