@@ -140,13 +140,23 @@ body {
 .lyft {
   background-color: $lyft-color-primary;
 }
+.expanded-routes {
+  .price:hover {
+    background-color: #426d7d;
 
+  }
+  .time:hover {
+    background-color: #30b597;
+  }
+}
 .price {
   background-color: #325461;
   border-radius: 0 !important;
-  &:hover {
-    background-color: #426d7d;
-  }
+}
+.disclaimer {
+  font-size: 12px;
+  color: $off-white;
+  opacity: .6
 }
 
 .price,
@@ -157,9 +167,6 @@ body {
 .time {
   background-color: #279a80;
   border-radius: 0 !important;
-  &:hover {
-    background-color: #30b597;
-  }
 }
 
 .list-item {
@@ -167,7 +174,7 @@ body {
   padding: $list-padding;
   list-style-type: none;
   text-align: left;
-  height: 70px;
+  min-height: 70px;
 }
 
 .list-container {
@@ -309,6 +316,7 @@ body {
 }
 
 #map-display {
+  color: #222;
   flex: 1;
   width: 100%;
   padding: 1px;
@@ -318,14 +326,28 @@ body {
 }
 
 .inactive-expand {
-  opacity: .5;
+  color: $secondary-color !important;
+  opacity: .3;
   pointer-events: none;
 }
-
+.walking-distance {
+  margin: $center;
+  color: $off-white;
+  background-color: $secondary-color;
+  opacity: .8;
+  left: 0;
+  padding: 5px 0px;
+  position: absolute;
+  width: 50%;
+  z-index: 50;
+}
 // MOBILE-ISH ******************************************
 @media (max-width: 955px) {
   #container {
     flex-direction: column;
+  }
+  .walking-distance {
+    width: 100%;
   }
   .information-view {
     flex-direction: column;
@@ -410,12 +432,21 @@ body {
     font-size: 1.5em;
     height: 2.2em;
     cursor: pointer;
+    &:hover {
+      background-color: white;
+    }
     &:active {
       background-color: #f2f2f2;
+    }
+    &:focus {
+      outline: none;
     }
   }
   .price,
   .time {
     height: 10em !important;
+  }
+  .disclaimer {
+    font-size: .9em;
   }
 }

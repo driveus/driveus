@@ -12,12 +12,13 @@ class Route extends Component {
     });
   }
   render() {
+    // Formatting for display...could be done better?
     let eta = Math.round(this.props.route.eta/60),
         totalTime = Math.round((this.props.route.duration + this.props.route.eta)/60),
         etaMinutes = eta <= 1 ? 'minute' : 'minutes',
         totalMinutes = totalTime <= 1 ? 'minute' : 'minutes',
-        cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered';
-        // disclaimer = this.props.carpool ? '*' : '';
+        cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
+        disclaimer = this.props.carpool ? '\nMay make additional stops' : '';
     return (
       <li className={`list-item ${this.props.classStyle}`}
         onClick={this.setActiveRoute}>
@@ -26,6 +27,7 @@ class Route extends Component {
         <img src={this.props.marker} className="marker-tag"/></div>
         <div className="driver-eta">Pickup: {eta} {etaMinutes}</div>
         <div className="route-duration">Total: {totalTime} {totalMinutes}</div>
+        <span className="disclaimer">{disclaimer}</span>
       </li>
     );
   }
