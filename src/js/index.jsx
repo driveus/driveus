@@ -8,7 +8,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import App from './components/app.jsx';
 import reducers from './reducers';
 import thunk from 'redux-thunk';
-import css from '../sass/style.scss';
 
 // Required for using react-thunk middleware that allows for multiple dispatches in one action
 // const middleWareStore = applyMiddleware(thunk, promise)(createStore);
