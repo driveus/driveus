@@ -11,7 +11,7 @@ function uberRides(coords) {
     },
     json: true
   };
-  return rp(options)
+  return rp(options);
 }
 
 //Input start & end coordinates, output a promise that will return Uber car ETAs
@@ -30,14 +30,14 @@ function uberEtas(coords) {
 // of ride options with all relevant properties combined from the two calls.
 function parseUber(apiResponses, isExpandedSearch) {
   isExpandedSearch = isExpandedSearch === undefined ? true : false;
-  let rides = apiResponses[0]['prices'];
-  const etas = apiResponses[1]['times'];
+  let rides = apiResponses[0].prices;
+  const etas = apiResponses[1].times;
   const coords = apiResponses[2];
 
   rides = rides.map((obj) => {
     const out = {};
     out.product_id = obj.product_id;
-    out.display_name = obj.display_name.replace(/^(uber)?/i, "Uber");
+    out.display_name = obj.display_name.replace(/^(uber)?/i, 'Uber');
     out.duration = obj.duration;
     out.distance = obj.distance;
     out.high_estimate = obj.high_estimate * 100;

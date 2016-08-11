@@ -15,14 +15,14 @@ function generateToken() {
       'Authorization': `Basic ${authorziation}`
     },
     body: {
-      grant_type: "client_credentials",
-      scope: "public",
+      grant_type: 'client_credentials',
+      scope: 'public',
     },
     json: true
   };
   return rp(options)
   .then((resp) => {
-    lyftToken = resp['access_token'];
+    lyftToken = resp.access_token;
   })
   .catch((err) => {
     console.log(err);
@@ -41,7 +41,7 @@ function lyftRides(coords) {
       'Authorization': `Bearer ${lyftToken}`
     },
     json: true
-  }
+  };
   return rp(options);
 }
 
@@ -62,8 +62,8 @@ function lyftEtas(coords) {
 // of ride options with all relevant properties combined from the two calls.
 function parseLyft(apiResponses, isExpandedSearch) {
   isExpandedSearch = isExpandedSearch === undefined ? false : true;
-  let rides = apiResponses[0]['cost_estimates'];
-  const etas = apiResponses[1]['eta_estimates'];
+  let rides = apiResponses[0].cost_estimates;
+  const etas = apiResponses[1].eta_estimates;
   const coords = apiResponses[2];
 
   rides = rides.map((obj) => {
