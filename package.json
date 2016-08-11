@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha",
     "start": "node app.js",
-    "lint": "jshint **/*.js || echo 0"
+    "lint": "jshint **/*.js || echo"
   },
   "engine": {
     "node": "6.2.2"
