@@ -138,51 +138,44 @@ describe('genRadius.createGeoRadius', () => {
   });
 });
 
-  describe('Database', () => {
-    const testObj = {ride_type: "Test"}
-    it('Should be able to add rows to database', (done) => {
-      let uberSuccess, lyftSuccess = [false, false];
-      db.db.uberhist.save(testObj, (err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          uberSuccess = true;
-        }
-      })
-      db.db.lyfthist.save(testObj, (err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          lyftSuccess = true;
-        }
-        if (uberSuccess && lyftSuccess) {
+describe('Database', () => {
+  const testObj = {rides: [{avg_estimate:650,
+                           display_name:'Test',
+                           distance:2.39,
+                           duration:840,
+                           eta:240,
+                           high_estimate:700,
+                           low_estimate:600,
+                           price_multiplier:1}],
+                   coords: {start: {lat: 37, lng:-122},
+                            end: {lat: 37.1, lng:-122.2}
+                           }
+                  };
+  it('saveUber() should save objects to the UberHist database', (done) => {
+    db.saveUber(testObj);
+    db.db.uberhist.destroy({ride_type: 'Test'}, (err, rows) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if (rows.length >= 1) {
           done();
         }
-      });
+      }
     });
-    xit('Should be able to remove those rows', (done) => {
-      let removedUber = false;
-      let removedLyft = false;
-      db.db.uberhist.destroy({ride_type: "Test"}, (err, rows) => {
-        if (err) {
-          console.log(err);
-        } else {
-          if (rows.length >= 1) {
-            removedUber = true;
-          }
+    setTimeout(()=>{}, 800);
+  });
+
+  it('saveLyft() should save objects to the LyftHist database', (done) => {
+    db.saveLyft(testObj);
+    db.db.lyfthist.destroy({ride_type: 'Test'}, (err, rows) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if (rows.length >= 1) {
+          done();
         }
-      });
-      db.db.lyfthist.destroy({ride_type: "Test"}, (err, rows) => {
-        if (err) {
-          console.log(err);
-        } else {
-          if (rows.length >= 1) {
-            removedLyft = true;
-          }
-        }
+      };
     });
-    if (removedUber && removedLyft) {
-      done();
-    }
-  })
+  });
+  setTimeout(()=>{}, 800);
 });
