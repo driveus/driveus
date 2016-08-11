@@ -27,3 +27,11 @@ Enter an origin and destination address, then Submit.  You will be shown a list 
 3.  Make your changes, adhering to the AirBnB style guide, and commit them
 4.  Push to your feature branch
 5.  Make a pull request to drivus/dev branch!
+
+##Credits
+Contributors:
+Aaron Heise  -  github.com/AaronHeise
+Amol Joshi  -  github.com/Amol023
+Elifaz Filho  -  github.com/Elifaz
+Ian Mrak  -  github.com/ianmram
+John Slape  -  github.com/sljohn
