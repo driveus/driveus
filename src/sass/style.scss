@@ -93,8 +93,8 @@ body {
 }
 
 .marker-tag {
-  margin-left: 10px;
-  margin-top: 2px;
+  // margin-left: 10px;
+  // margin-top: 2px;
 }
 
 .search-box {
@@ -124,7 +124,7 @@ body {
 }
 
 .form-btn {
-  background-color: #e6e6e6;
+  background-color: $off-white;
   height: 30px;
   width: 100px;
   margin: 10px 5px 0px 5px;
@@ -326,7 +326,7 @@ body {
 }
 
 .inactive-expand {
-  color: $secondary-color !important;
+  // color: $secondary-color !important;
   opacity: .3;
   pointer-events: none;
 }
@@ -355,28 +355,37 @@ body {
   #site-title {
     font-size: 22px;
     padding: 2px;
+    display: none;
   }
   .marker-tag {
-    margin-left: 10px;
+    margin: 0px 10px;
   }
   .list-container {
-    flex: 0;
-    overflow: visible;
+    border-top: 2px solid $off-white;
+    flex: 1;
+    overflow: scroll;
   }
   .list-item {
-    height: 12em;
+    // height: 2em;
+    display: block;
+    flex-wrap: wrap;
+    align-items: center;
   }
   .route-name {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+    font-size: 18px;
+    padding: 0;
+    // margin-bottom: 10px;
   }
   .driver-eta,
   .route-duration {
-    font-size: 1em;
+    font-size: 14px;
   }
   .route-cost {
     float: none;
-    font-size: 3em;
+    font-size: 18px;
+    margin-right: 4px;
+    height: auto;
+    line-height: inherit;
   }
   .selected-route-container {
     right: 10%;
@@ -397,7 +406,8 @@ body {
   }
   #map-display {
     flex: none;
-    height: 330px;
+    padding: 0;
+    height: 280px;
   }
   .search-box {
     padding: 0;
@@ -422,21 +432,28 @@ body {
   .form-submit {
     width: 100%;
     background-color: $off-white;
+    button:first-child {
+      margin: 0px 2px;
+    }
+    button:nth-child(2) {
+      margin-right: 2px;
+    }
   }
   .form-btn {
+    background-color: #279a80;
+    color: $off-white;
     border-radius: $default-radius;
-    background-color: $off-white;
     margin: 0;
-    border: 1px solid $secondary-color;
+    border: none;
     width: 50%;
     font-size: 1.5em;
     height: 2.2em;
     cursor: pointer;
     &:hover {
-      background-color: white;
+      background-color: #279a80;
     }
     &:active {
-      background-color: #f2f2f2;
+      background-color: #30b597;
     }
     &:focus {
       outline: none;
@@ -444,9 +461,16 @@ body {
   }
   .price,
   .time {
-    height: 10em !important;
+    .route-cost, .route-name {
+      font-size: 20px;
+    }
   }
   .disclaimer {
-    font-size: .9em;
+    font-size: 12px;
+  }
+}
+@media (max-width: 420px) {
+  .list-item {
+    display: flex;
   }
 }
