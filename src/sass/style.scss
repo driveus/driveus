@@ -202,7 +202,6 @@ body {
 .expanded-routes {
   .price:hover {
     background-color: #426d7d;
-
   }
   .time:hover {
     background-color: #30b597;
@@ -222,7 +221,14 @@ body {
 .time {
   transition-duration: 125ms;
 }
-
+.price-color {
+  background-color: #325461;
+  border-radius: 0 !important;
+}
+.time-color {
+  background-color: #279a80;
+  border-radius: 0 !important;
+}
 .time {
   background-color: #279a80;
   border-radius: 0 !important;
@@ -530,16 +536,16 @@ body {
     width: 100%;
     background-color: $off-white;
     button:first-child {
-      margin: 0px 2px;
+      margin-right: 1px;
     }
     button:nth-child(2) {
-      margin-right: 2px;
+      margin-left: 1px;
     }
   }
   .form-btn {
     background-color: #279a80;
     color: $off-white;
-    border-radius: $default-radius;
+    // border-radius: $default-radius;
     margin: 0;
     border: none;
     width: 50%;
