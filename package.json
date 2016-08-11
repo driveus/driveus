@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha",
-    "start": "node app.js"
+    "start": "node app.js",
+    "lint": "jshint **/*.js || echo 0"
   },
   "engine": {
     "node": "6.2.2"
@@ -51,6 +52,7 @@
     "enzyme": "^2.4.1",
     "expect": "^1.20.2",
     "file-loader": "^0.9.0",
+    "jshint": "^2.9.2",
     "karma": "^1.1.2",
     "karma-chrome-launcher": "^1.0.1",
     "karma-cli": "1.0.0",

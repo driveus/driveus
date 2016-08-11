@@ -23,7 +23,7 @@ module.exports = function(app) {
   });
 
   app.all('/api/lyft', (req, res) => {
-    console.log('lyft hit: ', req.body.data)
+    console.log('lyft hit: ', req.body.data);
     let coords;
     if (req.body) {
       coords = req.body.data;
@@ -68,7 +68,7 @@ module.exports = function(app) {
           minPrice_coords: optimalPrice.coords || null,
           minTime: optimalTime.ride || null,
           minTime_coords: optimalTime.coords || null
-        })
+        });
       })
       .catch((err) => {
         console.log('Some Uber call failed', err);

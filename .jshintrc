@@ -1,0 +1,14 @@
+{
+  "esversion": 6,
+  "curly": true,
+  "eqeqeq": true,
+  "maxerr": 999,
+  "nonbsp": true,
+  "nonew": true,
+  "notypeof": true,
+  "quotmark": true,
+  "undef": true,
+  "unused": true,
+  "loopfunc": true,
+  "node": true
+}

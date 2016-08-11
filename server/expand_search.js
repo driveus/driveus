@@ -41,7 +41,7 @@ function checkIfOptimalTime(rideOptions, optimalTime) {
         optimalTime.coords = rideOptions.coords;
       }
     }
-  })
+  });
   console.log('OPTIMAL TIME OPTION: ', 'Product: ', optimalTime.ride.display_name,  'Estimate: ',  optimalTime.ride.avg_estimate,  'TotalTime: ',  optimalTime.ride.eta + optimalTime.ride.duration,  'Coords: ',  optimalTime.coords.start);
   return optimalTime;
 }
