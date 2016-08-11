@@ -186,18 +186,16 @@ body {
   ul {
     padding: 0px;
   }
-  li {
-    padding-right: 15px;
-  }
   li:first-child {}
   li:last-child {
-    border-bottom-right-radius: $default-radius;
-    border-bottom-left-radius: $default-radius;
+    // border-bottom-right-radius: $default-radius;
+    // border-bottom-left-radius: $default-radius;
   }
 }
 
 .uber-list-container {
   box-shadow: $default-box-shadow;
+  background-color: $uber-color-secondary;
   overflow: hidden;
   float: left;
   width: 50%;
@@ -220,6 +218,7 @@ body {
 
 .lyft-list-container {
   box-shadow: $default-box-shadow;
+  background-color: $lyft-color-primary;
   overflow: hidden;
   float: right;
   width: 50%;
@@ -349,6 +348,9 @@ body {
   #container {
     flex-direction: column;
   }
+  .expanded-routes {
+      transition-duration: 400ms;
+  }
   .walking-distance {
     width: 100%;
   }
@@ -372,22 +374,33 @@ body {
   }
   .list-item {
     // height: 2em;
+    padding: 5px;
+    flex-direction: column;
     display: block;
     flex-wrap: wrap;
     align-items: center;
+    min-height: 0;
+  }
+  .uber-list-container {
+      overflow: scroll;
+      height: 100%;
+  }
+  .lyft-list-container {
+      overflow: scroll;
+      height: 100%;
   }
   .route-name {
-    font-size: 18px;
+    font-size: 12px;
     padding: 0;
     // margin-bottom: 10px;
   }
   .driver-eta,
   .route-duration {
-    font-size: 14px;
+    font-size: 12px;
   }
   .route-cost {
     float: none;
-    font-size: 18px;
+    font-size: 14px;
     margin-right: 4px;
     height: auto;
     line-height: inherit;
@@ -412,13 +425,15 @@ body {
   #map-display {
     flex: none;
     padding: 0;
-    height: 50%;
+    height: 230px;
   }
   .empty-message {
-    margin-top: 1.5em;
+    height: 100%;
+    margin: 1.5em 0;
     color: gray;
     opacity: .3;
     display: inherit;
+    transition: all .3s ease .15s;
   }
   .search-box {
     padding: 0;
@@ -477,7 +492,7 @@ body {
     }
   }
   .disclaimer {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 @media (max-width: 420px) {
