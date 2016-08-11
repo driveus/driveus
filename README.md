@@ -1,4 +1,4 @@
-# drivus
+# DriveUs
 Compares ride prices and times across all Uber and Lyft products, finding users the best deal or quickest rides.
 
 ##Installation
