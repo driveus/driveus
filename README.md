@@ -17,7 +17,7 @@ LYFT_ID: a Lyft app Client ID
 
 LYFT_SECRET: a Lyft app Client Secret
 
-UBER_TOKEN: an Uber Rides app Server Token 
+UBER_TOKEN: an Uber Rides app Server Token
 
 Enter an origin and destination address, then Submit.  You will be shown a list of Uber and Lyft products, along with their prices and estimated times.  Click on your desired ride.  If you are on mobile, the appropriate app will open directly and be pre-populated with the addresses you entered.  If you are on a computer, you will have the option of emailing a link to yourself that will open the app.
 
@@ -27,3 +27,16 @@ Enter an origin and destination address, then Submit.  You will be shown a list 
 3.  Make your changes, adhering to the AirBnB style guide, and commit them
 4.  Push to your feature branch
 5.  Make a pull request to drivus/dev branch!
+
+##Credits
+Contributors:
+
+Aaron Heise  -  github.com/AaronHeise
+
+Amol Joshi  -  github.com/Amol023
+
+Elifaz Filho  -  github.com/Elifaz
+
+Ian Mrak  -  github.com/ianmram
+
+John Slape  -  github.com/sljohn
