@@ -93,8 +93,8 @@ body {
 }
 
 .marker-tag {
-  margin-left: 10px;
-  margin-top: 2px;
+  // margin-left: 10px;
+  // margin-top: 2px;
 }
 
 .search-box {
@@ -124,7 +124,7 @@ body {
 }
 
 .form-btn {
-  background-color: #e6e6e6;
+  background-color: $off-white;
   height: 30px;
   width: 100px;
   margin: 10px 5px 0px 5px;
@@ -186,18 +186,16 @@ body {
   ul {
     padding: 0px;
   }
-  li {
-    padding-right: 15px;
-  }
   li:first-child {}
   li:last-child {
-    border-bottom-right-radius: $default-radius;
-    border-bottom-left-radius: $default-radius;
+    // border-bottom-right-radius: $default-radius;
+    // border-bottom-left-radius: $default-radius;
   }
 }
 
 .uber-list-container {
   box-shadow: $default-box-shadow;
+  background-color: $uber-color-secondary;
   overflow: hidden;
   float: left;
   width: 50%;
@@ -220,6 +218,7 @@ body {
 
 .lyft-list-container {
   box-shadow: $default-box-shadow;
+  background-color: $lyft-color-primary;
   overflow: hidden;
   float: right;
   width: 50%;
@@ -326,7 +325,7 @@ body {
 }
 
 .inactive-expand {
-  color: $secondary-color !important;
+  // color: $secondary-color !important;
   opacity: .3;
   pointer-events: none;
 }
@@ -341,42 +340,70 @@ body {
   width: 50%;
   z-index: 50;
 }
+.empty-message {
+  display: none;
+}
 // MOBILE-ISH ******************************************
 @media (max-width: 955px) {
   #container {
     flex-direction: column;
   }
+  .expanded-routes {
+      transition-duration: 400ms;
+  }
   .walking-distance {
     width: 100%;
   }
   .information-view {
+    height: 100%;
     flex-direction: column;
   }
   #site-title {
     font-size: 22px;
     padding: 2px;
+    display: none;
   }
   .marker-tag {
-    margin-left: 10px;
+    margin: 5px 10px;
   }
   .list-container {
-    flex: 0;
-    overflow: visible;
+    border-top: 1px solid $secondary-color;
+    background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
+    flex: 1;
+    overflow: scroll;
   }
   .list-item {
-    height: 12em;
+    // height: 2em;
+    padding: 5px;
+    flex-direction: column;
+    display: block;
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 0;
+  }
+  .uber-list-container {
+      overflow: scroll;
+      height: 100%;
+  }
+  .lyft-list-container {
+      overflow: scroll;
+      height: 100%;
   }
   .route-name {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+    font-size: 12px;
+    padding: 0;
+    // margin-bottom: 10px;
   }
   .driver-eta,
   .route-duration {
-    font-size: 1em;
+    font-size: 12px;
   }
   .route-cost {
     float: none;
-    font-size: 3em;
+    font-size: 14px;
+    margin-right: 4px;
+    height: auto;
+    line-height: inherit;
   }
   .selected-route-container {
     right: 10%;
@@ -397,7 +424,16 @@ body {
   }
   #map-display {
     flex: none;
-    height: 330px;
+    padding: 0;
+    height: 230px;
+  }
+  .empty-message {
+    height: 100%;
+    margin: 1.5em 0;
+    color: gray;
+    opacity: .3;
+    display: inherit;
+    transition: all .3s ease .15s;
   }
   .search-box {
     padding: 0;
@@ -421,22 +457,29 @@ body {
   }
   .form-submit {
     width: 100%;
-    background-color: gray;
+    background-color: $off-white;
+    button:first-child {
+      margin: 0px 2px;
+    }
+    button:nth-child(2) {
+      margin-right: 2px;
+    }
   }
   .form-btn {
+    background-color: #279a80;
+    color: $off-white;
     border-radius: $default-radius;
-    background-color: $off-white;
     margin: 0;
-    border: 1px solid $secondary-color;
+    border: none;
     width: 50%;
     font-size: 1.5em;
     height: 2.2em;
     cursor: pointer;
     &:hover {
-      background-color: white;
+      background-color: #279a80;
     }
     &:active {
-      background-color: #f2f2f2;
+      background-color: #30b597;
     }
     &:focus {
       outline: none;
@@ -444,9 +487,16 @@ body {
   }
   .price,
   .time {
-    height: 10em !important;
+    .route-cost, .route-name {
+      font-size: 14px;
+    }
   }
   .disclaimer {
-    font-size: .9em;
+    font-size: 10px;
+  }
+}
+@media (max-width: 420px) {
+  .list-item {
+    display: flex;
   }
 }

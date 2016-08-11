@@ -51,10 +51,14 @@ class ExpandedRouteList extends Component {
     return routes;
   }
   render() {
+    let routes;
+    if (this.props.routes.price || this.props.routes.time) {
+      routes = this.renderRoutes();
+    }
     return (
       <div className="expanded-routes">
         <ul>
-          {this.renderRoutes()}
+          {routes}
         </ul>
       </div>
     );

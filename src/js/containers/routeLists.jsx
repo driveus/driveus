@@ -10,17 +10,19 @@ import ExpandedRouteList from '../components/expandedRouteList.jsx';
 
 class RouteLists extends Component {
   render() {
-    let expandedRoutes;
-    if (this.props.expandedRoutes.price || this.props.expandedRoutes.time) {
-      expandedRoutes =
-      <ExpandedRouteList
-        routes={this.props.expandedRoutes}
-        selectRoute={this.props.selectRoute}
-        />
+    let expandedRoutes,
+        listMessage = <h1 className="empty-message">Search for rides</h1>;
+    if (this.props.uberRoutes.length || this.props.lyftRoutes.length) {
+      let style = { height: '0%', margin: 0, opacity: 0 }
+      listMessage = <h1 style={style} className="empty-message">Search for rides</h1>;
     }
     return (
       <div className="list-container">
-        {expandedRoutes}
+        {listMessage}
+        <ExpandedRouteList
+          routes={this.props.expandedRoutes}
+          selectRoute={this.props.selectRoute}
+          />
         <RouteList
           routes={this.props.uberRoutes}
           classStyle={'uber'}
