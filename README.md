@@ -37,6 +37,6 @@ Amol Joshi  -  github.com/Amol023
 
 Elifaz Filho  -  github.com/Elifaz
 
-Ian Mrak  -  github.com/ianmram
+Ian Mrak  -  github.com/ianmrak
 
 John Slape  -  github.com/sljohn
