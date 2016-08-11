@@ -49,5 +49,6 @@ function saveLyft(parsedData, isExpandedSearch) {
     });
   }
 }
+module.exports.db = db;
 module.exports.saveUber = saveUber;
 module.exports.saveLyft = saveLyft;

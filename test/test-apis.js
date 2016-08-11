@@ -2,7 +2,7 @@
 require('dotenv').config();
 const uber = require('../server/uber.js');
 const lyft = require('../server/lyft.js');
-// const db = require('../server/db.js');
+const db = require('../server/db.js');
 const chai = require('chai');
 const should = chai.should();
 const genRadius = require('../server/generate_radius.js');
@@ -84,7 +84,7 @@ describe('genRadius.CreatePointOnRadius', () => {
 });
 
 describe('genRadius.reverseGeoCode', () => {
- 
+
   it('reverseGeoCode should accept a GPS location and output the closest valid street GPS location', () => {
     let expectedResult = {lat: 37.7874963, lng: -122.39990869};
     return genRadius.reverseGeoCode(dummyCoords.start).then(function(data) {
@@ -112,9 +112,9 @@ describe('genRadius.reverseGeoCode', () => {
 
 });
 
-// 
+//
 describe('genRadius.createGeoRadius', () => {
- 
+
   it('createGeoRadius should output an array of results', () => {
     return genRadius.createGeoRadius({lat: 100, lng: 200}).then((data) => {
       (Array.isArray(data)).should.equal(true);
@@ -124,7 +124,7 @@ describe('genRadius.createGeoRadius', () => {
   it('createGeoRadius should return the initial search location as the first result', () => {
     let expectedResult = {lat: 37.7874963, lng: -122.39990869};
     return genRadius.createGeoRadius(dummyCoords).then((data) => {
-      Math.round(data[0].lat*100).should.equal(Math.round(expectedResult.lat*100));    
+      Math.round(data[0].lat*100).should.equal(Math.round(expectedResult.lat*100));
       Math.round(data[0].lng*100).should.equal(Math.round(expectedResult.lng*100));
     });
   });
@@ -132,9 +132,57 @@ describe('genRadius.createGeoRadius', () => {
   it('createGeoRadius should return the result at bearing 0 as the second result', () => {
     let expectedResult = {lat: 37.79199290802959, lng: -122.39990869999998};
     return genRadius.createGeoRadius(dummyCoords).then((data) => {
-      Math.round(data[1].lat*100).should.equal(Math.round(expectedResult.lat*100));    
+      Math.round(data[1].lat*100).should.equal(Math.round(expectedResult.lat*100));
       Math.round(data[1].lng*100).should.equal(Math.round(expectedResult.lng*100));
     });
   });
+});
 
+  describe('Database', () => {
+    const testObj = {ride_type: "Test"}
+    it('Should be able to add rows to database', (done) => {
+      let uberSuccess, lyftSuccess = [false, false];
+      db.db.uberhist.save(testObj, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          uberSuccess = true;
+        }
+      })
+      db.db.lyfthist.save(testObj, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          lyftSuccess = true;
+        }
+        if (uberSuccess && lyftSuccess) {
+          done();
+        }
+      });
+    });
+    xit('Should be able to remove those rows', (done) => {
+      let removedUber = false;
+      let removedLyft = false;
+      db.db.uberhist.destroy({ride_type: "Test"}, (err, rows) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if (rows.length >= 1) {
+            removedUber = true;
+          }
+        }
+      });
+      db.db.lyfthist.destroy({ride_type: "Test"}, (err, rows) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if (rows.length >= 1) {
+            removedLyft = true;
+          }
+        }
+    });
+    if (removedUber && removedLyft) {
+      done();
+    }
+  })
 });
