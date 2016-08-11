@@ -6,7 +6,6 @@ import {
 export default function(state={start:null,end:null}, action) {
   switch(action.type) {
     case SET_MARKERS:
-      console.log('New markers have been generated');
       return action.payload;
   }
   return state;
