@@ -13,14 +13,8 @@ class ExpandedRouteList extends Component {
     super(props);
     this.state = {
       0: 'expanded-price',
-      1: 'expanded-money',
-      style: { maxHeight: '0%' }
+      1: 'expanded-money'
     };
-  }
-  componentWillReceiveProps() {
-    if (this.props.routes) {
-      this.setState({style: { maxHeight: '100%' }});
-    }
   }
   renderRoutes() {
     let routes = [];
@@ -62,7 +56,7 @@ class ExpandedRouteList extends Component {
       routes = this.renderRoutes();
     }
     return (
-      <div style={this.state.style} className="expanded-routes">
+      <div className="expanded-routes">
         <ul>
           {routes}
         </ul>
