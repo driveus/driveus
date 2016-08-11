@@ -30,12 +30,12 @@ class ActiveRoute extends Component {
       let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d`
       let orderUber = uberUrl + uberCoords;
       this.setState({orderCab: orderUber})
-    // Assigns order url to lyft
+      // Assigns order url to lyft
     } else if (this.props.route.display_name.match(/lyft/i)) {
-        let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
-        let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`
-        let orderLyft = lyftUrl + lyftCoods;
-        this.setState({orderCab: orderLyft})
+      let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
+      let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`
+      let orderLyft = lyftUrl + lyftCoods;
+      this.setState({orderCab: orderLyft})
     }
   }
   render() {
