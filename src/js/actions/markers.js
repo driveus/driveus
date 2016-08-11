@@ -8,11 +8,11 @@ export function setMarkers(coords) {
   let newMarkers = {};
   newMarkers.start = new google.maps.Marker({
     position: coords.start,
-    animation: 2
+    label: 'A'
   });
   newMarkers.end = new google.maps.Marker({
     position: coords.end,
-    animation: 2
+    label: 'B'
   });
   return {
     type: SET_MARKERS,

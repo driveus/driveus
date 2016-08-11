@@ -558,8 +558,11 @@ body {
   }
   .price,
   .time {
+    padding: 10px !important;
+    flex-direction: row !important;
+    justify-content: center;
     .route-cost, .route-name {
-      font-size: 14px;
+      font-size: 16px;
     }
   }
   .disclaimer {
