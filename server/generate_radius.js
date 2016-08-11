@@ -1,4 +1,5 @@
 'use strict';
+
 require('dotenv').config();
 const rp = require("request-promise");
 
@@ -65,8 +66,8 @@ function createGeoRadius(coords, searchRadius) {
   console.log('startPoint', startPoint, 'radius: ', radius)
   // Creates promiseList array and instantiates with the validated start point
   const promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
-  // const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
-  const bearings = [0, 90, 180, 270];
+  const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
+  // const bearings = [0, 90, 180, 270];
   bearings.forEach((bearing) => {
     let newPoint = createPointOnRadius(startPoint, bearing, radius);
     promiseList.push(reverseGeoCode(newPoint));
