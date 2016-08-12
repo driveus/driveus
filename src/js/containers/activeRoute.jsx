@@ -26,7 +26,7 @@ class ActiveRoute extends Component {
 
     //sets the state depending or whether the user is on desktop or mobile
      if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
-      this.setState({MobileBrowser: true})      
+      this.setState({MobileBrowser: true})
     } else {
       //also sets the state of orderCab to # to stop redirecting
       this.setState({MobileBrowser: false, orderCab: "#"})
@@ -104,7 +104,7 @@ class ActiveRoute extends Component {
             <a href={this.state.orderCab}>
             <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
             </a>
-            <div>{this.state.inputElement}</div>
+            <div className="text-message">{this.state.inputElement}</div>
         </div>
       </div>
     );

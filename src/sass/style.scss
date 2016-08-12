@@ -93,7 +93,7 @@ body {
 
 .information-view {
   flex: 1;
-  /*display: flex;*/
+  overflow: scroll;
   width: 100%;
 }
 
@@ -125,7 +125,7 @@ body {
 
   input {
     line-height: 2em;
-    font-size: 1em;
+    font-size: 14px;
   }
 }
 
@@ -238,7 +238,7 @@ body {
   cursor: pointer;
   padding: $list-padding;
   list-style-type: none;
-  text-align: left;
+  // text-align: left;
   min-height: 70px;
 }
 
@@ -309,17 +309,18 @@ body {
 .route-name {
   font-weight: bold;
   font-size: 20px;
-  padding-bottom: 5px;
+  // padding-bottom: 5px;
 }
 
 .route-cost {
-  float: right;
-  font-size: 36px;
+  font-size: 20px;
   font-weight: bold;
-  line-height: 70px;
-  height: 70px;
+  // line-height: 70px;
+  // height: 70px;
 }
-
+.driver-eta, .route-duration {
+  font-size: 14px;
+}
 .selected-route-container {
   position: fixed;
   display: flex;
@@ -384,7 +385,7 @@ body {
 #map-display {
   top: 30px;
   position: absolute;
-  height: 97%;
+  bottom: 0;
   width: 67%;
   left: 33%;
   color: #222;
@@ -415,6 +416,10 @@ body {
 .empty-message {
   display: none;
   pointer-events: none;
+}
+.text-message {
+  padding: 5px 20px;
+  font-size: 14px;
 }
 // MOBILE-ISH ******************************************
 @media (max-width: 955px) {

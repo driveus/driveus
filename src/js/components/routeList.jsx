@@ -15,11 +15,13 @@ class RouteList extends Component {
     // Div formatting including carpool disclaimer for certain services
     return this.props.routes.map((route) => {
       if (route.high_estimate) {
-        let priceStyle = {color:'white'};
-        let surgeNotice = '';
+        let priceStyle = {color:'white'},
+            surgeNotice = '',
+            surgeValue = route.price_multiplier;
         if (route.price_multiplier > 1) {
           priceStyle = {color:'yellow'};
-          surgeNotice = '- ' + route.price_multiplier + ' surge';
+          surgeValue = surgeValue % 1 === 0 ? surgeValue + '.0' : surgeValue;
+          surgeNotice = `- ${surgeValue} surge`;
         }
         if (route.price_multiplier > 2) {
           priceStyle = {color:'orangered'};

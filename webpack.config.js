@@ -21,7 +21,6 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       loader: 'babel-loader',
-      include: path.join(__dirname, 'src'),
       query: {
         presets: ['react', 'es2015', 'react-hmre']
       }
@@ -37,7 +36,6 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'json-loader'
-      
     }]
   },
   externals: {

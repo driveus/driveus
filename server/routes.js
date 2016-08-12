@@ -114,9 +114,7 @@ module.exports = function(app) {
         from: "+14082146873",
         body: req.body.data
       }, function(err, message) {
-        console.log(err, 'error message');
-    }) 
+        if (err) { console.log(err, 'error message'); }
+    })
   })
 }
-
-
