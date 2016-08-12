@@ -14,6 +14,7 @@ class ActiveRoute extends Component {
         price: 'price',
         time: 'time'
       },
+      orderCab: null,
       MobileBrowser: null,
       inputElement: null
     }
@@ -25,7 +26,7 @@ class ActiveRoute extends Component {
      if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
       this.setState({MobileBrowser: true})      
     } else {
-      this.setState({MobileBrowser: false})
+      this.setState({MobileBrowser: false, orderCab: "#"})
     }
   }
 
@@ -41,20 +42,28 @@ class ActiveRoute extends Component {
       let uberUrl = "uber://?client_id=37yHG1-x8iwme2fjogxoa3wU_4n2vWd5exCpEB8u&action=setPickup";
       let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d`
       let orderUber = uberUrl + uberCoords;
-      this.setState({orderCab: orderUber})
-      if (!this.state.MobileBrowser && this.state.orderCab) {
-        console.log('state of orderCab', this.state.orderCab)
+
+      if (!this.state.MobileBrowser) {
         this.sendMessage(orderUber);
+      } else {
+        this.setState({orderCab: orderUber, inputElement:null})
       }
+
     // Assigns order url to lyft
     } else if (this.props.route.display_name.match(/lyft/i)) {
-        let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
-        let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`
-        let orderLyft = lyftUrl + lyftCoods;
-        if (!this.state.MobileBrowser && this.state.orderCab) {
-            console.log('state of orderCab', this.state.orderCab)
-            this.sendMessage(orderLyft);
-        }
+      let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
+      let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`
+      let orderLyft = lyftUrl + lyftCoods;
+
+
+      if (!this.state.MobileBrowser ) {
+        this.sendMessage(orderLyft);
+      } else {
+                console.log('are you here? LYFTT')
+        this.setState({orderCab: orderLyft, inputElement:null})
+      }
+
+
     }
 
 }
@@ -62,7 +71,7 @@ class ActiveRoute extends Component {
     axios.post('/sms', {
       data: order
     })
-     this.setState({inputElement: 'We noticed you are not on mobile, no worries we just texted you the link to your ride!'})
+    this.setState({inputElement: 'We noticed you are not on mobile, no worries we just texted you the link to your ride!'})
   }
 
 
@@ -83,8 +92,10 @@ class ActiveRoute extends Component {
           <h1>{this.props.route.display_name}</h1>
           <h1>{cost}</h1>
           <p>Pickup: {eta} {etaMinutes}</p>
-          <p>Total: {totalTime} {totalMinutes}</p> 
+          <p>Total: {totalTime} {totalMinutes}</p>
+          <a href={this.state.orderCab}>
           <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
+          </a>
           <div>{this.state.inputElement}</div>
         </div>
       </div>
