@@ -23,9 +23,12 @@ class ActiveRoute extends Component {
   }
 
   componentDidMount() {
+
+    //sets the state depending or whether the user is on desktop or mobile
      if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
       this.setState({MobileBrowser: true})      
     } else {
+      //also sets the state of orderCab to # to stop redirecting
       this.setState({MobileBrowser: false, orderCab: "#"})
     }
   }
@@ -46,6 +49,7 @@ class ActiveRoute extends Component {
       if (!this.state.MobileBrowser) {
         this.sendMessage(orderUber);
       } else {
+        //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderUber, inputElement:null})
       }
 
@@ -59,7 +63,7 @@ class ActiveRoute extends Component {
       if (!this.state.MobileBrowser ) {
         this.sendMessage(orderLyft);
       } else {
-                console.log('are you here? LYFTT')
+        //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderLyft, inputElement:null})
       }
 
