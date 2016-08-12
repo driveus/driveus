@@ -1,6 +1,7 @@
 bower_components
 node_modules
 public
+!public/index.html
 .env
 Gulpfile.js
 npm-debug.log
