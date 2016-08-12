@@ -15,18 +15,18 @@ function generateToken() {
       'Authorization': `Basic ${authorziation}`
     },
     body: {
-      grant_type: "client_credentials",
-      scope: "public",
+      grant_type: 'client_credentials',
+      scope: 'public',
     },
     json: true
-  }
+  };
   return rp(options)
   .then((resp) => {
-    lyftToken = resp['access_token'];
+    lyftToken = resp.access_token;
   })
   .catch((err) => {
     console.log(err);
-  })
+  });
 }
 
 generateToken();
@@ -41,19 +41,19 @@ function lyftRides(coords) {
       'Authorization': `Bearer ${lyftToken}`
     },
     json: true
-  }
+  };
   return rp(options);
 }
 
 //Input start & end coordinates, output a promise that will return Lyft car ETAs
 function lyftEtas(coords) {
-  let options = {
+  const options = {
     uri: `https://api.lyft.com/v1/eta?lat=${coords.start.lat}&lng=${coords.start.lng}`,
     headers: {
       'Authorization': `Bearer ${lyftToken}`
     },
     json: true
-  }
+  };
   return rp(options);
 
 }
@@ -62,18 +62,18 @@ function lyftEtas(coords) {
 // of ride options with all relevant properties combined from the two calls.
 function parseLyft(apiResponses, isExpandedSearch) {
   isExpandedSearch = isExpandedSearch === undefined ? false : true;
-  let rides = apiResponses[0]['cost_estimates'];
-  const etas = apiResponses[1]['eta_estimates'];
+  let rides = apiResponses[0].cost_estimates;
+  const etas = apiResponses[1].eta_estimates;
   const coords = apiResponses[2];
 
   rides = rides.map((obj) => {
     const out = {};
     out.display_name = obj.display_name;
-    out.duration = obj['estimated_duration_seconds'];
-    out.distance = obj['estimated_distance_miles'];
-    out.high_estimate = obj['estimated_cost_cents_max'];
-    out.low_estimate = obj['estimated_cost_cents_min'];
-    out.avg_estimate = ((obj['estimated_cost_cents_max'] + obj['estimated_cost_cents_min']) / 2);
+    out.duration = obj.estimated_duration_seconds;
+    out.distance = obj.estimated_distance_miles;
+    out.high_estimate = obj.estimated_cost_cents_max;
+    out.low_estimate = obj.estimated_cost_cents_min;
+    out.avg_estimate = ((obj.estimated_cost_cents_max + obj.estimated_cost_cents_min) / 2);
     out.price_multiplier = 1 + (parseFloat(obj.primetime_percentage) / 100);
     return out;
   });

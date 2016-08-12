@@ -31,6 +31,7 @@ class Controls extends Component {
         }
       });
     });
+    document.querySelector('.location-form').addEventListener('keydown', this.handleKeyDown);
   }
   // Wipes input field after form submission (at the end of redux cycle)
   componentWillReceiveProps() {
@@ -43,7 +44,7 @@ class Controls extends Component {
   onFormSubmit(e) {
     e.preventDefault();
     if (this.props.canRequestRoutes) {
-      let startLocation = e.target.startLocation.value,
+      let startLocation = e.target.startLocation.value || this.state.currentLocation,
           endLocation = e.target.endLocation.value;
       if (startLocation && endLocation) {
         let location = {
@@ -84,6 +85,12 @@ class Controls extends Component {
         return;
     }
   }
+  handleKeyDown(e) {
+    var ENTER = 13;
+    if( e.keyCode === ENTER ) {
+      e.preventDefault();
+    }
+  }
   render() {
     let isActive = 'inactive-expand',
         canExpand = null;
@@ -115,12 +122,12 @@ class Controls extends Component {
           <button className="form-btn"> > </button>
           
         </form>
-          <ExpandSearch
+        <ExpandSearch
 
-            classStyle={isActive}
-            currentLocation={this.props.currentCoords}
-            expandSearch={canExpand}
-          />
+          classStyle={isActive}
+          currentLocation={this.props.currentCoords}
+          expandSearch={canExpand}
+        />
       </div>
     );
   }

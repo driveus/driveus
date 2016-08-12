@@ -10,8 +10,8 @@ function uberRides(coords) {
       'Authorization': `Token ${process.env.UBER_TOKEN}`
     },
     json: true
-  }
-  return rp(options)
+  };
+  return rp(options);
 }
 
 //Input start & end coordinates, output a promise that will return Uber car ETAs
@@ -22,28 +22,28 @@ function uberEtas(coords) {
       'Authorization': `Token ${process.env.UBER_TOKEN}`
     },
     json: true
-  }
-  return rp(options)
+  };
+  return rp(options);
 }
 
 //Input Uber's responses from the rides & etas API calls, output an array
 // of ride options with all relevant properties combined from the two calls.
 function parseUber(apiResponses, isExpandedSearch) {
   isExpandedSearch = isExpandedSearch === undefined ? true : false;
-  let rides = apiResponses[0]['prices'];
-  const etas = apiResponses[1]['times'];
+  let rides = apiResponses[0].prices;
+  const etas = apiResponses[1].times;
   const coords = apiResponses[2];
 
   rides = rides.map((obj) => {
     const out = {};
     out.product_id = obj.product_id;
-    out.display_name = obj['display_name'].replace(/^(uber)?/i, "Uber");
-    out.duration = obj['duration'];
-    out.distance = obj['distance'];
-    out.high_estimate = obj['high_estimate'] * 100;
-    out.low_estimate = obj['low_estimate'] * 100;
-    out.avg_estimate = ((obj['high_estimate'] + obj['low_estimate']) * 100 / 2);
-    out.price_multiplier = obj['surge_multiplier'];
+    out.display_name = obj.display_name.replace(/^(uber)?/i, 'Uber');
+    out.duration = obj.duration;
+    out.distance = obj.distance;
+    out.high_estimate = obj.high_estimate * 100;
+    out.low_estimate = obj.low_estimate * 100;
+    out.avg_estimate = ((obj.high_estimate + obj.low_estimate) * 100 / 2);
+    out.price_multiplier = obj.surge_multiplier;
     if (out.display_name === 'POOL') { out.display_name = 'UberPOOL'; }
     return out;
   });

@@ -30,22 +30,31 @@ class ActiveRoute extends Component {
       let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d`
       let orderUber = uberUrl + uberCoords;
       this.setState({orderCab: orderUber})
-    // Assigns order url to lyft
+      // Assigns order url to lyft
     } else if (this.props.route.display_name.match(/lyft/i)) {
-        let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
-        let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`
-        let orderLyft = lyftUrl + lyftCoods;
-        this.setState({orderCab: orderLyft})
+      let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
+      let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`
+      let orderLyft = lyftUrl + lyftCoods;
+      this.setState({orderCab: orderLyft})
     }
+  }
+  msToTime(ms) {
+    let duration = new Date(ms),
+        minutes = parseInt(duration.getMinutes()),
+        hours = parseInt(duration.getHours()),
+        timeOfDay = hours >= 12 ? 'PM' : 'AM';
+    hours = hours > 12 ? hours - 12 : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    return hours + ":" + minutes + ' ' + timeOfDay;
   }
   render() {
     // Formatting for display...could be done better?
     if (!this.props.route) { return <div></div>; }
     let eta = Math.round(this.props.route.eta/60),
-        totalTime = Math.round((this.props.route.duration + this.props.route.eta)/60),
+        totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
+        arrivalTime = (this.msToTime(Date.now()+totalTime)),
         etaMinutes = eta <= 1 ? 'minute' : 'minutes',
         cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
-        totalMinutes = totalTime <= 1 ? 'minute' : 'minutes',
         backgroundColor = this.state.style[this.props.style],
         classes = 'selected-route-container ' + backgroundColor;
     return (
@@ -55,7 +64,7 @@ class ActiveRoute extends Component {
           <h1>{this.props.route.display_name}</h1>
           <h1>{cost}</h1>
           <p>Pickup: {eta} {etaMinutes}</p>
-          <p>Total: {totalTime} {totalMinutes}</p>
+          <p>Arrival: {arrivalTime}</p>
             <a href={this.state.orderCab} target="_blank">
              <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
            </a>

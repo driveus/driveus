@@ -7,7 +7,7 @@ var expandSearch = require('./expand_search.js');
 
 module.exports = function(app) {
   app.all('/api/uber', (req, res) => {
-    console.log('uber hit: ', req.body.data)
+    console.log('uber hit: ', req.body.data);
     let coords;
     if (req.body) {
       coords = req.body.data;
@@ -19,11 +19,11 @@ module.exports = function(app) {
     })
     .catch((err) => {
       console.log(err);
-    })
-  })
+    });
+  });
 
   app.all('/api/lyft', (req, res) => {
-    console.log('lyft hit: ', req.body.data)
+    console.log('lyft hit: ', req.body.data);
     let coords;
     if (req.body) {
       coords = req.body.data;
@@ -35,8 +35,8 @@ module.exports = function(app) {
     })
     .catch((err) => {
       console.log(err);
-    })
-  })
+    });
+  });
 
 // Will respond with cheapest and fastest ride options based on various bearings/radius around start point
   app.all('/api/expandSearch', (req, res) => {
@@ -70,23 +70,21 @@ module.exports = function(app) {
           minPrice_coords: optimalPrice.coords || null,
           minTime: optimalTime.ride || null,
           minTime_coords: optimalTime.coords || null
-        })
+        });
       })
       .catch((err) => {
         console.log('Some Uber or Lyft call failed', err);
       })
-
-
       // .then(function(data) {
       //   res.json(data);
       // })
       // .catch(function(err) {
       //   console.log('At least 1 geoRadius point failed to return');
       // })
-  })
+  });
 
   app.all('/api/genRadius', (req, res) => {
-    console.log('Generating Radius Of Coordinates', dummyCoords) // , req.body.data)
+    console.log('Generating Radius Of Coordinates', dummyCoords); // , req.body.data)
     // res.json('test');
     let coords;
     if (req.body) {
@@ -99,7 +97,7 @@ module.exports = function(app) {
       })
       .catch((err) => {
         console.log('At least 1 geoRadius point failed to return');
-      })
-  })
+      });
+  });
 
 };
