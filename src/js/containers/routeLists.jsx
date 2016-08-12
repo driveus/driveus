@@ -11,13 +11,15 @@ import ExpandedRouteList from '../components/expandedRouteList.jsx';
 class RouteLists extends Component {
   render() {
     let expandedRoutes,
+        listContainerStyle = { overflow: 'hidden' },
         listMessage = <h1 className="empty-message">Search for rides</h1>;
     if (this.props.uberRoutes.length || this.props.lyftRoutes.length) {
       let style = { height: '0%', margin: 0, opacity: 0 }
       listMessage = <h1 style={style} className="empty-message">Search for rides</h1>;
+      listContainerStyle = { overflow: 'scroll' };
     }
     return (
-      <div className="list-container">
+      <div style={listContainerStyle} className="list-container">
         {listMessage}
         <ExpandedRouteList
           routes={this.props.expandedRoutes}

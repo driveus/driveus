@@ -9,6 +9,7 @@ import RouteExpandedMarkersReducer from './reducer_expanded_marker';
 import RequestRouteReducer from './reducer_request_routes';
 import DirectionsReducer from './reducer_directions';
 import ExpandedDirectionsReducer from './reducer_expanded_directions';
+import SurgeReducer from './reducer_surge';
 
 const rootReducer = combineReducers({
   routes: RoutesReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   expandedMarkers: RouteExpandedMarkersReducer,
   requestRoute: RequestRouteReducer,
   directions: DirectionsReducer,
-  expandedDirections: ExpandedDirectionsReducer
+  expandedDirections: ExpandedDirectionsReducer,
+  surge: SurgeReducer
 });
 
 export default rootReducer;

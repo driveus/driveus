@@ -3,6 +3,7 @@ import {
   setExpandedDirectionsPrice,
   setExpandedDirectionsTime,
   setAddress,
+  setSurgeMultipler,
   requestRoutes,
   receiveRoutesLyft,
   receiveRoutesUber,
@@ -61,6 +62,7 @@ export function fetchUber(coords) {
     axiosRequest('uber', coords)
     .then(function (response) {
       // index |
+      dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesUber(coords, response.data.rides));
     })
     .catch(function(err) {
@@ -76,6 +78,7 @@ export function fetchLyft(coords) {
     axiosRequest('lyft', coords)
     .then(function (response) {
       // index |
+      dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesLyft(coords, response.data.rides));
     })
     .catch(function(err) {
@@ -96,7 +99,7 @@ export function fetchExpanded(coords, radius) {
     .then(function (response) {
       let expandedCoords = {
         price: response.data.minPrice_coords,
-        time: response.data.minTime_coords, 
+        time: response.data.minTime_coords,
         ctime: response.data.minTime.display_name,
         cprice: response.data.minPrice.display_name
       }

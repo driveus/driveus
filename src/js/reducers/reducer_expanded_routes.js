@@ -10,7 +10,6 @@ import {
 export default function(state={price:null,time:null}, action) {
   switch (action.type) {
     case NO_EXPANDED_ROUTES:
-      console.log('No better deals found.')
       return state;
     case REQUEST_ROUTES:
       return {
@@ -18,7 +17,6 @@ export default function(state={price:null,time:null}, action) {
         time: null
       }
     case RECEIVE_EXPANDED_ROUTES:
-      console.log('Received better deals!', action.routes)
       return action.routes;
     case RECEIVE_ROUTES_LYFT:
     case RECEIVE_ROUTES_UBER:

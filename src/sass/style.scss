@@ -57,7 +57,7 @@ body {
   background-color: $off-white;
   min-height: 30px;
   z-index: 30;
-}   
+}
 
 #app {
   height: inherit;
@@ -122,10 +122,10 @@ body {
   min-width: 250px;
   width: 100%;
   margin: 20px;
-  
+
   input {
     line-height: 2em;
-    font-size: 1em;  
+    font-size: 1em;
   }
 }
 
@@ -202,7 +202,6 @@ body {
 .expanded-routes {
   .price:hover {
     background-color: #426d7d;
-
   }
   .time:hover {
     background-color: #30b597;
@@ -222,7 +221,14 @@ body {
 .time {
   transition-duration: 125ms;
 }
-
+.price-color {
+  background-color: #325461;
+  border-radius: 0 !important;
+}
+.time-color {
+  background-color: #279a80;
+  border-radius: 0 !important;
+}
 .time {
   background-color: #279a80;
   border-radius: 0 !important;
@@ -408,6 +414,7 @@ body {
 }
 .empty-message {
   display: none;
+  pointer-events: none;
 }
 // MOBILE-ISH ******************************************
 @media (max-width: 955px) {
@@ -444,7 +451,7 @@ body {
     // height: 2em;
     padding: 5px;
     flex-direction: column;
-    display: block;
+    display: flex;
     flex-wrap: wrap;
     align-items: center;
     min-height: 0;
@@ -530,16 +537,16 @@ body {
     width: 100%;
     background-color: $off-white;
     button:first-child {
-      margin: 0px 2px;
+      margin-right: 1px;
     }
     button:nth-child(2) {
-      margin-right: 2px;
+      margin-left: 1px;
     }
   }
   .form-btn {
     background-color: #279a80;
     color: $off-white;
-    border-radius: $default-radius;
+    // border-radius: $default-radius;
     margin: 0;
     border: none;
     width: 50%;
@@ -558,16 +565,14 @@ body {
   }
   .price,
   .time {
+    padding: 15px !important;
+    flex-direction: row !important;
+    justify-content: center;
     .route-cost, .route-name {
-      font-size: 14px;
+      font-size: 16px;
     }
   }
   .disclaimer {
     font-size: 10px;
-  }
-}
-@media (max-width: 420px) {
-  .list-item {
-    display: flex;
   }
 }

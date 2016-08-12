@@ -8,7 +8,6 @@ import {
 export default function(state={price:null,time:null}, action) {
   switch(action.type) {
     case SET_EXPANDED_MARKERS:
-      console.log('Expanded makers have been generated');
       return action.payload;
     case RECEIVE_ROUTES_LYFT:
     case RECEIVE_ROUTES_UBER:

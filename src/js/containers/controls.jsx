@@ -40,6 +40,11 @@ class Controls extends Component {
       endLocation: ''
     });
   }
+  componentDidUpdate() {
+    if (this.props.surge) {
+      console.log('detected change!')
+    }
+  }
   // Assigns input placeholders and fires of redux chain API calls
   onFormSubmit(e) {
     e.preventDefault();
@@ -120,10 +125,9 @@ class Controls extends Component {
             />
           </div>
           <button className="form-btn"> > </button>
-          
+
         </form>
         <ExpandSearch
-
           classStyle={isActive}
           currentLocation={this.props.currentCoords}
           expandSearch={canExpand}
@@ -135,6 +139,7 @@ class Controls extends Component {
 
 function mapStateToProps(state) {
   return {
+    surge: state.surge,
     canRequestRoutes: state.requestRoute,
     currentCoords: state.currentCoords,
     currentAddress: state.currentAddress
