@@ -414,6 +414,7 @@ body {
 }
 .empty-message {
   display: none;
+  pointer-events: none;
 }
 // MOBILE-ISH ******************************************
 @media (max-width: 955px) {
@@ -450,7 +451,7 @@ body {
     // height: 2em;
     padding: 5px;
     flex-direction: column;
-    display: block;
+    display: flex;
     flex-wrap: wrap;
     align-items: center;
     min-height: 0;
@@ -564,7 +565,7 @@ body {
   }
   .price,
   .time {
-    padding: 10px !important;
+    padding: 15px !important;
     flex-direction: row !important;
     justify-content: center;
     .route-cost, .route-name {
@@ -573,10 +574,5 @@ body {
   }
   .disclaimer {
     font-size: 10px;
-  }
-}
-@media (max-width: 420px) {
-  .list-item {
-    display: flex;
   }
 }
