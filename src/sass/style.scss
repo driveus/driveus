@@ -22,31 +22,21 @@ $lyft-color-active: #ea7bb6;
   margin: 0;
   font-family: sans-serif;
 }
-
 html,
 body {
   height: 100%
 }
-
 body {
   background-color: $primary-color;
 }
-
-#header {
-  background-color: rgba(0, 0, 0, .6);
-  min-height: 40px;
-  margin-bottom: 20px;
-  // min-width: $min-width;
-}
-
-#footer {
-  color: #d9d9d9;
-  background-color: rgba(0, 0, 0, .6);
-  padding-left: 10px;
-  min-height: 25px;
-  line-height: 25px;
-  font-size: 14px;
-  // min-width: $min-width;
+#container {
+  margin: $center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-align: center;
+  color: $header-text-color;
+  background-color: white;
 }
 
 #site-title {
@@ -67,28 +57,9 @@ body {
   height: inherit;
 }
 
-#container {
-  // min-width: $min-width;
-  // max-width: $max-width;
-  margin: $center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  text-align: center;
-  color: $header-text-color;
-  // background: linear-gradient(90deg, #482BBD 0%, #e70b81 100%);
-  background-color: white;
-  // box-shadow: $default-box-shadow;
-  // border-top-right-radius: $default-radius;
-  // border-top-left-radius: $default-radius;
-  // margin-bottom: 50px;
-}
-
 .search-box {
   background-color: mediumaquamarine;
-  /*// margin: $center;*/
   width: 33%;
-  /*border: 1px solid black;*/
 }
 
 .information-view {
@@ -101,19 +72,12 @@ body {
   position: inherit;
 }
 
-.marker-tag {
-  // margin-left: 10px;
-  // margin-top: 2px;
-}
-
-
 .location-form {
   margin: $center;
   align-items: center;
   display: flex;
   flex-direction: row;
   width: 100%;
-
 }
 
 .location-search-inputs {
@@ -122,7 +86,6 @@ body {
   min-width: 250px;
   width: 100%;
   margin: 20px;
-
   input {
     line-height: 2em;
     font-size: 14px;
@@ -143,6 +106,9 @@ body {
   &:active {
     background-color: #cccccc;
   }
+  &:before {
+    content: '>';
+  }
 }
 
 .inactive-expand {
@@ -151,13 +117,11 @@ body {
   pointer-events: none;
 }
 
-/*.active-expand {*/
 .slider-show {
   transition: all 5s ease-in-out;
   color: white;
   margin: 10px;
   text-align: center;
-
   div {
     margin: auto;
   }
@@ -174,7 +138,6 @@ body {
 
 .slider-hide {
   display: none;
-  /*opacity: 0;*/
 }
 
 .search-btn {
@@ -238,7 +201,6 @@ body {
   cursor: pointer;
   padding: $list-padding;
   list-style-type: none;
-  // text-align: left;
   min-height: 70px;
 }
 
@@ -252,11 +214,6 @@ body {
   margin: $center;
   ul {
     padding: 0px;
-  }
-  li:first-child {}
-  li:last-child {
-    // border-bottom-right-radius: $default-radius;
-    // border-bottom-left-radius: $default-radius;
   }
 }
 
@@ -308,15 +265,11 @@ body {
 
 .route-name {
   font-weight: bold;
-  font-size: 20px;
-  // padding-bottom: 5px;
+  font-size: 18px;
 }
-
 .route-cost {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
-  // line-height: 70px;
-  // height: 70px;
 }
 .driver-eta, .route-duration {
   font-size: 14px;
@@ -389,15 +342,12 @@ body {
   width: 67%;
   left: 33%;
   color: #222;
-  /*flex: 1;*/
-  /*padding: 1px;*/
   box-sizing: border-box;
   margin: $center;
   background-color: $secondary-color;
 }
 
 .inactive-expand {
-  // color: $secondary-color !important;
   opacity: .3;
   pointer-events: none;
 }
@@ -425,6 +375,9 @@ body {
 @media (max-width: 955px) {
   #container {
     flex-direction: column;
+  }
+  .expand-search {
+    margin: 10px 20px;
   }
   .expanded-routes {
       transition-duration: 400ms;
@@ -460,6 +413,9 @@ body {
     flex-wrap: wrap;
     align-items: center;
     min-height: 0;
+  }
+  .location-search-inputs {
+    margin: 0;
   }
   .uber-list-container {
       overflow: scroll;
@@ -525,6 +481,7 @@ body {
     z-index: 99;
   }
   .location-form {
+    flex-direction: column;
     width: 100%;
     input {
       min-width: 0;
@@ -551,12 +508,12 @@ body {
   .form-btn {
     background-color: #279a80;
     color: $off-white;
-    // border-radius: $default-radius;
+    border-radius: 0;
     margin: 0;
     border: none;
-    width: 50%;
+    width: 100%;
     font-size: 1.5em;
-    height: 2.2em;
+    height: 2em;
     cursor: pointer;
     &:hover {
       background-color: #279a80;
@@ -566,6 +523,9 @@ body {
     }
     &:focus {
       outline: none;
+    }
+    &:before {
+      content: 'Submit';
     }
   }
   .price,

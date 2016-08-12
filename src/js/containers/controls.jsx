@@ -124,7 +124,7 @@ class Controls extends Component {
               placeholder={this.state.endPlaceholder}
             />
           </div>
-          <button className="form-btn"> > </button>
+          <button className="form-btn"></button>
 
         </form>
         <ExpandSearch
