@@ -20,24 +20,24 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'src')
+      loader: 'babel-loader',
+      include: path.join(__dirname, 'src'),
+      query: {
+        presets: ['react', 'es2015', 'react-hmre']
+      }
     }, {
       test: /\.scss$/,
       loaders: ["style", "css", "sass"],
       include: path.join(__dirname, 'src')
     },
     {
-      // Doesn't work :(
       test: /\.(jpe?g|png|gif|svg)$/i,
       loader:'file'
-    }, {
-      test: /\.js$/,
-      loader: 'babel-loader',
-      exclude: /node_modules/,
-      query: {
-        presets: ['react', 'es2015', 'react-hmre']
-      },
+    },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      
     }]
   },
   externals: {

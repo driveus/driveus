@@ -7,6 +7,7 @@ import ActiveRoute from '../containers/activeRoute.jsx';
 import MapView from '../containers/mapView.jsx';
 
 class App extends Component {
+  
   render() {
     return (
       <div id="wrapper">
