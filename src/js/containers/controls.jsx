@@ -100,33 +100,34 @@ class Controls extends Component {
     }
     return (
       <div className="search-box">
-        <form onSubmit={this.onFormSubmit}
-              className="location-form">
-          <LocationSearch
-            tripNode="startLocation"
-            onLocationChange={this.handleLocationChange}
-            onAutoComplete={this.handleLocationAutoComplete}
-            value={this.state.startLocation}
-            name="startLocation"
-            placeholder={this.state.startPlaceholder}
+        <form onSubmit={this.onFormSubmit} className="location-form">
+          <div className="location-search-inputs">
+            <LocationSearch
+              tripNode="startLocation"
+              onLocationChange={this.handleLocationChange}
+              onAutoComplete={this.handleLocationAutoComplete}
+              value={this.state.startLocation}
+              name="startLocation"
+              placeholder={this.state.startPlaceholder}
             />
-          <LocationSearch
-            tripNode="endLocation"
-            onLocationChange={this.handleLocationChange}
-            onAutoComplete={this.handleLocationAutoComplete}
-            value={this.state.endLocation}
-            name="endLocation"
-            placeholder={this.state.endPlaceholder}
+            <LocationSearch
+              tripNode="endLocation"
+              onLocationChange={this.handleLocationChange}
+              onAutoComplete={this.handleLocationAutoComplete}
+              value={this.state.endLocation}
+              name="endLocation"
+              placeholder={this.state.endPlaceholder}
             />
-          <div className="form-submit">
-            <ExpandSearch
-              classStyle={isActive}
-              currentLocation={this.props.currentCoords}
-              expandSearch={canExpand}
-              />
-            <button className="form-btn">Submit</button>
           </div>
+          <button className="form-btn"> > </button>
+          
         </form>
+        <ExpandSearch
+
+          classStyle={isActive}
+          currentLocation={this.props.currentCoords}
+          expandSearch={canExpand}
+        />
       </div>
     );
   }
@@ -144,3 +145,8 @@ function mapDispatchToProps(dispatch) {
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);
+
+
+
+    // <div className="form-submit">
+    //       </div>

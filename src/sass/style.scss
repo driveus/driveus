@@ -51,12 +51,13 @@ body {
 
 #site-title {
   font-family: "Arial", sans-serif;
-  font-size: 30px;
+  font-size: 24px;
   color: #222;
-  padding: 5px;
   border-bottom: 1px solid #222;
   background-color: $off-white;
-}
+  min-height: 30px;
+  z-index: 30;
+}   
 
 #app {
   height: inherit;
@@ -83,9 +84,17 @@ body {
   // margin-bottom: 50px;
 }
 
+.search-box {
+  background-color: mediumaquamarine;
+  /*// margin: $center;*/
+  width: 33%;
+  /*border: 1px solid black;*/
+}
+
 .information-view {
   flex: 1;
-  display: flex;
+  /*display: flex;*/
+  width: 100%;
 }
 
 .routesTest {
@@ -97,40 +106,90 @@ body {
   // margin-top: 2px;
 }
 
-.search-box {
-  margin: $center;
-  width: $child-width;
-  padding: 10px;
-  width: 100%;
-}
 
 .location-form {
   margin: $center;
   align-items: center;
   display: flex;
+  flex-direction: row;
+  width: 100%;
+
+}
+
+.location-search-inputs {
+  display: flex;
   flex-direction: column;
-  width: 70%;
+  min-width: 250px;
+  width: 100%;
+  margin: 20px;
+  
   input {
-    min-width: 600px;
-    width: 60%;
-    padding: 0px 0px 0px 5px;
     line-height: 2em;
-    font-size: 1em;
+    font-size: 1em;  
   }
 }
 
 .form-submit {
   display: flex;
+  width: 100%;
 }
 
 .form-btn {
   background-color: $off-white;
-  height: 30px;
-  width: 100px;
-  margin: 10px 5px 0px 5px;
+  min-height: 30px;
+  min-width: 30px;
+  border-radius: 15px;
+  margin: 0px 20px 0px 0px;
   &:active {
     background-color: #cccccc;
   }
+}
+
+.inactive-expand {
+  color: $secondary-color !important;
+  opacity: .3;
+  pointer-events: none;
+}
+
+/*.active-expand {*/
+.slider-show {
+  transition: all 5s ease-in-out;
+  color: white;
+  margin: 10px;
+  text-align: center;
+
+  div {
+    margin: auto;
+  }
+  input[type=range] {
+    min-width: 100px;
+    width: 20%;
+    line-height: 2em;
+    font-size: 1em;
+  };
+  span {
+    margin: 0 20px;
+  }
+}
+
+.slider-hide {
+  display: none;
+  /*opacity: 0;*/
+}
+
+.search-btn {
+  text-align: left;
+  color: black;
+}
+
+.expand-search {
+  text-align: left;
+  margin: 0 20px 20px 20px;
+}
+
+.expand-slider {
+  width: 10%;
+  min-width: 10px;
 }
 
 .uber {
@@ -178,8 +237,10 @@ body {
 }
 
 .list-container {
+  height: 100%;
+  float: left;
   flex: 1;
-  width: 100%;
+  width: 33%;
   overflow: scroll;
   background-color: $secondary-color;
   margin: $center;
@@ -315,10 +376,14 @@ body {
 }
 
 #map-display {
+  top: 30px;
+  position: absolute;
+  height: 97%;
+  width: 67%;
+  left: 33%;
   color: #222;
-  flex: 1;
-  width: 100%;
-  padding: 1px;
+  /*flex: 1;*/
+  /*padding: 1px;*/
   box-sizing: border-box;
   margin: $center;
   background-color: $secondary-color;
@@ -329,6 +394,7 @@ body {
   opacity: .3;
   pointer-events: none;
 }
+
 .walking-distance {
   margin: $center;
   color: $off-white;
@@ -337,8 +403,8 @@ body {
   left: 0;
   padding: 5px 0px;
   position: absolute;
-  width: 50%;
-  z-index: 50;
+  width: 100%;
+  z-index: 29;
 }
 .empty-message {
   display: none;
@@ -355,7 +421,7 @@ body {
     width: 100%;
   }
   .information-view {
-    height: 100%;
+    display: flex;
     flex-direction: column;
   }
   #site-title {
@@ -367,6 +433,8 @@ body {
     margin: 5px 10px;
   }
   .list-container {
+    width: 100%;
+    order: 1;
     border-top: 1px solid $secondary-color;
     background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
     flex: 1;
@@ -423,9 +491,11 @@ body {
     }
   }
   #map-display {
+    position: inherit;
     flex: none;
     padding: 0;
     height: 230px;
+    width: 100%;
   }
   .empty-message {
     height: 100%;
@@ -436,6 +506,7 @@ body {
     transition: all .3s ease .15s;
   }
   .search-box {
+    width: 100%;
     padding: 0;
     left: 0;
     right: 0;

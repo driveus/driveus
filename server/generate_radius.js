@@ -58,10 +58,11 @@ function reverseGeoCode(geoPoint) {
 }
 
 // Accepts a starting lat/lng and generates valid lat/lng coordinates at each bearing
-function createGeoRadius(coords) {
+function createGeoRadius(coords, searchRadius) {
   const startPoint = coords.start;
-  const radius = 0.5;  // 1km
+  const radius = searchRadius/1000;  // Converts meters to km
 
+  console.log('startPoint', startPoint, 'radius: ', radius)
   // Creates promiseList array and instantiates with the validated start point
   const promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
   const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
