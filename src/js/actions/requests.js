@@ -87,10 +87,13 @@ export function fetchLyft(coords) {
   }
 }
 
-// Fetches expanded search routes and coords
-export function fetchExpanded(coords) {
+export function fetchExpanded(coords, radius) {
+  var payload = {
+    coords: coords,
+    radius: radius
+  }
   return function(dispatch) {
-    axiosRequest('expandSearch', coords)
+    axiosRequest('expandSearch', payload)
     .then(function (response) {
       let expandedCoords = {
         price: response.data.minPrice_coords,
@@ -140,8 +143,8 @@ export function getDirections(start, end, flag=null) {
   }
 }
 
-function axiosRequest(target, coords) {
+function axiosRequest(target, payload) {
   return axios.post('/api/' + target, {
-    data: coords
+    data: payload
   });
 }

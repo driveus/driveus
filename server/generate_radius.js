@@ -1,15 +1,14 @@
 'use strict';
 
-require('dotenv').config();
-const rp = require("request-promise");
+const rp = require('request-promise');
 
 Number.prototype.toRad = function() {
   return this * Math.PI / 180;
-}
+};
 
 Number.prototype.toDeg = function() {
   return this * 180 / Math.PI;
-}
+};
 
 // Returns a new lat/lng pair at a specific bearing and distance (radius) from a starting point
 function createPointOnRadius(startPoint, bearing, dist) {
@@ -28,8 +27,8 @@ function createPointOnRadius(startPoint, bearing, dist) {
                     );
 
   if (isNaN(lat2) || isNaN(lng2)) return null;
-  const newLat = lat2.toDeg()
-  const newLng = lng2.toDeg()
+  const newLat = lat2.toDeg();
+  const newLng = lng2.toDeg();
   return {lat: newLat, lng: newLng};
 }
 
@@ -42,27 +41,28 @@ function reverseGeoCode(geoPoint) {
   const googlekey = process.env.GOOGLE_KEY;
   const lat = geoPoint.lat;
   const lng = geoPoint.lng;
-  var options = {
+  const options = {
     uri: `${baseUrl}?latlng=${lat},${lng}&key=${googlekey}`,
     headers: {
       'User-Agent': 'Request-Promise'
     },
     json: true
-  }
+  };
   return rp(options)
           .then((resp) => {
             return resp.results[0].geometry.location;
           })
           .catch((err) => {
             return 'Reversing Geocode Failed';
-          })
+          });
 }
 
 // Accepts a starting lat/lng and generates valid lat/lng coordinates at each bearing
-function createGeoRadius(coords) {
+function createGeoRadius(coords, searchRadius) {
   const startPoint = coords.start;
-  const radius = .5;  // 1km
+  const radius = searchRadius/1000;  // Converts meters to km
 
+  console.log('startPoint', startPoint, 'radius: ', radius)
   // Creates promiseList array and instantiates with the validated start point
   const promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
   const bearings = [0, 45, 90, 135, 180, 225, 270, 315];

@@ -1,7 +1,7 @@
 'use strict';
 const lyft = require('./lyft.js');
 const uber = require('./uber.js');
-const genRadius = require('./generate_radius.js')
+const genRadius = require('./generate_radius.js');
 
 function checkIfOptimalPrice(rideOptions, optimalPrice) {
   if (!optimalPrice.ride) {
@@ -20,7 +20,7 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
         optimalPrice.coords = rideOptions.coords;
       }
     }
-  })
+  });
   console.log('OPTIMAL PRICE OPTION: ', 'Product: ', optimalPrice.ride.display_name,  'Estimate: ',  optimalPrice.ride.avg_estimate,  'TotalTime: ',  optimalPrice.ride.eta + optimalPrice.ride.duration,  'Coords: ',  optimalPrice.coords.start);
   return optimalPrice;
 }
@@ -41,31 +41,32 @@ function checkIfOptimalTime(rideOptions, optimalTime) {
         optimalTime.coords = rideOptions.coords;
       }
     }
-  })
+  });
   console.log('OPTIMAL TIME OPTION: ', 'Product: ', optimalTime.ride.display_name,  'Estimate: ',  optimalTime.ride.avg_estimate,  'TotalTime: ',  optimalTime.ride.eta + optimalTime.ride.duration,  'Coords: ',  optimalTime.coords.start);
   return optimalTime;
 }
 
 // Receives the user's selected starting location
-function expandSearch(startCoords) {
+function expandSearch(startCoords, radius) {
   const uberPromiseList = [];
   const lyftPromiseList = [];
 
-  return genRadius.createGeoRadius(startCoords) // generates a radius of GPS points around a starting point
+  return genRadius.createGeoRadius(startCoords, radius) // generates a radius of GPS points around a starting point
     .then((data) => {
+      console.log(data);
       data.forEach((coordPair) => { // For all coordinates around starting point, generates Start and End pairs based on destination
         const newStartEnd = {
           start: coordPair,
           end: startCoords.end
-        }
+        };
         uberPromiseList.push(uber.uberRequest(newStartEnd));
         lyftPromiseList.push(lyft.lyftRequest(newStartEnd));
-      })
+      });
 
       return Promise.all([Promise.all(uberPromiseList), Promise.all(lyftPromiseList)]);
     })
     .catch(function(err) {
-    })
+    });
 }
 
 

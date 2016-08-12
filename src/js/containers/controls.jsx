@@ -31,6 +31,7 @@ class Controls extends Component {
         }
       });
     });
+    document.querySelector('.location-form').addEventListener('keydown', this.handleKeyDown);
   }
   // Wipes input field after form submission (at the end of redux cycle)
   componentWillReceiveProps() {
@@ -43,7 +44,7 @@ class Controls extends Component {
   onFormSubmit(e) {
     e.preventDefault();
     if (this.props.canRequestRoutes) {
-      let startLocation = e.target.startLocation.value,
+      let startLocation = e.target.startLocation.value || this.state.currentLocation,
           endLocation = e.target.endLocation.value;
       if (startLocation && endLocation) {
         let location = {
@@ -84,6 +85,12 @@ class Controls extends Component {
         return;
     }
   }
+  handleKeyDown(e) {
+    var ENTER = 13;
+    if( e.keyCode === ENTER ) {
+      e.preventDefault();
+    }
+  }
   render() {
     let isActive = 'inactive-expand',
         canExpand = null;
@@ -94,31 +101,33 @@ class Controls extends Component {
     return (
       <div className="search-box">
         <form onSubmit={this.onFormSubmit} className="location-form">
-          <LocationSearch
-            tripNode="startLocation"
-            onLocationChange={this.handleLocationChange}
-            onAutoComplete={this.handleLocationAutoComplete}
-            value={this.state.startLocation}
-            name="startLocation"
-            placeholder={this.state.startPlaceholder}
+          <div className="location-search-inputs">
+            <LocationSearch
+              tripNode="startLocation"
+              onLocationChange={this.handleLocationChange}
+              onAutoComplete={this.handleLocationAutoComplete}
+              value={this.state.startLocation}
+              name="startLocation"
+              placeholder={this.state.startPlaceholder}
             />
-          <LocationSearch
-            tripNode="endLocation"
-            onLocationChange={this.handleLocationChange}
-            onAutoComplete={this.handleLocationAutoComplete}
-            value={this.state.endLocation}
-            name="endLocation"
-            placeholder={this.state.endPlaceholder}
+            <LocationSearch
+              tripNode="endLocation"
+              onLocationChange={this.handleLocationChange}
+              onAutoComplete={this.handleLocationAutoComplete}
+              value={this.state.endLocation}
+              name="endLocation"
+              placeholder={this.state.endPlaceholder}
             />
-          <div className="form-submit">
-            <ExpandSearch
-              classStyle={isActive}
-              currentLocation={this.props.currentCoords}
-              expandSearch={canExpand}
-              />
-              <button className="form-btn">Submit</button>
           </div>
+          <button className="form-btn"> > </button>
+          
         </form>
+        <ExpandSearch
+
+          classStyle={isActive}
+          currentLocation={this.props.currentCoords}
+          expandSearch={canExpand}
+        />
       </div>
     );
   }
@@ -136,3 +145,8 @@ function mapDispatchToProps(dispatch) {
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);
+
+
+
+    // <div className="form-submit">
+    //       </div>

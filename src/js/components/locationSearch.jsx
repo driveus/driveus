@@ -3,17 +3,18 @@ import React, { Component } from 'react'
 // import { bindActionCreators } from 'redux'
 
 export default class LocationSearch extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       id: 'LocationSearch'.concat(this.props.tripNode),
     }
   }
+
   componentDidMount() {
-    // Sets up Google autocomplete once component renders
     let autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById(this.state.id),
-      {types: ['geocode', 'establishment']}
+      document.getElementById(this.state.id)
+      // {types: ['geocode', 'establishment']}
     );
     autocomplete.addListener('place_changed', () => {
       let place = autocomplete.getPlace()

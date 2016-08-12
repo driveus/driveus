@@ -16,8 +16,8 @@ class App extends Component {
           <Controls />
           <ActiveRoute />
           <div className="information-view">
-            <MapView />
             <RouteLists />
+            <MapView />
           </div>
         </div>
       </div>

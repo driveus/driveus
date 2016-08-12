@@ -51,12 +51,13 @@ body {
 
 #site-title {
   font-family: "Arial", sans-serif;
-  font-size: 30px;
+  font-size: 24px;
   color: #222;
-  padding: 5px;
   border-bottom: 1px solid #222;
   background-color: $off-white;
-}
+  min-height: 30px;
+  z-index: 30;
+}   
 
 #app {
   height: inherit;
@@ -83,9 +84,17 @@ body {
   // margin-bottom: 50px;
 }
 
+.search-box {
+  background-color: mediumaquamarine;
+  /*// margin: $center;*/
+  width: 33%;
+  /*border: 1px solid black;*/
+}
+
 .information-view {
   flex: 1;
-  display: flex;
+  /*display: flex;*/
+  width: 100%;
 }
 
 .routesTest {
@@ -93,44 +102,94 @@ body {
 }
 
 .marker-tag {
-  margin-left: 10px;
-  margin-top: 2px;
+  // margin-left: 10px;
+  // margin-top: 2px;
 }
 
-.search-box {
-  margin: $center;
-  width: $child-width;
-  padding: 10px;
-  width: 100%;
-}
 
 .location-form {
   margin: $center;
   align-items: center;
   display: flex;
+  flex-direction: row;
+  width: 100%;
+
+}
+
+.location-search-inputs {
+  display: flex;
   flex-direction: column;
-  width: 70%;
+  min-width: 250px;
+  width: 100%;
+  margin: 20px;
+  
   input {
-    min-width: 600px;
-    width: 60%;
-    padding: 0px 0px 0px 5px;
     line-height: 2em;
-    font-size: 1em;
+    font-size: 1em;  
   }
 }
 
 .form-submit {
   display: flex;
+  width: 100%;
 }
 
 .form-btn {
-  background-color: #e6e6e6;
-  height: 30px;
-  width: 100px;
-  margin: 10px 5px 0px 5px;
+  background-color: $off-white;
+  min-height: 30px;
+  min-width: 30px;
+  border-radius: 15px;
+  margin: 0px 20px 0px 0px;
   &:active {
     background-color: #cccccc;
   }
+}
+
+.inactive-expand {
+  color: $secondary-color !important;
+  opacity: .3;
+  pointer-events: none;
+}
+
+/*.active-expand {*/
+.slider-show {
+  transition: all 5s ease-in-out;
+  color: white;
+  margin: 10px;
+  text-align: center;
+
+  div {
+    margin: auto;
+  }
+  input[type=range] {
+    min-width: 100px;
+    width: 20%;
+    line-height: 2em;
+    font-size: 1em;
+  };
+  span {
+    margin: 0 20px;
+  }
+}
+
+.slider-hide {
+  display: none;
+  /*opacity: 0;*/
+}
+
+.search-btn {
+  text-align: left;
+  color: black;
+}
+
+.expand-search {
+  text-align: left;
+  margin: 0 20px 20px 20px;
+}
+
+.expand-slider {
+  width: 10%;
+  min-width: 10px;
 }
 
 .uber {
@@ -178,26 +237,26 @@ body {
 }
 
 .list-container {
+  height: 100%;
+  float: left;
   flex: 1;
-  width: 100%;
+  width: 33%;
   overflow: scroll;
   background-color: $secondary-color;
   margin: $center;
   ul {
     padding: 0px;
   }
-  li {
-    padding-right: 15px;
-  }
   li:first-child {}
   li:last-child {
-    border-bottom-right-radius: $default-radius;
-    border-bottom-left-radius: $default-radius;
+    // border-bottom-right-radius: $default-radius;
+    // border-bottom-left-radius: $default-radius;
   }
 }
 
 .uber-list-container {
   box-shadow: $default-box-shadow;
+  background-color: $uber-color-secondary;
   overflow: hidden;
   float: left;
   width: 50%;
@@ -220,6 +279,7 @@ body {
 
 .lyft-list-container {
   box-shadow: $default-box-shadow;
+  background-color: $lyft-color-primary;
   overflow: hidden;
   float: right;
   width: 50%;
@@ -316,20 +376,25 @@ body {
 }
 
 #map-display {
+  top: 30px;
+  position: absolute;
+  height: 97%;
+  width: 67%;
+  left: 33%;
   color: #222;
-  flex: 1;
-  width: 100%;
-  padding: 1px;
+  /*flex: 1;*/
+  /*padding: 1px;*/
   box-sizing: border-box;
   margin: $center;
   background-color: $secondary-color;
 }
 
 .inactive-expand {
-  color: $secondary-color !important;
+  // color: $secondary-color !important;
   opacity: .3;
   pointer-events: none;
 }
+
 .walking-distance {
   margin: $center;
   color: $off-white;
@@ -338,45 +403,75 @@ body {
   left: 0;
   padding: 5px 0px;
   position: absolute;
-  width: 50%;
-  z-index: 50;
+  width: 100%;
+  z-index: 29;
+}
+.empty-message {
+  display: none;
 }
 // MOBILE-ISH ******************************************
 @media (max-width: 955px) {
   #container {
     flex-direction: column;
   }
+  .expanded-routes {
+      transition-duration: 400ms;
+  }
   .walking-distance {
     width: 100%;
   }
   .information-view {
+    display: flex;
     flex-direction: column;
   }
   #site-title {
     font-size: 22px;
     padding: 2px;
+    display: none;
   }
   .marker-tag {
-    margin-left: 10px;
+    margin: 5px 10px;
   }
   .list-container {
-    flex: 0;
-    overflow: visible;
+    width: 100%;
+    order: 1;
+    border-top: 1px solid $secondary-color;
+    background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
+    flex: 1;
+    overflow: scroll;
   }
   .list-item {
-    height: 12em;
+    // height: 2em;
+    padding: 5px;
+    flex-direction: column;
+    display: block;
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 0;
+  }
+  .uber-list-container {
+      overflow: scroll;
+      height: 100%;
+  }
+  .lyft-list-container {
+      overflow: scroll;
+      height: 100%;
   }
   .route-name {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+    font-size: 12px;
+    padding: 0;
+    // margin-bottom: 10px;
   }
   .driver-eta,
   .route-duration {
-    font-size: 1em;
+    font-size: 12px;
   }
   .route-cost {
     float: none;
-    font-size: 3em;
+    font-size: 14px;
+    margin-right: 4px;
+    height: auto;
+    line-height: inherit;
   }
   .selected-route-container {
     right: 10%;
@@ -396,10 +491,22 @@ body {
     }
   }
   #map-display {
+    position: inherit;
     flex: none;
-    height: 330px;
+    padding: 0;
+    height: 230px;
+    width: 100%;
+  }
+  .empty-message {
+    height: 100%;
+    margin: 1.5em 0;
+    color: gray;
+    opacity: .3;
+    display: inherit;
+    transition: all .3s ease .15s;
   }
   .search-box {
+    width: 100%;
     padding: 0;
     left: 0;
     right: 0;
@@ -421,22 +528,29 @@ body {
   }
   .form-submit {
     width: 100%;
-    background-color: gray;
+    background-color: $off-white;
+    button:first-child {
+      margin: 0px 2px;
+    }
+    button:nth-child(2) {
+      margin-right: 2px;
+    }
   }
   .form-btn {
+    background-color: #279a80;
+    color: $off-white;
     border-radius: $default-radius;
-    background-color: $off-white;
     margin: 0;
-    border: 1px solid $secondary-color;
+    border: none;
     width: 50%;
     font-size: 1.5em;
     height: 2.2em;
     cursor: pointer;
     &:hover {
-      background-color: white;
+      background-color: #279a80;
     }
     &:active {
-      background-color: #f2f2f2;
+      background-color: #30b597;
     }
     &:focus {
       outline: none;
@@ -444,9 +558,16 @@ body {
   }
   .price,
   .time {
-    height: 10em !important;
+    .route-cost, .route-name {
+      font-size: 14px;
+    }
   }
   .disclaimer {
-    font-size: .9em;
+    font-size: 10px;
+  }
+}
+@media (max-width: 420px) {
+  .list-item {
+    display: flex;
   }
 }

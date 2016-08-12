@@ -53,12 +53,10 @@ class ActiveRoute extends Component {
         this.setState({orderCab: orderUber, inputElement:null})
       }
 
-    // Assigns order url to lyft
     } else if (this.props.route.display_name.match(/lyft/i)) {
       let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
       let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`
       let orderLyft = lyftUrl + lyftCoods;
-
 
       if (!this.state.MobileBrowser ) {
         this.sendMessage(orderLyft);
@@ -66,8 +64,6 @@ class ActiveRoute extends Component {
         //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderLyft, inputElement:null})
       }
-
-
     }
 
 }
@@ -78,15 +74,23 @@ class ActiveRoute extends Component {
     this.setState({inputElement: 'We noticed you are not on mobile, no worries we just texted you the link to your ride!'})
   }
 
-
+  msToTime(ms) {
+    let duration = new Date(ms),
+        minutes = parseInt(duration.getMinutes()),
+        hours = parseInt(duration.getHours()),
+        timeOfDay = hours >= 12 ? 'PM' : 'AM';
+    hours = hours > 12 ? hours - 12 : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    return hours + ":" + minutes + ' ' + timeOfDay;
+  }
   render() {
     // Formatting for display...could be done better?
     if (!this.props.route) { return <div></div>; }
     let eta = Math.round(this.props.route.eta/60),
-        totalTime = Math.round((this.props.route.duration + this.props.route.eta)/60),
+        totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
+        arrivalTime = (this.msToTime(Date.now()+totalTime)),
         etaMinutes = eta <= 1 ? 'minute' : 'minutes',
         cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
-        totalMinutes = totalTime <= 1 ? 'minute' : 'minutes',
         backgroundColor = this.state.style[this.props.style],
         classes = 'selected-route-container ' + backgroundColor;
     return (
@@ -96,11 +100,11 @@ class ActiveRoute extends Component {
           <h1>{this.props.route.display_name}</h1>
           <h1>{cost}</h1>
           <p>Pickup: {eta} {etaMinutes}</p>
-          <p>Total: {totalTime} {totalMinutes}</p>
-          <a href={this.state.orderCab}>
-          <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
-          </a>
-          <div>{this.state.inputElement}</div>
+          <p>Arrival: {arrivalTime}</p>
+            <a href={this.state.orderCab}>
+            <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
+            </a>
+            <div>{this.state.inputElement}</div>
         </div>
       </div>
     );
