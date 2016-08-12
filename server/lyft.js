@@ -64,6 +64,7 @@ function lyftEtas(coords) {
 function parseLyft(apiResponses, isExpandedSearch) {
   isExpandedSearch = isExpandedSearch === undefined ? false : true;
   let rides = apiResponses[0].cost_estimates;
+  let surgeCount = 0;
   let surge = false;
   const etas = apiResponses[1].eta_estimates;
   const coords = apiResponses[2];
@@ -77,9 +78,14 @@ function parseLyft(apiResponses, isExpandedSearch) {
     ride.low_estimate = obj.estimated_cost_cents_min;
     ride.avg_estimate = ((obj.estimated_cost_cents_max + obj.estimated_cost_cents_min) / 2);
     ride.price_multiplier = 1 + (parseFloat(obj.primetime_percentage) / 100);
-    if (ride.price_multiplier > 1) { surge = true; }
+    if (ride.display_name === 'Lyft Line' || ride.display_name === 'Lyft') {
+      if (ride.price_multiplier > 1) { surgeCount++; }
+    }
     return ride;
   });
+  if (surgeCount > 1) {
+    surge = true;
+  }
   //add the ETA to the corresponding object
   for (let eta of etas) {
     for (let ride of rides) {

@@ -53,12 +53,10 @@ class ExpandSearch extends Component {
         <div onClick={this.toggleExpandedView}>
           > Expand Pickup Radius
         </div>
-        
+
         <div className={this.state.sliderState}>
-          <div>
             <input className="expand-slider" type="range" min="100" max="1000" value={this.state.sliderValue} step="100" onChange={this.handleSliderChange}></input>
             <span>{this.state.sliderValue} meters</span>
-          </div>
         </div>
 
       </div>

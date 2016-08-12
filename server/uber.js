@@ -32,6 +32,7 @@ function uberEtas(coords) {
 function parseUber(apiResponses, isExpandedSearch) {
   isExpandedSearch = isExpandedSearch === undefined ? true : false;
   let rides = apiResponses[0].prices;
+  let surgeCount = 0;
   let surge = false;
   const etas = apiResponses[1].times;
   const coords = apiResponses[2];
@@ -47,9 +48,14 @@ function parseUber(apiResponses, isExpandedSearch) {
     ride.avg_estimate = ((obj.high_estimate + obj.low_estimate) * 100 / 2);
     ride.price_multiplier = obj.surge_multiplier;
     if (ride.display_name === 'POOL') { ride.display_name = 'UberPOOL'; }
-    if (ride.price_multiplier > 1) { surge = true; }
+    if (ride.display_name === 'UberPOOL' || ride.display_name === 'UberX') {
+      if (ride.price_multiplier > 1) { surgeCount++; }
+    }
     return ride;
   });
+  if (surgeCount > 1) {
+    surge = true;
+  }
   //add the ETA to the corresponding object
   for (let eta of etas) {
     for (let ride of rides) {

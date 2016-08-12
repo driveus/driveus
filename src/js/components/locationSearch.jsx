@@ -25,7 +25,6 @@ export default class LocationSearch extends Component {
   }
   render() {
     return (
-      <div>
         <input
           placeholder={this.props.placeholder}
           id={this.state.id}
@@ -33,7 +32,6 @@ export default class LocationSearch extends Component {
           onChange={this.props.onLocationChange}
           name={this.props.name}
         />
-      </div>
     );
   }
 }

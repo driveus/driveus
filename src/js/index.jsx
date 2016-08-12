@@ -19,9 +19,7 @@ const finalStore = createStore(reducers, {}, compose(
 // Provider store must be set up in order for redux data to work correctly
 ReactDOM.render(
   <Provider store={finalStore}>
-    <div className="blur_Sname">
     <App />
-    </div>
   </Provider>,
   document.getElementById('app')
 );
