@@ -5,9 +5,13 @@ const uber = require('./uber.js');
 const db = require('./db.js');
 const genRadius = require('./generate_radius.js');
 const expandSearch = require('./expand_search.js');
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 const express = require('express');
 const router = express.Router();
+const twilio_SID = "ACe98e01d0fea8ebb54402edd1abc0e724";
+const twilio_token = "fae8053ee7a58761e3fdfa2ce8331aec";
+const client = require('twilio')(twilio_SID,twilio_token);
+
 
 module.exports = function(app) {
   app.all('/api/uber', (req, res) => {
@@ -103,22 +107,16 @@ module.exports = function(app) {
         console.log('At least 1 geoRadius point failed to return');
       })
   })
+  app.all('/sms', (req, res) => {
+    const rideData = req.body;
+    console.log('hellllloo server', rideData)
+    client.messages.create({
+        to: "+13347440981",
+        from: "+14082146873",
+        body: req.body.data
+      }, function(err, message) {
+        console.log(err, 'error message');
+    }) 
+  })
+}
 
-
-
-  app.post('/email', function(req, res) {
-    const emailContent = req.body.data;
-
-    const transporter = nodemailer.createTransport("smtps:driveushelp@gmail.com:driveus123@smtp.gmail.com")
-    
-    transporter.sendMail(emailContent, function(error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Messsage sent: ' + info.response)
-      };
-    });   
-  });
-
-
-};
