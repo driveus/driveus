@@ -9,42 +9,47 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
     optimalPrice.coords = rideOptions.coords;
   }
   rideOptions.rides.forEach((option) => {
-    if (option.avg_estimate < optimalPrice.ride.avg_estimate && option.display_name !== 'UberTAXI') {
-      optimalPrice.ride = option;
-      optimalPrice.coords = rideOptions.coords;
-    }
-    if (option.avg_estimate === optimalPrice.ride.avg_estimate && option.display_name !== 'UberTAXI') {
+    if (option.price_multiplier < optimalPrice.price_multiplier
+        option.avg_estimate < optimalPrice.ride.avg_estimate && 
+        option.display_name !== 'UberTAXI') {
       if ((option.eta + option.duration < optimalPrice.ride.eta + optimalPrice.ride.duration ) ||
           option.distance < optimalPrice.ride.distance) {
         optimalPrice.ride = option;
         optimalPrice.coords = rideOptions.coords;
       }
     }
+    // if (option.avg_estimate === optimalPrice.ride.avg_estimate && option.display_name !== 'UberTAXI') {
+    //   if ((option.eta + option.duration < optimalPrice.ride.eta + optimalPrice.ride.duration ) ||
+    //       option.distance < optimalPrice.ride.distance) {
+    //     optimalPrice.ride = option;
+    //     optimalPrice.coords = rideOptions.coords;
+    //   }
+    // }
   });
   console.log('OPTIMAL PRICE OPTION: ', 'Product: ', optimalPrice.ride.display_name,  'Estimate: ',  optimalPrice.ride.avg_estimate,  'TotalTime: ',  optimalPrice.ride.eta + optimalPrice.ride.duration,  'Coords: ',  optimalPrice.coords.start);
   return optimalPrice;
 }
 
-function checkIfOptimalTime(rideOptions, optimalTime) {
-  if (!optimalTime.ride) {
-    optimalTime.ride = rideOptions.rides[0];
-    optimalTime.coords = rideOptions.coords;
-  }
-  rideOptions.rides.forEach((option) => {
-    if ((option.duration + option.eta) < (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'UberTAXI') {
-      optimalTime.ride = option;
-      optimalTime.coords = rideOptions.coords;
-    }
-    if ((option.duration + option.eta) === (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'UberTAXI') {
-      if (option.avg_estimate < optimalTime.ride.avg_estimate || option.distance < optimalTime.ride.distance) {
-        optimalTime.ride = option;
-        optimalTime.coords = rideOptions.coords;
-      }
-    }
-  });
-  console.log('OPTIMAL TIME OPTION: ', 'Product: ', optimalTime.ride.display_name,  'Estimate: ',  optimalTime.ride.avg_estimate,  'TotalTime: ',  optimalTime.ride.eta + optimalTime.ride.duration,  'Coords: ',  optimalTime.coords.start);
-  return optimalTime;
-}
+// function checkIfOptimalTime(rideOptions, optimalTime) {
+//   if (!optimalTime.ride) {
+//     optimalTime.ride = rideOptions.rides[0];
+//     optimalTime.coords = rideOptions.coords;
+//   }
+//   rideOptions.rides.forEach((option) => {
+//     if ((option.duration + option.eta) < (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'UberTAXI') {
+//       optimalTime.ride = option;
+//       optimalTime.coords = rideOptions.coords;
+//     }
+//     if ((option.duration + option.eta) === (optimalTime.ride.duration + optimalTime.ride.eta)  && option.display_name !== 'UberTAXI') {
+//       if (option.avg_estimate < optimalTime.ride.avg_estimate || option.distance < optimalTime.ride.distance) {
+//         optimalTime.ride = option;
+//         optimalTime.coords = rideOptions.coords;
+//       }
+//     }
+//   });
+//   console.log('OPTIMAL TIME OPTION: ', 'Product: ', optimalTime.ride.display_name,  'Estimate: ',  optimalTime.ride.avg_estimate,  'TotalTime: ',  optimalTime.ride.eta + optimalTime.ride.duration,  'Coords: ',  optimalTime.coords.start);
+//   return optimalTime;
+// }
 
 // Receives the user's selected starting location
 function expandSearch(startCoords, radius) {
