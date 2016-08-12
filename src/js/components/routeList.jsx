@@ -15,9 +15,20 @@ class RouteList extends Component {
     // Div formatting including carpool disclaimer for certain services
     return this.props.routes.map((route) => {
       if (route.high_estimate) {
+        let priceStyle = {color:'white'};
+        let surgeNotice = '';
+        if (route.price_multiplier > 1) {
+          priceStyle = {color:'yellow'};
+          surgeNotice = '- ' + route.price_multiplier + ' surge';
+        }
+        if (route.price_multiplier > 2) {
+          priceStyle = {color:'orangered'};
+        }
         let carpool = false;
         if (route.display_name === 'UberPOOL' || route.display_name === 'Lyft Line') { carpool = true; }
         return <Route
+          surgeNotice={surgeNotice}
+          priceStyle={priceStyle}
           key={route.display_name}
           route={route}
           selectRoute={this.props.selectRoute}

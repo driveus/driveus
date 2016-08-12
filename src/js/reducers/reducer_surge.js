@@ -1,12 +1,13 @@
 import {
-  SET_MARKERS,
+  SET_SURGE,
 } from '../actions/types';
 
 // state is not application state, only responsible for reducer state
-export default function(state={start:null,end:null}, action) {
+export default function(state=false, action) {
   switch(action.type) {
-    case SET_MARKERS:
-      return action.payload;
+    case SET_SURGE:
+      // return action.payload;
+      return true;
   }
   return state;
 }

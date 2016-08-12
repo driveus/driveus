@@ -28,11 +28,10 @@ class Route extends Component {
         cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
         disclaimer = this.props.carpool ? '\nMay make additional stops' : '',
         image = this.props.marker ? <img src={this.props.marker} className="marker-tag"/> : null;
-
     return (
       <li className={`list-item ${this.props.classStyle}`}
         onClick={this.setActiveRoute}>
-        <div className="route-cost">{cost}</div>
+        <div className="route-cost" style={this.props.priceStyle}>{cost} {this.props.surgeNotice}</div>
         <div className="route-name">{this.props.route.display_name}</div>
         {image}
         <div>

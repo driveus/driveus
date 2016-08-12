@@ -13,7 +13,7 @@ class ExpandedRouteList extends Component {
     super(props);
     this.state = {
       0: 'expanded-price',
-      1: 'expanded-money'
+      1: 'expanded-time'
     };
   }
   renderRoutes() {
