@@ -50,19 +50,19 @@ class ActiveRoute extends Component {
         this.sendMessage(orderUber);
       } else {
         //if user is on mobile, orderCab's state is changed to the deep link
-        this.setState({orderCab: orderUber, inputElement:null})
+        this.setState({orderCab: orderUber, inputElement:null});
       }
 
     } else if (this.props.route.display_name.match(/lyft/i)) {
       let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
-      let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`
+      let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`;
       let orderLyft = lyftUrl + lyftCoods;
 
       if (!this.state.MobileBrowser ) {
         this.sendMessage(orderLyft);
       } else {
         //if user is on mobile, orderCab's state is changed to the deep link
-        this.setState({orderCab: orderLyft, inputElement:null})
+        this.setState({orderCab: orderLyft, inputElement:null});
       }
     }
 
@@ -71,7 +71,7 @@ class ActiveRoute extends Component {
     axios.post('/sms', {
       data: order
     })
-    this.setState({inputElement: 'We noticed you are not on mobile, no worries we just texted you the link to your ride!'})
+    this.setState({inputElement: 'We noticed you are not on mobile, no worries we just texted you the link to your ride!'});
   }
 
   msToTime(ms) {
@@ -122,6 +122,6 @@ function mapStateToProps(state) {
   };
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ deselectRoute }, dispatch)
+  return bindActionCreators({ deselectRoute }, dispatch);
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveRoute);

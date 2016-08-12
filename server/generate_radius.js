@@ -68,7 +68,7 @@ function createGeoRadius(coords, searchRadius) {
   const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
   // const bearings = [0, 90, 180, 270];
   bearings.forEach((bearing) => {
-    var newPoint = createPointOnRadius(startPoint, bearing, radius);
+    let newPoint = createPointOnRadius(startPoint, bearing, radius);
     promiseList.push(reverseGeoCode(newPoint));
   });
   return Promise.all(promiseList);

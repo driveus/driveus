@@ -109,7 +109,6 @@ module.exports = function(app) {
   })
   app.all('/sms', (req, res) => {
     const rideData = req.body;
-    console.log('hellllloo server', rideData)
     client.messages.create({
         to: "+13347440981",
         from: "+14082146873",
