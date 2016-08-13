@@ -7,6 +7,7 @@ $default-radius: 5px;
 $center: 0 auto;
 $list-padding: 10px;
 $default-box-shadow: 2px 2px 23px -2px rgba(0, 0, 0, 0.3);
+$button-box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.5);
 $min-width: 400px;
 $max-width: 1000px;
 // Company styles
@@ -42,10 +43,10 @@ body {
 #site-title {
   font-family: "Arial", sans-serif;
   font-size: 24px;
-  color: #222;
-  border-bottom: 1px solid #222;
-  background-color: $off-white;
+  color: $off-white;
+  background-color: #426d7d;
   min-height: 30px;
+  line-height: 30px;
   z-index: 30;
 }
 
@@ -59,8 +60,10 @@ body {
 
 
 .search-box {
+  box-shadow: 1px -4px 9px 6px rgba(0, 0, 0, 0.4);
   background-color: mediumaquamarine;
   width: 33%;
+  z-index: 5;
 }
 
 .information-view {
@@ -221,8 +224,12 @@ body {
   flex: 1;
   width: 33%;
   overflow: scroll;
-  background-color: $secondary-color;
+  // background-color: $secondary-color;
+  background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
   margin: $center;
+  div {
+    transition-duration: 400ms;
+  }
   ul {
     padding: 0px;
   }
@@ -342,8 +349,7 @@ body {
 
 .map-container {
   height: 100%;
-  margin: $center;
-  box-shadow: inset 10px 10px 37px -17px rgba(0, 0, 0, 0.75);
+  z-index: 6;
 }
 
 #map-display {
@@ -356,6 +362,15 @@ body {
   box-sizing: border-box;
   margin: $center;
   background-color: $secondary-color;
+  &:before {
+    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.5) inset;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 70;
+  }
 }
 
 .inactive-expand {
@@ -375,9 +390,14 @@ body {
   z-index: 29;
 }
 .empty-message {
-  display: none;
-  pointer-events: none;
+  height: 100%;
+  margin: 2em 0;
+  color: gray;
+  opacity: .3;
+  display: inherit;
+  transition: all .3s ease .15s;
 }
+
 .text-message {
   padding: 5px 20px;
   font-size: 14px;
@@ -391,7 +411,7 @@ body {
     margin: 10px 20px;
   }
   .expanded-routes {
-      transition-duration: 400ms;
+    transition-duration: 400ms;
   }
   .walking-distance {
     width: 100%;
@@ -475,16 +495,13 @@ body {
     padding: 0;
     height: 230px;
     width: 100%;
-  }
-  .empty-message {
-    height: 100%;
-    margin: 1.5em 0;
-    color: gray;
-    opacity: .3;
-    display: inherit;
-    transition: all .3s ease .15s;
+    &:before {
+      box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3) inset;
+      height: 230px;
+    }
   }
   .search-box {
+    box-shadow: none;
     width: 100%;
     padding: 0;
     left: 0;
@@ -517,6 +534,7 @@ body {
     }
   }
   .form-btn {
+    box-shadow: $button-box-shadow;
     background-color: #279a80;
     color: $off-white;
     border-radius: 0;

@@ -41,9 +41,11 @@ class RouteList extends Component {
     });
   }
   render() {
+    let height = { height: '0%' };
+    if (this.props.routes.length) { height = { height: '100%' }; }
     let style = this.state[this.props.classStyle];
     return (
-      <div className={style}>
+      <div className={style} style={height}>
         <ul>
           {this.renderRoutes()}
         </ul>
