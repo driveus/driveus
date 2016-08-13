@@ -21,14 +21,14 @@ function getCityRides(cityName) {
   console.log('requesting', cityName)
   coords = getRandomCoords(cities.cities[cityName]);
   uber.uberRequest(coords).then( (data) => {
-    console.log('UBER:', cityName)// data.prices.filter((x)=>x.duration));
     uber.parseUber(data, false, cityName);
   }).catch((err) => {
     console.log(err)
-  });;
-  console.log(coords);
+  });
+  if (cityName === "Houston") {
+    return; // Lyft doesn't operate in Houston
+  }
   lyft.lyftRequest(coords).then( (data) => {
-    console.log('LYFT:', cityName)// JSON.stringify(data));
     lyft.parseLyft(data, false, cityName);
   }).catch((err) => {
     console.log(err)
@@ -41,5 +41,9 @@ setTimeout(() => {
   for (city in cities.cities) {
     getCityRides(city);
   }
-}, 4000
-)};
+}, 4000);
+setInterval(() => {
+  for (city in cities.cities) {
+    getCityRides(city);
+  }
+}, 50000);

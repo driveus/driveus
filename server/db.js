@@ -5,6 +5,9 @@ const db = massive.connectSync({connectionString: process.env.DB_CONNSTRING});
 
 function saveUber(parsedData, isExpandedSearch, city) {
   for (let ride of parsedData.rides) {
+    if (!ride.duration || !ride.eta) {
+      continue;
+    }
     const queryObj = {ride_type: ride.display_name,
                       duration: '00:' + Math.floor(ride.duration/60) + ':' + (ride.duration%60),
                       low_est: ride.low_estimate/100,
