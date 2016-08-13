@@ -566,7 +566,13 @@ body {
     border-bottom: 1px solid gray;
   }
   .expand-search {
-    margin: 10px 20px;
+    margin: 0;
+    position: absolute;
+    background-color: mediumaquamarine;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    z-index: -1;
   }
   .expanded-routes {
     transition-duration: 400ms;
