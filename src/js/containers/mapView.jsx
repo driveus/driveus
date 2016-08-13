@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import msToTime from '../helpers/msToTime';
 
 class MapView extends Component {
 
@@ -16,8 +17,55 @@ class MapView extends Component {
       zoom: 10,
       disableDefaultUI: true,
       scaleControl: true,
-      zoomControl: true
-    });
+      zoomControl: true,
+      styles: [{
+          "featureType": "landscape.natural",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "visibility": "on"
+          }, {
+            "color": "#e0efef"
+          }]
+        }, {
+          "featureType": "poi",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "visibility": "on"
+          }, {
+            "hue": "#1900ff"
+          }, {
+            "color": "#c0e8e8"
+          }]
+        }, {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [{
+            "lightness": 100
+          }, {
+            "visibility": "simplified"
+          }]
+        }, {
+          "featureType": "road",
+          "elementType": "labels",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        }, {
+          "featureType": "transit.line",
+          "elementType": "geometry",
+          "stylers": [{
+            "visibility": "on"
+          }, {
+            "lightness": 700
+          }]
+        }, {
+          "featureType": "water",
+          "elementType": "all",
+          "stylers": [{
+            "color": "#7dcdcd"
+          }]
+        }]
+      });
     let center = map.getCenter();
     // Sets the directionsDisplay to the current map
     directionsDisplay.setMap(map);
@@ -45,8 +93,12 @@ class MapView extends Component {
   }
   componentDidUpdate() {
     // Creates direction path on map
-    if (this.props.directions) {
-      this.state.directionsDisplay.setDirections(this.props.directions);
+    if (this.props.directions && this.props.walkingTime) {
+      if (this.props.walkingTime.routes[0].legs[0].duration.value >= 2700) {
+        this.state.directionsDisplay.setDirections(this.props.directions);
+      } else {
+        this.state.directionsDisplay.setDirections(this.props.walkingTime)
+      }
     }
     // Drop route markers on map
     if (this.props.routeMarkers.start) {
@@ -79,9 +131,9 @@ class MapView extends Component {
   render() {
     let walkingDistance;
     // Displays walking time if less than 45 minutes
-    if (this.props.directions && this.props.directions.routes[0].legs[0].duration.value <= 2700) {
-      let time = this.props.directions.routes[0].legs[0].duration.text,
-      message = `Walking: ${time}`;
+    if (this.props.walkingTime && this.props.walkingTime.routes[0].legs[0].duration.value <= 2700) {
+      let time = msToTime(Date.now()+(this.props.walkingTime.routes[0].legs[0].duration.value)*1000),
+      message = `Arrival walking: ${time}`;
       walkingDistance = <div className="walking-distance">{message}</div>;
       }
       return (
@@ -100,6 +152,7 @@ function mapStateToProps(state) {
     routeMarkers: state.routeMarkers,
     expandedMarkers: state.expandedMarkers,
     directions: state.directions,
+    walkingTime: state.walkingTime
   }
 }
 export default connect(mapStateToProps)(MapView);

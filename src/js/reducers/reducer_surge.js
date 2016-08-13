@@ -7,7 +7,6 @@ import {
 export default function(state=false, action) {
   switch(action.type) {
     case SET_SURGE:
-      return true;
       if (state) {
         return true;
       }

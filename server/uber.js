@@ -29,8 +29,10 @@ function uberEtas(coords) {
 //Input Uber's responses from the rides & etas API calls, output an array
 // of ride options with all relevant properties combined from the two calls.
 
-function parseUber(apiResponses, isExpandedSearch) {
-  isExpandedSearch = isExpandedSearch === undefined ? true : false;
+function parseUber(apiResponses, isExpandedSearch, city) {
+  isExpandedSearch = isExpandedSearch === undefined ? false : true;
+  city = city === undefined ? 'San Francisco' : city;  //for analytics
+
   let rides = apiResponses[0].prices;
   let surgeCount = 0;
   let surge = false;
@@ -66,21 +68,22 @@ function parseUber(apiResponses, isExpandedSearch) {
   }
   //Filter out rides that we weren't able to match up ETAs on (ie. UberWAV)
   rides = rides.filter((ride) => !ride.display_name.match(/(ASSIST|UberWAV)/i));
- 
+
   //*********TESTING AND PRESENTATION ONLY***********
   //Make "Ferry Building Marketplace" always have a surge multiplier
-  if (coords.start.lat === 37.7955805 && coords.start.lng === -122.39341109999998) {
-    for (let ride of rides) {
-      ride.price_multiplier = 1.8;
-      ride.high_estimate *= 1.8;
+  const ferryRange = {lat: [37.79682, 37.79444], lng: [-122.396032, -122.391053]}
+  if (coords.start.lat > ferryRange.lat[1] && coords.start.lat < ferryRange.lat[0]) {
+    if (coords.start.lng < ferryRange.lng[1] && coords.start.lng > ferryRange.lng[0]) {
+      for (let ride of rides) {
+        ride.price_multiplier = 1.8;
+        ride.high_estimate *= 1.8;
+      }
     }
-
   }
   //*********END OF HARDCODED SURGE MULTIPLIER ******
 
   const results = {rides: rides, coords: coords, surge: surge};
-  db.saveUber(results, isExpandedSearch);
-  console.log('UBER RESULTS!', results);
+  db.saveUber(results, isExpandedSearch, city);
   return results;
 }
 

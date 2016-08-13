@@ -1,5 +1,6 @@
 import {
   setDirections,
+  setWalkingTime,
   setExpandedDirectionsPrice,
   // setExpandedDirectionsTime,
   setAddress,
@@ -24,9 +25,10 @@ export function getCoords(location) {
   return function(dispatch) {
     // requests | Fetches google direction data for desired route
     dispatch(getDirections(location.start, location.end));
+    dispatch(getWalkingTime(location.start, location.end));
     // index | Sets current address to string value
     dispatch(setAddress(location));
-    
+
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: location.start }, (results, status) => {
       if (status == 'OK') {
@@ -65,6 +67,7 @@ export function fetchUber(coords) {
       // index |
       dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesUber(coords, response.data.rides));
+      console.log('UBER SURGE RESPONSE', response.data.surge)
     })
     .catch(function(err) {
       console.log(err);
@@ -81,6 +84,7 @@ export function fetchLyft(coords) {
       // index |
       dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesLyft(coords, response.data.rides));
+      console.log('LYFT SURGE RESPONSE!', response.data.surge)
     })
     .catch(function(err) {
       console.log(err);
@@ -131,10 +135,9 @@ export function getDirections(start, end, flag=null) {
     directionsService.route({
       origin: start,
       destination: end,
-      travelMode: 'WALKING'
+      travelMode: 'DRIVING'
     }, function(response, status) {
       if (status === 'OK') {
-        // index | Captures expanded route walking distance data
         if (flag === 'Price') { dispatch(setExpandedDirectionsPrice(response)); }
         // else if (flag === 'Time') { dispatch(setExpandedDirectionsTime(response)); }
         // index | Assigns base route directions
@@ -145,6 +148,24 @@ export function getDirections(start, end, flag=null) {
     });
   }
 }
+
+export function getWalkingTime(start, end) {
+  return function (dispatch) {
+    let directionsService = new google.maps.DirectionsService;
+    directionsService.route({
+      origin: start,
+      destination: end,
+      travelMode: 'WALKING'
+    }, function(response, status) {
+      if (status === 'OK') {
+        dispatch(setWalkingTime(response));
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+}
+
 
 function axiosRequest(target, payload) {
   return axios.post('/api/' + target, {
