@@ -379,9 +379,14 @@ body {
   z-index: 29;
 }
 .empty-message {
-  display: none;
-  pointer-events: none;
+  height: 100%;
+  margin: 2em 0;
+  color: gray;
+  opacity: .3;
+  display: inherit;
+  transition: all .3s ease .15s;
 }
+
 .text-message {
   padding: 5px 20px;
   font-size: 14px;
@@ -483,14 +488,6 @@ body {
       box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3) inset;
       height: 230px;
     }
-  }
-  .empty-message {
-    height: 100%;
-    margin: 2em 0;
-    color: gray;
-    opacity: .3;
-    display: inherit;
-    transition: all .3s ease .15s;
   }
   .search-box {
     box-shadow: none;
