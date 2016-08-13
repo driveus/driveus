@@ -114,6 +114,7 @@ body {
   width: 50px;
   border-left: 1px solid #d3d3d3;
   display: flex;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
   &:hover {
@@ -130,6 +131,7 @@ body {
 }
 
 .form-btn {
+  cursor: pointer;
   background-color: white;
   border: none;
   min-height: 30px;
