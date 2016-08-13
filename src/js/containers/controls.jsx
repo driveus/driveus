@@ -24,7 +24,7 @@ class Controls extends Component {
     this.updateStartCoords = this.updateStartCoords.bind(this);
   }
   // Gets user location with HTML5 geolocation
-  // Retrieves the current coordinates and converts it to actual address, 
+  // Retrieves the current coordinates and converts it to actual address,
   // it depends on a callback to complete it's run.
   coordsToAddress(cb) {
       let geocoder = new google.maps.Geocoder,
@@ -38,8 +38,8 @@ class Controls extends Component {
           }
         });
         geocoder.geocode({
-          'location': { 
-            lat: this.state.currentLocation.lat, 
+          'location': {
+            lat: this.state.currentLocation.lat,
             lng: this.state.currentLocation.lng
           }
         }, (results, status) => {
@@ -61,7 +61,7 @@ class Controls extends Component {
 
   setCurrent() {
     this.setState({
-      startLocation: "Retrieving your current location..." 
+      startLocation: "Retrieving your current location..."
     });
     this.coordsToAddress(this.updateStartCoords)
   }
@@ -155,9 +155,9 @@ class Controls extends Component {
                 name="startLocation"
                 placeholder={this.state.startPlaceholder}
               />
-              <button className="current-location"  onClick={this.setCurrent} >
-                <img src={this.setImage()} /> 
-              </button>
+            <div className="current-location"  onClick={this.setCurrent} >
+                <img src={this.setImage()} />
+              </div>
             </div>
             <LocationSearch
               tripNode="endLocation"
