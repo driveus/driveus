@@ -542,7 +542,9 @@ body {
   background-color: $secondary-color;
   opacity: .8;
   left: 0;
-  padding: 5px 0px;
+  bottom: 0;
+  font-size: 14px;
+  padding: 3px 0px;
   position: absolute;
   width: 100%;
   z-index: 29;
@@ -573,12 +575,13 @@ body {
   .active-expand {
     transition-duration: 200ms;
     margin: 0;
+    bottom: 0;
     position: absolute;
     background-color: mediumaquamarine;
     padding-top: 10px;
     box-sizing: border-box;
     width: 100%;
-    z-index: -1;
+    height: 48px;
   }
   .expand-btn {
     cursor: pointer;
@@ -682,9 +685,11 @@ body {
     }
   }
   #map-display {
-    position: inherit;
+    position: relative;
     flex: none;
     padding: 0;
+    left: 0;
+    top: 0;
     height: 230px;
     width: 100%;
     &:before {
@@ -694,6 +699,7 @@ body {
     }
   }
   .search-box {
+    position: relative;
     box-shadow: none;
     background: #29322f;
     width: 100%;

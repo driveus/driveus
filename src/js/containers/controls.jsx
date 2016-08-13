@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getCoords, fetchExpanded } from '../actions/requests';
+import { disableSurge } from '../actions/index';
 // Components
 import LocationSearch from '../components/locationSearch.jsx';
 import ExpandSearch from '../components/expandSearch.jsx';
@@ -108,6 +109,7 @@ class Controls extends Component {
   }
   // Tracks user input to local state values
   handleLocationChange(e) {
+    this.props.disableSurge();
     switch (e.target.name) {
       case 'startLocation':
         this.setState({ startLocation: e.target.value });
@@ -141,9 +143,9 @@ class Controls extends Component {
   render() {
     let isActive = 'inactive-expand',
         canExpand = null;
-    if (this.props.surge) {
+    if (this.props.surge && !this.state.startLocation && !this.state.endLocation) {
       isActive = 'active-expand';
-      canExpand = this.props.fetchExpanded
+      canExpand = this.props.fetchExpanded;
     }
     return (
       <div className="search-box">
@@ -194,7 +196,11 @@ function mapStateToProps(state) {
   }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getCoords: getCoords, fetchExpanded: fetchExpanded}, dispatch);
+  return bindActionCreators({
+    getCoords: getCoords,
+    fetchExpanded: fetchExpanded,
+    disableSurge: disableSurge
+  }, dispatch);
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);
