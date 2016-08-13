@@ -19,19 +19,58 @@ class Controls extends Component {
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
-    this.handleLocationAutoComplete = this.handleLocationAutoComplete.bind(this)
+    this.handleLocationAutoComplete = this.handleLocationAutoComplete.bind(this);
+    this.setCurrent = this.setCurrent.bind(this);
+    this.updateStartCoords = this.updateStartCoords.bind(this);
   }
   // Gets user location with HTML5 geolocation
-  componentDidMount() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({
-        currentLocation: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
+  // Retrieves the current coordinates and converts it to actual address, 
+  // it depends on a callback to complete it's run.
+  coordsToAddress(cb) {
+      let geocoder = new google.maps.Geocoder,
+          currentLocation;
+      // Gets user location with HTML5 geolocation
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({
+          currentLocation: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        });
+        geocoder.geocode({
+          'location': { 
+            lat: this.state.currentLocation.lat, 
+            lng: this.state.currentLocation.lng
+          }
+        }, (results, status) => {
+          if (status === 'OK') {
+            cb(results[0].formatted_address);
+          } else {
+            window.alert('No results found');
+          }
+        });
       });
-    });
+      document.querySelector('.location-form').addEventListener('keydown', this.handleKeyDown);
+    }
+
+  updateStartCoords(address) {
+    this.setState({
+      startLocation: address
+    })
   }
+
+  setCurrent() {
+    this.setState({
+      startLocation: "Retrieving your current location..." 
+    });
+    this.coordsToAddress(this.updateStartCoords)
+  }
+
+  setImage() {
+    let icon = require('../../assets/compass.svg');
+    return icon;
+  }
+
   // Wipes input field after form submission (at the end of redux cycle)
   componentWillReceiveProps() {
     this.setState({
@@ -39,11 +78,16 @@ class Controls extends Component {
       endLocation: ''
     });
   }
+  componentDidUpdate() {
+    if (this.props.surge) {
+      console.log('detected change!')
+    }
+  }
   // Assigns input placeholders and fires of redux chain API calls
   onFormSubmit(e) {
     e.preventDefault();
     if (this.props.canRequestRoutes) {
-      let startLocation = e.target.startLocation.value,
+      let startLocation = e.target.startLocation.value || this.state.currentLocation,
           endLocation = e.target.endLocation.value;
       if (startLocation && endLocation) {
         let location = {
@@ -84,6 +128,12 @@ class Controls extends Component {
         return;
     }
   }
+  handleKeyDown(e) {
+    var ENTER = 13;
+    if( e.keyCode === ENTER ) {
+      e.preventDefault();
+    }
+  }
   render() {
     let isActive = 'inactive-expand',
         canExpand = null;
@@ -94,31 +144,38 @@ class Controls extends Component {
     return (
       <div className="search-box">
         <form onSubmit={this.onFormSubmit} className="location-form">
-          <LocationSearch
-            tripNode="startLocation"
-            onLocationChange={this.handleLocationChange}
-            onAutoComplete={this.handleLocationAutoComplete}
-            value={this.state.startLocation}
-            name="startLocation"
-            placeholder={this.state.startPlaceholder}
-            />
-          <LocationSearch
-            tripNode="endLocation"
-            onLocationChange={this.handleLocationChange}
-            onAutoComplete={this.handleLocationAutoComplete}
-            value={this.state.endLocation}
-            name="endLocation"
-            placeholder={this.state.endPlaceholder}
-            />
-          <div className="form-submit">
-            <ExpandSearch
-              classStyle={isActive}
-              currentLocation={this.props.currentCoords}
-              expandSearch={canExpand}
+          <div className="location-search-inputs">
+            <div className="current-location-start">
+              <LocationSearch
+                tripNode="startLocation"
+                className="location-start"
+                onLocationChange={this.handleLocationChange}
+                onAutoComplete={this.handleLocationAutoComplete}
+                value={this.state.startLocation}
+                name="startLocation"
+                placeholder={this.state.startPlaceholder}
               />
-              <button className="form-btn">Submit</button>
+              <button className="current-location"  onClick={this.setCurrent} >
+                <img src={this.setImage()} /> 
+              </button>
+            </div>
+            <LocationSearch
+              tripNode="endLocation"
+              onLocationChange={this.handleLocationChange}
+              onAutoComplete={this.handleLocationAutoComplete}
+              value={this.state.endLocation}
+              name="endLocation"
+              placeholder={this.state.endPlaceholder}
+            />
           </div>
+          <button className="form-btn"></button>
+
         </form>
+        <ExpandSearch
+          classStyle={isActive}
+          currentLocation={this.props.currentCoords}
+          expandSearch={canExpand}
+        />
       </div>
     );
   }
@@ -126,6 +183,7 @@ class Controls extends Component {
 
 function mapStateToProps(state) {
   return {
+    surge: state.surge,
     canRequestRoutes: state.requestRoute,
     currentCoords: state.currentCoords,
     currentAddress: state.currentAddress
@@ -136,3 +194,8 @@ function mapDispatchToProps(dispatch) {
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);
+
+
+
+    // <div className="form-submit">
+    //       </div>

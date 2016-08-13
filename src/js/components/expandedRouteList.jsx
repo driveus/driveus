@@ -13,7 +13,7 @@ class ExpandedRouteList extends Component {
     super(props);
     this.state = {
       0: 'expanded-price',
-      1: 'expanded-money'
+      1: 'expanded-time'
     };
   }
   renderRoutes() {
@@ -26,14 +26,13 @@ class ExpandedRouteList extends Component {
       if (eprice.avg_estimate === etime.avg_estimate &&
           eprice.display_name === etime.display_name &&
           eprice.duration     === etime.duration) {
-        marker = priceTime;
         routes.push(
           <Route
           key={key++}
           route={this.props.routes.price}
           selectRoute={this.props.selectRoute}
           classStyle={route}
-          marker={marker}
+          marker={priceTime}
           />
           );
         return routes;
@@ -52,10 +51,14 @@ class ExpandedRouteList extends Component {
     return routes;
   }
   render() {
+    let routes;
+    if (this.props.routes.price || this.props.routes.time) {
+      routes = this.renderRoutes();
+    }
     return (
       <div className="expanded-routes">
         <ul>
-          {this.renderRoutes()}
+          {routes}
         </ul>
       </div>
     );

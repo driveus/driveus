@@ -18,9 +18,11 @@ class MapView extends Component {
       scaleControl: true,
       zoomControl: true
     });
+    let center = map.getCenter();
     // Sets the directionsDisplay to the current map
     directionsDisplay.setMap(map);
     this.setState({
+      center: center,
       map: map,
       directionsDisplay: directionsDisplay,
       markers: []

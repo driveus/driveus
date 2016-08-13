@@ -3,12 +3,13 @@ import {
   setExpandedDirectionsPrice,
   setExpandedDirectionsTime,
   setAddress,
+  setSurgeMultipler,
   requestRoutes,
   receiveRoutesLyft,
   receiveRoutesUber,
   receiveRoutesExpanded,
   noExpandedRoutes,
-  invalidRoutes
+  invalidRoutes,
 } from './index';
 import {
   setMarkers,
@@ -25,6 +26,7 @@ export function getCoords(location) {
     dispatch(getDirections(location.start, location.end));
     // index | Sets current address to string value
     dispatch(setAddress(location));
+
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: location.start }, (results, status) => {
       if (status == 'OK') {
@@ -61,6 +63,7 @@ export function fetchUber(coords) {
     axiosRequest('uber', coords)
     .then(function (response) {
       // index |
+      dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesUber(coords, response.data.rides));
     })
     .catch(function(err) {
@@ -76,6 +79,7 @@ export function fetchLyft(coords) {
     axiosRequest('lyft', coords)
     .then(function (response) {
       // index |
+      dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesLyft(coords, response.data.rides));
     })
     .catch(function(err) {
@@ -86,14 +90,17 @@ export function fetchLyft(coords) {
   }
 }
 
-// Fetches expanded search routes and coords
-export function fetchExpanded(coords) {
+export function fetchExpanded(coords, radius) {
+  var payload = {
+    coords: coords,
+    radius: radius
+  }
   return function(dispatch) {
-    axiosRequest('expandSearch', coords)
+    axiosRequest('expandSearch', payload)
     .then(function (response) {
       let expandedCoords = {
         price: response.data.minPrice_coords,
-        time: response.data.minTime_coords, 
+        time: response.data.minTime_coords,
         ctime: response.data.minTime.display_name,
         cprice: response.data.minPrice.display_name
       }
@@ -139,8 +146,8 @@ export function getDirections(start, end, flag=null) {
   }
 }
 
-function axiosRequest(target, coords) {
+function axiosRequest(target, payload) {
   return axios.post('/api/' + target, {
-    data: coords
+    data: payload
   });
 }

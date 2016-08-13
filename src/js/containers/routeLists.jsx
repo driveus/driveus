@@ -9,18 +9,30 @@ import RouteList from '../components/routeList.jsx';
 import ExpandedRouteList from '../components/expandedRouteList.jsx';
 
 class RouteLists extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messageStyle: { height: '100%' }
+    }
+  }
+  componentWillReceiveProps() {
+    if (this.props.uberRoutes || this.props.lyftRoutes) {
+      this.setState({ messageStyle: { height: '0%', margin: 0, opacity: 0 }});
+    }
+  }
   render() {
-    let expandedRoutes;
-    if (this.props.expandedRoutes.price || this.props.expandedRoutes.time) {
-      expandedRoutes =
-      <ExpandedRouteList
-        routes={this.props.expandedRoutes}
-        selectRoute={this.props.selectRoute}
-        />
+    let expandedRoutes,
+        listContainerStyle = { overflow: 'hidden' };
+    if (this.props.uberRoutes.length || this.props.lyftRoutes.length) {
+      listContainerStyle = { overflow: 'scroll' };
     }
     return (
-      <div className="list-container">
-        {expandedRoutes}
+      <div style={listContainerStyle} className="list-container">
+        <h1 style={this.state.messageStyle} className="empty-message">Search for rides</h1>
+        <ExpandedRouteList
+          routes={this.props.expandedRoutes}
+          selectRoute={this.props.selectRoute}
+          />
         <RouteList
           routes={this.props.uberRoutes}
           classStyle={'uber'}
