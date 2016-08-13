@@ -3,7 +3,7 @@
 const massive = require('massive');
 const db = massive.connectSync({connectionString: process.env.DB_CONNSTRING});
 
-function saveUber(parsedData, isExpandedSearch) {
+function saveUber(parsedData, isExpandedSearch, city) {
   for (let ride of parsedData.rides) {
     const queryObj = {ride_type: ride.display_name,
                       duration: '00:' + Math.floor(ride.duration/60) + ':' + (ride.duration%60),
@@ -16,7 +16,8 @@ function saveUber(parsedData, isExpandedSearch) {
                       end_lat: parsedData.coords.end.lat,
                       end_lng: parsedData.coords.end.lng,
                       distance_miles: ride.distance,
-                      expanded_search: isExpandedSearch
+                      expanded_search: isExpandedSearch,
+                      city: city
                      };
     db.uberhist.save(queryObj, (err) => {
       if (err) {
@@ -26,7 +27,7 @@ function saveUber(parsedData, isExpandedSearch) {
   }
 }
 
-function saveLyft(parsedData, isExpandedSearch) {
+function saveLyft(parsedData, isExpandedSearch, city) {
   for (let ride of parsedData.rides) {
     const queryObj = {ride_type: ride.display_name,
                       duration: '00:' + Math.floor(ride.duration/60) + ':' + (ride.duration%60),
@@ -39,7 +40,8 @@ function saveLyft(parsedData, isExpandedSearch) {
                       end_lat: parsedData.coords.end.lat,
                       end_lng: parsedData.coords.end.lng,
                       distance_miles: ride.distance,
-                      expanded_search: isExpandedSearch
+                      expanded_search: isExpandedSearch,
+                      city: city
                      };
 
     db.lyfthist.save(queryObj, (err) => {

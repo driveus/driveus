@@ -61,8 +61,10 @@ function lyftEtas(coords) {
 //Input Lyft's responses from the rides & etas API calls, output an array
 // of ride options with all relevant properties combined from the two calls.
 
-function parseLyft(apiResponses, isExpandedSearch) {
+function parseLyft(apiResponses, isExpandedSearch, city) {
   isExpandedSearch = isExpandedSearch === undefined ? false : true;
+  city = city === undefined ? 'San Francisco' : city;  //for analytics
+
   let rides = apiResponses[0].cost_estimates;
   let surgeCount = 0;
   let surge = false;
@@ -106,7 +108,7 @@ function parseLyft(apiResponses, isExpandedSearch) {
   //*********END OF HARDCODED SURGE MULTIPLIER ******
 
   const results = {rides: rides, coords: coords, surge: surge};
-  db.saveLyft(results, isExpandedSearch);
+  db.saveLyft(results, isExpandedSearch, city);
   return results;
 }
 
