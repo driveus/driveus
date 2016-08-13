@@ -63,6 +63,7 @@ class Controls extends Component {
       startLocation: "Retrieving your current location...",
       canSubmit: false
     });
+    
     this.coordsToAddress(this.updateStartCoords)
   }
 
@@ -158,7 +159,7 @@ class Controls extends Component {
                 placeholder={this.state.startPlaceholder}
               />
             <div className="current-location"  onClick={this.setCurrent} >
-                <img src={this.setImage()} />
+                <img src={this.setImage()} className="compass"/>
               </div>
             </div>
             <LocationSearch
@@ -196,8 +197,3 @@ function mapDispatchToProps(dispatch) {
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);
-
-
-
-    // <div className="form-submit">
-    //       </div>
