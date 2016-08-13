@@ -9,7 +9,7 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
     optimalPrice.coords = rideOptions.coords;
   }
   rideOptions.rides.forEach((option) => {
-    if (option.price_multiplier < optimalPrice.price_multiplier
+    if (option.price_multiplier < optimalPrice.price_multiplier &&
         option.avg_estimate < optimalPrice.ride.avg_estimate && 
         option.display_name !== 'UberTAXI') {
       if ((option.eta + option.duration < optimalPrice.ride.eta + optimalPrice.ride.duration ) ||
@@ -77,4 +77,4 @@ function expandSearch(startCoords, radius) {
 
 module.exports.expandSearch = expandSearch;
 module.exports.checkIfOptimalPrice = checkIfOptimalPrice;
-module.exports.checkIfOptimalTime = checkIfOptimalTime;
+// module.exports.checkIfOptimalTime = checkIfOptimalTime;

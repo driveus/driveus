@@ -18,6 +18,10 @@ function saveUber(parsedData, isExpandedSearch) {
                       distance_miles: ride.distance,
                       expanded_search: isExpandedSearch
                      };
+    if (queryObj.eta === '00:NaN:0' || queryObj.duration === '00:NaN:0') {
+      console.log('Failed to save:', queryObj);
+      break;
+    }
     db.uberhist.save(queryObj, (err) => {
       if (err) {
         console.log(err);

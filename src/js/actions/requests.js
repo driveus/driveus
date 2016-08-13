@@ -1,7 +1,7 @@
 import {
   setDirections,
   setExpandedDirectionsPrice,
-  setExpandedDirectionsTime,
+  // setExpandedDirectionsTime,
   setAddress,
   setSurgeMultipler,
   requestRoutes,
@@ -9,7 +9,7 @@ import {
   receiveRoutesUber,
   receiveRoutesExpanded,
   noExpandedRoutes,
-  invalidRoutes
+  invalidRoutes,
 } from './index';
 import {
   setMarkers,
@@ -26,6 +26,7 @@ export function getCoords(location) {
     dispatch(getDirections(location.start, location.end));
     // index | Sets current address to string value
     dispatch(setAddress(location));
+    
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: location.start }, (results, status) => {
       if (status == 'OK') {
@@ -99,18 +100,18 @@ export function fetchExpanded(coords, radius) {
     .then(function (response) {
       let expandedCoords = {
         price: response.data.minPrice_coords,
-        time: response.data.minTime_coords,
-        ctime: response.data.minTime.display_name,
         cprice: response.data.minPrice.display_name
+        // time: response.data.minTime_coords,
+        // ctime: response.data.minTime.display_name,
       }
       // markers | Sets route markers based off expanded route information
       dispatch(setExpandedMarkers(expandedCoords));
       // requests | Gets walking time from Google for each returned value
       dispatch(getDirections(coords.start, expandedCoords.price.start, 'Price'));
-      dispatch(getDirections(coords.start, expandedCoords.time.start, 'Time'));
+      // dispatch(getDirections(coords.start, expandedCoords.time.start, 'Time'));
       let expandedRoutes = {
         price: response.data.minPrice,
-        time: response.data.minTime
+        // time: response.data.minTime
       }
       // index | Attaches expanded route info to the store
       dispatch(receiveRoutesExpanded(expandedRoutes));
@@ -135,7 +136,7 @@ export function getDirections(start, end, flag=null) {
       if (status === 'OK') {
         // index | Captures expanded route walking distance data
         if (flag === 'Price') { dispatch(setExpandedDirectionsPrice(response)); }
-        else if (flag === 'Time') { dispatch(setExpandedDirectionsTime(response)); }
+        // else if (flag === 'Time') { dispatch(setExpandedDirectionsTime(response)); }
         // index | Assigns base route directions
         else { dispatch(setDirections(response)); }
       } else {

@@ -13,6 +13,9 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
+
+
+
 // Webpack in dev mode - Hot reloading
 const compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler,
@@ -46,3 +49,4 @@ app.use('/spec', express.static(__dirname + '/spec'));
 app.listen(port, function() {
   console.log('Listening on port ' + port + '!');
 });
+

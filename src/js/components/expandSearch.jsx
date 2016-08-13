@@ -6,16 +6,20 @@ class ExpandSearch extends Component {
     this.state = {
       sliderValue: 300,
       expandedView: false,
-      searchRadius: null
+      searchRadius: null,
+      previousSearchRadius: null
     }
-    this.search = this.search.bind(this);
+    // this.search = this.search.bind(this);
     // this.handleSliderChange = this.handleSliderChange.bind(this);
     this.handleSearchRadiusClick = this.handleSearchRadiusClick.bind(this);
-    this.toggleExpandedView = this.toggleExpandedView.bind(this);
+    // this.toggleExpandedView = this.toggleExpandedView.bind(this);
   }
-  search() {
-    if (this.props.expandSearch) {
-      return this.props.expandSearch(this.props.currentLocation, this.state.sliderValue);
+  componentDidUpdate() {
+    console.log('ExpandSearch updated!', this.state.searchRadius, this.state.previousSearchRadius);
+    if (this.state.searchRadius !== this.state.previousSearchRadius) {
+      console.log('Search Radius and previous search radius not equal');
+      this.setState({previousSearchRadius: this.state.searchRadius});
+      return this.props.expandSearch(this.props.currentLocation, this.state.searchRadius);
     }
     return null;
   }
@@ -30,17 +34,21 @@ class ExpandSearch extends Component {
     this.setState({searchRadius: e.target.value})
   }
 
-  toggleExpandedView() {
-    // (this.state.expandedView) ? this.setState({expandedView: false}) : this.setState({expandedView: true});
-    (this.state.sliderState === 'slider-hide') ? this.setState({sliderState: 'slider-show'}) : this.setState({sliderState: 'slider-hide'})
-  }
+  // toggleExpandedView() {
+  //   // (this.state.expandedView) ? this.setState({expandedView: false}) : this.setState({expandedView: true});
+  //   (this.state.sliderState === 'slider-hide') ? this.setState({sliderState: 'slider-show'}) : this.setState({sliderState: 'slider-hide'})
+  // }
 
   render() {
 
+    if (this.props.classStyle === 'inactive-expand') {
+      return (<div></div>);
+    } 
+
     return (
-      <div className="expand-search" >
+      <div className={this.props.classStyle} >
         <div onClick={this.toggleExpandedView}>
-          Surge Pricing Detected! Current Radius: {this.state.searchRadius}m
+          Surge Pricing Detected! {this.state.searchRadius}
         </div>
         <div className="expand-btn-bar">
             <button value="100" onClick={this.handleSearchRadiusClick} className="expand-btn">100m</button>
@@ -71,10 +79,8 @@ class ExpandSearch extends Component {
         // </div>
 
         <div className={this.state.sliderState}>
-          <div>
             <input className="expand-slider" type="range" min="100" max="1000" value={this.state.sliderValue} step="100" onChange={this.handleSliderChange}></input>
             <span>{this.state.sliderValue} meters</span>
-          </div>
         </div>
 
           <button

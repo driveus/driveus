@@ -41,6 +41,7 @@ class Controls extends Component {
     });
   }
   componentDidUpdate() {
+    console.log('Surge Status: ', this.props.surge);
     if (this.props.surge) {
       console.log('detected change!')
     }
@@ -99,7 +100,7 @@ class Controls extends Component {
   render() {
     let isActive = 'inactive-expand',
         canExpand = null;
-    if (this.props.currentAddress.start) {
+    if (this.props.surge) {
       isActive = 'active-expand';
       canExpand = this.props.fetchExpanded
     }
@@ -124,7 +125,7 @@ class Controls extends Component {
               placeholder={this.state.endPlaceholder}
             />
           </div>
-          <button className="form-btn"> > </button>
+          <button className="form-btn"></button>
 
         </form>
         <ExpandSearch
