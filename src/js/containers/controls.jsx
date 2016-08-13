@@ -67,7 +67,7 @@ class Controls extends Component {
     this.setState({
       startLocation: "Retrieving your current location...",
     });
-    
+
     this.coordsToAddress(this.updateStartCoords)
   }
 

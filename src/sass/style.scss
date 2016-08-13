@@ -573,26 +573,31 @@ body {
     border: none;
     border-left: 1px solid gray;
     border-bottom: 1px solid gray;
+    &:active {
+      background-color: $secondary-color;
+    }
   }
   .active-expand {
     transition-duration: 200ms;
     margin: 0;
-    bottom: 0;
+    top: 96px;
     position: absolute;
-    background-color: mediumaquamarine;
-    padding-top: 10px;
+    background-color: #279a80;
+    padding-top: 5px;
     box-sizing: border-box;
     width: 100%;
-    height: 48px;
+    height: 69px;
   }
   .expand-btn-bar {
     margin: 0 auto;
+    background-color: inherit;
   }
   .expand-btn {
     cursor: pointer;
     color: white;
-    border: 1px solid mediumaquamarine;
-    background-color: #279a80;
+    margin: 1px;
+    border: none;
+    background-color: mediumaquamarine;
     width: 25%;
     padding: 10px;
     &:active {
@@ -604,7 +609,7 @@ body {
   }
   .expand-text {
     font-size: 14px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
   }
   .expanded-routes {
     transition-duration: 400ms;
@@ -747,8 +752,8 @@ body {
     margin: 0;
     border: none;
     width: 100%;
-    font-size: 1.5em;
-    height: 2em;
+    font-size: 14px;
+    min-height: 45px;
     cursor: pointer;
     &:hover {
       background-color: #279a80;
@@ -760,7 +765,8 @@ body {
       outline: none;
     }
     &:before {
-      content: 'Submit';
+      color: $off-white;
+      content: 'Search';
     }
   }
   .price,
