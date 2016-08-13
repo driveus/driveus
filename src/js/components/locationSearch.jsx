@@ -31,7 +31,6 @@ export default class LocationSearch extends Component {
           value={this.props.value}
           onChange={this.props.onLocationChange}
           name={this.props.name}
-          autoFocus={true}
         />
     );
   }

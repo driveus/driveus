@@ -159,7 +159,7 @@ class Controls extends Component {
                 placeholder={this.state.startPlaceholder}
               />
             <div className="current-location"  onClick={this.setCurrent} >
-                <img src={this.setImage()} />
+                <img src={this.setImage()} className="compass"/>
               </div>
             </div>
             <LocationSearch
