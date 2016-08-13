@@ -33,25 +33,20 @@ class Controls extends Component {
       let geocoder = new google.maps.Geocoder,
           currentLocation;
       // Gets user location with HTML5 geolocation
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          geocoder.geocode({
-            'location': {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }
-          }, (results, status) => {
-            if (status === 'OK') {
-              cb(results[0].formatted_address);
-            } else {
-              window.alert('No results found');
-            }
-          });
+      navigator.geolocation.getCurrentPosition((position) => {
+        geocoder.geocode({
+          'location': {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        }, (results, status) => {
+          if (status === 'OK') {
+            cb(results[0].formatted_address);
+          } else {
+            window.alert('No results found');
+          }
         });
-      }
-      else {
-        alert('not supported biatch');
-      }
+      });
     }
   componentDidMount() {
     document.querySelector('.location-form').addEventListener('keydown', this.handleKeyDown);
