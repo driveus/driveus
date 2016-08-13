@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deselectRoute } from '../actions/index.js';
 import { bindActionCreators } from 'redux';
+import msToTime from '../helpers/msToTime';
 import axios from 'axios';
 
 class ActiveRoute extends Component {
@@ -74,21 +75,12 @@ class ActiveRoute extends Component {
     this.setState({inputElement: 'We noticed you are not on mobile, no worries we just texted you the link to your ride!'});
   }
 
-  msToTime(ms) {
-    let duration = new Date(ms),
-        minutes = parseInt(duration.getMinutes()),
-        hours = parseInt(duration.getHours()),
-        timeOfDay = hours >= 12 ? 'PM' : 'AM';
-    hours = hours > 12 ? hours - 12 : hours;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    return hours + ":" + minutes + ' ' + timeOfDay;
-  }
   render() {
     // Formatting for display...could be done better?
     if (!this.props.route) { return <div></div>; }
     let eta = Math.round(this.props.route.eta/60),
         totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
-        arrivalTime = (this.msToTime(Date.now()+totalTime)),
+        arrivalTime = (msToTime(Date.now()+totalTime)),
         etaMinutes = eta <= 1 ? 'minute' : 'minutes',
         cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
         backgroundColor = this.state.style[this.props.style],

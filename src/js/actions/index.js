@@ -1,5 +1,6 @@
 import {
   SET_DIRECTIONS,
+  SET_WALKING_TIME,
   SET_EXPANDED_DIRECTIONS_PRICE,
   SET_EXPANDED_DIRECTIONS_TIME,
   SET_ADDRESS,
@@ -18,6 +19,12 @@ import {
 export function setDirections(directions) {
   return {
     type: SET_DIRECTIONS,
+    payload: directions
+  }
+}
+export function setWalkingTime(directions) {
+  return {
+    type: SET_WALKING_TIME,
     payload: directions
   }
 }
