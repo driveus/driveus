@@ -65,19 +65,19 @@ module.exports = function(app) {
           let result = uber.parseUber(data[0][i], true);
           // console.log('Parsed Uber Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
-          optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
+          // optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
         }
         for (let j = 0; j < data[1].length; j++) {
           const result = lyft.parseLyft(data[1][j], true);
           // console.log('Parsed Lyft Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
-          optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
+          // optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
         }
         res.json({
           minPrice: optimalPrice.ride || null,
           minPrice_coords: optimalPrice.coords || null,
-          minTime: optimalTime.ride || null,
-          minTime_coords: optimalTime.coords || null
+          // minTime: optimalTime.ride || null,
+          // minTime_coords: optimalTime.coords || null
         });
       })
       .catch((err) => {

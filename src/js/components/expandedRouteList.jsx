@@ -22,21 +22,21 @@ class ExpandedRouteList extends Component {
     for (let route in this.props.routes) {
       let marker = route === 'time' ? time : price;
       let eprice = this.props.routes.price;
-      let etime = this.props.routes.time;
-      if (eprice.avg_estimate === etime.avg_estimate &&
-          eprice.display_name === etime.display_name &&
-          eprice.duration     === etime.duration) {
-        routes.push(
-          <Route
-          key={key++}
-          route={this.props.routes.price}
-          selectRoute={this.props.selectRoute}
-          classStyle={route}
-          marker={priceTime}
-          />
-          );
-        return routes;
-      }
+      // let etime = this.props.routes.time;
+      // if (eprice.avg_estimate === etime.avg_estimate &&
+      //     eprice.display_name === etime.display_name &&
+      //     eprice.duration     === etime.duration) {
+      //   routes.push(
+      //     <Route
+      //     key={key++}
+      //     route={this.props.routes.price}
+      //     selectRoute={this.props.selectRoute}
+      //     classStyle={route}
+      //     marker={priceTime}
+      //     />
+      //     );
+      //   return routes;
+      // }
       if (this.props.routes[route] !== null) {
         routes.push(<Route
           key={key++}

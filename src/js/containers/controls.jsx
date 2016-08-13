@@ -15,7 +15,9 @@ class Controls extends Component {
       endLocation: '',
       startPlaceholder: 'Pickup',
       endPlaceholder: 'Dropoff',
-      currentLocation: null
+      currentLocation: null,
+      currentEndpoint: null,
+      canSubmit: true
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
@@ -24,23 +26,17 @@ class Controls extends Component {
     this.updateStartCoords = this.updateStartCoords.bind(this);
   }
   // Gets user location with HTML5 geolocation
-  // Retrieves the current coordinates and converts it to actual address, 
+  // Retrieves the current coordinates and converts it to actual address,
   // it depends on a callback to complete it's run.
   coordsToAddress(cb) {
       let geocoder = new google.maps.Geocoder,
           currentLocation;
       // Gets user location with HTML5 geolocation
       navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({
-          currentLocation: {
+        geocoder.geocode({
+          'location': {
             lat: position.coords.latitude,
             lng: position.coords.longitude
-          }
-        });
-        geocoder.geocode({
-          'location': { 
-            lat: this.state.currentLocation.lat, 
-            lng: this.state.currentLocation.lng
           }
         }, (results, status) => {
           if (status === 'OK') {
@@ -50,18 +46,22 @@ class Controls extends Component {
           }
         });
       });
-      document.querySelector('.location-form').addEventListener('keydown', this.handleKeyDown);
     }
-
+  componentDidMount() {
+    document.querySelector('.location-form').addEventListener('keydown', this.handleKeyDown);
+  }
   updateStartCoords(address) {
     this.setState({
-      startLocation: address
-    })
+      startLocation: address,
+      currentLocation: address,
+      canSubmit: true
+    });
   }
 
   setCurrent() {
     this.setState({
-      startLocation: "Retrieving your current location..." 
+      startLocation: "Retrieving your current location...",
+      canSubmit: false
     });
     
     this.coordsToAddress(this.updateStartCoords)
@@ -80,6 +80,7 @@ class Controls extends Component {
     });
   }
   componentDidUpdate() {
+    console.log('Surge Status: ', this.props.surge);
     if (this.props.surge) {
       console.log('detected change!')
     }
@@ -87,9 +88,9 @@ class Controls extends Component {
   // Assigns input placeholders and fires of redux chain API calls
   onFormSubmit(e) {
     e.preventDefault();
-    if (this.props.canRequestRoutes) {
+    if (this.props.canRequestRoutes && this.state.canSubmit) {
       let startLocation = e.target.startLocation.value || this.state.currentLocation,
-          endLocation = e.target.endLocation.value;
+          endLocation = e.target.endLocation.value || this.state.currentEndpoint;
       if (startLocation && endLocation) {
         let location = {
           start: startLocation,
@@ -97,7 +98,8 @@ class Controls extends Component {
         }
         this.setState({
           startPlaceholder: startLocation,
-          endPlaceholder: endLocation
+          endPlaceholder: endLocation,
+          currentEndpoint: endLocation
         })
         this.props.getCoords(location)
       }
@@ -138,7 +140,7 @@ class Controls extends Component {
   render() {
     let isActive = 'inactive-expand',
         canExpand = null;
-    if (this.props.currentAddress.start) {
+    if (this.props.surge) {
       isActive = 'active-expand';
       canExpand = this.props.fetchExpanded
     }
@@ -156,9 +158,9 @@ class Controls extends Component {
                 name="startLocation"
                 placeholder={this.state.startPlaceholder}
               />
-              <button className="current-location"  onClick={this.setCurrent} >
-                <img src={this.setImage()} /> 
-              </button>
+            <div className="current-location"  onClick={this.setCurrent} >
+                <img src={this.setImage()} />
+              </div>
             </div>
             <LocationSearch
               tripNode="endLocation"

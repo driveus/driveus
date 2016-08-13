@@ -7,10 +7,8 @@ import CurrentAddressReducer from './reducer_current_address';
 import RouteMarkersReducer from './reducer_route_marker';
 import RouteExpandedMarkersReducer from './reducer_expanded_marker';
 import RequestRouteReducer from './reducer_request_routes';
-// <<<<<<< HEAD
-// import SetAddress from './reducer_current_address';
-// =======
 import DirectionsReducer from './reducer_directions';
+import WalkingTimeReducer from './reducer_walking_time';
 import ExpandedDirectionsReducer from './reducer_expanded_directions';
 import SurgeReducer from './reducer_surge';
 
@@ -24,6 +22,7 @@ const rootReducer = combineReducers({
   expandedMarkers: RouteExpandedMarkersReducer,
   requestRoute: RequestRouteReducer,
   directions: DirectionsReducer,
+  walkingTime: WalkingTimeReducer,
   expandedDirections: ExpandedDirectionsReducer,
   surge: SurgeReducer
 });
