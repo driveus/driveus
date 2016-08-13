@@ -468,8 +468,8 @@ body {
 
 #order-btn {
   width: 100px;
-  height: 30px;
-  margin: 5px;
+  height: 40px;
+  margin: 15px 5px 5px 5px;
   background: none;
   color: $off-white;
   border: 1px solid $off-white;
@@ -679,6 +679,7 @@ body {
     line-height: inherit;
   }
   .selected-route-container {
+    border-radius: 4px;
     right: 10%;
     left: 10%;
     min-height: 20em;
