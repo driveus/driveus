@@ -542,7 +542,6 @@ body {
   background-color: $secondary-color;
   opacity: .8;
   left: 0;
-  bottom: 0;
   font-size: 14px;
   padding: 3px 0px;
   position: absolute;
@@ -606,6 +605,7 @@ body {
   }
   .walking-distance {
     width: 100%;
+    bottom: 0;
   }
   .information-view {
     display: flex;
