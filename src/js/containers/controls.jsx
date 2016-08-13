@@ -46,7 +46,7 @@ class Controls extends Component {
           if (status === 'OK') {
             cb(results[0].formatted_address);
           } else {
-            window.alert('No results found')
+            window.alert('No results found');
           }
         });
       });
