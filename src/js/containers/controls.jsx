@@ -63,6 +63,7 @@ class Controls extends Component {
     this.setState({
       startLocation: "Retrieving your current location..." 
     });
+    
     this.coordsToAddress(this.updateStartCoords)
   }
 
@@ -194,8 +195,3 @@ function mapDispatchToProps(dispatch) {
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);
-
-
-
-    // <div className="form-submit">
-    //       </div>

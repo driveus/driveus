@@ -24,13 +24,16 @@ $lyft-color-active: #ea7bb6;
   font-family: sans-serif;
   outline: none;
 }
+
 html,
 body {
   height: 100%
 }
+
 body {
   background-color: $primary-color;
 }
+
 #container {
   margin: $center;
   display: flex;
@@ -39,6 +42,7 @@ body {
   text-align: center;
   color: $header-text-color;
   background-color: white;
+  transition: display 0.5s;
 }
 
 #site-title {
@@ -59,10 +63,9 @@ body {
   height: inherit;
 }
 
-
 .search-box {
   box-shadow: 0px -1px 3px 1px rgba(0, 0, 0, 0.5);
-  background-color: mediumaquamarine;
+  background-color: #29322f;
   width: 33%;
   z-index: 5;
 }
@@ -84,6 +87,7 @@ body {
   flex-direction: row;
   width: 100%;
 }
+
 .location-search-inputs {
   display: flex;
   flex-direction: column;
@@ -91,8 +95,13 @@ body {
   width: 100%;
   margin: 20px;
   input {
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    background: transparent;
+    color: white;
+    font-weight: 300;
     width: 98.5%;
-    margin-top: 2px;
+    margin-top: 4px;
     line-height: 2em;
     font-size: 14px;
   }
@@ -103,10 +112,103 @@ body {
   width: 100%;
   flex: 1;
 }
+
 .current-location {
   margin-top: 2px;
-  background: white;
+  margin-left: 2px;
+  background: #333d3a;
   border: none;
+  border-bottom: 1px solid #9e9e9e;
+  transition: background 0.4s ease;
+  &:hover {
+    cursor:pointer;
+    background: #333d3a;
+  }
+}
+
+// Elipse for loading current location
+.loading {
+  font-size: 30px;
+}
+
+.loading:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+  animation: ellipsis steps(4, end) 900ms infinite;
+  content: "\2026";
+  width: 0px;
+}
+
+// Spinner for Uber/Lyft requests
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  content: '';
+}
+.loader:before {
+  width: 5.2em;
+  height: 10.2em;
+  background: #c8a083;
+  border-radius: 10.2em 0 0 10.2em;
+  top: -0.1em;
+  left: -0.1em;
+  -webkit-transform-origin: 5.2em 5.1em;
+  transform-origin: 5.2em 5.1em;
+  -webkit-animation: load2 2s infinite ease 1.5s;
+  animation: load2 2s infinite ease 1.5s;
+}
+.loader {
+  color: #fffcfa;
+  font-size: 11px;
+  text-indent: -99999em;
+  margin: 55px auto;
+  position: relative;
+  width: 10em;
+  height: 10em;
+  box-shadow: inset 0 0 0 1em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.loader:after {
+  width: 5.2em;
+  height: 10.2em;
+  background: #c8a083;
+  border-radius: 0 10.2em 10.2em 0;
+  top: -0.1em;
+  left: 5.1em;
+  -webkit-transform-origin: 0px 5.1em;
+  transform-origin: 0px 5.1em;
+  -webkit-animation: load2 2s infinite ease;
+  animation: load2 2s infinite ease;
+}
+@-webkit-keyframes load2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 .form-submit {
@@ -115,16 +217,24 @@ body {
 }
 
 .form-btn {
-  background-color: $off-white;
-  min-height: 30px;
-  min-width: 30px;
-  border-radius: 15px;
-  margin: 0px 20px 0px 0px;
-  &:active {
-    background-color: #cccccc;
+  background-color: transparent;
+  min-height: 64px;
+  min-width: 59px;
+  font-weight: 300;
+  color: #899d9d;
+  border-radius: 4px;
+  border: 1px solid #c4c3c3;
+  margin: 7px 7px 0px 0px;
+  transition: background 0.4s ease;
+  &:hover {
+    cursor: pointer;
+    background-color: #333d3a;
   }
   &:before {
-    content: '>';
+    content: 'Go!';
+    font-size: 1.5em;
+    font-weight: 300;
+    color: #bcbcbc;
   }
 }
 
@@ -147,7 +257,8 @@ body {
     width: 20%;
     line-height: 2em;
     font-size: 1em;
-  };
+  }
+  ;
   span {
     margin: 0 20px;
   }
@@ -165,6 +276,7 @@ body {
 .expand-search {
   text-align: left;
   margin: 0 20px 20px 20px;
+  font-weight: 300;
 }
 
 .expand-slider {
@@ -179,6 +291,7 @@ body {
 .lyft {
   background-color: $lyft-color-primary;
 }
+
 .expanded-routes {
   .price:hover {
     background-color: #426d7d;
@@ -187,10 +300,12 @@ body {
     background-color: #30b597;
   }
 }
+
 .price {
   background-color: #325461;
   border-radius: 0 !important;
 }
+
 .disclaimer {
   font-size: 12px;
   color: $off-white;
@@ -201,14 +316,17 @@ body {
 .time {
   transition-duration: 125ms;
 }
+
 .price-color {
   background-color: #325461;
   border-radius: 0 !important;
 }
+
 .time-color {
   background-color: #279a80;
   border-radius: 0 !important;
 }
+
 .time {
   background-color: #279a80;
   border-radius: 0 !important;
@@ -288,13 +406,17 @@ body {
   font-weight: bold;
   font-size: 18px;
 }
+
 .route-cost {
   font-size: 18px;
   font-weight: bold;
 }
-.driver-eta, .route-duration {
+
+.driver-eta,
+.route-duration {
   font-size: 14px;
 }
+
 .selected-route-container {
   position: fixed;
   display: flex;
@@ -356,8 +478,8 @@ body {
 }
 
 #map-display {
-  top: 30px;
   position: absolute;
+  height: 100%;
   bottom: 0;
   width: 67%;
   left: 33%;
@@ -392,6 +514,7 @@ body {
   width: 100%;
   z-index: 29;
 }
+
 .empty-message {
   height: 100%;
   margin: 2em 0;
@@ -405,6 +528,7 @@ body {
   padding: 5px 20px;
   font-size: 14px;
 }
+
 // MOBILE-ISH ******************************************
 @media (max-width: 955px) {
   #container {
@@ -456,17 +580,16 @@ body {
     margin: 0;
   }
   .uber-list-container {
-      overflow: scroll;
-      height: 100%;
+    overflow: scroll;
+    height: 100%;
   }
   .lyft-list-container {
-      overflow: scroll;
-      height: 100%;
+    overflow: scroll;
+    height: 100%;
   }
   .route-name {
     font-size: 12px;
     padding: 0;
-    // margin-bottom: 10px;
   }
   .driver-eta,
   .route-duration {
@@ -510,6 +633,7 @@ body {
   }
   .search-box {
     box-shadow: none;
+    background: #29322f;
     width: 100%;
     padding: 0;
     left: 0;
@@ -570,7 +694,8 @@ body {
     padding: 15px !important;
     flex-direction: row !important;
     justify-content: center;
-    .route-cost, .route-name {
+    .route-cost,
+    .route-name {
       font-size: 16px;
     }
   }
