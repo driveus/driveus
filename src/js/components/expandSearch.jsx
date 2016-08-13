@@ -14,6 +14,14 @@ class ExpandSearch extends Component {
     this.handleSearchRadiusClick = this.handleSearchRadiusClick.bind(this);
     // this.toggleExpandedView = this.toggleExpandedView.bind(this);
   }
+  componentWillReceiveProps() {
+    if (this.props.classStyle) {
+      this.setState({
+        searchRadius: null,
+        previousSearchRadius: null
+      });
+    }
+  }
   componentDidUpdate() {
     if (this.state.searchRadius !== this.state.previousSearchRadius) {
       console.log('Search Radius and previous search radius not equal');
@@ -39,7 +47,6 @@ class ExpandSearch extends Component {
   // }
 
   render() {
-
     if (this.props.classStyle === 'inactive-expand') {
       return (<div></div>);
     }
