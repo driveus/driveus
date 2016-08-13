@@ -22,6 +22,7 @@ $lyft-color-active: #ea7bb6;
 * {
   margin: 0;
   font-family: sans-serif;
+  outline: none;
 }
 html,
 body {
@@ -104,6 +105,8 @@ body {
 }
 .current-location {
   margin-top: 2px;
+  background: white;
+  border: none;
 }
 
 .form-submit {
@@ -406,6 +409,10 @@ body {
 @media (max-width: 955px) {
   #container {
     flex-direction: column;
+  }
+  .current-location {
+    margin-top: 0;
+    border-bottom: 1px solid gray;
   }
   .expand-search {
     margin: 10px 20px;
