@@ -32,7 +32,8 @@ class Controls extends Component {
       let geocoder = new google.maps.Geocoder,
           currentLocation;
       // Gets user location with HTML5 geolocation
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition((position,err) => {
+        if (err) { alert(err); }
         geocoder.geocode({
           'location': {
             lat: position.coords.latitude,
