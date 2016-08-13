@@ -126,6 +126,24 @@ body {
     border: 1px solid rgb(158, 158, 158);;
   }
 }
+.expand-btn-bar {
+  width: 80%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+}
+
+.expand-slider {
+  width: 10%;
+  min-width: 10px;
+}
+
+.expand-btn {
+  width: 25%;
+  box-flex: 1;
+  border: 1px black solid;
+}
 
 .compass {
   margin-top: 5px;
