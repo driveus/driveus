@@ -63,7 +63,7 @@ module.exports = function(app) {
         // console.log('Uber Promise List', data);
         for (let i = 0; i < data[0].length; i++) {
           let result = uber.parseUber(data[0][i], true);
-          // console.log('Parsed Uber Result: ', result);
+          console.log('Parsed Uber Result: ', result);
           optimalPrice = expandSearch.checkIfOptimalPrice(result, optimalPrice);
           // optimalTime = expandSearch.checkIfOptimalTime(result, optimalTime);
         }

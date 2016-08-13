@@ -8,7 +8,10 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
     optimalPrice.ride = rideOptions.rides[0];
     optimalPrice.coords = rideOptions.coords;
   }
+  console.log('Completed Ride Options obj: ', rideOptions);
   rideOptions.rides.forEach((option) => {
+    console.log('Entered forEach block', option);
+    console.log('OPTION DETAILS: ', option.display_name, 'Surge: ', option.price_multiplier, 'Est: ', option.avg_estimate, 'Time: ',  option.eta + option.duration,  'Coords: ',  rideOptions.coords.start)
     if (option.price_multiplier < optimalPrice.price_multiplier &&
         option.avg_estimate < optimalPrice.ride.avg_estimate && 
         option.display_name !== 'UberTAXI') {
