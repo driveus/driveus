@@ -60,14 +60,12 @@ class Controls extends Component {
     this.setState({
       startLocation: address,
       currentLocation: address,
-      canSubmit: true
     });
   }
 
   setCurrent() {
     this.setState({
       startLocation: "Retrieving your current location...",
-      canSubmit: false
     });
     
     this.coordsToAddress(this.updateStartCoords)
