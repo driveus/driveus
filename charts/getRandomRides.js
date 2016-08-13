@@ -23,14 +23,23 @@ function getCityRides(cityName) {
   uber.uberRequest(coords).then( (data) => {
     console.log('UBER:', cityName)// data.prices.filter((x)=>x.duration));
     uber.parseUber(data, false, cityName);
-  });
+  }).catch((err) => {
+    console.log(err)
+  });;
+  console.log(coords);
   lyft.lyftRequest(coords).then( (data) => {
     console.log('LYFT:', cityName)// JSON.stringify(data));
     lyft.parseLyft(data, false, cityName);
+  }).catch((err) => {
+    console.log(err)
   });
   //Data is now saved to the database.
 }
 
-for (let city in cities.cities) {
-  getCityRides(city);
-}
+
+setTimeout(() => {
+  for (city in cities.cities) {
+    getCityRides(city);
+  }
+}, 4000
+)};
