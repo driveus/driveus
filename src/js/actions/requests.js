@@ -2,7 +2,7 @@ import {
   setDirections,
   setWalkingTime,
   setExpandedDirectionsPrice,
-  setExpandedDirectionsTime,
+  // setExpandedDirectionsTime,
   setAddress,
   setSurgeMultipler,
   requestRoutes,
@@ -67,6 +67,7 @@ export function fetchUber(coords) {
       // index |
       dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesUber(coords, response.data.rides));
+      console.log('UBER SURGE RESPONSE', response.data.surge)
     })
     .catch(function(err) {
       console.log(err);
@@ -83,6 +84,7 @@ export function fetchLyft(coords) {
       // index |
       dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesLyft(coords, response.data.rides));
+      console.log('LYFT SURGE RESPONSE!', response.data.surge)
     })
     .catch(function(err) {
       console.log(err);
@@ -102,17 +104,18 @@ export function fetchExpanded(coords, radius) {
     .then(function (response) {
       let expandedCoords = {
         price: response.data.minPrice_coords,
-        time: response.data.minTime_coords,
-        ctime: response.data.minTime.display_name,
         cprice: response.data.minPrice.display_name
+        // time: response.data.minTime_coords,
+        // ctime: response.data.minTime.display_name,
       }
       // markers | Sets route markers based off expanded route information
       dispatch(setExpandedMarkers(expandedCoords));
       // requests | Gets walking time from Google for each returned value
       dispatch(getDirections(coords.start, expandedCoords.price.start, 'Price'));
+      // dispatch(getDirections(coords.start, expandedCoords.time.start, 'Time'));
       let expandedRoutes = {
         price: response.data.minPrice,
-        time: response.data.minTime
+        // time: response.data.minTime
       }
       // index | Attaches expanded route info to the store
       dispatch(receiveRoutesExpanded(expandedRoutes));
@@ -136,6 +139,8 @@ export function getDirections(start, end, flag=null) {
     }, function(response, status) {
       if (status === 'OK') {
         if (flag === 'Price') { dispatch(setExpandedDirectionsPrice(response)); }
+        // else if (flag === 'Time') { dispatch(setExpandedDirectionsTime(response)); }
+        // index | Assigns base route directions
         else { dispatch(setDirections(response)); }
       } else {
         window.alert('Directions request failed due to ' + status);
