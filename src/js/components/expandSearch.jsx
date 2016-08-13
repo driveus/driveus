@@ -14,8 +14,15 @@ class ExpandSearch extends Component {
     this.handleSearchRadiusClick = this.handleSearchRadiusClick.bind(this);
     // this.toggleExpandedView = this.toggleExpandedView.bind(this);
   }
+  componentWillReceiveProps() {
+    if (this.props.classStyle) {
+      this.setState({
+        searchRadius: null,
+        previousSearchRadius: null
+      });
+    }
+  }
   componentDidUpdate() {
-    console.log('ExpandSearch updated!', this.state.searchRadius, this.state.previousSearchRadius);
     if (this.state.searchRadius !== this.state.previousSearchRadius) {
       console.log('Search Radius and previous search radius not equal');
       this.setState({previousSearchRadius: this.state.searchRadius});
@@ -40,15 +47,14 @@ class ExpandSearch extends Component {
   // }
 
   render() {
-
     if (this.props.classStyle === 'inactive-expand') {
       return (<div></div>);
-    } 
+    }
 
     return (
       <div className={this.props.classStyle} >
-        <div onClick={this.toggleExpandedView}>
-          Surge Pricing Detected! {this.state.searchRadius}
+        <div className="expand-text" onClick={this.toggleExpandedView}>
+          Surge Detected! Check for lower ranges?
         </div>
         <div className="expand-btn-bar">
             <button value="100" onClick={this.handleSearchRadiusClick} className="expand-btn">100m</button>

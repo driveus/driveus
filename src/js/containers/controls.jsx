@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getCoords, fetchExpanded } from '../actions/requests';
+import { disableSurge } from '../actions/index';
 // Components
 import LocationSearch from '../components/locationSearch.jsx';
 import ExpandSearch from '../components/expandSearch.jsx';
@@ -32,20 +33,25 @@ class Controls extends Component {
       let geocoder = new google.maps.Geocoder,
           currentLocation;
       // Gets user location with HTML5 geolocation
-      navigator.geolocation.getCurrentPosition((position) => {
-        geocoder.geocode({
-          'location': {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          }
-        }, (results, status) => {
-          if (status === 'OK') {
-            cb(results[0].formatted_address);
-          } else {
-            window.alert('No results found');
-          }
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          geocoder.geocode({
+            'location': {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+          }, (results, status) => {
+            if (status === 'OK') {
+              cb(results[0].formatted_address);
+            } else {
+              window.alert('No results found');
+            }
+          });
         });
-      });
+      }
+      else {
+        alert('Current Location not supported for this browser.');
+      }
     }
   componentDidMount() {
     document.querySelector('.location-form').addEventListener('keydown', this.handleKeyDown);
@@ -54,14 +60,12 @@ class Controls extends Component {
     this.setState({
       startLocation: address,
       currentLocation: address,
-      canSubmit: true
     });
   }
 
   setCurrent() {
     this.setState({
       startLocation: "Retrieving your current location...",
-      canSubmit: false
     });
     
     this.coordsToAddress(this.updateStartCoords)
@@ -80,7 +84,6 @@ class Controls extends Component {
     });
   }
   componentDidUpdate() {
-    console.log('Surge Status: ', this.props.surge);
     if (this.props.surge) {
       console.log('detected change!')
     }
@@ -99,6 +102,7 @@ class Controls extends Component {
         this.setState({
           startPlaceholder: startLocation,
           endPlaceholder: endLocation,
+          currentLocation: startLocation,
           currentEndpoint: endLocation
         })
         this.props.getCoords(location)
@@ -107,6 +111,7 @@ class Controls extends Component {
   }
   // Tracks user input to local state values
   handleLocationChange(e) {
+    this.props.disableSurge();
     switch (e.target.name) {
       case 'startLocation':
         this.setState({ startLocation: e.target.value });
@@ -140,9 +145,9 @@ class Controls extends Component {
   render() {
     let isActive = 'inactive-expand',
         canExpand = null;
-    if (this.props.surge) {
+    if (this.props.surge && !this.state.startLocation && !this.state.endLocation) {
       isActive = 'active-expand';
-      canExpand = this.props.fetchExpanded
+      canExpand = this.props.fetchExpanded;
     }
     return (
       <div className="search-box">
@@ -193,7 +198,11 @@ function mapStateToProps(state) {
   }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getCoords: getCoords, fetchExpanded: fetchExpanded}, dispatch);
+  return bindActionCreators({
+    getCoords: getCoords,
+    fetchExpanded: fetchExpanded,
+    disableSurge: disableSurge
+  }, dispatch);
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

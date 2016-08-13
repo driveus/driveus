@@ -9,6 +9,7 @@ export const SET_ADDRESS = 'SET_ADDRESS';
 export const SET_MARKERS = 'SET_MARKERS';
 export const SET_EXPANDED_MARKERS = 'SET_EXPANDED_MARKERS';
 export const SET_SURGE = 'SET_SURGE';
+export const DISABLE_SURGE = 'DISABLE_SURGE';
 
 // API call flags
 export const REQUEST_ROUTES = 'REQUEST_ROUTES';
