@@ -81,7 +81,6 @@ class Controls extends Component {
     });
   }
   componentDidUpdate() {
-    console.log('Surge Status: ', this.props.surge);
     if (this.props.surge) {
       console.log('detected change!')
     }
@@ -100,6 +99,7 @@ class Controls extends Component {
         this.setState({
           startPlaceholder: startLocation,
           endPlaceholder: endLocation,
+          currentLocation: startLocation,
           currentEndpoint: endLocation
         })
         this.props.getCoords(location)

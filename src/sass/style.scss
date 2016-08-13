@@ -78,6 +78,12 @@ body {
   width: 100%;
 }
 
+.information-view {
+  flex: 1;
+  overflow: scroll;
+  width: 100%;
+}
+
 .routesTest {
   position: inherit;
 }
@@ -555,7 +561,6 @@ body {
   padding: 5px 20px;
   font-size: 14px;
 }
-
 // MOBILE-ISH ******************************************
 @media (max-width: 1000px) {
   #container {
@@ -565,14 +570,33 @@ body {
     margin-top: 0;
     border-bottom: 1px solid gray;
   }
-  .expand-search {
+  .active-expand {
+    transition-duration: 200ms;
     margin: 0;
     position: absolute;
     background-color: mediumaquamarine;
-    padding: 10px;
+    padding-top: 10px;
     box-sizing: border-box;
     width: 100%;
     z-index: -1;
+  }
+  .expand-btn {
+    cursor: pointer;
+    color: white;
+    border: 1px solid mediumaquamarine;
+    background-color: #279a80;
+    width: 25%;
+    padding: 10px;
+    &:active {
+      background-color: #2ea58a;
+    }
+    &:focus {
+      background-color: #437979;
+    }
+  }
+  .expand-text {
+    font-size: 14px;
+    padding-bottom: 10px;
   }
   .expanded-routes {
     transition-duration: 400ms;
@@ -592,7 +616,7 @@ body {
   .marker-tag {
     margin: 5px 10px;
   }
-  
+
   .compass {
     margin-top: 14px;
   }

@@ -67,7 +67,6 @@ export function fetchUber(coords) {
       // index |
       dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesUber(coords, response.data.rides));
-      console.log('UBER SURGE RESPONSE', response.data.surge)
     })
     .catch(function(err) {
       console.log(err);
@@ -84,7 +83,6 @@ export function fetchLyft(coords) {
       // index |
       dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesLyft(coords, response.data.rides));
-      console.log('LYFT SURGE RESPONSE!', response.data.surge)
     })
     .catch(function(err) {
       console.log(err);
