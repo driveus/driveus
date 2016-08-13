@@ -58,6 +58,7 @@ body {
   height: inherit;
 }
 
+
 .search-box {
   box-shadow: 1px -4px 9px 6px rgba(0, 0, 0, 0.4);
   background-color: mediumaquamarine;
@@ -82,7 +83,6 @@ body {
   flex-direction: row;
   width: 100%;
 }
-
 .location-search-inputs {
   display: flex;
   flex-direction: column;
@@ -90,9 +90,20 @@ body {
   width: 100%;
   margin: 20px;
   input {
+    width: 98.5%;
+    margin-top: 2px;
     line-height: 2em;
     font-size: 14px;
   }
+}
+
+.current-location-start {
+  display: flex;
+  width: 100%;
+  flex: 1;
+}
+.current-location {
+  margin-top: 2px;
 }
 
 .form-submit {
