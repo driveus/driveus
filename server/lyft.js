@@ -85,7 +85,7 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
     }
     return ride;
   });
-  if (surgeCount > 0) {
+  if (surgeCount > 1) {
     surge = true;
   }
   //add the ETA to the corresponding object
