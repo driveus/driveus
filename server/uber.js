@@ -53,7 +53,7 @@ function parseUber(apiResponses, isExpandedSearch) {
     }
     return ride;
   });
-  if (surgeCount > 1) {
+  if (surgeCount > 0) {
     surge = true;
   }
   //add the ETA to the corresponding object
@@ -66,7 +66,7 @@ function parseUber(apiResponses, isExpandedSearch) {
   }
   //Filter out rides that we weren't able to match up ETAs on (ie. UberWAV)
   rides = rides.filter((ride) => !ride.display_name.match(/(ASSIST|UberWAV)/i));
- 
+
   //*********TESTING AND PRESENTATION ONLY***********
   //Make "Ferry Building Marketplace" always have a surge multiplier
   if (coords.start.lat === 37.7955805 && coords.start.lng === -122.39341109999998) {
