@@ -26,7 +26,7 @@ export function getCoords(location) {
     dispatch(getDirections(location.start, location.end));
     // index | Sets current address to string value
     dispatch(setAddress(location));
-    
+
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: location.start }, (results, status) => {
       if (status == 'OK') {
