@@ -1,5 +1,6 @@
 import {
   setDirections,
+  setWalkingTime,
   setExpandedDirectionsPrice,
   setExpandedDirectionsTime,
   setAddress,
@@ -24,6 +25,7 @@ export function getCoords(location) {
   return function(dispatch) {
     // requests | Fetches google direction data for desired route
     dispatch(getDirections(location.start, location.end));
+    dispatch(getWalkingTime(location.start, location.end));
     // index | Sets current address to string value
     dispatch(setAddress(location));
 
@@ -108,7 +110,6 @@ export function fetchExpanded(coords, radius) {
       dispatch(setExpandedMarkers(expandedCoords));
       // requests | Gets walking time from Google for each returned value
       dispatch(getDirections(coords.start, expandedCoords.price.start, 'Price'));
-      dispatch(getDirections(coords.start, expandedCoords.time.start, 'Time'));
       let expandedRoutes = {
         price: response.data.minPrice,
         time: response.data.minTime
@@ -131,13 +132,10 @@ export function getDirections(start, end, flag=null) {
     directionsService.route({
       origin: start,
       destination: end,
-      travelMode: 'WALKING'
+      travelMode: 'DRIVING'
     }, function(response, status) {
       if (status === 'OK') {
-        // index | Captures expanded route walking distance data
         if (flag === 'Price') { dispatch(setExpandedDirectionsPrice(response)); }
-        else if (flag === 'Time') { dispatch(setExpandedDirectionsTime(response)); }
-        // index | Assigns base route directions
         else { dispatch(setDirections(response)); }
       } else {
         window.alert('Directions request failed due to ' + status);
@@ -145,6 +143,24 @@ export function getDirections(start, end, flag=null) {
     });
   }
 }
+
+export function getWalkingTime(start, end) {
+  return function (dispatch) {
+    let directionsService = new google.maps.DirectionsService;
+    directionsService.route({
+      origin: start,
+      destination: end,
+      travelMode: 'WALKING'
+    }, function(response, status) {
+      if (status === 'OK') {
+        dispatch(setWalkingTime(response));
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+}
+
 
 function axiosRequest(target, payload) {
   return axios.post('/api/' + target, {
