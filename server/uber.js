@@ -68,7 +68,16 @@ function parseUber(apiResponses, isExpandedSearch, city) {
   }
   //Filter out rides that we weren't able to match up ETAs on (ie. UberWAV)
   rides = rides.filter((ride) => !ride.display_name.match(/(ASSIST|UberWAV)/i));
-
+  //Bug hotfix:
+  rides.filter(function(ride) {
+    for (let prop in ride) {
+      if (prop === undefined) {
+        console.log("Excluding malformed ride:", ride);
+        return false;
+      }
+    }
+    return true;
+  });
   //*********TESTING AND PRESENTATION ONLY***********
   //Make "Ferry Building Marketplace" always have a surge multiplier
   const ferryRange = {lat: [37.79682, 37.79444], lng: [-122.396032, -122.391053]}
