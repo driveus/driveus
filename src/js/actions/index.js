@@ -5,6 +5,7 @@ import {
   SET_EXPANDED_DIRECTIONS_TIME,
   SET_ADDRESS,
   SET_SURGE,
+  DISABLE_SURGE,
   ROUTE_SELECTED,
   ROUTE_DESELECTED,
   REQUEST_ROUTES,
@@ -53,6 +54,11 @@ export function setSurgeMultipler(surge) {
   return {
     type: SET_SURGE,
     payload: surge
+  }
+}
+export function disableSurge() {
+  return {
+    type: DISABLE_SURGE
   }
 }
 // selectRoute -> reducer_active_route

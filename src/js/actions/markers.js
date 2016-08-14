@@ -1,6 +1,7 @@
 import {
   SET_MARKERS,
-  SET_EXPANDED_MARKERS
+  SET_EXPANDED_MARKERS,
+  SET_EXPANDED_CIRCLE
 } from './types';
 
 // setMarkers -> reducer_route_marker
@@ -46,5 +47,17 @@ export function setExpandedMarkers(coords) {
   return {
     type: SET_EXPANDED_MARKERS,
     payload: newMarkers
+  }
+}
+export function setExpandedCircle(coord, radius) {
+  let expandedCircle = new google.maps.Circle({
+    center: coord,
+    radius: radius/1,
+    fillColor: '#FF0000',
+    fillOpacity: 0.2,
+  });
+  return {
+    type: SET_EXPANDED_CIRCLE,
+    payload: expandedCircle
   }
 }
