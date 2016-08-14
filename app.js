@@ -1,12 +1,12 @@
 // Module dependencies
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
-// Local dependencies
-const app = express();
 if(process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv').config();
 }
+const bodyParser = require('body-parser');
+// Local dependencies
+const app = express();
 if(process.env.NODE_ENV === 'production') {
   app.use(forceSsl);
 }
