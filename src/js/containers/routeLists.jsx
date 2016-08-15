@@ -17,7 +17,7 @@ class RouteLists extends Component {
   }
   componentWillReceiveProps() {
     if (this.props.uberRoutes || this.props.lyftRoutes) {
-      this.setState({ messageStyle: { height: '0%', margin: 0, opacity: 0 }});
+      this.setState({ messageStyle: { height: '0', margin: 0, opacity: 0 }});
     }
   }
   render() {
