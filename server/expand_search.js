@@ -12,23 +12,22 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
   rideOptions.rides.forEach((option) => {
     // console.log('Entered forEach block', option);
     console.log('OPTION: ', option.display_name, ' Surge:', option.price_multiplier, ' Est:', option.avg_estimate, ' Time:',  option.eta + option.duration,  ' Coords:',  rideOptions.coords.start)
-    if (option.price_multiplier < optimalPrice.ride.price_multiplier &&
+    if (option.price_multiplier === optimalPrice.ride.price_multiplier &&
+        option.avg_estimate === optimalPrice.ride.avg_estimate && 
+        option.display_name !== 'UberTAXI') {
+      console.log('Same multiplier and price')
+      if (option.distance < optimalPrice.ride.distance) { // (option.eta + option.duration < optimalPrice.ride.eta + optimalPrice.ride.duration ) ||
+        console.log('Better eta or distance')
+        optimalPrice.ride = option;
+        optimalPrice.coords = rideOptions.coords;
+      }
+    }
+    if (option.price_multiplier <= optimalPrice.ride.price_multiplier &&
         option.avg_estimate < optimalPrice.ride.avg_estimate && 
         option.display_name !== 'UberTAXI') {
           console.log('Better multiplier and price')
           optimalPrice.ride = option;
           optimalPrice.coords = rideOptions.coords;
-    }
-    if (option.price_multiplier === optimalPrice.ride.price_multiplier &&
-        option.avg_estimate === optimalPrice.ride.avg_estimate && 
-        option.display_name !== 'UberTAXI') {
-      console.log('Same multiplier and price')
-      if ((option.eta + option.duration < optimalPrice.ride.eta + optimalPrice.ride.duration ) ||
-          option.distance < optimalPrice.ride.distance) {
-        console.log('Better eta or distance')
-        optimalPrice.ride = option;
-        optimalPrice.coords = rideOptions.coords;
-      }
     }
   });
   console.log('BEST: ', 'Product:', optimalPrice.ride.display_name, ' Surge:', optimalPrice.ride.price_multiplier, ' Est:',  optimalPrice.ride.avg_estimate,  ' Time:',  optimalPrice.ride.eta + optimalPrice.ride.duration,  ' Coords:',  optimalPrice.coords.start);
