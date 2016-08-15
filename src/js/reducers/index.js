@@ -6,6 +6,7 @@ import CurrentCoordsReducer from './reducer_current_coords';
 import CurrentAddressReducer from './reducer_current_address';
 import RouteMarkersReducer from './reducer_route_marker';
 import RouteExpandedMarkersReducer from './reducer_expanded_marker';
+import RouteExpandedCircleReducer from './reducer_expanded_circle';
 import RequestRouteReducer from './reducer_request_routes';
 import DirectionsReducer from './reducer_directions';
 import WalkingTimeReducer from './reducer_walking_time';
@@ -20,11 +21,12 @@ const rootReducer = combineReducers({
   currentAddress: CurrentAddressReducer,
   routeMarkers: RouteMarkersReducer,
   expandedMarkers: RouteExpandedMarkersReducer,
+  expandedCircle: RouteExpandedCircleReducer,
   requestRoute: RequestRouteReducer,
   directions: DirectionsReducer,
   walkingTime: WalkingTimeReducer,
   expandedDirections: ExpandedDirectionsReducer,
-  surge: SurgeReducer
+  surge: SurgeReducer,
 });
 
 export default rootReducer;

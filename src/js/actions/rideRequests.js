@@ -9,8 +9,15 @@ import {
 } from './index';
 import {
   setMarkers,
-  setExpandedMarkers
+  setExpandedMarkers,
+  setExpandedCircle
 } from './markers';
+
+import {
+  getCoords,
+  getDirections,
+  getWalkingTime
+} from './googleRequests'
 
 import axiosRequest from '../helpers/axios';
 // Flags before the | indicate file location
