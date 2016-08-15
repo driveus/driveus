@@ -24,7 +24,7 @@ Enter an origin and destination address, then Submit.  You will be shown a list 
 ##Contributing
 1.  Fork this repo
 2.  Clone it and check out a feature branch
-3.  Make your changes, adhering to the AirBnB style guide, and commit them
+3.  Make your changes, adhering to the [AirBnB style guide], and commit them
 4.  Push to your feature branch
 5.  Make a pull request to drivus/dev branch!
 
@@ -40,3 +40,5 @@ Elifaz Filho  -  github.com/Elifaz
 Ian Mrak  -  github.com/ianmrak
 
 John Slape  -  github.com/sljohn
+
+[AirBnB style guide]: https://github.com/airbnb/javascript
