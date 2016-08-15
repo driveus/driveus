@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCoords, fetchExpanded } from '../actions/requests';
+import { fetchExpanded } from '../actions/rideRequests';
+import { getCoords, coordsToAddress } from '../actions/googleRequests';
 import { disableSurge } from '../actions/index';
+import handleKeyDown from '../helpers/disableEnter';
+import locationIcon from '../../assets/compass.svg';
 // Components
 import LocationSearch from '../components/locationSearch.jsx';
 import ExpandSearch from '../components/expandSearch.jsx';
@@ -17,8 +20,7 @@ class Controls extends Component {
       startPlaceholder: 'Pickup',
       endPlaceholder: 'Dropoff',
       currentLocation: null,
-      currentEndpoint: null,
-      canSubmit: true
+      currentEndpoint: null
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
@@ -26,56 +28,9 @@ class Controls extends Component {
     this.setCurrent = this.setCurrent.bind(this);
     this.updateStartCoords = this.updateStartCoords.bind(this);
   }
-  // Gets user location with HTML5 geolocation
-  // Retrieves the current coordinates and converts it to actual address,
-  // it depends on a callback to complete it's run.
-  coordsToAddress(cb) {
-      let geocoder = new google.maps.Geocoder,
-          currentLocation;
-      // Gets user location with HTML5 geolocation
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          geocoder.geocode({
-            'location': {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }
-          }, (results, status) => {
-            if (status === 'OK') {
-              cb(results[0].formatted_address);
-            } else {
-              window.alert('No results found');
-            }
-          });
-        });
-      }
-      else {
-        alert('Current Location not supported for this browser.');
-      }
-    }
   componentDidMount() {
-    document.querySelector('.location-form').addEventListener('keydown', this.handleKeyDown);
+    document.querySelector('.location-form').addEventListener('keydown', handleKeyDown);
   }
-  updateStartCoords(address) {
-    this.setState({
-      startLocation: address,
-      currentLocation: address,
-    });
-  }
-
-  setCurrent() {
-    this.setState({
-      startLocation: "Retrieving your current location...",
-    });
-
-    this.coordsToAddress(this.updateStartCoords)
-  }
-
-  setImage() {
-    let icon = require('../../assets/compass.svg');
-    return icon;
-  }
-
   // Wipes input field after form submission (at the end of redux cycle)
   componentWillReceiveProps() {
     this.setState({
@@ -88,10 +43,24 @@ class Controls extends Component {
       console.log('detected change!')
     }
   }
+  
+  updateStartCoords(address) {
+    this.setState({
+      startLocation: address,
+      currentLocation: address,
+    });
+  }
+
+  setCurrent() {
+    this.setState({
+      startLocation: "Retrieving your current location...",
+    });
+    coordsToAddress(this.updateStartCoords)
+  }
   // Assigns input placeholders and fires of redux chain API calls
   onFormSubmit(e) {
     e.preventDefault();
-    if (this.props.canRequestRoutes && this.state.canSubmit) {
+    if (this.props.canRequestRoutes) {
       let startLocation = e.target.startLocation.value || this.state.currentLocation,
           endLocation = e.target.endLocation.value || this.state.currentEndpoint;
       if (startLocation && endLocation) {
@@ -136,12 +105,6 @@ class Controls extends Component {
         return;
     }
   }
-  handleKeyDown(e) {
-    var ENTER = 13;
-    if( e.keyCode === ENTER ) {
-      e.preventDefault();
-    }
-  }
   render() {
     let isActive = 'inactive-expand',
         canExpand = null;
@@ -164,7 +127,7 @@ class Controls extends Component {
                 placeholder={this.state.startPlaceholder}
               />
             <div className="current-location"  onClick={this.setCurrent} >
-                <img src={this.setImage()} className="compass"/>
+                <img src={locationIcon} className="compass"/>
               </div>
             </div>
             <LocationSearch
