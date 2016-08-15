@@ -46,4 +46,4 @@ setInterval(() => {
   for (city in cities.cities) {
     getCityRides(city);
   }
-}, 50000);
+}, 55000);
