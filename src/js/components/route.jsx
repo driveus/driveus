@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import msToTime from '../helpers/msToTime';
+
 class Route extends Component {
   constructor(props) {
     super(props);

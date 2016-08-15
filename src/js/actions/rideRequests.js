@@ -12,6 +12,9 @@ import {
   setExpandedMarkers,
   setExpandedCircle
 } from './markers';
+import {
+  getDirections
+} from './googleRequests';
 
 import {
   getCoords,
