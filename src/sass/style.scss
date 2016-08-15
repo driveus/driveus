@@ -39,6 +39,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
   text-align: center;
   color: $header-text-color;
   background-color: white;
@@ -74,6 +75,7 @@ body {
 
 .information-view {
   flex: 1;
+  position: relative;
   overflow: scroll;
   width: 100%;
 }
@@ -377,7 +379,7 @@ body {
   float: left;
   flex: 1;
   width: 33%;
-  position: relative;
+  position: absolute;
   overflow: scroll;
   background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
   margin: $center;
@@ -512,7 +514,7 @@ body {
 }
 
 #map-display {
-  position: absolute;
+  position: fixed;
   height: 100%;
   bottom: 0;
   width: 67%;
@@ -644,6 +646,7 @@ body {
   .list-container {
     width: 100%;
     order: 1;
+    position: relative;
     border-top: 1px solid $secondary-color;
     background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
     flex: 1;
@@ -782,34 +785,42 @@ body {
   .disclaimer {
     font-size: 10px;
   }
-  @media (min-width: 550px) {
+  @media (min-width: 600px) {
     .location-form {
       input {
         height: 2.5em;
       }
     }
+    #container {
+      position: inherit;
+    }
     #map-display {
-      width: 50%;
-      position: absolute;
-      left: 50%;
+      width: 60%;
+      position: fixed;
+      left: 40%;
       height: auto;
     }
     .search-box {
-      width: 50%;
+      width: 40%;
     }
     .list-container {
-      width: 50%;
+      width: 40%;
+      position: absolute;
     }
     .information-view {
       display: block;
+      position: relative;
     }
     .map-container {
       width: 100%;
     }
   }
-  @media(max-width: 549px) {
+  @media(max-width: 599px) {
     .information-view {
       flex-direction: column;
+    }
+    #container {
+      position: relative;
     }
     #map-display {
       width: 100%;
