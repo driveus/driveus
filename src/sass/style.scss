@@ -569,6 +569,9 @@ body {
     flex-direction: column;
   }
   .current-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 60px;
     margin-top: 0;
     border: none;
@@ -576,6 +579,9 @@ body {
     border-bottom: 1px solid gray;
     &:active {
       background-color: $secondary-color;
+    }
+    img {
+      margin: 0;
     }
   }
   .active-expand {
@@ -703,11 +709,6 @@ body {
     left: 0;
     top: 0;
     height: 230px;
-    &:before {
-      box-shadow: 0px 4px 3px -3px rgba(0, 0, 0, 0.3) inset;
-      height: 5px;
-      width: 100%;
-    }
   }
   .search-box {
     position: relative;
@@ -731,7 +732,6 @@ body {
       box-sizing: border-box;
       width: 100%;
       font-size: 1em;
-      height: 3em;
     }
   }
   .form-submit {
@@ -783,15 +783,25 @@ body {
     font-size: 10px;
   }
   @media (min-width: 550px) {
+    .location-form {
+      input {
+        height: 2.5em;
+      }
+    }
     #map-display {
       width: 50%;
+      position: absolute;
+      left: 50%;
       height: auto;
+    }
+    .search-box {
+      width: 50%;
     }
     .list-container {
       width: 50%;
     }
     .information-view {
-      flex-direction: row-reverse;
+      display: block;
     }
     .map-container {
       width: 100%;
@@ -803,6 +813,16 @@ body {
     }
     #map-display {
       width: 100%;
+      &:before {
+        box-shadow: 0px 4px 3px -3px rgba(0, 0, 0, 0.3) inset;
+        height: 5px;
+        width: 100%;
+      }
+    }
+    .location-form {
+      input {
+        height: 3em;
+      }
     }
   }
 }
