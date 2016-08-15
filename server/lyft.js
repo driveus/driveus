@@ -113,6 +113,7 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
       }
     }
   }
+
   //*********END OF HARDCODED SURGE MULTIPLIER ******
 
   rides.forEach((ride) => {
@@ -121,7 +122,7 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
     }
   })
 
-  if (surgeCount > 0) {
+  if (surgeCount > 1) {
     surge = true;
   }
 

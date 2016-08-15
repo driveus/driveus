@@ -84,6 +84,7 @@ function parseUber(apiResponses, isExpandedSearch, city) {
       }
     }
   }
+
   //*********END OF HARDCODED SURGE MULTIPLIER ******
   rides.forEach((ride) => {
     if (ride.display_name === 'UberPOOL' || ride.display_name === 'UberX') {
@@ -91,7 +92,7 @@ function parseUber(apiResponses, isExpandedSearch, city) {
     }
 
   })
-  if (surgeCount > 0) {
+  if (surgeCount > 1) {
     surge = true;
   }
 
