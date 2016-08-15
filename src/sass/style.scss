@@ -621,7 +621,6 @@ body {
   }
   .information-view {
     display: flex;
-    flex-direction: column;
   }
   #site-title {
     font-size: 22px;
@@ -704,7 +703,6 @@ body {
     left: 0;
     top: 0;
     height: 230px;
-    width: 100%;
     &:before {
       box-shadow: 0px 4px 3px -3px rgba(0, 0, 0, 0.3) inset;
       height: 5px;
@@ -783,5 +781,28 @@ body {
   }
   .disclaimer {
     font-size: 10px;
+  }
+  @media (min-width: 550px) {
+    #map-display {
+      width: 50%;
+      height: auto;
+    }
+    .list-container {
+      width: 50%;
+    }
+    .information-view {
+      flex-direction: row-reverse;
+    }
+    .map-container {
+      width: 100%;
+    }
+  }
+  @media(max-width: 549px) {
+    .information-view {
+      flex-direction: column;
+    }
+    #map-display {
+      width: 100%;
+    }
   }
 }
