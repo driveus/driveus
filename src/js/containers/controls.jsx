@@ -177,7 +177,6 @@ class Controls extends Component {
             />
           </div>
           <button className="form-btn"></button>
-
         </form>
         <ExpandSearch
           classStyle={isActive}
