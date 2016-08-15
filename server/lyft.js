@@ -85,7 +85,7 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
     }
     return ride;
   });
-  if (surgeCount > 0) {
+  if (surgeCount > 1) {
     surge = true;
   }
   //add the ETA to the corresponding object
@@ -109,15 +109,15 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
   });
   //*********TESTING AND PRESENTATION ONLY***********
   //Make "Ferry Building Marketplace" always have a surge multiplier
-  const ferryRange = {lat: [37.79682, 37.79444], lng: [-122.396032, -122.391053]}
-  if (coords.start.lat > ferryRange.lat[1] && coords.start.lat < ferryRange.lat[0]) {
-    if (coords.start.lng < ferryRange.lng[1] && coords.start.lng > ferryRange.lng[0]) {
-      for (let ride of rides) {
-        ride.price_multiplier = 1.8;
-        ride.high_estimate *= 1.8;
-      }
-    }
-  }
+  // const ferryRange = {lat: [37.79682, 37.79444], lng: [-122.396032, -122.391053]}
+  // if (coords.start.lat > ferryRange.lat[1] && coords.start.lat < ferryRange.lat[0]) {
+  //   if (coords.start.lng < ferryRange.lng[1] && coords.start.lng > ferryRange.lng[0]) {
+  //     for (let ride of rides) {
+  //       ride.price_multiplier = 1.8;
+  //       ride.high_estimate *= 1.8;
+  //     }
+  //   }
+  // }
   //*********END OF HARDCODED SURGE MULTIPLIER ******
 
   const results = {rides: rides, coords: coords, surge: surge};

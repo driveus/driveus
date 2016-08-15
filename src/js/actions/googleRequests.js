@@ -1,24 +1,17 @@
 import {
   setDirections,
   setWalkingTime,
-  setExpandedDirectionsPrice,
-  // setExpandedDirectionsTime,
   setAddress,
-  setSurgeMultipler,
   requestRoutes,
-  receiveRoutesLyft,
-  receiveRoutesUber,
-  receiveRoutesExpanded,
-  noExpandedRoutes,
-  invalidRoutes,
+  setExpandedDirectionsPrice
 } from './index';
-import {
-  setMarkers,
-  setExpandedMarkers
-} from './markers';
 
-import axios from 'axios';
-// Flags before the | indicate file location
+import {
+  fetchUber,
+  fetchLyft
+} from './rideRequests';
+
+import { setMarkers } from './markers';
 
 // Gets coordinate information from string addressess
 export function getCoords(location) {
@@ -60,72 +53,6 @@ export function getCoords(location) {
   }
 }
 
-export function fetchUber(coords) {
-  return function(dispatch) {
-    axiosRequest('uber', coords)
-    .then(function (response) {
-      // index |
-      dispatch(setSurgeMultipler(response.data.surge))
-      dispatch(receiveRoutesUber(coords, response.data.rides));
-    })
-    .catch(function(err) {
-      console.log(err);
-      // index |
-      dispatch(invalidRoutes());
-    })
-  }
-}
-
-export function fetchLyft(coords) {
-  return function(dispatch) {
-    axiosRequest('lyft', coords)
-    .then(function (response) {
-      // index |
-      dispatch(setSurgeMultipler(response.data.surge))
-      dispatch(receiveRoutesLyft(coords, response.data.rides));
-    })
-    .catch(function(err) {
-      console.log(err);
-      // index |
-      dispatch(invalidRoutes());
-    })
-  }
-}
-
-export function fetchExpanded(coords, radius) {
-  var payload = {
-    coords: coords,
-    radius: radius
-  }
-  return function(dispatch) {
-    axiosRequest('expandSearch', payload)
-    .then(function (response) {
-      let expandedCoords = {
-        price: response.data.minPrice_coords,
-        cprice: response.data.minPrice.display_name
-        // time: response.data.minTime_coords,
-        // ctime: response.data.minTime.display_name,
-      }
-      // markers | Sets route markers based off expanded route information
-      dispatch(setExpandedMarkers(expandedCoords));
-      // requests | Gets walking time from Google for each returned value
-      dispatch(getDirections(coords.start, expandedCoords.price.start, 'Price'));
-      // dispatch(getDirections(coords.start, expandedCoords.time.start, 'Time'));
-      let expandedRoutes = {
-        price: response.data.minPrice,
-        // time: response.data.minTime
-      }
-      // index | Attaches expanded route info to the store
-      dispatch(receiveRoutesExpanded(expandedRoutes));
-    })
-    .catch(function(err) {
-      console.log(err);
-      // index |
-      dispatch(noExpandedRoutes());
-    })
-  }
-}
-
 // Universal directions request - could be split up for better control
 export function getDirections(start, end, flag=null) {
   return function (dispatch) {
@@ -164,9 +91,27 @@ export function getWalkingTime(start, end) {
   }
 }
 
-
-function axiosRequest(target, payload) {
-  return axios.post('/api/' + target, {
-    data: payload
-  });
-}
+export function coordsToAddress(cb) {
+    let geocoder = new google.maps.Geocoder,
+        currentLocation;
+    // Gets user location with HTML5 geolocation
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        geocoder.geocode({
+          'location': {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        }, (results, status) => {
+          if (status === 'OK') {
+            cb(results[0].formatted_address);
+          } else {
+            window.alert('No results found');
+          }
+        });
+      });
+    }
+    else {
+      alert('Current Location not supported for this browser.');
+    }
+  }
