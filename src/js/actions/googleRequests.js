@@ -39,6 +39,7 @@ export function getCoords(location) {
               start: startCoords,
               end: endCoords
             }
+            console.log(route);
             // index | Flags program that a request is under way (no additional requests can be made)
             dispatch(requestRoutes(route));
             // requests | Fetches route information from Uber and Lyft APIs
@@ -54,7 +55,7 @@ export function getCoords(location) {
 }
 
 // Universal directions request - could be split up for better control
-export function getDirections(start, end, flag=null) {
+export function getDirections(start, end) {
   return function (dispatch) {
     let directionsService = new google.maps.DirectionsService;
     directionsService.route({
@@ -63,10 +64,9 @@ export function getDirections(start, end, flag=null) {
       travelMode: 'DRIVING'
     }, function(response, status) {
       if (status === 'OK') {
-        if (flag === 'Price') { dispatch(setExpandedDirectionsPrice(response)); }
         // else if (flag === 'Time') { dispatch(setExpandedDirectionsTime(response)); }
         // index | Assigns base route directions
-        else { dispatch(setDirections(response)); }
+        dispatch(setDirections(response));
       } else {
         window.alert('Directions request failed due to ' + status);
       }

@@ -12,8 +12,7 @@ class ActiveRoute extends Component {
       style: {
         uber: 'uber',
         lyft: 'lyft',
-        price: 'price-color',
-        time: 'time-color'
+        expanded: 'expanded'
       },
       orderCab: null,
       MobileBrowser: null,

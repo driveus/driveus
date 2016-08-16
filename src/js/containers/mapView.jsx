@@ -89,10 +89,12 @@ class MapView extends Component {
           this.props.expandedMarkers[marker]=null;
         }
       }
-      // if (this.props.expandedCircle) {
-      //     this.props.expandedCircle.setMap(null);
-      //     this.props.expandedCircle=null;
-      // }
+      if (this.props.expandedCircle) {
+        let circles = this.props.expandedCircle;
+        for (let i in circles) {
+          if (circles[i]) { circles[i].setMap(null); }
+        }
+      }
     }
   }
   componentDidUpdate() {
@@ -107,7 +109,7 @@ class MapView extends Component {
     // Drop route markers on map
     if (this.props.routeMarkers.start) {
       let markers = this.props.routeMarkers,
-      bounds = new google.maps.LatLngBounds();
+          bounds = new google.maps.LatLngBounds();
       for (let data in markers) {
         if (markers[data].position) {
           markers[data].setMap(this.state.map);
@@ -117,9 +119,9 @@ class MapView extends Component {
       this.state.map.fitBounds(bounds);
     }
     // Set expanded markers and remove current directions (for closer bounding box)
-    if (this.props.expandedMarkers.price || this.props.expandedMarkers.time) {
+    if (this.props.expandedMarkers.close || this.props.expandedMarkers.medium || this.props.expandedMarkers.far) {
       this.state.directionsDisplay.set('directions', null);
-      let markers = this.props.expandedMarkers,
+      var markers = this.props.expandedMarkers,
           bounds = new google.maps.LatLngBounds();
       for (let data in markers) {
         if (markers[data].position) {
@@ -129,18 +131,22 @@ class MapView extends Component {
       }
       // Extends bounds to include expanded markers and start location
       bounds.extend(this.props.routeMarkers['start'].getPosition());
-      // this.state.map.fitBounds(bounds);
+      this.state.map.fitBounds(bounds);
     }
 
     // Sets circle on map
-    if (this.props.expandedCircle) {
+    if (this.props.expandedCircle.close || this.props.expandedCircle.medium || this.props.expandedCircle.far) {
+      let circles = this.props.expandedCircle;
       // this.state.directionsDisplay.set('directions', null);
-      let circle = this.props.expandedCircle,
-          bounds = new google.maps.LatLngBounds();
-      circle.setMap(this.state.map)
-      this.state.map.fitBounds(this.props.expandedCircle.getBounds());
+      for (let i in circles) {
+        bounds = new google.maps.LatLngBounds();
+        circles[i].setMap(this.state.map)
+        this.state.map.fitBounds(circles[i].getBounds());
+        if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
+          this.state.map.setZoom(this.state.map.getZoom() + 1);
+        }
+      }
     }
-
   }
   render() {
     let walkingDistance;

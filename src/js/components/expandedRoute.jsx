@@ -3,7 +3,7 @@ import msToTime from '../helpers/msToTime';
 import pickupIcon from '../../assets/car.svg';
 import arrivalIcon from '../../assets/clock.svg';
 
-class Route extends Component {
+class ExpandedRoute extends Component {
   constructor(props) {
     super(props);
     this.setActiveRoute = this.setActiveRoute.bind(this);
@@ -24,21 +24,20 @@ class Route extends Component {
         disclaimer = this.props.carpool ? '\nMay make additional stops' : '',
         image = this.props.marker ? <img src={this.props.marker} className="marker-tag"/> : null;
     return (
-      <li className={`list-item ${this.props.classStyle}`}
+      <div className='expanded-list-item'
         onClick={this.setActiveRoute}>
         <div className="ride-info">
           <div className="route-cost" style={this.props.priceStyle}>{cost} {this.props.surgeNotice}</div>
           <div className="route-name">{this.props.route.display_name}</div>
-          {image}
         </div>
         <div className="travel-info">
           <div className="driver-eta"><img src={pickupIcon}/> {etaMessage}</div>
           <div className="route-duration"><img src={arrivalIcon}/> {arrivalTime}</div>
         </div>
         <span className="disclaimer">{disclaimer}</span>
-      </li>
+      </div>
     );
   }
 }
 
-export default Route;
+export default ExpandedRoute;

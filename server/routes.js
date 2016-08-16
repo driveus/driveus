@@ -61,17 +61,17 @@ module.exports = function(app) {
     //   coords = req.body.data.coords;
     //   // radius = req.body.data.radius;
     // }
-  //   radii.forEach((radius) => {
-  //     unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
-  //   })
-  //   Promise.all(unresolvedPromises)
-  //     .then((promises) => {
-  //       for (let i = 0; i < promises.length; i++) {
-  //         resultObj[radii[i][0]] = promises[i];
-  //       }
-  //       res.json(resultObj);
-  //     })
-    res.json(dummyResponse);
+    // radii.forEach((radius) => {
+    //   unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
+    // })
+    // Promise.all(unresolvedPromises)
+    //   .then((promises) => {
+    //     for (let i = 0; i < promises.length; i++) {
+    //       resultObj[radii[i][0]] = promises[i];
+    //     }
+    //     res.json(resultObj);
+    //   })
+    res.send('hi');
   });
 
 
@@ -107,14 +107,15 @@ module.exports = function(app) {
 
 const dummyCoords = {
   start: {
-    lat: 37.7874963,
-    lng: -122.39990869999997
-  },
+    lat: 37.795,
+    lng: -122.395
+  },        
   end: {
     lat: 37.74773,
     lng: -122.374935
   }
 }
+
 
 
 const dummyResponse = {
