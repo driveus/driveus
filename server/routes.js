@@ -51,8 +51,8 @@ module.exports = function(app) {
   app.all('/api/expandSearch', (req, res) => {
     let coords = dummyCoords;
     let radii = [
-      ['close', 250], 
-      ['medium', 500], 
+      ['close', 250],
+      ['medium', 500],
       ['far', 750],
     ];
     let resultObj = {};
@@ -61,16 +61,17 @@ module.exports = function(app) {
     //   coords = req.body.data.coords;
     //   // radius = req.body.data.radius;
     // }
-    radii.forEach((radius) => {
-      unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
-    })
-    Promise.all(unresolvedPromises)
-      .then((promises) => {
-        for (let i = 0; i < promises.length; i++) {
-          resultObj[radii[i][0]] = promises[i];
-        }
-        res.json(resultObj);
-      })
+    // radii.forEach((radius) => {
+    //   unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
+    // })
+    // Promise.all(unresolvedPromises)
+    //   .then((promises) => {
+    //     for (let i = 0; i < promises.length; i++) {
+    //       resultObj[radii[i][0]] = promises[i];
+    //     }
+    //     res.json(resultObj);
+    //   })
+    res.send('hi');
   });
 
   app.all('/sms', (req, res) => {
@@ -107,7 +108,7 @@ const dummyCoords = {
   start: {
     lat: 37.7874963,
     lng: -122.39990869999997
-  },        
+  },
   end: {
     lat: 37.74773,
     lng: -122.374935

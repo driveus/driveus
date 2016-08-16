@@ -19,6 +19,7 @@ $lyft-color-primary: #EA0B8C;
 $lyft-color-secondary: #ef43a7;
 $lyft-color-hover: #ee91c2;
 $lyft-color-active: #ea7bb6;
+
 * {
   margin: 0;
   font-family: sans-serif;
@@ -342,7 +343,7 @@ body {
 }
 
 .disclaimer {
-  font-size: 12px;
+  font-size: 11px;
   color: $off-white;
   opacity: .6
 }
@@ -371,7 +372,12 @@ body {
   cursor: pointer;
   padding: $list-padding;
   list-style-type: none;
-  min-height: 70px;
+  margin-bottom: 1px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .list-container {
@@ -440,19 +446,25 @@ body {
 
 .route-name {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .route-cost {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  padding-bottom: 2px;
+  // font-weight: bold;
 }
 
 .driver-eta,
 .route-duration {
   font-size: 14px;
+  display: flex;
+  align-items: center;
 }
-
+.surge-notice {
+  font-size: 12px;
+  color: yellow;
+}
 .selected-route-container {
   position: fixed;
   display: flex;
@@ -565,8 +577,49 @@ body {
   padding: 5px 20px;
   font-size: 14px;
 }
+.travel-info {
+  padding: 4px 0px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  img {
+    margin-right: 5px;
+  }
+  div:first-child {
+    margin-right: 5px;
+  }
+}
+.ride-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.expanded-routes {
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  background-color: #2f2f2f;
+  .expanded-list-item:nth-child(even) {
+    background-color: $secondary-color;
+  }
+}
+.expanded-list-item {
+  cursor: pointer;
+  width: 100%;
+  padding: 5px;
+  .travel-info {
+    flex-direction: column;
+    align-items: center;
+    div:first-child {
+      margin-bottom: 4px;
+    }
+  }
+}
+
 // MOBILE-ISH ******************************************
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
   #container {
     flex-direction: column;
   }
@@ -587,15 +640,27 @@ body {
     }
   }
   .active-expand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
     transition-duration: 200ms;
     margin: 0;
-    top: 96px;
+    top: 0;
     position: absolute;
     background-color: #279a80;
     padding-top: 5px;
     box-sizing: border-box;
     width: 100%;
-    height: 69px;
+    height: 100%;
+    div {
+      width: 100%;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   .expand-btn-bar {
     margin: 0 auto;
@@ -607,7 +672,7 @@ body {
     margin: 1px;
     border: none;
     background-color: mediumaquamarine;
-    width: 25%;
+    width: 30%;
     padding: 10px;
     &:active {
       background-color: #2ea58a;
@@ -619,9 +684,6 @@ body {
   .expand-text {
     font-size: 14px;
     padding-bottom: 5px;
-  }
-  .expanded-routes {
-    transition-duration: 400ms;
   }
   .walking-distance {
     width: 100%;
@@ -653,13 +715,13 @@ body {
     overflow: scroll;
   }
   .list-item {
-    // height: 2em;
+    height: auto;
     padding: 5px;
     flex-direction: column;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    min-height: 0;
+    min-height: 60px;
+    box-sizing: border-box;
   }
   .location-search-inputs {
     margin: 0;
@@ -683,7 +745,7 @@ body {
   .route-cost {
     float: none;
     font-size: 14px;
-    margin-right: 4px;
+    margin-bottom: 2px;
     height: auto;
     line-height: inherit;
   }
@@ -726,6 +788,7 @@ body {
   .location-form {
     flex-direction: column;
     width: 100%;
+    position: relative;
     input {
       min-width: 0;
       margin: 0;
@@ -788,8 +851,24 @@ body {
   @media (min-width: 600px) {
     .location-form {
       input {
-        height: 2.5em;
+        height: 3em;
       }
+    }
+    .ride-info {
+      width: 90%;
+      margin: auto;
+      justify-content: flex-start;
+    }
+    .route-name {
+      font-size: 14px;
+    }
+    .route-cost {
+      font-size: 18px;
+    }
+    .empty-message {
+      font-size: 1.8em;
+      margin-left: 10px;
+      margin-right: 10px;
     }
     #container {
       position: inherit;
@@ -807,12 +886,25 @@ body {
       width: 40%;
       position: absolute;
     }
+    .list-item {
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      padding: $list-padding;
+    }
     .information-view {
       display: block;
       position: relative;
     }
     .map-container {
       width: 100%;
+    }
+    .walking-distance {
+      width: 100%;
+      top: 0;
+      bottom: auto;
+    }
+    .disclaimer {
+      margin: auto;
     }
   }
   @media(max-width: 599px) {
