@@ -31,14 +31,14 @@ Enter an origin and destination address, then Submit.  You will be shown a list 
 ##Credits
 Contributors:
 
-Aaron Heise  -  http://github.com/AaronHeise
+Aaron Heise  -  http://github.com/AaronHeise/
 
-Amol Joshi  -  http://github.com/Amol023
+Amol Joshi  -  http://github.com/Amol023/
 
-Elifaz Filho  -  http://github.com/Elifaz
+Elifaz Filho  -  http://github.com/Elifaz/
 
-Ian Mrak  -  http://github.com/ianmrak
+Ian Mrak  -  http://github.com/ianmrak/
 
-John Slape  -  http://github.com/sljohn
+John Slape  -  http://github.com/sljohn/
 
 [AirBnB style guide]: https://github.com/airbnb/javascript
