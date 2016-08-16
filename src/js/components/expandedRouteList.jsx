@@ -7,7 +7,7 @@ import Route from './route.jsx';
 let time = require('../../assets/time-w-baloon.svg');
 let price = require('../../assets/price-w-baloon.svg');
 let priceTime = require('../../assets/price-time-w-baloon.svg');
-let car = require('../../assets/car.svg');
+let car = require('../../assets/car-lyft.svg');
 
 class ExpandedRouteList extends Component {
   constructor(props) {
