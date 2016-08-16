@@ -21,7 +21,7 @@ class ExpandedRouteList extends Component {
     let key = 0;
     for (let route in this.props.routes) {
       let marker = route === 'time' ? time : price;
-      let eprice = this.props.routes.price;
+      let eprice = this.props.routes;
       // let etime = this.props.routes.time;
       // if (eprice.avg_estimate === etime.avg_estimate &&
       //     eprice.display_name === etime.display_name &&
@@ -52,9 +52,7 @@ class ExpandedRouteList extends Component {
   }
   render() {
     let routes;
-    if (this.props.routes.price || this.props.routes.time) {
       routes = this.renderRoutes();
-    }
     return (
       <div className="expanded-routes">
         <ul>

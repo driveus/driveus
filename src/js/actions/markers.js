@@ -55,6 +55,7 @@ export function setExpandedCircle(coord, radius) {
     radius: radius/1,
     fillColor: '#FF0000',
     fillOpacity: 0.2,
+    strokeWeight: 0
   });
   return {
     type: SET_EXPANDED_CIRCLE,

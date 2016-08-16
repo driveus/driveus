@@ -1,35 +1,35 @@
 import {
   setSurgeMultipler,
+  disableSurge,
   requestRoutes,
+  requestExpandedRoutes,
   receiveRoutesLyft,
   receiveRoutesUber,
   receiveRoutesExpanded,
   noExpandedRoutes,
-  invalidRoutes,
+  invalidRoutes
 } from './index';
 import {
   setMarkers,
   setExpandedMarkers,
   setExpandedCircle
 } from './markers';
-import {
-  getDirections
-} from './googleRequests';
 
 import {
   getCoords,
   getDirections,
   getWalkingTime
-} from './googleRequests'
+} from './googleRequests';
 
 import axiosRequest from '../helpers/axios';
-// Flags before the | indicate file location
 
+// Flags before the | indicate file location
 export function fetchUber(coords) {
   return function(dispatch) {
     axiosRequest('uber', coords)
     .then(function (response) {
       // index |
+      if (response.data.surge) { dispatch(fetchExpanded(coords, 250)); }
       dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesUber(coords, response.data.rides));
     })
@@ -46,6 +46,7 @@ export function fetchLyft(coords) {
     axiosRequest('lyft', coords)
     .then(function (response) {
       // index |
+      if (response.data.surge) { dispatch(fetchExpanded(coords, 250)); }
       dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesLyft(coords, response.data.rides));
     })
@@ -63,6 +64,7 @@ export function fetchExpanded(coords, radius) {
     radius: radius
   }
   return function(dispatch) {
+    dispatch(requestExpandedRoutes());
     axiosRequest('expandSearch', payload)
     .then(function (response) {
       let expandedCoords = {
@@ -75,11 +77,9 @@ export function fetchExpanded(coords, radius) {
       // markers | Sets route markers based off expanded route information
       dispatch(setExpandedMarkers(expandedCoords));
       // requests | Gets walking time from Google for each returned value
-      dispatch(getDirections(coords.start, expandedCoords.price.start, 'Price'));
-      // dispatch(getDirections(coords.start, expandedCoords.time.start, 'Time'));
+      dispatch(getDirections(coords.start, expandedCoords.price.start));
       let expandedRoutes = {
         price: response.data.minPrice,
-        // time: response.data.minTime
       }
       // index | Attaches expanded route info to the store
       dispatch(receiveRoutesExpanded(expandedRoutes));

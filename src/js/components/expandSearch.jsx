@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ExpandedRouteList from './expandedRouteList.jsx';
 
 class ExpandSearch extends Component {
   constructor(props) {
@@ -7,7 +8,8 @@ class ExpandSearch extends Component {
       sliderValue: 300,
       expandedView: false,
       searchRadius: null,
-      previousSearchRadius: null
+      previousSearchRadius: null,
+      routes: false
     }
     // this.search = this.search.bind(this);
     // this.handleSliderChange = this.handleSliderChange.bind(this);
@@ -20,6 +22,9 @@ class ExpandSearch extends Component {
         searchRadius: null,
         previousSearchRadius: null
       });
+    }
+    if (this.props.routes) {
+      this.setState({ routes: true });
     }
   }
   componentDidUpdate() {
@@ -50,18 +55,15 @@ class ExpandSearch extends Component {
     if (this.props.classStyle === 'inactive-expand') {
       return (<div></div>);
     }
-
+    if (this.state.routes) {
+      return <ExpandedRouteList
+        routes={this.props.routes}
+        selectRoute={this.props.selectRoute}
+        />
+    }
     return (
       <div className={this.props.classStyle} >
-        <div className="expand-text" onClick={this.toggleExpandedView}>
-          Surge Detected! Check for lower ranges?
-        </div>
-        <div className="expand-btn-bar">
-            <button value="100" onClick={this.handleSearchRadiusClick} className="expand-btn">100m</button>
-            <button value="250" onClick={this.handleSearchRadiusClick} className="expand-btn">250m</button>
-            <button value="500" onClick={this.handleSearchRadiusClick} className="expand-btn">500m</button>
-            <button value="1000" onClick={this.handleSearchRadiusClick} className="expand-btn">1000m</button>
-        </div>
+        {this.props.expandSearch}
       </div>
     );
   }

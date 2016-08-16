@@ -89,10 +89,9 @@ class MapView extends Component {
           this.props.expandedMarkers[marker]=null;
         }
       }
-      // if (this.props.expandedCircle) {
-      //     this.props.expandedCircle.setMap(null);
-      //     this.props.expandedCircle=null;
-      // }
+      if (this.props.expandedCircle) {
+          this.props.expandedCircle.setMap(null);
+      }
     }
   }
   componentDidUpdate() {
@@ -117,7 +116,7 @@ class MapView extends Component {
       this.state.map.fitBounds(bounds);
     }
     // Set expanded markers and remove current directions (for closer bounding box)
-    if (this.props.expandedMarkers.price || this.props.expandedMarkers.time) {
+    if (this.props.expandedMarkers.close || this.props.expandedMarkers.medium || this.props.expandedMarkers.far) {
       this.state.directionsDisplay.set('directions', null);
       let markers = this.props.expandedMarkers,
           bounds = new google.maps.LatLngBounds();

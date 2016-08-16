@@ -39,12 +39,6 @@ class Controls extends Component {
       endLocation: ''
     });
   }
-  componentDidUpdate() {
-    if (this.props.surge) {
-      console.log('detected change!')
-    }
-  }
-
   updateStartCoords(address) {
     this.setState({
       startLocation: address,
@@ -148,7 +142,8 @@ class Controls extends Component {
         <ExpandSearch
           classStyle={isActive}
           currentLocation={this.props.currentCoords}
-          expandSearch={canExpand}
+          expandSearch={this.props.expandedRoutes.message}
+          routes={this.props.expandedRoutes.routes}
         />
       </div>
     );
@@ -158,6 +153,7 @@ class Controls extends Component {
 function mapStateToProps(state) {
   return {
     surge: state.surge,
+    expandedRoutes: state.expandedRoutes,
     canRequestRoutes: state.requestRoute,
     currentCoords: state.currentCoords,
     currentAddress: state.currentAddress
