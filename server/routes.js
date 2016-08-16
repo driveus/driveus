@@ -53,7 +53,7 @@ module.exports = function(app) {
     let radii = [
       ['close', 250], 
       ['medium', 500], 
-      ['far', 750],
+      ['far', 750]
     ];
     let resultObj = {};
     let unresolvedPromises = [];
@@ -92,7 +92,7 @@ module.exports = function(app) {
       coords = req.body.data;
     }
     //This function grabs points around a center
-    genRadius.createGeoRadius(dummyCoords)
+    genRadius.createGeoRadius(dummyCoords, 500)
       .then((data) => {
         res.json(data);
       })
@@ -105,8 +105,8 @@ module.exports = function(app) {
 
 const dummyCoords = {
   start: {
-    lat: 37.7874963,
-    lng: -122.39990869999997
+    lat: 37.795,
+    lng: -122.395
   },        
   end: {
     lat: 37.74773,
