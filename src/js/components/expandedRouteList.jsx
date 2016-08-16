@@ -41,7 +41,7 @@ class ExpandedRouteList extends Component {
           key={key++}
           route={this.props.routes[route]}
           selectRoute={this.props.selectRoute}
-          classStyle={route}
+          classStyle='expanded'
           marker={price}
           />
         );

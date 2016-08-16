@@ -96,8 +96,8 @@ const dummyResp = {
     minPrice: {
       product_id: "26546650-e557-4a7b-86e7-6a3942445247",
       display_name: "UberPOOL",
-      duration: 780,
-      distance: 3.96,
+      duration: 900,
+      distance: 4.86,
       high_estimate: 800,
       low_estimate: 700,
       avg_estimate: 750,
@@ -106,8 +106,8 @@ const dummyResp = {
     },
     minPrice_coords: {
       start: {
-        lat: 37.7850675,
-        lng: -122.3998681
+        lat: 37.7925749,
+        lng: -122.3945751
       },
       end: {
         lat: 37.74773,
@@ -120,18 +120,18 @@ const dummyResp = {
     minPrice: {
       product_id: "26546650-e557-4a7b-86e7-6a3942445247",
       display_name: "UberPOOL",
-      duration: 780,
-      distance: 3.96,
-      high_estimate: 800,
-      low_estimate: 700,
-      avg_estimate: 750,
+      duration: 900,
+      distance: 4.57,
+      high_estimate: 700,
+      low_estimate: 600,
+      avg_estimate: 650,
       price_multiplier: 1,
-      eta: 180
+      eta: 120
     },
     minPrice_coords: {
       start: {
-        lat: 37.7843067,
-        lng: -122.3960557
+        lat: 37.7905118,
+        lng: -122.3949891
       },
       end: {
         lat: 37.74773,
@@ -144,18 +144,18 @@ const dummyResp = {
     minPrice: {
       product_id: "26546650-e557-4a7b-86e7-6a3942445247",
       display_name: "UberPOOL",
-      duration: 720,
-      distance: 3.77,
-      high_estimate: 700,
-      low_estimate: 600,
-      avg_estimate: 650,
+      duration: 780,
+      distance: 4.43,
+      high_estimate: 800,
+      low_estimate: 700,
+      avg_estimate: 750,
       price_multiplier: 1,
       eta: 120
     },
     minPrice_coords: {
       start: {
-        lat: 37.7828281,
-        lng: -122.393819
+        lat: 37.7885335,
+        lng: -122.3950687
       },
       end: {
         lat: 37.74773,

@@ -142,9 +142,11 @@ class MapView extends Component {
         bounds = new google.maps.LatLngBounds();
         circles[i].setMap(this.state.map)
         this.state.map.fitBounds(circles[i].getBounds());
+        if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
+          this.state.map.setZoom(this.state.map.getZoom() + 1);
+        }
       }
     }
-
   }
   render() {
     let walkingDistance;
