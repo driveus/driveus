@@ -39,6 +39,7 @@ export function getCoords(location) {
               start: startCoords,
               end: endCoords
             }
+            console.log(route);
             // index | Flags program that a request is under way (no additional requests can be made)
             dispatch(requestRoutes(route));
             // requests | Fetches route information from Uber and Lyft APIs

@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 // Components
 import RouteList from '../components/routeList.jsx';
+import ExpandedRouteList from '../components/expandedRouteList.jsx';
 
 class RouteLists extends Component {
   constructor(props) {
@@ -28,6 +29,10 @@ class RouteLists extends Component {
     return (
       <div style={listContainerStyle} className="list-container">
         <h1 style={this.state.messageStyle} className="empty-message">Search for rides</h1>
+        <ExpandedRouteList
+          routes={this.props.expandedRoutes.routes}
+          selectRoute={this.props.selectRoute}
+          />
         <RouteList
           routes={this.props.uberRoutes}
           classStyle={'uber'}

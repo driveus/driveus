@@ -142,7 +142,8 @@ class Controls extends Component {
         <ExpandSearch
           classStyle={isActive}
           currentLocation={this.props.currentCoords}
-          expandSearch={this.props.expandedRoutes.message}
+          expandSearch={this.props.fetchExpanded}
+          disableSurge={this.props.disableSurge}
           routes={this.props.expandedRoutes.routes}
         />
       </div>
