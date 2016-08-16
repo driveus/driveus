@@ -50,14 +50,9 @@ function parseUber(apiResponses, isExpandedSearch, city) {
     ride.avg_estimate = ((obj.high_estimate + obj.low_estimate) * 100 / 2);
     ride.price_multiplier = obj.surge_multiplier;
     if (ride.display_name === 'POOL') { ride.display_name = 'UberPOOL'; }
-    if (ride.display_name === 'UberPOOL' || ride.display_name === 'UberX') {
-      if (ride.price_multiplier > 1) { surgeCount++; }
-    }
     return ride;
   });
-  if (surgeCount > 1) {
-    surge = true;
-  }
+
   //add the ETA to the corresponding object
   for (let eta of etas) {
     for (let ride of rides) {
@@ -67,7 +62,7 @@ function parseUber(apiResponses, isExpandedSearch, city) {
     }
   }
   //Filter out rides that we weren't able to match up ETAs on (ie. UberWAV)
-  rides = rides.filter((ride) => !ride.display_name.match(/(ASSIST|UberWAV)/i));
+  rides = rides.filter((ride) => !ride.display_name.match(/(ASSIST|UberWAV|UberTaxi)/i));
   //Bug hotfix:
   rides.filter(function(ride) {
     for (let prop in ride) {
@@ -80,16 +75,26 @@ function parseUber(apiResponses, isExpandedSearch, city) {
   });
   //*********TESTING AND PRESENTATION ONLY***********
   //Make "Ferry Building Marketplace" always have a surge multiplier
-  // const ferryRange = {lat: [37.79682, 37.79444], lng: [-122.396032, -122.391053]}
-  // if (coords.start.lat > ferryRange.lat[1] && coords.start.lat < ferryRange.lat[0]) {
-  //   if (coords.start.lng < ferryRange.lng[1] && coords.start.lng > ferryRange.lng[0]) {
-  //     for (let ride of rides) {
-  //       ride.price_multiplier = 1.8;
-  //       ride.high_estimate *= 1.8;
-  //     }
-  //   }
-  // }
+  const ferryRange = {lat: [37.79682, 37.79444], lng: [-122.396032, -122.391053]}
+  if (coords.start.lat > ferryRange.lat[1] && coords.start.lat < ferryRange.lat[0]) {
+    if (coords.start.lng < ferryRange.lng[1] && coords.start.lng > ferryRange.lng[0]) {
+      for (let ride of rides) {
+        ride.price_multiplier = 1.8;
+        ride.avg_estimate *= 1.8;
+      }
+    }
+  }
+
   //*********END OF HARDCODED SURGE MULTIPLIER ******
+  rides.forEach((ride) => {
+    if (ride.display_name === 'UberPOOL' || ride.display_name === 'UberX') {
+      if (ride.price_multiplier > 1) { surgeCount++; }
+    }
+
+  })
+  if (surgeCount > 1) {
+    surge = true;
+  }
 
   const results = {rides: rides, coords: coords, surge: surge};
   db.saveUber(results, isExpandedSearch, city);

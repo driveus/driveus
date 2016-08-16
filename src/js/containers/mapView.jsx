@@ -89,6 +89,10 @@ class MapView extends Component {
           this.props.expandedMarkers[marker]=null;
         }
       }
+      // if (this.props.expandedCircle) {
+      //     this.props.expandedCircle.setMap(null);
+      //     this.props.expandedCircle=null;
+      // }
     }
   }
   componentDidUpdate() {
@@ -125,8 +129,18 @@ class MapView extends Component {
       }
       // Extends bounds to include expanded markers and start location
       bounds.extend(this.props.routeMarkers['start'].getPosition());
-      this.state.map.fitBounds(bounds);
+      // this.state.map.fitBounds(bounds);
     }
+
+    // Sets circle on map
+    if (this.props.expandedCircle) {
+      // this.state.directionsDisplay.set('directions', null);
+      let circle = this.props.expandedCircle,
+          bounds = new google.maps.LatLngBounds();
+      circle.setMap(this.state.map)
+      this.state.map.fitBounds(this.props.expandedCircle.getBounds());
+    }
+
   }
   render() {
     let walkingDistance;
@@ -151,6 +165,7 @@ function mapStateToProps(state) {
     currentCoords: state.currentCoords,
     routeMarkers: state.routeMarkers,
     expandedMarkers: state.expandedMarkers,
+    expandedCircle: state.expandedCircle,
     directions: state.directions,
     walkingTime: state.walkingTime
   }
