@@ -15,7 +15,6 @@ function createPointOnRadius(startPoint, bearing, dist) {
   if (!startPoint || typeof bearing !== 'number' || typeof dist !== 'number') {
     return 'Invalid Input(s)';
   }
-
   dist = dist / 6371;
   bearing = bearing.toRad();
   const lat1 = startPoint.lat.toRad();
@@ -61,10 +60,9 @@ function reverseGeoCode(geoPoint) {
 function createGeoRadius(coords, searchRadius) {
   const startPoint = coords.start;
   const radius = searchRadius/1000;  // Converts meters to km
-
-  console.log('startPoint', startPoint, 'radius: ', radius)
+  const promiseList = [];
   // Creates promiseList array and instantiates with the validated start point
-  const promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
+  // const promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
   const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
   // const bearings = [0, 90, 180, 270];
   bearings.forEach((bearing) => {
