@@ -17,7 +17,7 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
         option.display_name !== 'UberTAXI') {
       // console.log('Same multiplier and price')
       if (option.distance < optimalPrice.ride.distance) { // (option.eta + option.duration < optimalPrice.ride.eta + optimalPrice.ride.duration ) ||
-        // console.log('Better eta or distance')
+        // console.log('Better distance (could add time back in)');
         optimalPrice.ride = option;
         optimalPrice.coords = rideOptions.coords;
       }
@@ -30,7 +30,7 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
           optimalPrice.coords = rideOptions.coords;
     }
   });
-  console.log('BEST: ', 'Product:', optimalPrice.ride.display_name, ' Surge:', optimalPrice.ride.price_multiplier, ' Est:',  optimalPrice.ride.avg_estimate,  ' Time:',  optimalPrice.ride.eta + optimalPrice.ride.duration,  ' Coords:',  optimalPrice.coords.start);
+  // console.log('BEST: ', 'Product:', optimalPrice.ride.display_name, ' Surge:', optimalPrice.ride.price_multiplier, ' Est:',  optimalPrice.ride.avg_estimate,  ' Time:',  optimalPrice.ride.eta + optimalPrice.ride.duration,  ' Coords:',  optimalPrice.coords.start);
   return optimalPrice;
 }
 
@@ -59,7 +59,7 @@ function expandSearch(startCoords, radius) {
         minPrice: optimalPrice.ride || null,
         minPrice_coords: optimalPrice.coords || null,
       };
-    });
+    })
     .catch((err) => {
         console.log('Some Uber or Lyft call failed', err);
     })

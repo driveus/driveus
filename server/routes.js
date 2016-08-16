@@ -14,6 +14,7 @@ const client = require('twilio')(twilio_SID,twilio_token);
 
 
 module.exports = function(app) {
+
   app.all('/api/uber', (req, res) => {
     console.log('uber hit: ', req.body.data);
     let coords;
@@ -49,7 +50,11 @@ module.exports = function(app) {
 // Will respond with cheapest and fastest ride options based on various bearings/radius around start point
   app.all('/api/expandSearch', (req, res) => {
     let coords = dummyCoords;
-    let radii = [250, 500, 750];
+    let radii = [
+      ['close', 250], 
+      ['medium', 500], 
+      ['far', 750],
+    ];
     let resultObj = {};
     let unresolvedPromises = [];
     // if (req.body) {
@@ -57,12 +62,12 @@ module.exports = function(app) {
     //   // radius = req.body.data.radius;
     // }
     radii.forEach((radius) => {
-      unresolvedPromises.push(expandSearch.expandSearch(coords, radius))
+      unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
     })
     Promise.all(unresolvedPromises)
       .then((promises) => {
         for (let i = 0; i < promises.length; i++) {
-          resultObj[radii[i]] = promises[i];
+          resultObj[radii[i][0]] = promises[i];
         }
         res.json(resultObj);
       })
@@ -78,7 +83,6 @@ module.exports = function(app) {
         if (err) { console.log(err, 'error message'); }
     })
   })
-}
 
   app.all('/api/genRadius', (req, res) => {
     console.log('Generating Radius Of Coordinates', dummyCoords); // , req.body.data)
@@ -97,6 +101,7 @@ module.exports = function(app) {
       })
   })
 
+}
 
 const dummyCoords = {
   start: {
