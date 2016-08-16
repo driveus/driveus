@@ -50,14 +50,14 @@ function expandSearch(startCoords, radius) {
         promiseList.push(lyft.lyftRequest(newStartEnd).then(lyft.parseLyft));
         promiseList.push(uber.uberRequest(newStartEnd).then(uber.parseUber));
       });
-      return Promise.all(promiseList)
+      return Promise.all(promiseList);
     })
     .then((data) => {
       let optimalPrice = {};
       data.forEach((option) => optimalPrice = checkIfOptimalPrice(option, optimalPrice));
       return {
         minPrice: optimalPrice.ride || null,
-        minPrice_coords: optimalPrice.coords || null,
+        minPrice_coords: optimalPrice.coords || null
       };
     })
     .catch((err) => {
