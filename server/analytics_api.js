@@ -10,8 +10,8 @@ function geoChart(callback) {
 }
 
 function citiesBarChart(callback) {
-  let uberData;
-  let lyftData;
+  let uberData = undefined;
+  let lyftData = undefined;
   let responded = false;
   db.db.run("SELECT city, AVG((high_est / distance_miles)) AS cost FROM rideshist WHERE ride_type = 'UberX' GROUP BY city ORDER BY cost;", (err, res) => {
     if (err) {
@@ -31,7 +31,7 @@ function citiesBarChart(callback) {
       console.log(err);
     }
     lyftData = res;
-    if (lyftData) {
+    if (uberData) {
       if (!responded) {
         responded = true;
         callback({Uber: uberData, Lyft: lyftData});
