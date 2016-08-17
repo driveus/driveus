@@ -51,8 +51,8 @@ module.exports = function(app) {
   app.all('/api/expandSearch', (req, res) => {
     let coords;
     let radii = [
-      ['close', 250], 
-      ['medium', 500], 
+      ['close', 250],
+      ['medium', 500],
       ['far', 750]
     ];
     let resultObj = {};

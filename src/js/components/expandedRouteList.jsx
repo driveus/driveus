@@ -19,6 +19,7 @@ class ExpandedRouteList extends Component {
   renderRoutes() {
     let routes = [];
     let key = 0;
+    console.log(this.props.routes)
     for (let route in this.props.routes) {
       let eprice = this.props.routes;
       // let etime = this.props.routes.time;

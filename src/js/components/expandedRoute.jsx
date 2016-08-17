@@ -16,6 +16,7 @@ class ExpandedRoute extends Component {
   }
 
   render() {
+    console.log(this.props.route)
     let eta = Math.round(this.props.route.eta/60),
         etaMessage = `${eta} min`,
         totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
@@ -34,7 +35,7 @@ class ExpandedRoute extends Component {
           <div className="driver-eta"><img src={pickupIcon}/> {etaMessage}</div>
           <div className="route-duration"><img src={arrivalIcon}/> {arrivalTime}</div>
         </div>
-        <span className="disclaimer">{disclaimer}</span>
+        <p className="pickup-distance">{this.props.route.radius}m</p>
       </div>
     );
   }
