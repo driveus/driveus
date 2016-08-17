@@ -82,6 +82,10 @@ function parseUber(apiResponses, isExpandedSearch, city) {
           ride.price_multiplier = 1.7;
           ride.avg_estimate *= 1.7;
         }
+        if (ride.display_name === 'UberPOOL') {
+          ride.price_multiplier = 1.9;
+          ride.avg_estimate *= 1.9;
+        }
       }
     }
   }

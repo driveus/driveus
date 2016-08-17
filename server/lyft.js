@@ -112,7 +112,7 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
           ride.avg_estimate *= 1.6;
         }
         if (ride.display_name === 'Lyft Line') {
-          ride.price_multiplier = 2.1;
+          ride.price_multiplier = 1.8;
           ride.avg_estimate *= 2.1;
         }
       }

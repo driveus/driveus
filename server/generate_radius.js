@@ -41,7 +41,7 @@ function reverseGeoCode(geoPoint) {
   const lat = geoPoint.lat;
   const lng = geoPoint.lng;
   const options = {
-    uri: `${baseUrl}?latlng=${lat},${lng}&key=${googlekey}`,
+    uri: `${baseUrl}?latlng=${lat},${lng}&result_type=street_address&key=${googlekey}`,
     headers: {
       'User-Agent': 'Request-Promise'
     },
@@ -64,8 +64,8 @@ function createGeoRadius(coords, searchRadius) {
   // const promiseList = [];
   // Creates promiseList array and instantiates with the validated start point
   let promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
-  // const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
-  const bearings = [0, 90, 180, 270];
+  const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
+  // const bearings = [0, 90, 180, 270];
   bearings.forEach((bearing) => {
     let newPoint = createPointOnRadius(startPoint, bearing, radius);
     promiseList.push(reverseGeoCode(newPoint));
