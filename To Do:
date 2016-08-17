@@ -1,0 +1,106 @@
+To Do: 
+
+Add Remove All Functionality (Ian)
+Finish analytics (John)
+Desktop styling for search + icons (Elifaz)
+Practicing Speech (Amol);
+Implement spinner
+
+
+EXPANDED SEARCH: 
+  confirm logic of optimization for Expanded Search
+  don't drop pin if no improved option
+  Improve UX for when optimal ride matches intial result (just say no reduced surge pricing in search area)
+
+
+CLEANUP: 
+remove Optimal Time + logic for ALL files
+remove console logs
+remove commented code
+
+
+Presentation: 
+  Aaron (revise final paragraph and improve delivery)
+  Let DriveUs drive you
+
+
+
+
+
+
+
+IN PROGRESS: 
+  - draw circle on map
+  X - do not display "Better Deals" until we detect a surge
+  X - Button Bar to determine distance willing to walk (incorporate walk time +/- eta)
+  X - compare based on surge multiplier, not based on time or price 
+  X - capture slider input when searching
+
+GENERAL NOTES: 
+
+  - Fix error message throwing (try, catch, )
+  - Fix commit messages (agree to style guides)
+  - Click to expand additional product lines (besides top 3) - force same sizing
+  - Google auth?
+
+TO Do: 
+  write tests (invalid GPS coordinates, no results, timeouts, etc)
+
+Back burner: 
+  look into improving promise workflow
+
+DONE: 
+  X - initiate comparison cheaper/faster w/ initial location (if equally cheap/fast, but more fast/cheap)
+  X - actually getting cheapest
+  X - actually getting fastest (without walking directions)
+  X - comment code
+  X - Migrate to ES6;
+  X - Add Check if best Price AND Time (if so, perhaps show different icon?)
+  X - Look into excluding carpooling options from Optimal Time calc b/c unreliable
+  X - write ReadMe and clean up docs on github
+  X - walking directions (google API) https://developers.google.com/maps/documentation/directions/intro
+  X - include Walking Directions and Time from origin to destination
+  X - Show Surge Multiplier
+  X - investigate writing results to DB
+  X - get from computer to mobile (text from twilio)
+  X - style buttons/background
+  X - draw circle on map corresponding to radius size
+  X - wipe away previous expanded searches
+  X - fix buttons
+
+
+
+
+/*
+var map = new google.maps.Map(document.getElementById("map"), mapOpt);
+
+var mapOpt = {
+   // mapTypeId: google.maps.MapTypeId.TERRAIN,
+   center: pointA,
+   zoom: 13
+};
+
+// Draw the circle
+new google.maps.Circle({
+   center: pointA,
+   radius: radius * 1000,       // Convert to meters
+   fillColor: '#FF0000',
+   fillOpacity: 0.2,
+   map: map
+});
+
+// Show marker at circle center
+new google.maps.Marker({
+   position: pointA,
+   map: map
+});
+
+locations.forEach(function(location) {
+   new google.maps.Marker({
+      position: location,
+      map: map
+   });
+
+})
+
+*/
