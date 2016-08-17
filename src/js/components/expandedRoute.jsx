@@ -16,7 +16,6 @@ class ExpandedRoute extends Component {
   }
 
   render() {
-    console.log(this.props.route)
     let eta = Math.round(this.props.route.eta/60),
         etaMessage = `${eta} min`,
         totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
