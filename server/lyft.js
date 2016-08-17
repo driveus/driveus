@@ -107,8 +107,14 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
   if (coords.start.lat > ferryRange.lat[1] && coords.start.lat < ferryRange.lat[0]) {
     if (coords.start.lng < ferryRange.lng[1] && coords.start.lng > ferryRange.lng[0]) {
       for (let ride of rides) {
-        ride.price_multiplier = 1.8;
-        ride.avg_estimate *= 1.8;
+        if (ride.display_name === 'Lyft') {
+          ride.price_multiplier = 1.6;
+          ride.avg_estimate *= 1.6;
+        }
+        if (ride.display_name === 'Lyft Line') {
+          ride.price_multiplier = 2.1;
+          ride.avg_estimate *= 2.1;
+        }
       }
     }
   }
