@@ -495,7 +495,7 @@ input[type=search]{
 #order-btn {
   width: 100px;
   height: 40px;
-  margin: 15px 5px 5px 5px;
+  margin: 10px 5px 5px 5px;
   background: none;
   color: $off-white;
   border: 1px solid $off-white;
@@ -681,6 +681,11 @@ input[type=search]{
   font-size: 14px;
   background-color: cadetblue;
   width: 100%;
+}
+.pickup-distance-active {
+  background-color: cadetblue;
+  padding: 2px 20px;
+  margin-top: 5px;
 }
 
 // MOBILE-ISH ******************************************

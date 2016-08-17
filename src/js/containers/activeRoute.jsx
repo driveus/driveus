@@ -56,7 +56,7 @@ class ActiveRoute extends Component {
       let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
       let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`;
       let orderLyft = lyftUrl + lyftCoods;
-      
+
       if (!this.state.MobileBrowser ) {
         this.sendMessage(orderLyft);
       } else {
@@ -73,6 +73,7 @@ class ActiveRoute extends Component {
   }
 
   render() {
+    console.log(this.props.route)
     if (!this.props.route) { return <div></div>; }
       let eta = Math.round(this.props.route.eta/60),
           totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
@@ -80,7 +81,11 @@ class ActiveRoute extends Component {
           etaMinutes = eta <= 1 ? 'minute' : 'minutes',
           cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
           backgroundColor = this.state.style[this.props.style],
-          classes = 'selected-route-container ' + backgroundColor;
+          classes = 'selected-route-container ' + backgroundColor,
+          distance;
+          if (this.props.route.radius) {
+              distance = <p className="pickup-distance-active">{this.props.route.radius}m</p>;
+          }
       return (
         <div>
           <div onClick={() => {this.props.deselectRoute(); this.setState({inputElement: null})}} className="lightbox-background"></div>
@@ -89,6 +94,7 @@ class ActiveRoute extends Component {
             <h1>{cost}</h1>
             <p>Pickup: {eta} {etaMinutes}</p>
             <p>Arrival: {arrivalTime}</p>
+            {distance}
             <a href={this.state.orderCab}>
               <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
             </a>
