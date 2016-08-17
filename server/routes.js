@@ -98,6 +98,13 @@ module.exports = function(app) {
     })
   })
   app.all('/charts/bar', (req, res) => {
-    analytics.citiesBarChart(res);
+    analytics.citiesBarChart((data) => {
+      res.json(data);
+    });
+  });
+  app.all('/charts/geo', (req, res) => {
+    analytics.geoChart((data) => {
+      res.json(data);
+    });
   });
 }
