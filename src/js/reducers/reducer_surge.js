@@ -11,7 +11,7 @@ export default function(state=false, action) {
       return false;
     case SET_SURGE:
       if (state) {
-        return true;
+        return state;
       }
       return action.payload;
 

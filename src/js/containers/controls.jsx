@@ -20,7 +20,8 @@ class Controls extends Component {
       startPlaceholder: 'Pickup',
       endPlaceholder: 'Dropoff',
       currentLocation: null,
-      currentEndpoint: null
+      currentEndpoint: null,
+      canSubmit: true
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
@@ -38,29 +39,25 @@ class Controls extends Component {
       endLocation: ''
     });
   }
-  componentDidUpdate() {
-    if (this.props.surge) {
-      console.log('detected change!')
-    }
-  }
-  
   updateStartCoords(address) {
     this.setState({
       startLocation: address,
       currentLocation: address,
+      canSubmit: true
     });
   }
 
   setCurrent() {
     this.setState({
       startLocation: "Retrieving your current location...",
+      canSubmit: false
     });
     coordsToAddress(this.updateStartCoords)
   }
   // Assigns input placeholders and fires of redux chain API calls
   onFormSubmit(e) {
     e.preventDefault();
-    if (this.props.canRequestRoutes) {
+    if (this.props.canRequestRoutes && this.state.canSubmit) {
       let startLocation = e.target.startLocation.value || this.state.currentLocation,
           endLocation = e.target.endLocation.value || this.state.currentEndpoint;
       if (startLocation && endLocation) {
@@ -145,7 +142,9 @@ class Controls extends Component {
         <ExpandSearch
           classStyle={isActive}
           currentLocation={this.props.currentCoords}
-          expandSearch={canExpand}
+          expandSearch={this.props.fetchExpanded}
+          disableSurge={this.props.disableSurge}
+          routes={this.props.expandedRoutes.routes}
         />
       </div>
     );
@@ -155,6 +154,7 @@ class Controls extends Component {
 function mapStateToProps(state) {
   return {
     surge: state.surge,
+    expandedRoutes: state.expandedRoutes,
     canRequestRoutes: state.requestRoute,
     currentCoords: state.currentCoords,
     currentAddress: state.currentAddress

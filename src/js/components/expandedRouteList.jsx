@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // Components
-import Route from './route.jsx';
+import ExpandedRoute from './expandedRoute.jsx';
 
 // Fast and Cheap images
 let time = require('../../assets/time-w-baloon.svg');
@@ -20,8 +20,7 @@ class ExpandedRouteList extends Component {
     let routes = [];
     let key = 0;
     for (let route in this.props.routes) {
-      let marker = route === 'time' ? time : price;
-      let eprice = this.props.routes.price;
+      let eprice = this.props.routes;
       // let etime = this.props.routes.time;
       // if (eprice.avg_estimate === etime.avg_estimate &&
       //     eprice.display_name === etime.display_name &&
@@ -38,12 +37,12 @@ class ExpandedRouteList extends Component {
       //   return routes;
       // }
       if (this.props.routes[route] !== null) {
-        routes.push(<Route
+        routes.push(<ExpandedRoute
           key={key++}
           route={this.props.routes[route]}
           selectRoute={this.props.selectRoute}
-          classStyle={route}
-          marker={marker}
+          classStyle='expanded'
+          marker={price}
           />
         );
       }
@@ -51,15 +50,9 @@ class ExpandedRouteList extends Component {
     return routes;
   }
   render() {
-    let routes;
-    if (this.props.routes.price || this.props.routes.time) {
-      routes = this.renderRoutes();
-    }
     return (
       <div className="expanded-routes">
-        <ul>
-          {routes}
-        </ul>
+          {this.renderRoutes()}
       </div>
     );
   }

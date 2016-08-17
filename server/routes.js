@@ -49,7 +49,7 @@ module.exports = function(app) {
 
 // Will respond with cheapest and fastest ride options based on various bearings/radius around start point
   app.all('/api/expandSearch', (req, res) => {
-    let coords = dummyCoords;
+    let coords;
     let radii = [
       ['close', 250], 
       ['medium', 500], 
@@ -57,10 +57,9 @@ module.exports = function(app) {
     ];
     let resultObj = {};
     let unresolvedPromises = [];
-    // if (req.body) {
-    //   coords = req.body.data.coords;
-    //   // radius = req.body.data.radius;
-    // }
+    if (req.body) {
+      coords = req.body.data;
+    }
     radii.forEach((radius) => {
       unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
     })
@@ -103,13 +102,13 @@ module.exports = function(app) {
 
 }
 
-const dummyCoords = {
-  start: {
-    lat: 37.795,
-    lng: -122.395
-  },        
-  end: {
-    lat: 37.74773,
-    lng: -122.374935
-  }
-}
+// const dummyCoords = {
+//   start: {
+//     lat: 37.795,
+//     lng: -122.395
+//   },        
+//   end: {
+//     lat: 37.74773,
+//     lng: -122.374935
+//   }
+// }
