@@ -14,7 +14,6 @@ export default class LocationSearch extends Component {
   componentDidMount() {
     let autocomplete = new google.maps.places.Autocomplete(
       document.getElementById(this.state.id)
-      // {types: ['geocode', 'establishment']}
     );
     autocomplete.addListener('place_changed', () => {
       let place = autocomplete.getPlace()
@@ -25,12 +24,12 @@ export default class LocationSearch extends Component {
   }
   render() {
     return (
-        <input
-          placeholder={this.props.placeholder}
-          id={this.state.id}
-          value={this.props.value}
-          onChange={this.props.onLocationChange}
-          name={this.props.name}
+      <input
+        placeholder={this.props.placeholder}
+        id={this.state.id}
+        value={this.props.value}
+        onChange={this.props.onLocationChange}
+        name={this.props.name}
         />
     );
   }

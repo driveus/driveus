@@ -8,17 +8,19 @@ import {
 } from '../actions/types';
 
 // Setting state to this default feels ghetto... probably a better way
-export default function(state={routes:{close:null,medium:null,far:null},message:null,received:false}, action) {
+export default function(state={routes:{close:null,medium:null,far:null},message:null,received:false,success:false}, action) {
   switch (action.type) {
     case NO_EXPANDED_ROUTES:
       return Object.assign({}, state, {
-        message: 'no better deals, yo'
+        message: null,
+        success: false
       });
     case REQUEST_ROUTES:
       return {
         routes: {close:null,medium:null,far:null},
         message: null,
-        received: false
+        received: false,
+        success: true
       }
     case REQUEST_EXPANDED_ROUTES:
       return Object.assign({}, state, {
@@ -33,11 +35,6 @@ export default function(state={routes:{close:null,medium:null,far:null},message:
         message: null,
         received: true
       });
-    // case RECEIVE_ROUTES_LYFT:
-    // case RECEIVE_ROUTES_UBER:
-    //   return Object.assign({}, state, {
-    //     routes: {250:null,500:null,750:null}
-    //   });
     }
   return state;
 }

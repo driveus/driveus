@@ -30,6 +30,7 @@ class RouteLists extends Component {
       <div style={listContainerStyle} className="list-container">
         <h1 style={this.state.messageStyle} className="empty-message">DriveUs<br/>Search for rides</h1>
         <ExpandedRouteList
+          message={this.props.expandedRoutes.success}
           routes={this.props.expandedRoutes.routes}
           selectRoute={this.props.selectRoute}
           />
