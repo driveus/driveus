@@ -11,38 +11,40 @@
 //Make a map of city comparison, with a checkbox
 //to split uber vs. lyft by city
 //SELECT city, AVG((high_est / distance_miles)) AS cost FROM rideshist WHERE ride_type IN ('UberX', 'UberPOOL', 'Lyft', 'Lyft Line') GROUP BY city;
-//TODO: PUT CUSTOM TICK MARKS WITH DOLLAR SIGNS
 //TODO: Checkbox to subdivide into uber and lyft
+
 
 google.charts.load('current', {'packages': ['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-  var data = new google.visualization.DataTable();
-  data.addColumn('string', 'City');
-  data.addColumn('number', 'Price per mile');
-
-  data.addRows([
-    ['Houston', 1.7527267886272746],
-    ['San Francisco', 4.22872877952395150244],
-    ['Portland', 3.6316271848082728],
-    ['Denver', 2.13798441842375799495],
-    ['Seattle', 3.0767780242665496],
-    ['Miami', 2.94144399987047928272],
-    ['New York City', 4.5166856803573268],
-    ['Dallas', 2.7295749804780952],
-    ['Chicago', 2.06208669887057319169],
-    ['Los Angeles', 2.21742269972944379616],
-    ['Las Vegas', 5.1084135592326243],
-  ]);
-  console.log("added rows");
-
+  const dataArray = [['City', 'Uber', 'Lyft']]
   const options = {'title': 'Price per mile of Lyft and Uber',
-                   'width': 1100,
-                   'height': 600,
-                   'legend': {position: 'none'}
+                   'width': 1300,
+                   'height': 850,
+                   'colors': ['#575757', '#EA0B8C'],
+                  //  'legend': {position: 'none'},
+                   'vAxis': {ticks: [{v:0,f:'$0'},{v:1,f:'$1.00'},{v:2,f:'$2.00'},{v:3,f:'$3.00'},{v:4,f:'$4.00'},{v:5,f:'$5.00'},{v:6,f:'$6.00'},{v:7,f:'$7.00'}]}
                   };
+  const chart = new google.visualization.ColumnChart(document.getElementById('bar-chart'));
 
-  const chart = new google.visualization.BarChart(document.getElementById('bar-chart'));
-  chart.draw(data, options);
+  $.get('/charts/bar', (data) => {
+    for (let obj of data.Uber) {
+      dataArray.push([obj.city, +obj.cost]);
+    }
+    for (let i=1; i<dataArray.length; i++) {
+      if (dataArray[i][0] === 'Houston') {
+        dataArray[i][2] = 0;  //Lyft doesn't operate in Houston
+      }
+      for (let obj of data.Lyft) {
+        console.log(obj.city, dataArray[i][0])
+        if (obj.city === dataArray[i][0]) {
+          dataArray[i][2] = +obj.cost;
+        }
+      }
+    }
+    console.log(dataArray);
+    const chartData = google.visualization.arrayToDataTable(dataArray);
+    chart.draw(chartData, options);
+  })
 }
