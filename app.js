@@ -52,7 +52,7 @@ app.use(function(req,res,next) {
 
 // Sets static asset paths for loading
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/spec', express.static(__dirname + '/spec'));
+app.use('/charts', express.static(__dirname + '/charts'));
 
 app.listen(port, function() {
   console.log('Listening on port ' + port + '!');
