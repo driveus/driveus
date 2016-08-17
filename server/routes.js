@@ -49,29 +49,27 @@ module.exports = function(app) {
 
 // Will respond with cheapest and fastest ride options based on various bearings/radius around start point
   app.all('/api/expandSearch', (req, res) => {
-    let coords = dummyCoords;
+    let coords;
     let radii = [
-      ['close', 250],
-      ['medium', 500],
-      ['far', 750],
+      ['close', 250], 
+      ['medium', 500], 
+      ['far', 750]
     ];
     let resultObj = {};
     let unresolvedPromises = [];
-    // if (req.body) {
-    //   coords = req.body.data.coords;
-    //   // radius = req.body.data.radius;
-    // }
-    // radii.forEach((radius) => {
-    //   unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
-    // })
-    // Promise.all(unresolvedPromises)
-    //   .then((promises) => {
-    //     for (let i = 0; i < promises.length; i++) {
-    //       resultObj[radii[i][0]] = promises[i];
-    //     }
-    //     res.json(resultObj);
-    //   })
-    res.send('hi');
+    if (req.body) {
+      coords = req.body.data;
+    }
+    radii.forEach((radius) => {
+      unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
+    })
+    Promise.all(unresolvedPromises)
+      .then((promises) => {
+        for (let i = 0; i < promises.length; i++) {
+          resultObj[radii[i][0]] = promises[i];
+        }
+        res.json(resultObj);
+      })
   });
 
   app.all('/sms', (req, res) => {
@@ -93,7 +91,7 @@ module.exports = function(app) {
       coords = req.body.data;
     }
     //This function grabs points around a center
-    genRadius.createGeoRadius(dummyCoords)
+    genRadius.createGeoRadius(dummyCoords, 500)
       .then((data) => {
         res.json(data);
       })
@@ -104,13 +102,13 @@ module.exports = function(app) {
 
 }
 
-const dummyCoords = {
-  start: {
-    lat: 37.795,
-    lng: -122.395
-  },        
-  end: {
-    lat: 37.74773,
-    lng: -122.374935
-  }
-}
+// const dummyCoords = {
+//   start: {
+//     lat: 37.795,
+//     lng: -122.395
+//   },        
+//   end: {
+//     lat: 37.74773,
+//     lng: -122.374935
+//   }
+// }
