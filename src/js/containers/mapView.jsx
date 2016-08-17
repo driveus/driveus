@@ -8,7 +8,8 @@ class MapView extends Component {
   componentDidMount() {
     // Allows directions to be rendered on the map
     let directionsDisplay = new google.maps.DirectionsRenderer({
-      suppressMarkers: true
+      suppressMarkers: true,
+      preserveViewport: true
     });
     // Creates persistent map for session
     let map = new google.maps.Map(document.querySelector('.map-container'), {
@@ -120,7 +121,6 @@ class MapView extends Component {
     }
     // Set expanded markers and remove current directions (for closer bounding box)
     if (this.props.expandedMarkers.close || this.props.expandedMarkers.medium || this.props.expandedMarkers.far) {
-      this.state.directionsDisplay.set('directions', null);
       var markers = this.props.expandedMarkers,
           bounds = new google.maps.LatLngBounds();
       for (let data in markers) {
