@@ -9,10 +9,10 @@ function saveUber(parsedData, isExpandedSearch, city) {
       continue;
     }
     const queryObj = {ride_type: ride.display_name,
-                      duration: '00:' + Math.floor(ride.duration/60) + ':' + (ride.duration%60),
+                      duration: secondsToHMS(ride.duration),
                       low_est: ride.low_estimate/100,
                       high_est: ride.high_estimate/100,
-                      eta: '00:' + Math.floor(ride.eta/60) + ':' + (ride.duration%60),
+                      eta: secondsToHMS(ride.eta),
                       price_multiplier: ride.price_multiplier,
                       start_lat: parsedData.coords.start.lat,
                       start_lng: parsedData.coords.start.lng,
@@ -37,10 +37,10 @@ function saveUber(parsedData, isExpandedSearch, city) {
 function saveLyft(parsedData, isExpandedSearch, city) {
   for (let ride of parsedData.rides) {
     const queryObj = {ride_type: ride.display_name,
-                      duration: '00:' + Math.floor(ride.duration/60) + ':' + (ride.duration%60),
+                      duration: secondsToHMS(ride.duration),
                       low_est: ride.low_estimate/100,
                       high_est: ride.high_estimate/100,
-                      eta: '00:' + Math.floor(ride.eta/60) + ':' + (ride.duration%60),
+                      eta: secondsToHMS(ride.eta),
                       price_multiplier: ride.price_multiplier,
                       start_lat: parsedData.coords.start.lat,
                       start_lng: parsedData.coords.start.lng,
@@ -58,6 +58,17 @@ function saveLyft(parsedData, isExpandedSearch, city) {
     });
   }
 }
+
+function secondsToHMS(seconds) {
+  const hours = Math.floor(seconds/3600);
+  const minutes = Math.floor((seconds - hours * 3600) / 60);
+  const second = seconds % 60;
+  const hourStr = parseInt(hours).length === 1 ? "0" + parseInt(hours) : parseInt(hours);
+  const minuteStr = parseInt(minutes).length === 1 ? "0" + parseInt(minutes) : parseInt(minutes);
+  const secondStr = parseInt(second).length === 1 ? "0" + parseInt(second) : parseInt(second);
+  return `${hourStr}:${minuteStr}:${secondStr}`;
+}
+
 module.exports.db = db;
 module.exports.saveUber = saveUber;
 module.exports.saveLyft = saveLyft;
