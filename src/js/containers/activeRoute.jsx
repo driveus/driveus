@@ -46,7 +46,7 @@ class ActiveRoute extends Component {
       let orderUber = uberUrl + uberCoords;
 
       if (!this.state.MobileBrowser) {
-        // this.sendMessage(orderUber);
+        this.sendMessage(orderUber);
       } else {
         //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderUber, inputElement:null});
@@ -56,9 +56,9 @@ class ActiveRoute extends Component {
       let lyftUrl = `lyft://ridetype?id=${this.props.route.display_name.replace(' ', '_').toLowerCase()}&partner=_2bLC2X8YfE8bVC1qcLa0vOQut5r1lB_`;
       let lyftCoods = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&destination[latitude]=${endLat}&destination[longitude]=${endLng}`;
       let orderLyft = lyftUrl + lyftCoods;
-
+/
       if (!this.state.MobileBrowser ) {
-        // this.sendMessage(orderLyft);
+        this.sendMessage(orderLyft);
       } else {
         //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderLyft, inputElement:null});
