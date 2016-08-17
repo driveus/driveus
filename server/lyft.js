@@ -61,11 +61,12 @@ function lyftEtas(coords) {
 //Input Lyft's responses from the rides & etas API calls, output an array
 // of ride options with all relevant properties combined from the two calls.
 
-function parseLyft(apiResponses, isExpandedSearch) {
+function parseLyft(apiResponses, isExpandedSearch, city) {
   isExpandedSearch = isExpandedSearch === undefined ? false : true;
+  city = city === undefined ? 'San Francisco' : city;  //for analytics
+
   let rides = apiResponses[0].cost_estimates;
   let surgeCount = 0;
-  let surge = false;
   const etas = apiResponses[1].eta_estimates;
   const coords = apiResponses[2];
 
@@ -78,14 +79,9 @@ function parseLyft(apiResponses, isExpandedSearch) {
     ride.low_estimate = obj.estimated_cost_cents_min;
     ride.avg_estimate = ((obj.estimated_cost_cents_max + obj.estimated_cost_cents_min) / 2);
     ride.price_multiplier = 1 + (parseFloat(obj.primetime_percentage) / 100);
-    if (ride.display_name === 'Lyft Line' || ride.display_name === 'Lyft') {
-      if (ride.price_multiplier > 1) { surgeCount++; }
-    }
     return ride;
   });
-  if (surgeCount > 0) {
-    surge = true;
-  }
+
   //add the ETA to the corresponding object
   for (let eta of etas) {
     for (let ride of rides) {
@@ -94,19 +90,45 @@ function parseLyft(apiResponses, isExpandedSearch) {
       }
     }
   }
+
+  //Bug hotfix:
+  rides.filter(function(ride) {
+    for (let prop in ride) {
+      if (prop === undefined) {
+        console.log("Excluding malformed ride:", ride);
+        return false;
+      }
+    }
+    return true;
+  });
   //*********TESTING AND PRESENTATION ONLY***********
   //Make "Ferry Building Marketplace" always have a surge multiplier
-  if (coords.start.lat === 37.7955805 && coords.start.lng === -122.39341109999998) {
-    for (let ride of rides) {
-      ride.price_multiplier = 1.8;
-      ride.high_estimate *= 1.8;
+  const ferryRange = {lat: [37.79682, 37.79444], lng: [-122.396032, -122.391053]}
+  if (coords.start.lat > ferryRange.lat[1] && coords.start.lat < ferryRange.lat[0]) {
+    if (coords.start.lng < ferryRange.lng[1] && coords.start.lng > ferryRange.lng[0]) {
+      for (let ride of rides) {
+        if (ride.display_name === 'Lyft') {
+          ride.price_multiplier = 1.6;
+          ride.avg_estimate *= 1.6;
+        }
+        if (ride.display_name === 'Lyft Line') {
+          ride.price_multiplier = 1.8;
+          ride.avg_estimate *= 2.1;
+        }
+      }
     }
-
   }
+
   //*********END OF HARDCODED SURGE MULTIPLIER ******
 
-  const results = {rides: rides, coords: coords, surge: surge};
-  db.saveLyft(results, isExpandedSearch);
+  rides.forEach((ride) => {
+    if (ride.display_name === 'Lyft Line' || ride.display_name === 'Lyft') {
+      if (ride.price_multiplier > 1) { surgeCount++; }
+    }
+  })
+
+  const results = {rides: rides, coords: coords, surge: surgeCount};
+  db.saveLyft(results, isExpandedSearch, city);
   return results;
 }
 

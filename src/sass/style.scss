@@ -19,25 +19,38 @@ $lyft-color-primary: #EA0B8C;
 $lyft-color-secondary: #ef43a7;
 $lyft-color-hover: #ee91c2;
 $lyft-color-active: #ea7bb6;
+
 * {
   margin: 0;
   font-family: sans-serif;
+  outline: none;
 }
+
 html,
 body {
   height: 100%
 }
+
 body {
   background-color: $primary-color;
 }
+
+input[type=search]{
+   -moz-appearance: none;/* older firefox */
+   -webkit-appearance: none; /* safari, chrome */
+   appearance: none; /* rest */
+}
+
 #container {
   margin: $center;
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
   text-align: center;
   color: $header-text-color;
   background-color: white;
+  transition: display 0.5s;
 }
 
 #site-title {
@@ -58,12 +71,21 @@ body {
   height: inherit;
 }
 
-
 .search-box {
   box-shadow: 0px -1px 3px 1px rgba(0, 0, 0, 0.5);
-  background-color: mediumaquamarine;
+  background-color: #29322f;
   width: 33%;
   z-index: 5;
+  padding: 0 10px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.information-view {
+  flex: 1;
+  position: relative;
+  overflow: scroll;
+  width: 100%;
 }
 
 .information-view {
@@ -83,17 +105,24 @@ body {
   flex-direction: row;
   width: 100%;
 }
+
 .location-search-inputs {
   display: flex;
   flex-direction: column;
   min-width: 250px;
   width: 100%;
-  margin: 20px;
+  margin: 20px 8px 24px;
   input {
-    width: 98.5%;
-    margin-top: 2px;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    background: transparent;
+    color: white;
+    font-weight: 300;
+    width: 99.5%;
+    margin-top: 4px;
     line-height: 2em;
     font-size: 14px;
+    padding-right: 10px;
   }
 }
 
@@ -102,8 +131,130 @@ body {
   width: 100%;
   flex: 1;
 }
+
 .current-location {
   margin-top: 2px;
+  width: 37px;
+  background: transparent;
+  border: 1px solid #9e9e9e;
+  transition: background 1s ease;
+  &:hover {
+    cursor: pointer;
+    ;
+  }
+}
+
+.expand-btn-bar {
+  width: 80%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+}
+
+.expand-slider {
+  width: 10%;
+  min-width: 10px;
+}
+
+.expand-btn {
+  width: 25%;
+  box-flex: 1;
+  border: 1px black solid;
+}
+
+.compass {
+  margin-top: 5px;
+}
+
+// Elipse for loading current location
+.loading {
+  font-size: 30px;
+}
+
+.loading:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+  animation: ellipsis steps(4, end) 900ms infinite;
+  content: "\2026";
+  width: 0px;
+}
+
+// Spinner for Uber/Lyft requests
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+}
+
+.loader:before,
+.loader:after {
+  position: absolute;
+  content: '';
+}
+
+.loader:before {
+  width: 5.2em;
+  height: 10.2em;
+  background: #c8a083;
+  border-radius: 10.2em 0 0 10.2em;
+  top: -0.1em;
+  left: -0.1em;
+  -webkit-transform-origin: 5.2em 5.1em;
+  transform-origin: 5.2em 5.1em;
+  -webkit-animation: load2 2s infinite ease 1.5s;
+  animation: load2 2s infinite ease 1.5s;
+}
+
+.loader {
+  color: #fffcfa;
+  font-size: 11px;
+  text-indent: -99999em;
+  margin: 55px auto;
+  position: relative;
+  width: 10em;
+  height: 10em;
+  box-shadow: inset 0 0 0 1em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.loader:after {
+  width: 5.2em;
+  height: 10.2em;
+  background: #c8a083;
+  border-radius: 0 10.2em 10.2em 0;
+  top: -0.1em;
+  left: 5.1em;
+  -webkit-transform-origin: 0px 5.1em;
+  transform-origin: 0px 5.1em;
+  -webkit-animation: load2 2s infinite ease;
+  animation: load2 2s infinite ease;
+}
+
+@-webkit-keyframes load2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 .form-submit {
@@ -112,16 +263,23 @@ body {
 }
 
 .form-btn {
-  background-color: $off-white;
-  min-height: 30px;
-  min-width: 30px;
-  border-radius: 15px;
-  margin: 0px 20px 0px 0px;
-  &:active {
-    background-color: #cccccc;
+  background-color: transparent;
+  min-height: 69px;
+  min-width: 59px;
+  font-weight: 300;
+  color: #899d9d;
+  border: 1px solid #9e9e9e;
+  margin: -1px 7px 0px 0px;
+  transition: background 0.4s ease;
+  &:hover {
+    cursor: pointer;
+    background-color: #333d3a;
   }
   &:before {
-    content: '>';
+    content: 'Go!';
+    font-size: 1.5em;
+    font-weight: 300;
+    color: #bcbcbc;
   }
 }
 
@@ -162,6 +320,7 @@ body {
 .expand-search {
   text-align: left;
   margin: 0 20px 20px 20px;
+  font-weight: 300;
 }
 
 .expand-slider {
@@ -176,6 +335,10 @@ body {
 .lyft {
   background-color: $lyft-color-primary;
 }
+
+.expanded {
+  background-color: #426d7d;
+}
 .expanded-routes {
   .price:hover {
     background-color: #426d7d;
@@ -184,12 +347,14 @@ body {
     background-color: #30b597;
   }
 }
+
 .price {
   background-color: #325461;
   border-radius: 0 !important;
 }
+
 .disclaimer {
-  font-size: 12px;
+  font-size: 11px;
   color: $off-white;
   opacity: .6
 }
@@ -198,14 +363,17 @@ body {
 .time {
   transition-duration: 125ms;
 }
+
 .price-color {
   background-color: #325461;
   border-radius: 0 !important;
 }
+
 .time-color {
   background-color: #279a80;
   border-radius: 0 !important;
 }
+
 .time {
   background-color: #279a80;
   border-radius: 0 !important;
@@ -215,7 +383,12 @@ body {
   cursor: pointer;
   padding: $list-padding;
   list-style-type: none;
-  min-height: 70px;
+  margin-bottom: 1px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .list-container {
@@ -223,8 +396,8 @@ body {
   float: left;
   flex: 1;
   width: 33%;
+  position: absolute;
   overflow: scroll;
-  // background-color: $secondary-color;
   background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
   margin: $center;
   div {
@@ -239,7 +412,7 @@ body {
   box-shadow: $default-box-shadow;
   background-color: $uber-color-secondary;
   overflow: hidden;
-  float: left;
+  position: absolute;
   width: 50%;
   li {
     transition-duration: 125ms;
@@ -262,7 +435,8 @@ body {
   box-shadow: $default-box-shadow;
   background-color: $lyft-color-primary;
   overflow: hidden;
-  float: right;
+  position: absolute;
+  left: 50%;
   width: 50%;
   li {
     transition-duration: 125ms;
@@ -283,14 +457,24 @@ body {
 
 .route-name {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
 }
+
 .route-cost {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  padding-bottom: 2px;
+  // font-weight: bold;
 }
-.driver-eta, .route-duration {
+
+.driver-eta,
+.route-duration {
   font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+.surge-notice {
+  font-size: 12px;
+  color: yellow;
 }
 .selected-route-container {
   position: fixed;
@@ -310,8 +494,8 @@ body {
 
 #order-btn {
   width: 100px;
-  height: 30px;
-  margin: 5px;
+  height: 40px;
+  margin: 10px 5px 5px 5px;
   background: none;
   color: $off-white;
   border: 1px solid $off-white;
@@ -353,8 +537,8 @@ body {
 }
 
 #map-display {
-  top: 30px;
-  position: absolute;
+  position: fixed;
+  height: 100%;
   bottom: 0;
   width: 67%;
   left: 33%;
@@ -384,14 +568,18 @@ body {
   background-color: $secondary-color;
   opacity: .8;
   left: 0;
-  padding: 5px 0px;
+  font-size: 14px;
+  padding: 3px 0px;
   position: absolute;
   width: 100%;
   z-index: 29;
 }
+
 .empty-message {
+  pointer-events: none;
   height: 100%;
   margin: 2em 0;
+  line-height: 1.5em;
   color: gray;
   opacity: .3;
   display: inherit;
@@ -402,23 +590,139 @@ body {
   padding: 5px 20px;
   font-size: 14px;
 }
+.travel-info {
+  padding: 4px 0px;
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  img {
+    margin-right: 5px;
+  }
+  div:first-child {
+    margin-right: 5px;
+  }
+}
+.ride-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.expanded-routes {
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  background-color: #426d7d;
+  box-shadow: 0px -4px 10px -2px rgba(0,0,0,0.75);
+}
+.expanded-list-item {
+  transition-duration: 200ms !important;
+  cursor: pointer;
+  width: 100%;
+  padding: 5px;
+  background-color: #426d7d;
+  &:hover {
+    background-color: #567a88;
+  }
+  &:nth-child(even) {
+    background-color: #375b69;
+    &:hover {
+      background-color: #567a88;
+    }
+  }
+  .travel-info {
+    flex-direction: column;
+    align-items: center;
+    div:first-child {
+      margin-bottom: 4px;
+    }
+  }
+}
+.active-expand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition-duration: 200ms;
+  margin: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: #279a80;
+  padding-top: 5px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  div {
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.expand-btn {
+  cursor: pointer;
+  color: white;
+  margin: 1px;
+  border: none;
+  background-color: mediumaquamarine;
+  width: 30%;
+  padding: 10px;
+  &:active {
+    background-color: #2ea58a;
+  }
+  &:focus {
+    background-color: #437979;
+  }
+}
+.pickup-distance {
+  font-size: 14px;
+  background-color: cadetblue;
+  width: 100%;
+}
+.pickup-distance-active {
+  background-color: cadetblue;
+  padding: 2px 20px;
+  margin-top: 5px;
+}
+
 // MOBILE-ISH ******************************************
-@media (max-width: 955px) {
+@media (max-width: 1050px) {
   #container {
     flex-direction: column;
   }
-  .expand-search {
-    margin: 10px 20px;
+  .current-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    margin-top: 0;
+    border: none;
+    border-left: 1px solid gray;
+    border-bottom: 1px solid gray;
+    &:active {
+      background-color: $secondary-color;
+    }
+    img {
+      margin: 0;
+    }
   }
-  .expanded-routes {
-    transition-duration: 400ms;
+  .expand-btn-bar {
+    margin: 0 auto;
+    background-color: inherit;
+  }
+  .expand-text {
+    font-size: 14px;
+    padding-bottom: 5px;
   }
   .walking-distance {
     width: 100%;
+    bottom: 0;
   }
   .information-view {
     display: flex;
-    flex-direction: column;
   }
   #site-title {
     font-size: 22px;
@@ -428,38 +732,43 @@ body {
   .marker-tag {
     margin: 5px 10px;
   }
+
+  .compass {
+    margin-top: 14px;
+  }
+
   .list-container {
     width: 100%;
     order: 1;
+    position: relative;
     border-top: 1px solid $secondary-color;
     background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
     flex: 1;
     overflow: scroll;
   }
   .list-item {
-    // height: 2em;
+    height: auto;
     padding: 5px;
     flex-direction: column;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    min-height: 0;
+    min-height: 60px;
+    box-sizing: border-box;
   }
   .location-search-inputs {
     margin: 0;
   }
   .uber-list-container {
-      overflow: scroll;
-      height: 100%;
+    overflow: scroll;
+    height: 100%;
   }
   .lyft-list-container {
-      overflow: scroll;
-      height: 100%;
+    overflow: scroll;
+    height: 100%;
   }
   .route-name {
     font-size: 12px;
     padding: 0;
-    // margin-bottom: 10px;
   }
   .driver-eta,
   .route-duration {
@@ -468,11 +777,12 @@ body {
   .route-cost {
     float: none;
     font-size: 14px;
-    margin-right: 4px;
+    margin-bottom: 2px;
     height: auto;
     line-height: inherit;
   }
   .selected-route-container {
+    border-radius: 4px;
     right: 10%;
     left: 10%;
     min-height: 20em;
@@ -490,19 +800,16 @@ body {
     }
   }
   #map-display {
-    position: inherit;
+    position: relative;
     flex: none;
     padding: 0;
+    left: 0;
+    top: 0;
     height: 230px;
-    width: 100%;
-    &:before {
-      box-shadow: 0px 4px 3px -3px rgba(0, 0, 0, 0.3) inset;
-      height: 5px;
-      width: 100%;
-    }
   }
   .search-box {
     box-shadow: none;
+    background: #29322f;
     width: 100%;
     padding: 0;
     left: 0;
@@ -512,16 +819,16 @@ body {
   .location-form {
     flex-direction: column;
     width: 100%;
+    position: relative;
     input {
       min-width: 0;
       margin: 0;
-      padding: 0 0 0 10px;
+      padding: 0 10px 0 10px;
       border: none;
       border-bottom: 1px solid gray;
       box-sizing: border-box;
       width: 100%;
       font-size: 1em;
-      height: 3em;
     }
   }
   .form-submit {
@@ -542,8 +849,8 @@ body {
     margin: 0;
     border: none;
     width: 100%;
-    font-size: 1.5em;
-    height: 2em;
+    font-size: 14px;
+    min-height: 45px;
     cursor: pointer;
     &:hover {
       background-color: #279a80;
@@ -555,7 +862,8 @@ body {
       outline: none;
     }
     &:before {
-      content: 'Submit';
+      color: $off-white;
+      content: 'Search';
     }
   }
   .price,
@@ -563,11 +871,98 @@ body {
     padding: 15px !important;
     flex-direction: row !important;
     justify-content: center;
-    .route-cost, .route-name {
+    .route-cost,
+    .route-name {
       font-size: 16px;
     }
   }
   .disclaimer {
     font-size: 10px;
+  }
+  .empty-message {
+    margin: 1.4em 0;
+  }
+  @media (min-width: 600px) {
+    .location-form {
+      input {
+        height: 3em;
+      }
+    }
+    .walking-distance {
+      bottom: auto;
+    }
+    .ride-info {
+      width: 90%;
+      margin: auto;
+      justify-content: flex-start;
+    }
+    .route-name {
+      font-size: 14px;
+    }
+    .route-cost {
+      font-size: 18px;
+    }
+    .empty-message {
+      font-size: 1.8em;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    #container {
+      position: inherit;
+    }
+    #map-display {
+      width: 60%;
+      position: fixed;
+      left: 40%;
+      height: auto;
+    }
+    .search-box {
+      width: 40%;
+    }
+    .list-container {
+      width: 40%;
+      position: absolute;
+    }
+    .list-item {
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      padding: $list-padding;
+    }
+    .information-view {
+      display: block;
+      position: relative;
+    }
+    .map-container {
+      width: 100%;
+    }
+    .walking-distance {
+      width: 100%;
+      top: 0;
+      bottom: auto;
+    }
+    .disclaimer {
+      margin: auto;
+    }
+  }
+  @media(max-width: 599px) {
+    .information-view {
+      flex-direction: column;
+    }
+    #container {
+      position: relative;
+    }
+    #map-display {
+      width: 100%;
+      &:before {
+        box-shadow: 0px 4px 3px -3px rgba(0, 0, 0, 0.3) inset;
+        height: 5px;
+        width: 100%;
+      }
+    }
+    .location-form {
+      input {
+        height: 3em;
+      }
+    }
   }
 }

@@ -17,7 +17,7 @@ class RouteLists extends Component {
   }
   componentWillReceiveProps() {
     if (this.props.uberRoutes || this.props.lyftRoutes) {
-      this.setState({ messageStyle: { height: '0%', margin: 0, opacity: 0 }});
+      this.setState({ messageStyle: { height: '0', margin: 0, opacity: 0 }});
     }
   }
   render() {
@@ -28,9 +28,10 @@ class RouteLists extends Component {
     }
     return (
       <div style={listContainerStyle} className="list-container">
-        <h1 style={this.state.messageStyle} className="empty-message">Search for rides</h1>
+        <h1 style={this.state.messageStyle} className="empty-message">DriveUs<br/>Search for rides</h1>
         <ExpandedRouteList
-          routes={this.props.expandedRoutes}
+          message={this.props.expandedRoutes.success}
+          routes={this.props.expandedRoutes.routes}
           selectRoute={this.props.selectRoute}
           />
         <RouteList

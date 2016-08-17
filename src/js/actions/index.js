@@ -1,12 +1,13 @@
 import {
   SET_DIRECTIONS,
-  SET_EXPANDED_DIRECTIONS_PRICE,
-  SET_EXPANDED_DIRECTIONS_TIME,
+  SET_WALKING_TIME,
   SET_ADDRESS,
   SET_SURGE,
+  DISABLE_SURGE,
   ROUTE_SELECTED,
   ROUTE_DESELECTED,
   REQUEST_ROUTES,
+  REQUEST_EXPANDED_ROUTES,
   RECEIVE_ROUTES_UBER,
   RECEIVE_ROUTES_LYFT,
   RECEIVE_EXPANDED_ROUTES,
@@ -21,18 +22,10 @@ export function setDirections(directions) {
     payload: directions
   }
 }
-// setExpandedDirectionsPrice -> reducer_expanded_directions
-export function setExpandedDirectionsPrice(directions) {
+export function setWalkingTime(directions) {
   return {
-    type: SET_EXPANDED_DIRECTIONS_PRICE,
-    payload: directions.routes[0].legs[0]
-  }
-}
-// setExpandedDirectionsTime -> reducer_expanded_directions
-export function setExpandedDirectionsTime(directions) {
-  return {
-    type: SET_EXPANDED_DIRECTIONS_TIME,
-    payload: directions.routes[0].legs[0]
+    type: SET_WALKING_TIME,
+    payload: directions
   }
 }
 // setAddress -> reducer_current_address
@@ -46,6 +39,11 @@ export function setSurgeMultipler(surge) {
   return {
     type: SET_SURGE,
     payload: surge
+  }
+}
+export function disableSurge() {
+  return {
+    type: DISABLE_SURGE
   }
 }
 // selectRoute -> reducer_active_route
@@ -67,6 +65,11 @@ export function deselectRoute() {
 export function requestRoutes(coords) {
   return {
     type: REQUEST_ROUTES
+  }
+}
+export function requestExpandedRoutes(coords) {
+  return {
+    type: REQUEST_EXPANDED_ROUTES
   }
 }
 // receiveRoutesUber && receiveRoutesLyft ->

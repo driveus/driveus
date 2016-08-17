@@ -2,7 +2,7 @@
 Compares ride prices and times across all Uber and Lyft products, finding users the best deal or quickest rides.
 
 ##Installation
-The app can be accessed at driveus.heroku.com.  To run it locally, you may either download this repo, or fork it and download your fork.
+The app can be accessed at https://driveus.heroku.com.  To run it locally, you may either download this repo, or fork it and download your fork.
 
 ##Usage
 From the root of the project directory, run "npm install", followed by "npm start".  The app should now be accessible at localhost:3000.  
@@ -24,19 +24,21 @@ Enter an origin and destination address, then Submit.  You will be shown a list 
 ##Contributing
 1.  Fork this repo
 2.  Clone it and check out a feature branch
-3.  Make your changes, adhering to the AirBnB style guide, and commit them
+3.  Make your changes, adhering to the [AirBnB style guide], and commit them
 4.  Push to your feature branch
 5.  Make a pull request to drivus/dev branch!
 
 ##Credits
 Contributors:
 
-Aaron Heise  -  github.com/AaronHeise
+Aaron Heise  -  http://github.com/AaronHeise/
 
-Amol Joshi  -  github.com/Amol023
+Amol Joshi  -  http://github.com/Amol023/
 
-Elifaz Filho  -  github.com/Elifaz
+Elifaz Filho  -  http://github.com/Elifaz/
 
-Ian Mrak  -  github.com/ianmrak
+Ian Mrak  -  http://github.com/ianmrak/
 
-John Slape  -  github.com/sljohn
+John Slape  -  http://github.com/sljohn/
+
+[AirBnB style guide]: https://github.com/airbnb/javascript

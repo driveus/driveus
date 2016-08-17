@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCoords, fetchExpanded } from '../actions/requests';
+import { fetchExpanded } from '../actions/rideRequests';
+import { getCoords, coordsToAddress } from '../actions/googleRequests';
+import { disableSurge } from '../actions/index';
+import handleKeyDown from '../helpers/disableEnter';
+import locationIcon from '../../assets/compass.svg';
 // Components
 import LocationSearch from '../components/locationSearch.jsx';
 import ExpandSearch from '../components/expandSearch.jsx';
@@ -15,7 +19,9 @@ class Controls extends Component {
       endLocation: '',
       startPlaceholder: 'Pickup',
       endPlaceholder: 'Dropoff',
-      currentLocation: null
+      currentLocation: null,
+      currentEndpoint: null,
+      canSubmit: true
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
@@ -23,54 +29,9 @@ class Controls extends Component {
     this.setCurrent = this.setCurrent.bind(this);
     this.updateStartCoords = this.updateStartCoords.bind(this);
   }
-  // Gets user location with HTML5 geolocation
-  // Retrieves the current coordinates and converts it to actual address, 
-  // it depends on a callback to complete it's run.
-  coordsToAddress(cb) {
-      let geocoder = new google.maps.Geocoder,
-          currentLocation;
-      // Gets user location with HTML5 geolocation
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({
-          currentLocation: {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          }
-        });
-        geocoder.geocode({
-          'location': { 
-            lat: this.state.currentLocation.lat, 
-            lng: this.state.currentLocation.lng
-          }
-        }, (results, status) => {
-          if (status === 'OK') {
-            cb(results[0].formatted_address);
-          } else {
-            window.alert('No results found');
-          }
-        });
-      });
-      document.querySelector('.location-form').addEventListener('keydown', this.handleKeyDown);
-    }
-
-  updateStartCoords(address) {
-    this.setState({
-      startLocation: address
-    })
+  componentDidMount() {
+    document.querySelector('.location-form').addEventListener('keydown', handleKeyDown);
   }
-
-  setCurrent() {
-    this.setState({
-      startLocation: "Retrieving your current location..." 
-    });
-    this.coordsToAddress(this.updateStartCoords)
-  }
-
-  setImage() {
-    let icon = require('../../assets/compass.svg');
-    return icon;
-  }
-
   // Wipes input field after form submission (at the end of redux cycle)
   componentWillReceiveProps() {
     this.setState({
@@ -78,17 +39,27 @@ class Controls extends Component {
       endLocation: ''
     });
   }
-  componentDidUpdate() {
-    if (this.props.surge) {
-      console.log('detected change!')
-    }
+  updateStartCoords(address) {
+    this.setState({
+      startLocation: address,
+      currentLocation: address,
+      canSubmit: true
+    });
+  }
+
+  setCurrent() {
+    this.setState({
+      startLocation: "Retrieving your current location...",
+      canSubmit: false
+    });
+    coordsToAddress(this.updateStartCoords)
   }
   // Assigns input placeholders and fires of redux chain API calls
   onFormSubmit(e) {
     e.preventDefault();
-    if (this.props.canRequestRoutes) {
+    if (this.props.canRequestRoutes && this.state.canSubmit) {
       let startLocation = e.target.startLocation.value || this.state.currentLocation,
-          endLocation = e.target.endLocation.value;
+          endLocation = e.target.endLocation.value || this.state.currentEndpoint;
       if (startLocation && endLocation) {
         let location = {
           start: startLocation,
@@ -96,7 +67,9 @@ class Controls extends Component {
         }
         this.setState({
           startPlaceholder: startLocation,
-          endPlaceholder: endLocation
+          endPlaceholder: endLocation,
+          currentLocation: startLocation,
+          currentEndpoint: endLocation
         })
         this.props.getCoords(location)
       }
@@ -104,6 +77,7 @@ class Controls extends Component {
   }
   // Tracks user input to local state values
   handleLocationChange(e) {
+    this.props.disableSurge();
     switch (e.target.name) {
       case 'startLocation':
         this.setState({ startLocation: e.target.value });
@@ -128,18 +102,12 @@ class Controls extends Component {
         return;
     }
   }
-  handleKeyDown(e) {
-    var ENTER = 13;
-    if( e.keyCode === ENTER ) {
-      e.preventDefault();
-    }
-  }
   render() {
     let isActive = 'inactive-expand',
         canExpand = null;
-    if (this.props.currentAddress.start) {
+    if (this.props.surge > 1 && !this.state.startLocation && !this.state.endLocation) {
       isActive = 'active-expand';
-      canExpand = this.props.fetchExpanded
+      canExpand = this.props.fetchExpanded;
     }
     return (
       <div className="search-box">
@@ -155,9 +123,9 @@ class Controls extends Component {
                 name="startLocation"
                 placeholder={this.state.startPlaceholder}
               />
-              <button className="current-location"  onClick={this.setCurrent} >
-                <img src={this.setImage()} /> 
-              </button>
+            <div className="current-location"  onClick={this.setCurrent} >
+                <img src={locationIcon} className="compass"/>
+              </div>
             </div>
             <LocationSearch
               tripNode="endLocation"
@@ -174,7 +142,9 @@ class Controls extends Component {
         <ExpandSearch
           classStyle={isActive}
           currentLocation={this.props.currentCoords}
-          expandSearch={canExpand}
+          expandSearch={this.props.fetchExpanded}
+          disableSurge={this.props.disableSurge}
+          message={this.props.expandedRoutes.message}
         />
       </div>
     );
@@ -184,18 +154,18 @@ class Controls extends Component {
 function mapStateToProps(state) {
   return {
     surge: state.surge,
+    expandedRoutes: state.expandedRoutes,
     canRequestRoutes: state.requestRoute,
     currentCoords: state.currentCoords,
     currentAddress: state.currentAddress
   }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getCoords: getCoords, fetchExpanded: fetchExpanded}, dispatch);
+  return bindActionCreators({
+    getCoords: getCoords,
+    fetchExpanded: fetchExpanded,
+    disableSurge: disableSurge
+  }, dispatch);
 }
 // no mapStateToProps, must use null to skip to mapDispatchToProps
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);
-
-
-
-    // <div className="form-submit">
-    //       </div>
