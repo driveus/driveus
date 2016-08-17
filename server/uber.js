@@ -78,7 +78,7 @@ function parseUber(apiResponses, isExpandedSearch, city) {
   if (coords.start.lat > ferryRange.lat[1] && coords.start.lat < ferryRange.lat[0]) {
     if (coords.start.lng < ferryRange.lng[1] && coords.start.lng > ferryRange.lng[0]) {
       for (let ride of rides) {
-        if (ride.display_name === 'UberX') {
+        if (ride.display_name === 'UberX' || ride.display_name === 'UberPOOL') {
           ride.price_multiplier = 1.7;
           ride.avg_estimate *= 1.7;
         }

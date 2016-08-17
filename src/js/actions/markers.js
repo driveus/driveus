@@ -24,15 +24,17 @@ export function setMarkers(coords) {
 export function setExpandedMarkers(coords) {
   let newMarkers = {};
   for (let i in coords) {
-    let pStart = coords[i].minPrice_coords.start;
-    let path = require('../../assets/price.svg')
+    if (coords[i]) {
+      let pStart = coords[i].minPrice_coords.start;
+      let path = require('../../assets/price.svg')
 
-    let marker = new google.maps.Marker({
-      position: coords[i].minPrice_coords.start,
-      animation: 2,
-      icon: path
-    });
-    newMarkers[i] = marker
+      let marker = new google.maps.Marker({
+        position: coords[i].minPrice_coords.start,
+        animation: 2,
+        icon: path
+      });
+      newMarkers[i] = marker
+    }
   }
   return {
     type: SET_EXPANDED_MARKERS,
