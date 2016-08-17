@@ -62,13 +62,13 @@ export function fetchExpanded(coords) {
     dispatch(requestExpandedRoutes());
     axiosRequest('expandSearch', coords)
     .then(function (response) {
-      let expandedCoords = {};
-      for (let i in response.data) {
-        expandedCoords[i] = {
-          price: response.data[i].minPrice_coords,
-          cprice: response.data[i].minPrice.display_name
-        }
-      }
+      // let expandedCoords = {};
+      // for (let i in response.data) {
+      //   expandedCoords[i] = {
+      //     price: response.data[i].minPrice_coords,
+      //     cprice: response.data[i].minPrice.display_name
+      //   }
+      // }
       dispatch(setExpandedCircle(dummyResp, coords));
       // markers | Sets route markers based off expanded route information
       dispatch(setExpandedMarkers(dummyResp));
