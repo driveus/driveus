@@ -1,8 +1,8 @@
 const db = require('./db.js');
 
 function citiesBarChart(response) {
-  let uberData;
-  let lyftData;
+  var uberData;
+  var lyftData;
   db.db.run("SELECT city, AVG((high_est / distance_miles)) AS cost FROM rideshist WHERE ride_type = 'UberX' GROUP BY city ORDER BY cost;", (err, res) => {
     if (err) {
       console.log(err);

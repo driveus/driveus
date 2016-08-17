@@ -25,6 +25,7 @@ export default class LocationSearch extends Component {
   render() {
     return (
       <input
+        type="search"
         placeholder={this.props.placeholder}
         id={this.state.id}
         value={this.props.value}
