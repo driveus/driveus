@@ -39,7 +39,7 @@ export function setExpandedMarkers(coords) {
     payload: newMarkers
   }
 }
-export function setExpandedCircle(coords, start) {
+export function setExpandedCircle(coords, currentLocation) {
   let circles = {};
   for (let i in coords) {
     let circleColor;
@@ -55,7 +55,7 @@ export function setExpandedCircle(coords, start) {
         break;
       }
     let expandedCircle = new google.maps.Circle({
-      center: start.start,
+      center: currentLocation.start,
       radius: coords[i].radius/1,
       fillColor: circleColor,
       fillOpacity: 0.3,

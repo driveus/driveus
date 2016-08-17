@@ -41,6 +41,13 @@ class ExpandSearch extends Component {
   }
 
   render() {
+    if (this.props.message) {
+      return (
+        <div className='active-expand'>
+          {this.props.message}
+        </div>
+      );
+    }
     if (this.props.classStyle === 'inactive-expand') {
       return (<div></div>);
     }

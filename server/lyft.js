@@ -67,7 +67,6 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
 
   let rides = apiResponses[0].cost_estimates;
   let surgeCount = 0;
-  let surge = false;
   const etas = apiResponses[1].eta_estimates;
   const coords = apiResponses[2];
 
@@ -122,11 +121,7 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
     }
   })
 
-  if (surgeCount > 1) {
-    surge = true;
-  }
-
-  const results = {rides: rides, coords: coords, surge: surge};
+  const results = {rides: rides, coords: coords, surge: surgeCount};
   db.saveLyft(results, isExpandedSearch, city);
   return results;
 }

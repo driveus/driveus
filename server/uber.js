@@ -35,7 +35,6 @@ function parseUber(apiResponses, isExpandedSearch, city) {
 
   let rides = apiResponses[0].prices;
   let surgeCount = 0;
-  let surge = false;
   const etas = apiResponses[1].times;
   const coords = apiResponses[2];
 
@@ -92,11 +91,8 @@ function parseUber(apiResponses, isExpandedSearch, city) {
     }
 
   })
-  if (surgeCount > 1) {
-    surge = true;
-  }
 
-  const results = {rides: rides, coords: coords, surge: surge};
+  const results = {rides: rides, coords: coords, surge: surgeCount};
   db.saveUber(results, isExpandedSearch, city);
   return results;
 }

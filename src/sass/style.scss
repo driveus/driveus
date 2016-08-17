@@ -586,7 +586,6 @@ body {
 .travel-info {
   padding: 4px 0px;
   width: 90%;
-  margin: auto;
   display: flex;
   justify-content: space-around;
   img {
@@ -670,6 +669,11 @@ body {
   &:focus {
     background-color: #437979;
   }
+}
+.pickup-distance {
+  font-size: 14px;
+  background-color: cadetblue;
+  width: 100%;
 }
 
 // MOBILE-ISH ******************************************
@@ -871,6 +875,9 @@ body {
       input {
         height: 3em;
       }
+    }
+    .walking-distance {
+      bottom: auto;
     }
     .ride-info {
       width: 90%;

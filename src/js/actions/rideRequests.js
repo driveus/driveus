@@ -62,6 +62,7 @@ export function fetchExpanded(coords) {
     dispatch(requestExpandedRoutes());
     axiosRequest('expandSearch', coords)
     .then(function (response) {
+      console.log(response);
       // let expandedCoords = {};
       // for (let i in response.data) {
       //   expandedCoords[i] = {
@@ -69,15 +70,16 @@ export function fetchExpanded(coords) {
       //     cprice: response.data[i].minPrice.display_name
       //   }
       // }
-      dispatch(setExpandedCircle(dummyResp, coords));
+      dispatch(setExpandedCircle(response.data, coords));
       // markers | Sets route markers based off expanded route information
-      dispatch(setExpandedMarkers(dummyResp));
+      dispatch(setExpandedMarkers(response.data));
       // requests | Gets walking time from Google for each returned value
       // dispatch(getDirections(coords.start, expandedCoords.price.start));
       // index | Attaches expanded route info to the store
       let expandedRoutes = {};
-      for (let i in dummyResp) {
-        expandedRoutes[i] = dummyResp[i].minPrice
+      for (let i in response.data) {
+        expandedRoutes[i] = response.data[i].minPrice;
+        expandedRoutes[i].radius = response.data[i].radius;
       }
       dispatch(receiveRoutesExpanded(expandedRoutes));
     })

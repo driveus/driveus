@@ -5,18 +5,15 @@ import {
 } from '../actions/types';
 
 // state is not application state, only responsible for reducer state
-export default function(state=false, action) {
+export default function(state=0, action) {
   switch(action.type) {
     case DISABLE_SURGE:
-      return false;
+      return 0;
     case SET_SURGE:
-      if (state) {
-        return state;
-      }
-      return action.payload;
+      return state+=action.payload;
 
     case REQUEST_ROUTES:
-      return false;
+      return 0;
   }
   return state;
 }

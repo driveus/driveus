@@ -13,7 +13,7 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
     // console.log('Entered forEach block', option);
     console.log('OPTION: ', option.display_name, ' Surge:', option.price_multiplier, ' Est:', option.avg_estimate, ' Time:',  option.eta + option.duration,  ' Coords:',  rideOptions.coords.start)
     if (option.price_multiplier === optimalPrice.ride.price_multiplier &&
-        option.avg_estimate === optimalPrice.ride.avg_estimate && 
+        option.avg_estimate === optimalPrice.ride.avg_estimate &&
         option.display_name !== 'UberTAXI') {
         console.log('Same multiplier and price')
       if (option.distance < optimalPrice.ride.distance) { // (option.eta + option.duration < optimalPrice.ride.eta + optimalPrice.ride.duration ) ||
@@ -23,7 +23,7 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
       }
     }
     if (option.price_multiplier <= optimalPrice.ride.price_multiplier &&
-        option.avg_estimate < optimalPrice.ride.avg_estimate && 
+        option.avg_estimate < optimalPrice.ride.avg_estimate &&
         option.display_name !== 'UberTAXI') {
           console.log('Better/same multiplier and better price')
           optimalPrice.ride = option;
@@ -54,7 +54,7 @@ function expandSearch(startCoords, radius) {
       return Promise.all(promiseList);
     })
     .then((data) => {
-      let cheapestAtUserLocation = {}; 
+      let cheapestAtUserLocation = {};
       let optimalPrice = {};
       console.log('Cheapest at User Location:')
       for (let i = 0; i <= 1; i++) {

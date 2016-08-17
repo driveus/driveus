@@ -71,7 +71,7 @@ class ActiveRoute extends Component {
     axios.post('/sms', {
       data: order
     })
-    this.setState({inputElement: 'We noticed you are not on mobile, no worries we just texted you the link to your ride!'});
+    this.setState({inputElement: 'We just texted you the link to your ride!'});
   }
 
   render() {
