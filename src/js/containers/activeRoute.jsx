@@ -73,7 +73,6 @@ class ActiveRoute extends Component {
   }
 
   render() {
-    console.log(this.props.route)
     if (!this.props.route) { return <div></div>; }
       let eta = Math.round(this.props.route.eta/60),
           totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
