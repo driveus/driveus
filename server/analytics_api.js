@@ -1,3 +1,4 @@
+'use strict';
 const db = require('./db.js');
 
 function geoChart(callback) {
