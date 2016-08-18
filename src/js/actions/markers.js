@@ -51,13 +51,13 @@ export function setExpandedCircle(currentLocation) {
     let circleColor;
     switch(i) {
       case 'close':
-        circleColor = 'green';
+        circleColor = '#29322f';
         break;
       case 'medium':
-        circleColor = 'yellow';
+        circleColor = '#545c5a';
         break;
       case 'far':
-        circleColor = 'red';
+        circleColor = '#686d6b';
         break;
       }
     let expandedCircle = new google.maps.Circle({
