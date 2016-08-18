@@ -28,7 +28,10 @@ class ExpandedRoute extends Component {
     return (
       <div className='expanded-list-item'
         onClick={this.setActiveRoute}>
-          <p className="pickup-distance"><img src={walkIcon}/> {this.props.route.walkTime.text}</p>
+        <div className="pickup-distance-container">
+          <img src={walkIcon}/>
+          <p className="pickup-distance">{this.props.route.walkTime.text}</p>
+        </div>
         <div className="ride-info">
           <div className="route-cost" style={this.props.priceStyle}>{cost} {this.props.surgeNotice}</div>
           <div className="route-name">{this.props.route.minPrice.display_name}</div>
