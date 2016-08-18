@@ -380,10 +380,13 @@ input[type=search]{
 }
 
 .list-item {
+  border-bottom: 1px solid #cacaca;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   cursor: pointer;
   padding: $list-padding;
   list-style-type: none;
-  margin-bottom: 1px;
+  margin: 0px 2px 0px 2px;
   height: 70px;
   display: flex;
   align-items: center;
@@ -409,6 +412,7 @@ input[type=search]{
 }
 
 .uber-list-container {
+  box-sizing: border-box;
   box-shadow: $default-box-shadow;
   background-color: $uber-color-secondary;
   overflow: hidden;
@@ -432,6 +436,7 @@ input[type=search]{
 }
 
 .lyft-list-container {
+  box-sizing: border-box;
   box-shadow: $default-box-shadow;
   background-color: $lyft-color-primary;
   overflow: hidden;
@@ -643,17 +648,19 @@ input[type=search]{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  transition-duration: 200ms;
+  transition-duration: 100ms;
   margin: 0;
   top: 0;
   left: 0;
   position: absolute;
-  background-color: #279a80;
+  background-color: #325461;
   padding-top: 5px;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  span {
+    font-size: 14px;
+  }
   div {
     width: 100%;
     margin-top: 5px;
@@ -667,14 +674,11 @@ input[type=search]{
   color: white;
   margin: 1px;
   border: none;
-  background-color: mediumaquamarine;
+  background-color: #558698;
   width: 30%;
   padding: 10px;
-  &:active {
-    background-color: #2ea58a;
-  }
-  &:focus {
-    background-color: #437979;
+  &:hover {
+    background-color: #5c8fa2;
   }
 }
 .pickup-distance {

@@ -44,7 +44,7 @@ class ExpandSearch extends Component {
     }
     return (
       <div className={this.props.classStyle} >
-        Surge detected! Search nearby for better deals?
+        <span>Surge detected! Search nearby for better deals?</span>
         <div>
           <button
             className="expand-btn"
