@@ -408,7 +408,6 @@ input[type=search] {
   background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
   margin: $center;
   // margin-bottom: 2em;
-  opacity: 0.7;
   div {
     transition-duration: 400ms;
   }
@@ -603,6 +602,7 @@ input[type=search] {
 
 .empty-message-img {
   margin-top: 3em;
+  opacity: 0.6;
 }
 
 .text-message {

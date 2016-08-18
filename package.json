@@ -1,5 +1,5 @@
 {
-  "name": "drivus",
+  "name": "DriveUs",
   "version": "1.0.0",
   "description": "Optimize Local Travel ($ & Time)",
   "main": "app.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Elifaz/jor.git"
+    "url": "git+https://github.com/drivus/drivus.git"
   },
-  "author": "Drivus Team - Elifaz",
+  "author": "Drivus Team - Aaron Heise, John Slape, Elifaz Filho, Ian Mrak, Amol Joshi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Elifaz/jor/issues"
+    "url": "https://github.com/drivus/drivus/issues"
   },
-  "homepage": "https://github.com/Elifaz/jor#readme",
+  "homepage": "https://github.com/drivus/drivus#readme",
   "dependencies": {
     "axios": "^0.13.1",
     "body-parser": "^1.15.2",
