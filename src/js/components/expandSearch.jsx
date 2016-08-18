@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import loadingRipple from '../../assets/ripple.svg';
 
 class ExpandSearch extends Component {
   render() {
     if (this.props.message) {
       return (
         <div className='active-expand'>
-          {this.props.message}
+          <div>
+            {this.props.message}
+          </div>
+          <img className="expand-loading" src={loadingRipple} />
         </div>
       );
     }
