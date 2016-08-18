@@ -25,8 +25,7 @@ export function setExpandedMarkers(coords) {
   let newMarkers = {};
   for (let i in coords) {
     let pStart = coords[i].minPrice_coords.start;
-    let path = require('../../assets/price.svg')
-
+    let path = require('../../assets/price-far.svg')
     let marker = new google.maps.Marker({
       position: coords[i].minPrice_coords.start,
       animation: 2,
@@ -45,13 +44,13 @@ export function setExpandedCircle(coords, start) {
     let circleColor;
     switch(i) {
       case 'close':
-        circleColor = 'green';
+        circleColor = '#2b4cf8';
         break;
       case 'medium':
-        circleColor = 'yellow';
+        circleColor = '#2196f3';
         break;
       case 'far':
-        circleColor = 'red';
+        circleColor = '#03a9f4';
         break;
       }
     let expandedCircle = new google.maps.Circle({

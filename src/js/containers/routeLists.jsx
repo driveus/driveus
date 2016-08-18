@@ -20,6 +20,7 @@ class RouteLists extends Component {
       this.setState({ messageStyle: { height: '0', margin: 0, opacity: 0 }});
     }
   }
+
   render() {
     let expandedRoutes,
         listContainerStyle = { overflow: 'hidden' };
@@ -28,7 +29,9 @@ class RouteLists extends Component {
     }
     return (
       <div style={listContainerStyle} className="list-container">
-        <h1 style={this.state.messageStyle} className="empty-message">Search for rides</h1>
+        <h1 style={this.state.messageStyle} className="empty-message">
+          Search for rides <img className="empty-message-img" src={require('../../assets/driveusLogo.svg')} />
+        </h1>
         <ExpandedRouteList
           routes={this.props.expandedRoutes.routes}
           selectRoute={this.props.selectRoute}

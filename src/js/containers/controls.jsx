@@ -49,7 +49,7 @@ class Controls extends Component {
 
   setCurrent() {
     this.setState({
-      startLocation: "Retrieving your current location...",
+      startLocation: "Retrieving your current location",
       canSubmit: false
     });
     coordsToAddress(this.updateStartCoords)
@@ -116,7 +116,7 @@ class Controls extends Component {
             <div className="current-location-start">
               <LocationSearch
                 tripNode="startLocation"
-                className="location-start"
+                className="loading location-start"
                 onLocationChange={this.handleLocationChange}
                 onAutoComplete={this.handleLocationAutoComplete}
                 value={this.state.startLocation}
