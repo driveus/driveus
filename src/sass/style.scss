@@ -685,6 +685,10 @@ input[type=search]{
   font-size: 14px;
   background-color: cadetblue;
   width: 100%;
+  img {
+    height: 10px;
+    width: 10px;
+  }
 }
 .pickup-distance-active {
   background-color: cadetblue;
