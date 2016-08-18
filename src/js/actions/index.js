@@ -83,14 +83,14 @@ export function receiveRoutesUber(coords, data) {
   return {
     type: RECEIVE_ROUTES_UBER,
     coords: coords,
-    routes: data
+    routes: routes
   }
 }
 export function receiveRoutesLyft(coords, data) {
   return {
     type: RECEIVE_ROUTES_LYFT,
     coords: coords,
-    routes: data
+    routes: routes
   }
 }
 // receiveRoutesExpanded -> reducer_expanded_routes
