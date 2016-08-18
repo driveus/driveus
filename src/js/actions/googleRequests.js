@@ -3,7 +3,7 @@ import {
   setWalkingTime,
   setAddress,
   requestRoutes,
-  setExpandedDirectionsPrice
+  receiveRoutesExpanded,
 } from './index';
 
 import {
@@ -80,6 +80,27 @@ export function getWalkingTime(start, end) {
         window.alert('Directions request failed due to ' + status);
       }
     });
+  }
+}
+
+export function getExpandedWalkingTime(routes, startLocation) {
+  return function (dispatch) {
+    for (let i in routes) {
+      console.log(routes, routes[i], startLocation)
+    let directionsService = new google.maps.DirectionsService;
+    directionsService.route({
+      origin: startLocation.start,
+      destination: routes[i].minPrice_coords.start,
+      travelMode: 'WALKING'
+    }, function(response, status) {
+      if (status === 'OK') {
+        routes[i].walkTime = response.routes[0].legs[0].duration;
+        dispatch(receiveRoutesExpanded(routes[i], i));
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+    }
   }
 }
 

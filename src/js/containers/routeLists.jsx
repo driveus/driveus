@@ -30,6 +30,7 @@ class RouteLists extends Component {
       <div style={listContainerStyle} className="list-container">
         <h1 style={this.state.messageStyle} className="empty-message">DriveUs<br/>Search for rides</h1>
         <ExpandedRouteList
+          walkingTime={this.props.walkingTime}
           message={this.props.expandedRoutes.success}
           routes={this.props.expandedRoutes.routes}
           selectRoute={this.props.selectRoute}
@@ -54,7 +55,7 @@ function mapStateToProps(state) {
     uberRoutes: state.routes.uber,
     lyftRoutes: state.routes.lyft,
     expandedRoutes: state.expandedRoutes,
-    expandedDirections: state.expandedDirections
+    expandedDirections: state.expandedDirections,
   };
 }
 // All returns return as props to route container
