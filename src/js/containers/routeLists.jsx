@@ -55,7 +55,6 @@ function mapStateToProps(state) {
     uberRoutes: state.routes.uber,
     lyftRoutes: state.routes.lyft,
     expandedRoutes: state.expandedRoutes,
-    expandedDirections: state.expandedDirections,
   };
 }
 // All returns return as props to route container
