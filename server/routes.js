@@ -53,40 +53,11 @@ module.exports = function(app) {
     ];
     let resultObj = {};
     let unresolvedPromises = [];
-<<<<<<< HEAD
-    // if (req.body) {
-    //   coords = req.body.data.coords;
-    //   // radius = req.body.data.radius;
-    // }
-    // radii.forEach((radius) => {
-    //   unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
-    // })
-    // Promise.all(unresolvedPromises)
-    //   .then((promises) => {
-    //     for (let i = 0; i < promises.length; i++) {
-    //       resultObj[radii[i][0]] = promises[i];
-    //     }
-    //     res.json(resultObj);
-    //   })
-    res.send('hi');
-  });
-
-
-  app.all('/sms', (req, res) => {
-    const rideData = req.body;
-    client.messages.create({
-      to: "+13347440981",
-      from: "+14082146873",
-      body: req.body.data
-    }, function(err, message) {
-      if (err) { console.log(err, 'error message'); }
-=======
     if (req.body) {
       coords = req.body.data;
     }
     radii.forEach((radius) => {
       unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
->>>>>>> 8ac5adaa43fcdcdc42b17162cadfc05f5ae24c30
     })
     Promise.all(unresolvedPromises)
       .then((promises) => {
