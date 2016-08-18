@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import msToTime from '../helpers/msToTime';
 import pickupIcon from '../../assets/car.svg';
 import arrivalIcon from '../../assets/clock.svg';
+import walkIcon from '../../assets/walkicon.png';
 
 class ExpandedRoute extends Component {
   constructor(props) {
@@ -34,7 +35,9 @@ class ExpandedRoute extends Component {
           <div className="driver-eta"><img src={pickupIcon}/> {etaMessage}</div>
           <div className="route-duration"><img src={arrivalIcon}/> {arrivalTime}</div>
         </div>
-        <p className="pickup-distance">{this.props.route.radius}m</p>
+        <span>
+          <p className="pickup-distance"><img src={walkIcon}/> {this.props.route.radius}m</p>
+        </span>
       </div>
     );
   }
