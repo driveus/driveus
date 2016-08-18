@@ -8,9 +8,7 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
     optimalPrice.ride = rideOptions.rides[0];
     optimalPrice.coords = rideOptions.coords;
   }
-  // console.log('Completed Ride Options obj: ', rideOptions);
   rideOptions.rides.forEach((option) => {
-    // console.log('Entered forEach block', option);
     console.log('OPTION: ', option.display_name, ' Surge:', option.price_multiplier, ' Est:', option.avg_estimate, ' Time:',  option.eta + option.duration, ' Dist:', option.distance, ' Coords:',  rideOptions.coords.start)
     if (option.price_multiplier === optimalPrice.ride.price_multiplier &&
         option.avg_estimate === optimalPrice.ride.avg_estimate &&
@@ -54,25 +52,8 @@ function expandSearch(startCoords, radius) {
       return Promise.all(promiseList);
     })
     .then((data) => {
-      let cheapestAtUserLocation = {};
       let optimalPrice = {};
-      console.log('Cheapest at User Location:')
-      for (let i = 0; i <= 1; i++) {
-        cheapestAtUserLocation = checkIfOptimalPrice(data[i], cheapestAtUserLocation);
-      }
-      console.log('Find Optimal in Radius:')
-      for (let i = 2; i < data.length; i++) {
-        optimalPrice = checkIfOptimalPrice(data[i], optimalPrice);
-      }
-      console.log('cheapestAtUserLocation', cheapestAtUserLocation, '\n optimalPrice', optimalPrice);
-      // data.forEach((option) => optimalPrice = checkIfOptimalPrice(option, optimalPrice));
-      if (cheapestAtUserLocation.ride.price_multiplier <= optimalPrice.ride.price_multiplier) {
-        return {
-          minPrice: null,
-          minPrice_coords: null,
-          radius: radius
-        }
-      }
+      data.forEach((option) => optimalPrice = checkIfOptimalPrice(option, optimalPrice));
       return {
         minPrice: optimalPrice.ride || null,
         minPrice_coords: optimalPrice.coords || null,
