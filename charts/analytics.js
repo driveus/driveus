@@ -1,4 +1,3 @@
-'use strict';
 //TODO: Checkbox to subdivide into uber and lyft
 
 
