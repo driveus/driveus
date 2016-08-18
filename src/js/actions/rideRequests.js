@@ -58,13 +58,17 @@ export function fetchExpanded(coords) {
     dispatch(requestExpandedRoutes());
     axiosRequest('expandSearch', coords)
     .then(function (response) {
-      dispatch(setExpandedCircle(coords));
-      dispatch(setExpandedMarkers(response.data));
-      dispatch(getExpandedWalkingTime(response.data, coords));
+      if (!Object.keys(response.data).length) {
+        dispatch(noExpandedRoutes());
+      }
+      else {
+        dispatch(setExpandedCircle(coords));
+        dispatch(setExpandedMarkers(response.data));
+        dispatch(getExpandedWalkingTime(response.data, coords));
+      }
     })
     .catch(function(err) {
       console.log(err);
-      dispatch(noExpandedRoutes());
     })
   }
 }
