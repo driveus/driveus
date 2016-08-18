@@ -17,8 +17,8 @@ class Controls extends Component {
     this.state = {
       startLocation: '',
       endLocation: '',
-      startPlaceholder: 'Pickup',
-      endPlaceholder: 'Dropoff',
+      startPlaceholder: 'Enter pickup location',
+      endPlaceholder: 'Enter destination',
       currentLocation: null,
       currentEndpoint: null,
       canSubmit: true
