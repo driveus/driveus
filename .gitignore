@@ -5,3 +5,4 @@ public
 .env
 Gulpfile.js
 npm-debug.log
+.DS_Store
