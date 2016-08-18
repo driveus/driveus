@@ -19,16 +19,19 @@ class ExpandedRoute extends Component {
   render() {
     let eta = Math.round(this.props.route.minPrice.eta/60),
         etaMessage = `${eta} min`,
-        totalTime = Math.round((this.props.route.minPrice.duration + this.props.route.minPrice.eta))*1000,
-        currentDate = Date.now()+(totalTime+Math.round(this.props.route.walkTime.value*1000)),
-        arrivalTime = (msToTime(currentDate)),
+        driveTime = Math.round((this.props.route.minPrice.duration + this.props.route.minPrice.eta))*1000,
+        travelTime = Date.now()+(driveTime+Math.round(this.props.route.walkTime.value*1000)),
+        arrivalTime = (msToTime(travelTime)),
         cost = this.props.route.minPrice.avg_estimate ? '$' + (Math.round(this.props.route.minPrice.avg_estimate/100)) : 'Metered',
         disclaimer = this.props.carpool ? '\nMay make additional stops' : '',
         image = this.props.marker ? <img src={this.props.marker} className="marker-tag"/> : null;
     return (
       <div className='expanded-list-item'
         onClick={this.setActiveRoute}>
-          <p className="pickup-distance"><img src={walkIcon}/> {this.props.route.walkTime.text}</p>
+        <div className="pickup-distance-container">
+          <img src={walkIcon}/>
+          <p className="pickup-distance">{this.props.route.walkTime.text}</p>
+        </div>
         <div className="ride-info">
           <div className="route-cost" style={this.props.priceStyle}>{cost} {this.props.surgeNotice}</div>
           <div className="route-name">{this.props.route.minPrice.display_name}</div>

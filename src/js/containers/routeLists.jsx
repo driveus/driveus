@@ -29,7 +29,7 @@ class RouteLists extends Component {
     return (
       <div style={listContainerStyle} className="list-container">
         <div  className="empty-message" style={this.state.messageStyle} >
-          <h1>DriveUs<br/>Search for rides</h1>
+          <h1 className="list-message">DriveUs<br/>Search for rides</h1>
           <img className="empty-message-img" src={require('../../assets/driveusLogo.svg')} />
         </div>
         <ExpandedRouteList

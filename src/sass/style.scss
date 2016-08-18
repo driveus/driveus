@@ -408,7 +408,6 @@ input[type=search] {
   background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
   margin: $center;
   // margin-bottom: 2em;
-  opacity: 0.7;
   div {
     transition-duration: 400ms;
   }
@@ -603,6 +602,7 @@ input[type=search] {
 
 .empty-message-img {
   margin-top: 3em;
+  opacity: 0.6;
 }
 
 .text-message {
@@ -707,14 +707,17 @@ input[type=search] {
   }
 }
 
-.pickup-distance {
+.pickup-distance-container {
+  display: flex;
+  align-items: center;
   position: absolute;
   right: 10px;
   padding: 5px 0px;
-  font-size: 14px;
+  font-size: 12px;
   img {
     width: 12px;
     min-height: 100%;
+    margin-right: 3px;
   }
 }
 
@@ -724,6 +727,10 @@ input[type=search] {
   img {
     width: 20px;
   }
+}
+.list-message {
+  font-size: 30px;
+  line-height: 35px;
 }
 
 // MOBILE-ISH ******************************************
@@ -1024,8 +1031,11 @@ input[type=search] {
 
 
   @media(max-width: 400px) {
+    .empty-message {
+      margin-top: 0;
+    }
     .empty-message-img {
-      margin-top: -3em;
+      margin-top: 1em;
     }
   }
 }
