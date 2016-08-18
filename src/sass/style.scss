@@ -887,6 +887,10 @@ input[type=search]{
     margin: 1.4em 0;
   }
   @media (min-width: 600px) {
+    .selected-route-container {
+      right: 20%;
+      left: 20%;
+    }
     .location-form {
       input {
         height: 3em;
