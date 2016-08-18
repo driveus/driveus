@@ -47,7 +47,7 @@ export function setExpandedCircle(coords, currentLocation) {
     let circleColor;
     switch(i) {
       case 'close':
-        circleColor = '#29322f;
+        circleColor = '#29322f';
         break;
       case 'medium':
         circleColor = '#545c5a';

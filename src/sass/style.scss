@@ -19,7 +19,6 @@ $lyft-color-primary: #EA0B8C;
 $lyft-color-secondary: #ef43a7;
 $lyft-color-hover: #ee91c2;
 $lyft-color-active: #ea7bb6;
-
 * {
   margin: 0;
   font-family: sans-serif;
@@ -35,10 +34,13 @@ body {
   background-color: $primary-color;
 }
 
-input[type=search]{
-   -moz-appearance: none;/* older firefox */
-   -webkit-appearance: none; /* safari, chrome */
-   appearance: none; /* rest */
+input[type=search] {
+  -moz-appearance: none;
+  /* older firefox */
+  -webkit-appearance: none;
+  /* safari, chrome */
+  appearance: none;
+  /* rest */
 }
 
 #container {
@@ -302,7 +304,8 @@ input[type=search]{
     width: 20%;
     line-height: 2em;
     font-size: 1em;
-  };
+  }
+  ;
   span {
     margin: 0 20px;
   }
@@ -339,6 +342,7 @@ input[type=search]{
 .expanded {
   background-color: #426d7d;
 }
+
 .expanded-routes {
   .price:hover {
     background-color: #426d7d;
@@ -400,6 +404,8 @@ input[type=search]{
   overflow: scroll;
   background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
   margin: $center;
+  // margin-bottom: 2em;
+  opacity: 0.7;
   div {
     transition-duration: 400ms;
   }
@@ -472,10 +478,12 @@ input[type=search]{
   display: flex;
   align-items: center;
 }
+
 .surge-notice {
   font-size: 12px;
   color: yellow;
 }
+
 .selected-route-container {
   position: fixed;
   display: flex;
@@ -581,15 +589,22 @@ input[type=search]{
   margin: 2em 0;
   line-height: 1.5em;
   color: gray;
-  opacity: .3;
+  h1 {
+    opacity: .3;
+  }
   display: inherit;
   transition: all .3s ease .15s;
+}
+
+.empty-message-img {
+  margin-top: 3em;
 }
 
 .text-message {
   padding: 5px 20px;
   font-size: 14px;
 }
+
 .travel-info {
   padding: 4px 0px;
   width: 90%;
@@ -602,19 +617,22 @@ input[type=search]{
     margin-right: 5px;
   }
 }
+
 .ride-info {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 .expanded-routes {
   flex-direction: row;
   display: flex;
   justify-content: center;
   background-color: #426d7d;
-  box-shadow: 0px -4px 10px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px -4px 10px -2px rgba(0, 0, 0, 0.75);
 }
+
 .expanded-list-item {
   transition-duration: 200ms !important;
   cursor: pointer;
@@ -638,6 +656,7 @@ input[type=search]{
     }
   }
 }
+
 .active-expand {
   display: flex;
   flex-direction: column;
@@ -662,6 +681,7 @@ input[type=search]{
     justify-content: center;
   }
 }
+
 .expand-btn {
   cursor: pointer;
   color: white;
@@ -677,11 +697,13 @@ input[type=search]{
     background-color: #437979;
   }
 }
+
 .pickup-distance {
   font-size: 14px;
   background-color: cadetblue;
   width: 100%;
 }
+
 .pickup-distance-active {
   background-color: cadetblue;
   padding: 2px 20px;
@@ -692,6 +714,17 @@ input[type=search]{
 @media (max-width: 1050px) {
   #container {
     flex-direction: column;
+  }
+  .empty-message {
+    // margin: 0em 0;
+    h1 {
+      display: none;
+    }
+  }
+  .empty-message-img {
+    max-height: 230px;
+    max-width: 230px;
+    margin-top: 1.3em;
   }
   .current-location {
     display: flex;
@@ -732,18 +765,16 @@ input[type=search]{
   .marker-tag {
     margin: 5px 10px;
   }
-
   .compass {
     margin-top: 14px;
   }
-
   .list-container {
     width: 100%;
     order: 1;
     position: relative;
     border-top: 1px solid $secondary-color;
     background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
-    flex: 1;
+    // flex: 1;
     overflow: scroll;
   }
   .list-item {
@@ -879,9 +910,6 @@ input[type=search]{
   .disclaimer {
     font-size: 10px;
   }
-  .empty-message {
-    margin: 1.4em 0;
-  }
   @media (min-width: 600px) {
     .location-form {
       input {
@@ -907,6 +935,7 @@ input[type=search]{
       margin-left: 10px;
       margin-right: 10px;
     }
+
     #container {
       position: inherit;
     }
@@ -959,10 +988,24 @@ input[type=search]{
         width: 100%;
       }
     }
+
+    .empty-message-img {
+      display: relative;
+      margin: $center;
+      max-height: 50%;
+      max-width: 50%;
+    }
     .location-form {
       input {
         height: 3em;
       }
+    }
+  }
+
+
+  @media(max-width: 400px) {
+    .empty-message-img {
+      margin-top: -3em;
     }
   }
 }
