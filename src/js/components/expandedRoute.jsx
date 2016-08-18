@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import msToTime from '../helpers/msToTime';
 import pickupIcon from '../../assets/car.svg';
 import arrivalIcon from '../../assets/clock.svg';
-import walkIcon from '../../assets/walkicon.png';
+import walkIcon from '../../assets/walkicon.svg';
 
 class ExpandedRoute extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class ExpandedRoute extends Component {
     return (
       <div className='expanded-list-item'
         onClick={this.setActiveRoute}>
-          <p className="pickup-distance"><img src={walkIcon}/> {this.props.route.walkTime.text}</p>
+          <p className="pickup-distance"><img src={walkIcon}/>{this.props.route.walkTime.text}</p>
         <div className="ride-info">
           <div className="route-cost" style={this.props.priceStyle}>{cost} {this.props.surgeNotice}</div>
           <div className="route-name">{this.props.route.minPrice.display_name}</div>

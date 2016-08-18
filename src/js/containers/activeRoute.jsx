@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { deselectRoute } from '../actions/index.js';
 import { bindActionCreators } from 'redux';
 import msToTime from '../helpers/msToTime';
-import walkIcon from '../../assets/walkicon.png';
+import walkIcon from '../../assets/walkicon.svg';
 
 import axios from 'axios';
 

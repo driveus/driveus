@@ -674,6 +674,13 @@ input[type=search]{
     justify-content: center;
   }
 }
+
+.expand-loading {
+  height: 4em;
+  width: 4em;
+  margin: 1em auto;
+}
+
 .expand-btn {
   cursor: pointer;
   color: white;
