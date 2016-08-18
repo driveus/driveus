@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import msToTime from '../helpers/msToTime';
 import pickupIcon from '../../assets/car.svg';
 import arrivalIcon from '../../assets/clock.svg';
-import walkIcon from '../../assets/walkicon.png';
+import walkIcon from '../../assets/walkicon.svg';
 
 class ExpandedRoute extends Component {
   constructor(props) {
