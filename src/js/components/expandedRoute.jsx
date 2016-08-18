@@ -19,9 +19,9 @@ class ExpandedRoute extends Component {
   render() {
     let eta = Math.round(this.props.route.minPrice.eta/60),
         etaMessage = `${eta} min`,
-        totalTime = Math.round((this.props.route.minPrice.duration + this.props.route.minPrice.eta))*1000,
-        currentDate = Date.now()+(totalTime+Math.round(this.props.route.walkTime.value*1000)),
-        arrivalTime = (msToTime(currentDate)),
+        driveTime = Math.round((this.props.route.minPrice.duration + this.props.route.minPrice.eta))*1000,
+        travelTime = Date.now()+(driveTime+Math.round(this.props.route.walkTime.value*1000)),
+        arrivalTime = (msToTime(travelTime)),
         cost = this.props.route.minPrice.avg_estimate ? '$' + (Math.round(this.props.route.minPrice.avg_estimate/100)) : 'Metered',
         disclaimer = this.props.carpool ? '\nMay make additional stops' : '',
         image = this.props.marker ? <img src={this.props.marker} className="marker-tag"/> : null;
