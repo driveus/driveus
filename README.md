@@ -2,7 +2,7 @@
 Compares ride prices and times across all Uber and Lyft products, finding users the best deal or quickest rides.
 
 ##Installation
-The app can be accessed at driveus.heroku.com.  To run it locally, you may either download this repo, or fork it and download your fork.
+The app can be accessed at https://driveus.heroku.com.  To run it locally, you may either download this repo, or fork it and download your fork.
 
 ##Usage
 From the root of the project directory, run "npm install", followed by "npm start".  The app should now be accessible at localhost:3000.  

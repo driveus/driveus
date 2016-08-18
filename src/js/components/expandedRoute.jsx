@@ -34,7 +34,7 @@ class ExpandedRoute extends Component {
           <div className="driver-eta"><img src={pickupIcon}/> {etaMessage}</div>
           <div className="route-duration"><img src={arrivalIcon}/> {arrivalTime}</div>
         </div>
-        <span className="disclaimer">{disclaimer}</span>
+        <p className="pickup-distance">{this.props.route.radius}m</p>
       </div>
     );
   }

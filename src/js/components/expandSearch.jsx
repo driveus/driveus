@@ -4,43 +4,41 @@ class ExpandSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sliderValue: 300,
-      expandedView: false,
-      searchRadius: null,
-      previousSearchRadius: null,
-      routes: false
+      // sliderValue: 300,
+      // expandedView: false,
+      // searchRadius: null,
+      // previousSearchRadius: null,
+      // routes: false
     }
     // this.search = this.search.bind(this);
     // this.handleSliderChange = this.handleSliderChange.bind(this);
-    this.handleSearchRadiusClick = this.handleSearchRadiusClick.bind(this);
+    // this.handleSearchRadiusClick = this.handleSearchRadiusClick.bind(this);
     // this.toggleExpandedView = this.toggleExpandedView.bind(this);
   }
   componentWillReceiveProps() {
-    if (this.props.classStyle) {
-      this.setState({
-        searchRadius: null,
-        previousSearchRadius: null
-      });
-    }
-    if (this.props.routes) {
-      this.setState({ routes: true });
-    }
+    // if (this.props.classStyle) {
+    //   this.setState({
+    //     searchRadius: null,
+    //     previousSearchRadius: null
+    //   });
+    // }
+    // if (this.props.routes) {
+    //   this.setState({ routes: true });
+    // }
   }
-  // componentDidUpdate() {
-  //   if (this.state.searchRadius !== this.state.previousSearchRadius) {
-  //     console.log('Search Radius and previous search radius not equal');
-  //     this.setState({previousSearchRadius: this.state.searchRadius});
-  //     return this.props.expandSearch(this.props.currentLocation);
-  //   }
-  //   return null;
+  // handleSearchRadiusClick(e) {
+  //   e.preventDefault();
+  //   this.setState({searchRadius: e.target.value})
   // }
   //
-  handleSearchRadiusClick(e) {
-    e.preventDefault();
-    this.setState({searchRadius: e.target.value})
-  }
-
   render() {
+    if (this.props.message) {
+      return (
+        <div className='active-expand'>
+          {this.props.message}
+        </div>
+      );
+    }
     if (this.props.classStyle === 'inactive-expand') {
       return (<div></div>);
     }

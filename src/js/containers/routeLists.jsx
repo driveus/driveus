@@ -33,6 +33,7 @@ class RouteLists extends Component {
           Search for rides <img className="empty-message-img" src={require('../../assets/driveusLogo.svg')} />
         </h1>
         <ExpandedRouteList
+          message={this.props.expandedRoutes.success}
           routes={this.props.expandedRoutes.routes}
           selectRoute={this.props.selectRoute}
           />

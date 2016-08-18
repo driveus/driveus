@@ -23,9 +23,6 @@ class RouteList extends Component {
           surgeValue = surgeValue % 1 === 0 ? surgeValue + '.0' : surgeValue;
           surgeNotice = `- ${surgeValue}x`;
         }
-        if (route.price_multiplier > 2) {
-          priceStyle = {color:'orangered'};
-        }
         let carpool = false;
         if (route.display_name === 'UberPOOL' || route.display_name === 'Lyft Line') { carpool = true; }
         return <Route
@@ -41,9 +38,9 @@ class RouteList extends Component {
     });
   }
   render() {
-    let height = { height: '0%' };
+    let height = { height: '0%' },
+        style = this.state[this.props.classStyle];
     if (this.props.routes.length) { height = { height: '100%' }; }
-    let style = this.state[this.props.classStyle];
     return (
       <div className={style} style={height}>
         <ul>

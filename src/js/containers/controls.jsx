@@ -105,7 +105,7 @@ class Controls extends Component {
   render() {
     let isActive = 'inactive-expand',
         canExpand = null;
-    if (this.props.surge && !this.state.startLocation && !this.state.endLocation) {
+    if (this.props.surge > 1 && !this.state.startLocation && !this.state.endLocation) {
       isActive = 'active-expand';
       canExpand = this.props.fetchExpanded;
     }
@@ -143,7 +143,7 @@ class Controls extends Component {
           currentLocation={this.props.currentCoords}
           expandSearch={this.props.fetchExpanded}
           disableSurge={this.props.disableSurge}
-          routes={this.props.expandedRoutes.routes}
+          message={this.props.expandedRoutes.message}
         />
       </div>
     );

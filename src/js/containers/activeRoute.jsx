@@ -23,9 +23,8 @@ class ActiveRoute extends Component {
   }
 
   componentDidMount() {
-
     //sets the state depending or whether the user is on desktop or mobile
-     if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
+    if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
       this.setState({MobileBrowser: true})
     } else {
       //also sets the state of orderCab to # to stop redirecting
@@ -47,7 +46,7 @@ class ActiveRoute extends Component {
       let orderUber = uberUrl + uberCoords;
 
       if (!this.state.MobileBrowser) {
-        // this.sendMessage(orderUber);
+        this.sendMessage(orderUber);
       } else {
         //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderUber, inputElement:null});
@@ -59,48 +58,51 @@ class ActiveRoute extends Component {
       let orderLyft = lyftUrl + lyftCoods;
 
       if (!this.state.MobileBrowser ) {
-        // this.sendMessage(orderLyft);
+        this.sendMessage(orderLyft);
       } else {
         //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderLyft, inputElement:null});
       }
     }
-
 }
   sendMessage(order) {
     axios.post('/sms', {
       data: order
     })
-    this.setState({inputElement: 'We noticed you are not on mobile, no worries we just texted you the link to your ride!'});
+    this.setState({inputElement: 'We just texted you the link to your ride!'});
   }
 
   render() {
-    // Formatting for display...could be done better?
     if (!this.props.route) { return <div></div>; }
-    let eta = Math.round(this.props.route.eta/60),
-        totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
-        arrivalTime = (msToTime(Date.now()+totalTime)),
-        etaMinutes = eta <= 1 ? 'minute' : 'minutes',
-        cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
-        backgroundColor = this.state.style[this.props.style],
-        classes = 'selected-route-container ' + backgroundColor;
-    return (
-      <div>
-        <div onClick={() => {this.props.deselectRoute(); this.setState({inputElement: null})}} className="lightbox-background"></div>
-        <div className={classes}>
-          <h1>{this.props.route.display_name}</h1>
-          <h1>{cost}</h1>
-          <p>Pickup: {eta} {etaMinutes}</p>
-          <p>Arrival: {arrivalTime}</p>
+      let eta = Math.round(this.props.route.eta/60),
+          totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
+          arrivalTime = (msToTime(Date.now()+totalTime)),
+          etaMinutes = eta <= 1 ? 'minute' : 'minutes',
+          cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
+          backgroundColor = this.state.style[this.props.style],
+          classes = 'selected-route-container ' + backgroundColor,
+          distance;
+          if (this.props.route.radius) {
+              distance = <p className="pickup-distance-active">{this.props.route.radius}m</p>;
+          }
+      return (
+        <div>
+          <div onClick={() => {this.props.deselectRoute(); this.setState({inputElement: null})}} className="lightbox-background"></div>
+          <div className={classes}>
+            <h1>{this.props.route.display_name}</h1>
+            <h1>{cost}</h1>
+            <p>Pickup: {eta} {etaMinutes}</p>
+            <p>Arrival: {arrivalTime}</p>
+            {distance}
             <a href={this.state.orderCab}>
-            <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
+              <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
             </a>
             <div className="text-message">{this.state.inputElement}</div>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
-}
 
 function mapStateToProps(state) {
   return {

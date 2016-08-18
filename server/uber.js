@@ -35,7 +35,6 @@ function parseUber(apiResponses, isExpandedSearch, city) {
 
   let rides = apiResponses[0].prices;
   let surgeCount = 0;
-  let surge = false;
   const etas = apiResponses[1].times;
   const coords = apiResponses[2];
 
@@ -79,8 +78,14 @@ function parseUber(apiResponses, isExpandedSearch, city) {
   if (coords.start.lat > ferryRange.lat[1] && coords.start.lat < ferryRange.lat[0]) {
     if (coords.start.lng < ferryRange.lng[1] && coords.start.lng > ferryRange.lng[0]) {
       for (let ride of rides) {
-        ride.price_multiplier = 1.8;
-        ride.avg_estimate *= 1.8;
+        if (ride.display_name === 'UberX' || ride.display_name === 'UberPOOL') {
+          ride.price_multiplier = 1.7;
+          ride.avg_estimate *= 1.7;
+        }
+        if (ride.display_name === 'UberPOOL') {
+          ride.price_multiplier = 1.9;
+          ride.avg_estimate *= 1.9;
+        }
       }
     }
   }
@@ -92,11 +97,8 @@ function parseUber(apiResponses, isExpandedSearch, city) {
     }
 
   })
-  if (surgeCount > 1) {
-    surge = true;
-  }
 
-  const results = {rides: rides, coords: coords, surge: surge};
+  const results = {rides: rides, coords: coords, surge: surgeCount};
   db.saveUber(results, isExpandedSearch, city);
   return results;
 }
