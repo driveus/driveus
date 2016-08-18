@@ -27,7 +27,6 @@ export default function(state={routes:{close:null,medium:null,far:null},message:
       });
     case RECEIVE_EXPANDED_ROUTES:
       state.routes[action.name] = action.routes;
-      console.log(state);
       return Object.assign({}, state.routes, {
         routes: state.routes,
         message: null,
