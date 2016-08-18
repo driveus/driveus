@@ -1,23 +1,10 @@
-//select extract(dow from time) from uberhist;
-//remember to account for time zone
-
-
-//remember to throw out junk data: lyft rides over $204,
-//rides shorter than .5mi, rides longer than 20 mi
-
-//Make a Map view with points scaled by surge multiplier
-//Sliders for time of day and for day of week
-
-//Make a map of city comparison, with a checkbox
-//to split uber vs. lyft by city
-//SELECT city, AVG((high_est / distance_miles)) AS cost FROM rideshist WHERE ride_type IN ('UberX', 'UberPOOL', 'Lyft', 'Lyft Line') GROUP BY city;
 //TODO: Checkbox to subdivide into uber and lyft
 
 
-google.charts.load('current', {'packages': ['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+google.charts.load('current', {'packages': ['corechart', 'geochart']});
+google.charts.setOnLoadCallback(drawBarChart);
 
-function drawChart() {
+function drawBarChart() {
   const dataArray = [['City', 'Uber', 'Lyft']]
   const options = {'title': 'Price per mile of Lyft and Uber',
                    'width': 1300,
@@ -47,4 +34,23 @@ function drawChart() {
     const chartData = google.visualization.arrayToDataTable(dataArray);
     chart.draw(chartData, options);
   })
+}
+
+function drawGeoChart() {
+  const dataArray = [['City', 'Surge Count', 'Surge Multiplier']];
+  const options = {
+    region: 'USA',
+    displayMode: 'markers',
+    colorAxis: {colors: ['green', 'red']}
+  };
+
+  $.get('/charts/geo', (data) => {
+    for (let obj of data) {
+      dataArray.push([obj.city, obj.count, obj.max])
+    }
+    console.log(dataArray);
+    const chartData = google.visualization.arrayToDataTable(dataArray);
+    const chart = new google.visualization.GeoChart(document.getElementById('bar-chart'));
+    chart.draw(chartData, options);
+  });
 }
