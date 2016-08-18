@@ -33,6 +33,7 @@ class RouteLists extends Component {
           <img className="empty-message-img" src={require('../../assets/driveusLogo.svg')} />
         </div>
         <ExpandedRouteList
+          walkingTime={this.props.walkingTime}
           message={this.props.expandedRoutes.success}
           routes={this.props.expandedRoutes.routes}
           selectRoute={this.props.selectRoute}
@@ -57,7 +58,6 @@ function mapStateToProps(state) {
     uberRoutes: state.routes.uber,
     lyftRoutes: state.routes.lyft,
     expandedRoutes: state.expandedRoutes,
-    expandedDirections: state.expandedDirections
   };
 }
 // All returns return as props to route container

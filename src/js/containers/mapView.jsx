@@ -137,7 +137,6 @@ class MapView extends Component {
     // Sets circle on map
     if (this.props.expandedCircle.close || this.props.expandedCircle.medium || this.props.expandedCircle.far) {
       let circles = this.props.expandedCircle;
-      // this.state.directionsDisplay.set('directions', null);
       for (let i in circles) {
         bounds = new google.maps.LatLngBounds();
         circles[i].setMap(this.state.map)

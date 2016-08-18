@@ -94,10 +94,11 @@ export function receiveRoutesLyft(coords, data) {
   }
 }
 // receiveRoutesExpanded -> reducer_expanded_routes
-export function receiveRoutesExpanded(routes) {
+export function receiveRoutesExpanded(routes, name) {
   return {
     type: RECEIVE_EXPANDED_ROUTES,
-    routes: routes
+    routes: routes,
+    name: name
   }
 }
 // noExpandedRoutes -> reducer_expanded_routes

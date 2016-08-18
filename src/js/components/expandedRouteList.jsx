@@ -20,7 +20,6 @@ class ExpandedRouteList extends Component {
     let routes = [];
     let key = 0;
     for (let route in this.props.routes) {
-      let eprice = this.props.routes;
       if (this.props.routes[route] !== null) {
         routes.push(<ExpandedRoute
           key={key++}
