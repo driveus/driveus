@@ -32,7 +32,7 @@ class ExpandedRouteList extends Component {
       message = <p className="expanded-message">No better deals found.</p>
     }
     if (this.props.routes.close || this.props.routes.medium || this.props.routes.far) {
-      message = <p className="expanded-message">Here are some potential rides near you.</p>
+      message = <p className="expanded-message">Found better deals nearby!</p>
     }
     return (
       <div className="expanded-list">

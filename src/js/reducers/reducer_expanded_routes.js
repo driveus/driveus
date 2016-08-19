@@ -29,7 +29,7 @@ export default function(state={routes:{close:null,medium:null,far:null},message:
       state.routes[action.name] = action.routes;
       return Object.assign({}, state.routes, {
         routes: state.routes,
-        message: 'Optimized Pickup Location(s)',
+        message: null,
         success: true
       });
     }
