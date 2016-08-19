@@ -53,7 +53,7 @@ function saveLyft(parsedData, isExpandedSearch, city) {
 
     db.lyfthist.save(queryObj, (err) => {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
     });
   }

@@ -6,13 +6,13 @@ const genRadius = require('./generate_radius.js');
 const expandSearch = require('./expand_search.js');
 const express = require('express');
 const router = express.Router();
-const twilio_SID = "ACe98e01d0fea8ebb54402edd1abc0e724";
-const twilio_token = "fae8053ee7a58761e3fdfa2ce8331aec";
+const twilio_SID = "ACe98e01d0fea8ebb54402edd1abc0e724";  //No longer active,
+const twilio_token = "fae8053ee7a58761e3fdfa2ce8331aec";  // was for testing only
 const client = require('twilio')(twilio_SID,twilio_token);
 
 module.exports = function(app) {
+  //Responds with array of Uber ride info
   app.all('/api/uber', (req, res) => {
-    console.log('uber hit: ', req.body.data);
     let coords;
     if (req.body) {
       coords = req.body.data;
@@ -23,12 +23,12 @@ module.exports = function(app) {
       res.json(uber.parseUber(data));
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
   });
 
+  //Responds with array of Lyft ride info
   app.all('/api/lyft', (req, res) => {
-    console.log('lyft hit: ', req.body.data);
     let coords;
     if (req.body) {
       coords = req.body.data;
@@ -39,7 +39,7 @@ module.exports = function(app) {
       res.json(lyft.parseLyft(data));
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
   });
 
@@ -64,14 +64,14 @@ module.exports = function(app) {
       .then((promises) => {
         for (let i = 1; i < promises.length; i++) {
           if (Object.keys(resultObj).length === 0) {
-            if (promises[0].minPrice.price_multiplier > promises[i].minPrice.price_multiplier || 
+            if (promises[0].minPrice.price_multiplier > promises[i].minPrice.price_multiplier ||
                 promises[0].minPrice.avg_estimate - promises[i].minPrice.avg_estimate >= 100) {
                   resultObj[radii[i][0]] = promises[i];
             }
           } else {
             let shouldAdd = true;
             for (let result in resultObj) {
-              if (resultObj[result].minPrice.price_multiplier <= promises[i].minPrice.price_multiplier && 
+              if (resultObj[result].minPrice.price_multiplier <= promises[i].minPrice.price_multiplier &&
                   resultObj[result].minPrice.avg_estimate - promises[i].minPrice.avg_estimate < 100) {
                     shouldAdd = false;
               }
@@ -81,30 +81,13 @@ module.exports = function(app) {
             };
           }
         }
-
         res.json(resultObj);
       })
       .catch((err) => {
-        console.log('Some Uber or Lyft call failed', err);
+        console.error('Some Uber or Lyft call failed:', err);
       })
   });
 
-  app.all('/api/genRadius', (req, res) => {
-    console.log('Generating Radius Of Coordinates', dummyCoords); // , req.body.data)
-    // res.json('test');
-    let coords;
-    if (req.body) {
-      coords = req.body.data;
-    }
-    //This function grabs points around a center
-    genRadius.createGeoRadius(dummyCoords, 500)
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        console.log('At least 1 geoRadius point failed to return');
-      })
-  })
   app.all('/sms', (req, res) => {
     const rideData = req.body;
     client.messages.create({
@@ -112,22 +95,34 @@ module.exports = function(app) {
         from: "+14082146873",
         body: req.body.data
       }, function(err, message) {
-        if (err) { console.log(err, 'error message'); }
+        if (err) { console.error(err); }
     })
-  })
+  });
+
   app.all('/charts/column', (req, res) => {
     analytics.columnChart((data) => {
-      res.json(data);
+      res.json(data)
+      .catch((err) => {
+        console.error(err);
+      });
     });
   });
+
   app.all('/charts/geo', (req, res) => {
     analytics.geoChart((data) => {
-      res.json(data);
+      res.json(data)
+      .catch((err) => {
+        console.error(err);
+      });
     });
   });
+
   app.all('/charts/scatter', (req, res) => {
     analytics.scatterChart((data) => {
-      res.json(data);
+      res.json(data)
+      .catch((err) => {
+        console.error(err);
+      });
     });
   });
 }

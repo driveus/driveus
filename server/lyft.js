@@ -118,9 +118,9 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
       }
     }
   }
-
   //*********END OF HARDCODED SURGE MULTIPLIER ******
 
+  //for determining whether to offer expanded search:
   rides.forEach((ride) => {
     if (ride.display_name === 'Lyft Line' || ride.display_name === 'Lyft') {
       if (ride.price_multiplier > 1) { surgeCount++; }
