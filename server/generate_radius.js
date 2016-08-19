@@ -61,7 +61,6 @@ function reverseGeoCode(geoPoint) {
 function createGeoRadius(coords, searchRadius) {
   const startPoint = coords.start;
   const radius = searchRadius/1000;  // Converts meters to km
-  // Creates promiseList array and instantiates with the validated start point
   let promiseList = [];
   if (radius === 0) {
     promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
