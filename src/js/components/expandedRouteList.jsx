@@ -35,13 +35,17 @@ class ExpandedRouteList extends Component {
   render() {
     let message;
     if (!this.props.message) {
-      let style = {padding: '5px'};
-      message = <span style={style}>No better deals found</span>
+      message = <p className="expanded-message">No better deals found.</p>
+    }
+    if (this.props.routes.close || this.props.routes.medium || this.props.routes.far) {
+      message = <p className="expanded-message">Here are some potential rides near you.</p>
     }
     return (
-      <div className="expanded-routes">
-          {message}
+      <div className="expanded-list">
+        {message}
+        <div className="expanded-routes">
           {this.renderRoutes()}
+        </div>
       </div>
     );
   }
