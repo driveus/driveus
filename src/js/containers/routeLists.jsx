@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectRoute } from '../actions/index.js';
-// Makes sure action flows through all reducers to maintain state
 import { bindActionCreators } from 'redux';
 
-// Components
 import RouteList from '../components/routeList.jsx';
 import ExpandedRouteList from '../components/expandedRouteList.jsx';
 
@@ -60,9 +58,8 @@ function mapStateToProps(state) {
     expandedRoutes: state.expandedRoutes,
   };
 }
-// All returns return as props to route container
+
 function mapDispatchToProps(dispatch) {
-  // When selectRoute is called, the result is passed to all reducers
   return bindActionCreators({ selectRoute }, dispatch);
 }
 

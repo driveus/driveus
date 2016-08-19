@@ -25,11 +25,9 @@ class ActiveRoute extends Component {
   }
 
   componentDidMount() {
-    //sets the state depending or whether the user is on desktop or mobile
     if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
       this.setState({MobileBrowser: true})
     } else {
-      //also sets the state of orderCab to # to stop redirecting
       this.setState({MobileBrowser: false, orderCab: "#"})
     }
   }
@@ -41,7 +39,6 @@ class ActiveRoute extends Component {
         startLng = this.props.currentCoords.start.lng,
         endLat = this.props.currentCoords.end.lat,
         endLng = this.props.currentCoords.end.lng;
-    // Assigns order url to Uber
     if(this.props.route.display_name.match(/uber/i)) {
       let uberUrl = "uber://?client_id=37yHG1-x8iwme2fjogxoa3wU_4n2vWd5exCpEB8u&action=setPickup";
       let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d`
@@ -50,7 +47,6 @@ class ActiveRoute extends Component {
       if (!this.state.MobileBrowser) {
         this.sendMessage(orderUber);
       } else {
-        //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderUber, inputElement:null});
       }
 
@@ -62,7 +58,6 @@ class ActiveRoute extends Component {
       if (!this.state.MobileBrowser ) {
         this.sendMessage(orderLyft);
       } else {
-        //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderLyft, inputElement:null});
       }
     }
