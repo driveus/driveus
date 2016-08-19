@@ -80,17 +80,23 @@ export function requestExpandedRoutes(coords) {
       // reducer_expanded_directions,
       // reducer_current_coords
 export function receiveRoutesUber(coords, data) {
+  let routes = data.sort(function(a,b) {
+    return a.avg_estimate - b.avg_estimate;
+  });
   return {
     type: RECEIVE_ROUTES_UBER,
     coords: coords,
-    routes: data
+    routes: routes
   }
 }
 export function receiveRoutesLyft(coords, data) {
+  let routes = data.sort(function(a,b) {
+    return a.avg_estimate - b.avg_estimate;
+  });
   return {
     type: RECEIVE_ROUTES_LYFT,
     coords: coords,
-    routes: data
+    routes: routes
   }
 }
 // receiveRoutesExpanded -> reducer_expanded_routes
