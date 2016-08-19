@@ -6,6 +6,7 @@ import { getCoords, coordsToAddress } from '../actions/googleRequests';
 import { disableSurge } from '../actions/index';
 import handleKeyDown from '../helpers/disableEnter';
 import locationIcon from '../../assets/compass.svg';
+import Favicon from 'react-favicon';
 // Components
 import LocationSearch from '../components/locationSearch.jsx';
 import ExpandSearch from '../components/expandSearch.jsx';
@@ -111,6 +112,7 @@ class Controls extends Component {
     }
     return (
       <div className="search-box">
+      <Favicon url= {require("../../assets/favicon.png")} />
         <form onSubmit={this.onFormSubmit} className="location-form">
           <div className="location-search-inputs">
             <div className="current-location-start">
