@@ -76,22 +76,27 @@ class ActiveRoute extends Component {
 
   render() {
     if (!this.props.route) { return <div></div>; }
-      let eta = Math.round(this.props.route.minPrice.eta/60),
-          totalTime = Math.round((this.props.route.minPrice.duration + this.props.route.minPrice.eta))*1000,
-          arrivalTime = (msToTime(Date.now()+totalTime)),
+      let eta = Math.round(this.props.route.eta/60),
+          driveTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
+          arrivalTime,
           etaMinutes = eta <= 1 ? 'minute' : 'minutes',
-          cost = this.props.route.minPrice.high_estimate ? '$' + (Math.round(this.props.route.minPrice.high_estimate/100)) : 'Metered',
+          cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
           backgroundColor = this.state.style[this.props.style],
           classes = 'selected-route-container ' + backgroundColor,
           distance;
-          if (this.props.route.radius) {
-              distance = <p className="pickup-distance-active"><img src={walkIcon}/> {this.props.route.radius}m</p>;
+          if (this.props.route.walkTime) {
+            let travelTime = Date.now()+(driveTime+Math.round(this.props.route.walkTime.value)*1000);
+                arrivalTime = (msToTime(travelTime));
+                distance = <div className="pickup-distance-active"><img src={walkIcon}/><p>{this.props.route.walkTime.text}</p></div>;
+          }
+          else {
+            arrivalTime = (msToTime(Date.now()+driveTime));
           }
       return (
         <div>
           <div onClick={() => {this.props.deselectRoute(); this.setState({inputElement: null})}} className="lightbox-background"></div>
           <div className={classes}>
-            <h1>{this.props.route.minPrice.display_name}</h1>
+            <h1>{this.props.route.display_name}</h1>
             <h1>{cost}</h1>
             <p>Pickup: {eta} {etaMinutes}</p>
             <p>Arrival: {arrivalTime}</p>

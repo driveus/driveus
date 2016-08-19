@@ -93,7 +93,7 @@ export function getExpandedWalkingTime(routes, startLocation) {
         travelMode: 'WALKING'
       }, function(response, status) {
         if (status === 'OK') {
-          routes[i].walkTime = response.routes[0].legs[0].duration;
+          routes[i].minPrice.walkTime = response.routes[0].legs[0].duration;
           dispatch(receiveRoutesExpanded(routes[i], i));
         } else {
           window.alert('Directions request failed due to ' + status);
