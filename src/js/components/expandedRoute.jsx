@@ -11,7 +11,7 @@ class ExpandedRoute extends Component {
   }
   setActiveRoute() {
     return this.props.selectRoute({
-      route: this.props.route,
+      route: this.props.route.minPrice,
       style: this.props.classStyle
     });
   }
@@ -20,7 +20,7 @@ class ExpandedRoute extends Component {
     let eta = Math.round(this.props.route.minPrice.eta/60),
         etaMessage = `${eta} min`,
         driveTime = Math.round((this.props.route.minPrice.duration + this.props.route.minPrice.eta))*1000,
-        travelTime = Date.now()+(driveTime+Math.round(this.props.route.walkTime.value*1000)),
+        travelTime = Date.now()+(driveTime+Math.round(this.props.route.minPrice.walkTime.value)*1000),
         arrivalTime = (msToTime(travelTime)),
         cost = this.props.route.minPrice.avg_estimate ? '$' + (Math.round(this.props.route.minPrice.avg_estimate/100)) : 'Metered',
         disclaimer = this.props.carpool ? '\nMay make additional stops' : '',
@@ -30,7 +30,7 @@ class ExpandedRoute extends Component {
         onClick={this.setActiveRoute}>
         <div className="pickup-distance-container">
           <img src={walkIcon}/>
-          <p className="pickup-distance">{this.props.route.walkTime.text}</p>
+          <p className="pickup-distance">{this.props.route.minPrice.walkTime.text}</p>
         </div>
         <div className="ride-info">
           <div className="route-cost" style={this.props.priceStyle}>{cost} {this.props.surgeNotice}</div>
