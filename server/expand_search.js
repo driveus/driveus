@@ -9,13 +9,10 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
     optimalPrice.coords = rideOptions.coords;
   }
   rideOptions.rides.forEach((option) => {
-    console.log('OPTION: ', option.display_name, ' Surge:', option.price_multiplier, ' Est:', option.avg_estimate, ' Time:',  option.eta + option.duration, ' Dist:', option.distance, ' Coords:',  rideOptions.coords.start)
     if (option.price_multiplier === optimalPrice.ride.price_multiplier &&
         option.avg_estimate === optimalPrice.ride.avg_estimate &&
         option.display_name !== 'UberTAXI') {
-        console.log('Same multiplier and price')
       if ((option.eta + option.duration < optimalPrice.ride.eta + optimalPrice.ride.duration ) || (option.distance < optimalPrice.ride.distance)) {
-        console.log('Better distance (could add time back in)');
         optimalPrice.ride = option;
         optimalPrice.coords = rideOptions.coords;
       }
@@ -23,12 +20,10 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
     if (option.price_multiplier <= optimalPrice.ride.price_multiplier &&
         option.avg_estimate < optimalPrice.ride.avg_estimate &&
         option.display_name !== 'UberTAXI') {
-          console.log('Better/same multiplier and better price')
           optimalPrice.ride = option;
           optimalPrice.coords = rideOptions.coords;
     }
   });
-  console.log('BEST: ', 'Product:', optimalPrice.ride.display_name, ' Surge:', optimalPrice.ride.price_multiplier, ' Est:',  optimalPrice.ride.avg_estimate,  ' Time:',  optimalPrice.ride.eta + optimalPrice.ride.duration, ' Dist:', optimalPrice.ride.distance, ' Coords:',  optimalPrice.coords.start);
   return optimalPrice;
 }
 
@@ -36,11 +31,9 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
 // Receives the user's selected starting location
 function expandSearch(startCoords, radius) {
   const promiseList = [];
-  console.log('start coords: ', startCoords, 'Radius: ', radius);
 
   return genRadius.createGeoRadius(startCoords, radius) // generates a radius of GPS points around a starting point
     .then((data) => {
-      console.log('Radius:', radius, 'data: ', data);
       data.forEach((coordPair) => { // For all coordinates around starting point, generates Start and End pairs based on destination
         const newStartEnd = {
           start: coordPair,

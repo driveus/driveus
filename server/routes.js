@@ -46,7 +46,6 @@ module.exports = function(app) {
 // Will respond with cheapest and fastest ride options based on various bearings/radius around start point
   app.all('/api/expandSearch', (req, res) => {
     let coords;
-    // let coords = dummyCoords; // remove
     let resultObj = {};
     let unresolvedPromises = [];
     let radii = [
@@ -63,30 +62,17 @@ module.exports = function(app) {
     })
     Promise.all(unresolvedPromises)
       .then((promises) => {
-        // for (let i = 0; i < promises.length; i++) {
-        //   resultObj[radii[i][0]] = promises[i];
-        // }
-        // resultObj[radii[0][0]] = promises[0]
         for (let i = 1; i < promises.length; i++) {
           if (Object.keys(resultObj).length === 0) {
-            console.log('resultObj still empty')
-            console.log('First Result: ', promises[0].minPrice.price_multiplier, 'Current Check result: ', promises[i].minPrice.price_multiplier);
-            console.log('First Result: ', promises[0].minPrice.avg_estimate, 'Current Check result: ', promises[i].minPrice.avg_estimate);
             if (promises[0].minPrice.price_multiplier > promises[i].minPrice.price_multiplier || 
                 promises[0].minPrice.avg_estimate - promises[i].minPrice.avg_estimate >= 100) {
                   resultObj[radii[i][0]] = promises[i];
             }
           } else {
-            console.log('checking result obj');
             let shouldAdd = true;
             for (let result in resultObj) {
-              console.log('Result Obj. Multiplier: ', resultObj[result].minPrice.price_multiplier);
-              console.log('Checking: ', promises[i].minPrice.price_multiplier);
-              console.log('Result Obj. Multiplier: ', resultObj[result]);
-              console.log('Checking: ', promises[i]);
               if (resultObj[result].minPrice.price_multiplier <= promises[i].minPrice.price_multiplier && 
                   resultObj[result].minPrice.avg_estimate - promises[i].minPrice.avg_estimate < 100) {
-                    console.log('Option disqualified.', resultObj[result].minPrice.avg_estimate, promises[i].minPrice.avg_estimate);
                     shouldAdd = false;
               }
             }
