@@ -1,21 +1,29 @@
-//TODO: Checkbox to subdivide into uber and lyft
-
-
 google.charts.load('current', {'packages': ['corechart', 'geochart']});
-google.charts.setOnLoadCallback(drawBarChart);
+google.charts.setOnLoadCallback(drawColumnChart);
 
-function drawBarChart() {
+function drawColumnChart() {
   const dataArray = [['City', 'Uber', 'Lyft']]
   const options = {'title': 'Price per mile of Lyft and Uber',
-                   'width': 1300,
-                   'height': 850,
+                   //The following values may need to be fine-tuned to your own screen size.
+                   'width': 980,
+                   'height': 680,
+                   'chartArea': {width: '100%', height: '80%'},
                    'colors': ['#575757', '#EA0B8C'],
-                  //  'legend': {position: 'none'},
-                   'vAxis': {ticks: [{v:0,f:'$0'},{v:1,f:'$1.00'},{v:2,f:'$2.00'},{v:3,f:'$3.00'},{v:4,f:'$4.00'},{v:5,f:'$5.00'},{v:6,f:'$6.00'},{v:7,f:'$7.00'}]}
+                   'legend': {position: 'bottom'},
+                   'vAxis': {ticks: [{v:0,f:'$0'},
+                             {v:1,f:'$1.00'},
+                             {v:2,f:'$2.00'},
+                             {v:3,f:'$3.00'},
+                             {v:4,f:'$4.00'},
+                             {v:5,f:'$5.00'},
+                             {v:6,f:'$6.00'},
+                             {v:7,f:'$7.00'}]
+                            }
                   };
-  const chart = new google.visualization.ColumnChart(document.getElementById('bar-chart'));
+  const chart = new google.visualization.ColumnChart(document.getElementById('chart'));
 
-  $.get('/charts/bar', (data) => {
+  $.get('/charts/column', (data) => {
+    //Data is an object with properties "Lyft" and "Uber", both an array of ride statistics
     for (let obj of data.Uber) {
       dataArray.push([obj.city, +obj.cost]);
     }
@@ -24,33 +32,72 @@ function drawBarChart() {
         dataArray[i][2] = 0;  //Lyft doesn't operate in Houston
       }
       for (let obj of data.Lyft) {
-        console.log(obj.city, dataArray[i][0])
         if (obj.city === dataArray[i][0]) {
           dataArray[i][2] = +obj.cost;
         }
       }
     }
-    console.log(dataArray);
+
     const chartData = google.visualization.arrayToDataTable(dataArray);
     chart.draw(chartData, options);
   })
 }
 
+//TODO: this chart under development
 function drawGeoChart() {
-  const dataArray = [['City', 'Surge Count', 'Surge Multiplier']];
+  const dataArray = [['City', 'Surge Multiplier', 'Surge Count']];
   const options = {
-    region: 'USA',
+    region: 'US',
     displayMode: 'markers',
-    colorAxis: {colors: ['green', 'red']}
+    colorAxis: {colors: ['yellow', '#FF0000']}
   };
 
   $.get('/charts/geo', (data) => {
     for (let obj of data) {
-      dataArray.push([obj.city, obj.count, obj.max])
+      if (obj.city === 'San Francisco') {
+        dataArray.push([obj.city, parseFloat(obj.max),  1875]) //Compensate for excessive surge testing here
+      } else if (obj.city === 'Houston') {
+        dataArray.push([obj.city, parseFloat(obj.max),  parseInt(obj.count) * 2])  //compensate for no lyft
+      } else {
+        dataArray.push([obj.city, parseFloat(obj.max),  parseInt(obj.count)])
+      }
     }
     console.log(dataArray);
     const chartData = google.visualization.arrayToDataTable(dataArray);
-    const chart = new google.visualization.GeoChart(document.getElementById('bar-chart'));
+    const chart = new google.visualization.GeoChart(document.getElementById('chart'));
+    console.log(dataArray);
     chart.draw(chartData, options);
   });
+}
+
+//TODO: This chart under development
+function drawScatterChart() {
+  const dataArray = new google.visualization.DataTable();
+  dataArray.addColumn('number', 'Lat');
+  dataArray.addColumn('number', 'Lng');
+  // dataArray.addColumn('number', 'Price');
+  // dataArray.addColumn('number', 'Surge Multiplier');
+  const options = {
+    region: 'US',
+    displayMode: 'markers',
+    sizeAxis: { minValue: 5, maxValue: 5 },
+    colorAxis: {colors: ['yellow', '#FF0000']}
+  };
+
+  $.get('/charts/scatter', (data) => {
+    let count = 0;
+    for (let obj of data) {
+      count++;
+      if (count > 50) {break}
+      // if (obj.city === 'San Francisco') {
+      //   dataArray.push([obj.start_lat, obj.start_lng, parseFloat(obj.max),  1875]) //Compensate for excessive surge testing here
+      // } else if (obj.city === 'Houston') {
+      //   dataArray.push([obj.city, parseFloat(obj.max),  parseInt(obj.count) * 2])  //compensate for no lyft
+      // } else {
+        dataArray.addRows([[parseFloat(obj.start_lat), parseFloat(obj.start_lng)]]);//, parseFloat(obj.high_est),  parseFloat(obj.price_multiplier)]]);
+      }
+    });
+    const chart = new google.visualization.GeoChart(document.getElementById('chart'));
+    console.log(dataArray);
+    chart.draw(dataArray, options);
 }

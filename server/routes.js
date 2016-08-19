@@ -115,13 +115,18 @@ module.exports = function(app) {
         if (err) { console.log(err, 'error message'); }
     })
   })
-  app.all('/charts/bar', (req, res) => {
-    analytics.citiesBarChart((data) => {
+  app.all('/charts/column', (req, res) => {
+    analytics.columnChart((data) => {
       res.json(data);
     });
   });
   app.all('/charts/geo', (req, res) => {
     analytics.geoChart((data) => {
+      res.json(data);
+    });
+  });
+  app.all('/charts/scatter', (req, res) => {
+    analytics.scatterChart((data) => {
       res.json(data);
     });
   });
