@@ -6,6 +6,7 @@ import { getCoords, coordsToAddress } from '../actions/googleRequests';
 import { disableSurge } from '../actions/index';
 import handleKeyDown from '../helpers/disableEnter';
 import locationIcon from '../../assets/compass.svg';
+
 import Favicon from 'react-favicon';
 import LocationSearch from '../components/locationSearch.jsx';
 import ExpandSearch from '../components/expandSearch.jsx';
