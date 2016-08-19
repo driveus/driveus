@@ -360,7 +360,8 @@ input[type=search] {
 .disclaimer {
   font-size: 11px;
   color: $off-white;
-  opacity: .6
+  opacity: .6;
+  padding-top: 4px;
 }
 
 .price,
@@ -391,7 +392,7 @@ input[type=search] {
   padding: $list-padding;
   list-style-type: none;
   margin: 0px 2px 0px 2px;
-  min-height: 80px;
+  min-height: 95px;
   display: flex;
   align-items: center;
   justify-content: center;

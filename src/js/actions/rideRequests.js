@@ -28,6 +28,7 @@ export function fetchUber(coords) {
   return function(dispatch) {
     axiosRequest('uber', coords)
     .then(function (response) {
+      console.log(response.data)
       dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesUber(coords, response.data.rides));
     })
@@ -42,6 +43,7 @@ export function fetchLyft(coords) {
   return function(dispatch) {
     axiosRequest('lyft', coords)
     .then(function (response) {
+      console.log(response.data)
       dispatch(setSurgeMultipler(response.data.surge))
       dispatch(receiveRoutesLyft(coords, response.data.rides));
     })
