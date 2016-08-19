@@ -126,15 +126,3 @@ module.exports = function(app) {
     });
   });
 }
-
-
-const dummyCoords = {
-  start: {
-    lat: 37.795,
-    lng: -122.395
-  },        
-  end: {
-    lat: 37.74773,
-    lng: -122.374935
-  }
-}

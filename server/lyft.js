@@ -2,7 +2,7 @@
 
 const db = require('./db.js');
 const rp = require('request-promise');
-let lyftToken;
+let lyftToken;  //Expires every hour; we generate a new one before expiration
 
 //Uses our Lyft ID and Secret to generate a token valid for 1 hour to make API calls
 function generateToken() {
@@ -95,7 +95,7 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
   rides.filter(function(ride) {
     for (let prop in ride) {
       if (prop === undefined) {
-        console.log("Excluding malformed ride:", ride);
+        console.error("Excluding malformed ride:", ride);
         return false;
       }
     }
