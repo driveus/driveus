@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-// Components
 import Controls from '../containers/controls.jsx';
 import RouteLists from '../containers/routeLists.jsx';
 import ActiveRoute from '../containers/activeRoute.jsx';

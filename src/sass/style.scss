@@ -739,10 +739,9 @@ input[type=search] {
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  padding: 2px 0px 0px;
+  padding: 4px 0px 0px;
   img {
     width: 12px;
-    min-height: 100%;
     margin-right: 3px;
   }
 }
@@ -961,7 +960,7 @@ input[type=search] {
   .disclaimer {
     font-size: 10px;
   }
-  @media (min-width: 600px) {
+  @media (min-width: 550px) {
     .selected-route-container {
       right: 20%;
       left: 20%;
@@ -1048,8 +1047,8 @@ input[type=search] {
     .empty-message-img {
       display: relative;
       margin: $center;
-      max-height: 50%;
-      max-width: 50%;
+      max-height: 40%;
+      max-width: 40%;
     }
     .location-form {
       input {

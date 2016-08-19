@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 
-// Components
 import ExpandedRoute from './expandedRoute.jsx';
-
-// Fast and Cheap images
-// let time = require('../../assets/time-w-baloon.svg');
-// let price = require('../../assets/price-w-baloon.svg');
-// let priceTime = require('../../assets/price-time-w-baloon.svg');
 
 class ExpandedRouteList extends Component {
   constructor(props) {

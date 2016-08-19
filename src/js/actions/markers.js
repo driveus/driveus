@@ -4,7 +4,6 @@ import {
   SET_EXPANDED_CIRCLE
 } from './types';
 
-// setMarkers -> reducer_route_marker
 export function setMarkers(coords) {
   let newMarkers = {};
   newMarkers.start = new google.maps.Marker({
@@ -20,7 +19,7 @@ export function setMarkers(coords) {
     payload: newMarkers
   }
 }
-// setExpandedMarkers -> reducer_expanded_marker
+
 export function setExpandedMarkers(coords) {
   let newMarkers = {};
   for (let i in coords) {

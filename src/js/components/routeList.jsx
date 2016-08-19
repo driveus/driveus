@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-// Components
 import Route from './route.jsx';
 
 class RouteList extends Component {
@@ -12,7 +11,6 @@ class RouteList extends Component {
     };
   }
   renderRoutes() {
-    // Div formatting including carpool disclaimer for certain services
     return this.props.routes.map((route) => {
       if (route.high_estimate) {
         let priceStyle = {color:'inherit'},

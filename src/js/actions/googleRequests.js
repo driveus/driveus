@@ -13,7 +13,6 @@ import {
 
 import { setMarkers } from './markers';
 
-// Gets coordinate information from string addressess
 export function getCoords(location) {
   return function(dispatch) {
     dispatch(getDirections(location.start, location.end));
@@ -48,7 +47,6 @@ export function getCoords(location) {
   }
 }
 
-// Universal directions request - could be split up for better control
 export function getDirections(start, end) {
   return function (dispatch) {
     let directionsService = new google.maps.DirectionsService;

@@ -6,8 +6,8 @@ import { getCoords, coordsToAddress } from '../actions/googleRequests';
 import { disableSurge } from '../actions/index';
 import handleKeyDown from '../helpers/disableEnter';
 import locationIcon from '../../assets/compass.svg';
+
 import Favicon from 'react-favicon';
-// Components
 import LocationSearch from '../components/locationSearch.jsx';
 import ExpandSearch from '../components/expandSearch.jsx';
 
@@ -33,7 +33,7 @@ class Controls extends Component {
   componentDidMount() {
     document.querySelector('.location-form').addEventListener('keydown', handleKeyDown);
   }
-  // Wipes input field after form submission (at the end of redux cycle)
+
   componentWillReceiveProps() {
     this.setState({
       startLocation: '',
@@ -55,12 +55,12 @@ class Controls extends Component {
     });
     coordsToAddress(this.updateStartCoords)
   }
-  // Assigns input placeholders and fires of redux chain API calls
+
   onFormSubmit(e) {
     e.preventDefault();
     if (this.props.canRequestRoutes && this.state.canSubmit) {
       let startLocation = e.target.startLocation.value || this.state.currentLocation,
-          endLocation = e.target.endLocation.value || this.state.currentEndpoint;
+      endLocation = e.target.endLocation.value || this.state.currentEndpoint;
       if (startLocation && endLocation) {
         let location = {
           start: startLocation,
@@ -76,36 +76,36 @@ class Controls extends Component {
       }
     }
   }
-  // Tracks user input to local state values
+
   handleLocationChange(e) {
     this.props.disableSurge();
     switch (e.target.name) {
       case 'startLocation':
-        this.setState({ startLocation: e.target.value });
-        break;
+      this.setState({ startLocation: e.target.value });
+      break;
       case 'endLocation':
-        this.setState({ endLocation: e.target.value });
-        break;
+      this.setState({ endLocation: e.target.value });
+      break;
       default:
-        return;
+      return;
     }
   }
-  // Assigns Google autocomplete values to local state
+
   handleLocationAutoComplete(address, tripNode) {
     switch (tripNode) {
       case 'startLocation':
-        this.setState({ startLocation: address });
-        break;
+      this.setState({ startLocation: address });
+      break;
       case 'endLocation':
-        this.setState({ endLocation: address });
-        break;
+      this.setState({ endLocation: address });
+      break;
       default:
-        return;
+      return;
     }
   }
   render() {
     let isActive = 'inactive-expand',
-        canExpand = null;
+    canExpand = null;
     if (this.props.surge > 1 && !this.state.startLocation && !this.state.endLocation) {
       isActive = 'active-expand';
       canExpand = this.props.fetchExpanded;
@@ -124,8 +124,8 @@ class Controls extends Component {
                 value={this.state.startLocation}
                 name="startLocation"
                 placeholder={this.state.startPlaceholder}
-              />
-            <div className="current-location"  onClick={this.setCurrent} >
+                />
+              <div className="current-location"  onClick={this.setCurrent} >
                 <img src={locationIcon} className="compass"/>
               </div>
             </div>
@@ -136,7 +136,7 @@ class Controls extends Component {
               value={this.state.endLocation}
               name="endLocation"
               placeholder={this.state.endPlaceholder}
-            />
+              />
           </div>
           <button className="form-btn"></button>
 
@@ -147,7 +147,7 @@ class Controls extends Component {
           expandSearch={this.props.fetchExpanded}
           disableSurge={this.props.disableSurge}
           message={this.props.expandedRoutes.message}
-        />
+          />
       </div>
     );
   }
@@ -169,5 +169,5 @@ function mapDispatchToProps(dispatch) {
     disableSurge: disableSurge
   }, dispatch);
 }
-// no mapStateToProps, must use null to skip to mapDispatchToProps
+
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);
