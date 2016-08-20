@@ -54,7 +54,7 @@ function expandSearch(startCoords, radius) {
       };
     })
     .catch((err) => {
-        console.log('Some Uber or Lyft call failed', err);
+        console.error('Some Uber or Lyft call failed', err);
     })
 }
 
