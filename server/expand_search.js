@@ -31,10 +31,12 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
 // Receives the user's selected starting location
 function expandSearch(startCoords, radius) {
   const promiseList = [];
-
-  return genRadius.createGeoRadius(startCoords, radius) // generates a radius of GPS points around a starting point
+  
+  // Generates a radius of GPS points around a starting point
+  return genRadius.createGeoRadius(startCoords, radius) 
     .then((data) => {
-      data.forEach((coordPair) => { // For all coordinates around starting point, generates Start and End pairs based on destination
+      // For all coordinates around starting point, generates Start and End pairs based on destination
+      data.forEach((coordPair) => { 
         const newStartEnd = {
           start: coordPair,
           end: startCoords.end
