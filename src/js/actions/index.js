@@ -15,7 +15,6 @@ import {
   INVALID_ROUTES
 } from './types';
 
-// setDirections -> reducer_directions
 export function setDirections(directions) {
   return {
     type: SET_DIRECTIONS,
@@ -28,7 +27,7 @@ export function setWalkingTime(directions) {
     payload: directions
   }
 }
-// setAddress -> reducer_current_address
+
 export function setAddress(address) {
   return {
     type: SET_ADDRESS,
@@ -46,22 +45,20 @@ export function disableSurge() {
     type: DISABLE_SURGE
   }
 }
-// selectRoute -> reducer_active_route
+
 export function selectRoute(route) {
   return {
     type: ROUTE_SELECTED,
     payload: route
   };
 }
-// deselectRoute -> reducer_active_route
+
 export function deselectRoute() {
   return {
     type: ROUTE_DESELECTED,
   };
 }
-// requestRoutes -> reducer_routes,
-                 // reducer_request_routes,
-                 // reducer_expanded_routes
+
 export function requestRoutes(coords) {
   return {
     type: REQUEST_ROUTES
@@ -72,41 +69,42 @@ export function requestExpandedRoutes(coords) {
     type: REQUEST_EXPANDED_ROUTES
   }
 }
-// receiveRoutesUber && receiveRoutesLyft ->
-      // reducer_routes,
-      // reducer_request_routes,
-      // reducer_expanded_routes
-      // reducer_expanded_marker,
-      // reducer_expanded_directions,
-      // reducer_current_coords
+
 export function receiveRoutesUber(coords, data) {
+  let routes = data.sort(function(a,b) {
+    return a.avg_estimate - b.avg_estimate;
+  });
   return {
     type: RECEIVE_ROUTES_UBER,
     coords: coords,
-    routes: data
-  }
-}
-export function receiveRoutesLyft(coords, data) {
-  return {
-    type: RECEIVE_ROUTES_LYFT,
-    coords: coords,
-    routes: data
-  }
-}
-// receiveRoutesExpanded -> reducer_expanded_routes
-export function receiveRoutesExpanded(routes) {
-  return {
-    type: RECEIVE_EXPANDED_ROUTES,
     routes: routes
   }
 }
-// noExpandedRoutes -> reducer_expanded_routes
+export function receiveRoutesLyft(coords, data) {
+  let routes = data.sort(function(a,b) {
+    return a.avg_estimate - b.avg_estimate;
+  });
+  return {
+    type: RECEIVE_ROUTES_LYFT,
+    coords: coords,
+    routes: routes
+  }
+}
+
+export function receiveRoutesExpanded(routes, name) {
+  return {
+    type: RECEIVE_EXPANDED_ROUTES,
+    routes: routes,
+    name: name
+  }
+}
+
 export function noExpandedRoutes() {
   return {
     type: NO_EXPANDED_ROUTES
   }
 }
-// invalidRoutes -> reducer_routes
+
 export function invalidRoutes() {
   return {
     type: INVALID_ROUTES

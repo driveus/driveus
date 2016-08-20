@@ -52,7 +52,7 @@ function reverseGeoCode(geoPoint) {
             return resp.results[0].geometry.location;
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
             return 'Reversing Geocode Failed';
           });
 }
@@ -61,9 +61,11 @@ function reverseGeoCode(geoPoint) {
 function createGeoRadius(coords, searchRadius) {
   const startPoint = coords.start;
   const radius = searchRadius/1000;  // Converts meters to km
-  // const promiseList = [];
-  // Creates promiseList array and instantiates with the validated start point
-  let promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
+  let promiseList = [];
+  if (radius === 0) {
+    promiseList = [reverseGeoCode(createPointOnRadius(startPoint, 0, 0))];
+    return Promise.all(promiseList);
+  }
   const bearings = [0, 45, 90, 135, 180, 225, 270, 315];
   // const bearings = [0, 90, 180, 270];
   bearings.forEach((bearing) => {

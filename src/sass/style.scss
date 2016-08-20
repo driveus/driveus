@@ -19,7 +19,6 @@ $lyft-color-primary: #EA0B8C;
 $lyft-color-secondary: #ef43a7;
 $lyft-color-hover: #ee91c2;
 $lyft-color-active: #ea7bb6;
-
 * {
   margin: 0;
   font-family: sans-serif;
@@ -35,10 +34,13 @@ body {
   background-color: $primary-color;
 }
 
-input[type=search]{
-   -moz-appearance: none;/* older firefox */
-   -webkit-appearance: none; /* safari, chrome */
-   appearance: none; /* rest */
+input[type=search] {
+  -moz-appearance: none;
+  /* older firefox */
+  -webkit-appearance: none;
+  /* safari, chrome */
+  appearance: none;
+  /* rest */
 }
 
 #container {
@@ -302,7 +304,8 @@ input[type=search]{
     width: 20%;
     line-height: 2em;
     font-size: 1em;
-  };
+  }
+  ;
   span {
     margin: 0 20px;
   }
@@ -339,6 +342,7 @@ input[type=search]{
 .expanded {
   background-color: #426d7d;
 }
+
 .expanded-routes {
   .price:hover {
     background-color: #426d7d;
@@ -356,7 +360,8 @@ input[type=search]{
 .disclaimer {
   font-size: 11px;
   color: $off-white;
-  opacity: .6
+  opacity: .6;
+  padding-top: 4px;
 }
 
 .price,
@@ -380,11 +385,14 @@ input[type=search]{
 }
 
 .list-item {
+  border-bottom: 1px solid rgba(255,255,255,0.6);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   cursor: pointer;
-  padding: $list-padding;
+  padding: 5px;
   list-style-type: none;
-  margin-bottom: 1px;
-  height: 70px;
+  margin: 0px 2px 0px 2px;
+  min-height: 95px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -400,6 +408,7 @@ input[type=search]{
   overflow: scroll;
   background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
   margin: $center;
+  // margin-bottom: 2em;
   div {
     transition-duration: 400ms;
   }
@@ -409,6 +418,7 @@ input[type=search]{
 }
 
 .uber-list-container {
+  box-sizing: border-box;
   box-shadow: $default-box-shadow;
   background-color: $uber-color-secondary;
   overflow: hidden;
@@ -432,6 +442,7 @@ input[type=search]{
 }
 
 .lyft-list-container {
+  box-sizing: border-box;
   box-shadow: $default-box-shadow;
   background-color: $lyft-color-primary;
   overflow: hidden;
@@ -468,15 +479,18 @@ input[type=search]{
 
 .driver-eta,
 .route-duration {
-  font-size: 14px;
+  font-size: 13px;
   display: flex;
   align-items: center;
 }
+
 .surge-notice {
   font-size: 12px;
   color: yellow;
 }
+
 .selected-route-container {
+  padding: 10px 0;
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -490,6 +504,14 @@ input[type=search]{
   min-height: 250px;
   border-radius: $default-radius;
   box-shadow: 2px 2px 23px -2px rgba(0, 0, 0, 0.3);
+}
+
+.walking-disclaimer {
+  margin: 10px 0 0 0;
+  font-size: 12px;
+  max-width: 80%;
+  color: #f3f3f5;
+  opacity: .6;
 }
 
 #order-btn {
@@ -581,15 +603,23 @@ input[type=search]{
   margin: 2em 0;
   line-height: 1.5em;
   color: gray;
-  opacity: .3;
+  h1 {
+    opacity: .3;
+  }
   display: inherit;
   transition: all .3s ease .15s;
+}
+
+.empty-message-img {
+  margin-top: 3em;
+  opacity: 0.6;
 }
 
 .text-message {
   padding: 5px 20px;
   font-size: 14px;
 }
+
 .travel-info {
   padding: 4px 0px;
   width: 90%;
@@ -602,96 +632,158 @@ input[type=search]{
     margin-right: 5px;
   }
 }
+
 .ride-info {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
+.expanded-list {
+  background-color: #426d7d;
+}
 .expanded-routes {
   flex-direction: row;
   display: flex;
   justify-content: center;
-  background-color: #426d7d;
-  box-shadow: 0px -4px 10px -2px rgba(0,0,0,0.75);
+}
+.expanded-message {
+  pointer-events: none;
+  font-size: 14px;
+  padding: 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
 }
 .expanded-list-item {
+  position: relative;
   transition-duration: 200ms !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
   cursor: pointer;
   width: 100%;
   padding: 5px;
-  background-color: #426d7d;
+  background-color: #375b69;
   &:hover {
     background-color: #567a88;
   }
   &:nth-child(even) {
-    background-color: #375b69;
+    background-color: #426d7d;
     &:hover {
       background-color: #567a88;
     }
   }
   .travel-info {
-    flex-direction: column;
+    margin: auto;
     align-items: center;
+    padding-bottom: 2px;
     div:first-child {
       margin-bottom: 4px;
     }
   }
+  .ride-info {
+    padding-top: 3px;
+  }
 }
+
 .active-expand {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  transition-duration: 200ms;
+  transition-duration: 100ms;
   margin: 0;
   top: 0;
   left: 0;
   position: absolute;
-  background-color: #279a80;
+  background-color: #325461;
   padding-top: 5px;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  span {
+    font-size: 14px;
+  }
   div {
     width: 100%;
-    margin-top: 5px;
+    margin-top: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 }
+
+.expand-loading {
+  height: 4em;
+  width: 4em;
+  margin: 1em auto;
+}
+
 .expand-btn {
   cursor: pointer;
   color: white;
   margin: 1px;
   border: none;
-  background-color: mediumaquamarine;
+  background-color: #558698;
   width: 30%;
   padding: 10px;
-  &:active {
-    background-color: #2ea58a;
-  }
-  &:focus {
-    background-color: #437979;
+  &:hover {
+    background-color: #5c8fa2;
   }
 }
-.pickup-distance {
-  font-size: 14px;
-  background-color: cadetblue;
+// .pickup-distance-container {
+//     display: flex;
+//     align-items: center;
+//     position: absolute;
+//     right: 10px;
+//     padding: 5px 0px;
+//     font-size: 12px;
+//     img {
+//       width: 12px;
+//       min-height: 100%;
+//       margin-right: 3px;
+//     }
+//   }
+.pickup-distance-container {
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  padding: 4px 0px 0px;
+  img {
+    width: 12px;
+    margin-right: 3px;
+  }
 }
 .pickup-distance-active {
-  background-color: cadetblue;
+  display: flex;
+  align-items: center;
   padding: 2px 20px;
   margin-top: 5px;
+  img {
+    width: 20px;
+    margin-right: 5px;
+  }
+}
+.list-message {
+  font-size: 30px;
+  line-height: 35px;
 }
 
 // MOBILE-ISH ******************************************
 @media (max-width: 1050px) {
   #container {
     flex-direction: column;
+  }
+  .empty-message {
+    // margin: 0em 0;
+    h1 {
+      display: none;
+    }
+  }
+  .empty-message-img {
+    max-height: 230px;
+    max-width: 230px;
+    margin-top: 1.3em;
   }
   .current-location {
     display: flex;
@@ -732,27 +824,25 @@ input[type=search]{
   .marker-tag {
     margin: 5px 10px;
   }
-
   .compass {
     margin-top: 14px;
   }
-
   .list-container {
     width: 100%;
     order: 1;
     position: relative;
     border-top: 1px solid $secondary-color;
     background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
-    flex: 1;
+    // flex: 1;
     overflow: scroll;
   }
   .list-item {
     height: auto;
-    padding: 5px;
+    padding: 7px;
     flex-direction: column;
     display: flex;
     align-items: center;
-    min-height: 60px;
+    min-height: 85px;
     box-sizing: border-box;
   }
   .location-search-inputs {
@@ -879,10 +969,11 @@ input[type=search]{
   .disclaimer {
     font-size: 10px;
   }
-  .empty-message {
-    margin: 1.4em 0;
-  }
-  @media (min-width: 600px) {
+  @media (min-width: 550px) {
+    .selected-route-container {
+      right: 20%;
+      left: 20%;
+    }
     .location-form {
       input {
         height: 3em;
@@ -907,6 +998,7 @@ input[type=search]{
       margin-left: 10px;
       margin-right: 10px;
     }
+
     #container {
       position: inherit;
     }
@@ -924,6 +1016,7 @@ input[type=search]{
       position: absolute;
     }
     .list-item {
+      min-height: 100px;
       align-items: flex-start;
       flex-wrap: nowrap;
       padding: $list-padding;
@@ -959,10 +1052,27 @@ input[type=search]{
         width: 100%;
       }
     }
+
+    .empty-message-img {
+      display: relative;
+      margin: $center;
+      max-height: 40%;
+      max-width: 40%;
+    }
     .location-form {
       input {
         height: 3em;
       }
+    }
+  }
+
+
+  @media(max-width: 400px) {
+    .empty-message {
+      margin-top: 0;
+    }
+    .empty-message-img {
+      margin-top: 1em;
     }
   }
 }

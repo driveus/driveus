@@ -4,7 +4,6 @@ import {
   SET_EXPANDED_CIRCLE
 } from './types';
 
-// setMarkers -> reducer_route_marker
 export function setMarkers(coords) {
   let newMarkers = {};
   newMarkers.start = new google.maps.Marker({
@@ -20,7 +19,7 @@ export function setMarkers(coords) {
     payload: newMarkers
   }
 }
-// setExpandedMarkers -> reducer_expanded_marker
+
 export function setExpandedMarkers(coords) {
   let newMarkers = {};
   for (let i in coords) {
@@ -41,24 +40,28 @@ export function setExpandedMarkers(coords) {
     payload: newMarkers
   }
 }
-export function setExpandedCircle(coords, currentLocation) {
-  let circles = {};
-  for (let i in coords) {
+export function setExpandedCircle(currentLocation) {
+  let circles = {
+        close: 250,
+        medium: 500,
+        far: 750
+      }
+  for (let i in circles) {
     let circleColor;
     switch(i) {
       case 'close':
-        circleColor = 'green';
+        circleColor = '#29322f';
         break;
       case 'medium':
-        circleColor = 'yellow';
+        circleColor = '#545c5a';
         break;
       case 'far':
-        circleColor = 'red';
+        circleColor = '#686d6b';
         break;
       }
     let expandedCircle = new google.maps.Circle({
       center: currentLocation.start,
-      radius: coords[i].radius/1,
+      radius: circles[i]/1,
       fillColor: circleColor,
       fillOpacity: 0.3,
       strokeWeight: 0

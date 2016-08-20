@@ -28,7 +28,6 @@ function uberEtas(coords) {
 
 //Input Uber's responses from the rides & etas API calls, output an array
 // of ride options with all relevant properties combined from the two calls.
-
 function parseUber(apiResponses, isExpandedSearch, city) {
   isExpandedSearch = isExpandedSearch === undefined ? false : true;
   city = city === undefined ? 'San Francisco' : city;  //for analytics
@@ -89,8 +88,9 @@ function parseUber(apiResponses, isExpandedSearch, city) {
       }
     }
   }
-
   //*********END OF HARDCODED SURGE MULTIPLIER ******
+
+  //for determining whether to offer expanded search:
   rides.forEach((ride) => {
     if (ride.display_name === 'UberPOOL' || ride.display_name === 'UberX') {
       if (ride.price_multiplier > 1) { surgeCount++; }

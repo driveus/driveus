@@ -4,10 +4,15 @@
     <meta charset="utf-8">
     <title>Ride Analytics</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyBKCmCrUvKyARcH3ro_Lu6g42NuG5WwWog"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi?key=AIzaSyBKCmCrUvKyARcH3ro_Lu6g42NuG5WwWog"></script>
     <script type="text/javascript" src="./analytics.js"></script>
   </head>
   <body>
-    <div id="bar-chart"></div>
+    <div id="title" style="position:absolute;top:0;left:21%;z-index:99;font-family:Verdana;">
+      <h2>Cost Per Mile: Uber vs Lyft</h2>
+    </div>
+    <div id="chart"></div>
   </body>
 </html>

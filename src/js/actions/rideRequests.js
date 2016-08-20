@@ -18,7 +18,8 @@ import {
 import {
   getCoords,
   getDirections,
-  getWalkingTime
+  getWalkingTime,
+  getExpandedWalkingTime
 } from './googleRequests';
 
 import axiosRequest from '../helpers/axios';
@@ -57,18 +58,17 @@ export function fetchExpanded(coords) {
     dispatch(requestExpandedRoutes());
     axiosRequest('expandSearch', coords)
     .then(function (response) {
-      dispatch(setExpandedCircle(response.data, coords));
-      dispatch(setExpandedMarkers(response.data));
-      let expandedRoutes = {};
-      for (let i in response.data) {
-        expandedRoutes[i] = response.data[i].minPrice;
-        expandedRoutes[i].radius = response.data[i].radius;
+      if (!Object.keys(response.data).length) {
+        dispatch(noExpandedRoutes());
       }
-      dispatch(receiveRoutesExpanded(expandedRoutes));
+      else {
+        dispatch(setExpandedCircle(coords));
+        dispatch(setExpandedMarkers(response.data));
+        dispatch(getExpandedWalkingTime(response.data, coords));
+      }
     })
     .catch(function(err) {
       console.log(err);
-      dispatch(noExpandedRoutes());
     })
   }
 }

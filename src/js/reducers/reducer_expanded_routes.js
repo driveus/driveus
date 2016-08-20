@@ -8,7 +8,7 @@ import {
 } from '../actions/types';
 
 // Setting state to this default feels ghetto... probably a better way
-export default function(state={routes:{close:null,medium:null,far:null},message:null,received:false,success:true}, action) {
+export default function(state={routes:{close:null,medium:null,far:null},message:null,success:true}, action) {
   switch (action.type) {
     case NO_EXPANDED_ROUTES:
       return Object.assign({}, state, {
@@ -19,21 +19,18 @@ export default function(state={routes:{close:null,medium:null,far:null},message:
       return {
         routes: {close:null,medium:null,far:null},
         message: null,
-        received: false,
         success: true
       }
     case REQUEST_EXPANDED_ROUTES:
       return Object.assign({}, state, {
-        message: 'Searching for better routes...'
+        message: 'Searching for better routes'
       });
     case RECEIVE_EXPANDED_ROUTES:
-      if (state.received) {
-        return state;
-      }
-      return Object.assign({}, state, {
-        routes: action.routes,
+      state.routes[action.name] = action.routes;
+      return Object.assign({}, state.routes, {
+        routes: state.routes,
         message: null,
-        received: true
+        success: true
       });
     }
   return state;

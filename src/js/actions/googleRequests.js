@@ -3,7 +3,7 @@ import {
   setWalkingTime,
   setAddress,
   requestRoutes,
-  setExpandedDirectionsPrice
+  receiveRoutesExpanded,
 } from './index';
 
 import {
@@ -13,7 +13,6 @@ import {
 
 import { setMarkers } from './markers';
 
-// Gets coordinate information from string addressess
 export function getCoords(location) {
   return function(dispatch) {
     dispatch(getDirections(location.start, location.end));
@@ -48,7 +47,6 @@ export function getCoords(location) {
   }
 }
 
-// Universal directions request - could be split up for better control
 export function getDirections(start, end) {
   return function (dispatch) {
     let directionsService = new google.maps.DirectionsService;
@@ -80,6 +78,26 @@ export function getWalkingTime(start, end) {
         window.alert('Directions request failed due to ' + status);
       }
     });
+  }
+}
+
+export function getExpandedWalkingTime(routes, startLocation) {
+  return function (dispatch) {
+    for (let i in routes) {
+      let directionsService = new google.maps.DirectionsService;
+      directionsService.route({
+        origin: startLocation.start,
+        destination: routes[i].minPrice_coords.start,
+        travelMode: 'WALKING'
+      }, function(response, status) {
+        if (status === 'OK') {
+          routes[i].minPrice.walkTime = response.routes[0].legs[0].duration;
+          dispatch(receiveRoutesExpanded(routes[i], i));
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
+    }
   }
 }
 

@@ -10,7 +10,6 @@ import RouteExpandedCircleReducer from './reducer_expanded_circle';
 import RequestRouteReducer from './reducer_request_routes';
 import DirectionsReducer from './reducer_directions';
 import WalkingTimeReducer from './reducer_walking_time';
-import ExpandedDirectionsReducer from './reducer_expanded_directions';
 import SurgeReducer from './reducer_surge';
 
 const rootReducer = combineReducers({
@@ -25,7 +24,6 @@ const rootReducer = combineReducers({
   requestRoute: RequestRouteReducer,
   directions: DirectionsReducer,
   walkingTime: WalkingTimeReducer,
-  expandedDirections: ExpandedDirectionsReducer,
   surge: SurgeReducer,
 });
 

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { deselectRoute } from '../actions/index.js';
 import { bindActionCreators } from 'redux';
 import msToTime from '../helpers/msToTime';
+import walkIcon from '../../assets/walkicon.svg';
+
 import axios from 'axios';
 
 class ActiveRoute extends Component {
@@ -23,11 +25,9 @@ class ActiveRoute extends Component {
   }
 
   componentDidMount() {
-    //sets the state depending or whether the user is on desktop or mobile
     if( navigator.userAgent.match(/(Android|webOS|i(Phone|Pad|Pod)|BlackBerry|Windows Phone)/i)) {
       this.setState({MobileBrowser: true})
     } else {
-      //also sets the state of orderCab to # to stop redirecting
       this.setState({MobileBrowser: false, orderCab: "#"})
     }
   }
@@ -39,7 +39,6 @@ class ActiveRoute extends Component {
         startLng = this.props.currentCoords.start.lng,
         endLat = this.props.currentCoords.end.lat,
         endLng = this.props.currentCoords.end.lng;
-    // Assigns order url to Uber
     if(this.props.route.display_name.match(/uber/i)) {
       let uberUrl = "uber://?client_id=37yHG1-x8iwme2fjogxoa3wU_4n2vWd5exCpEB8u&action=setPickup";
       let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d`
@@ -48,7 +47,6 @@ class ActiveRoute extends Component {
       if (!this.state.MobileBrowser) {
         this.sendMessage(orderUber);
       } else {
-        //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderUber, inputElement:null});
       }
 
@@ -60,7 +58,6 @@ class ActiveRoute extends Component {
       if (!this.state.MobileBrowser ) {
         this.sendMessage(orderLyft);
       } else {
-        //if user is on mobile, orderCab's state is changed to the deep link
         this.setState({orderCab: orderLyft, inputElement:null});
       }
     }
@@ -75,15 +72,24 @@ class ActiveRoute extends Component {
   render() {
     if (!this.props.route) { return <div></div>; }
       let eta = Math.round(this.props.route.eta/60),
-          totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
-          arrivalTime = (msToTime(Date.now()+totalTime)),
+          driveTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
+          arrivalTime,
           etaMinutes = eta <= 1 ? 'minute' : 'minutes',
-          cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
+          cost = this.props.route.avg_estimate ? '$' + (Math.round(this.props.route.avg_estimate/100)) : 'Metered',
           backgroundColor = this.state.style[this.props.style],
           classes = 'selected-route-container ' + backgroundColor,
+          walkingDisclaimer = null,
           distance;
-          if (this.props.route.radius) {
-              distance = <p className="pickup-distance-active">{this.props.route.radius}m</p>;
+          if (this.props.route.walkTime) {
+            if (this.props.route.walkTime.value/60 > eta) {
+              walkingDisclaimer = 'Due to walk time, we recommend you get closer before ordering'
+            }
+            let travelTime = Date.now()+(driveTime+Math.round(this.props.route.walkTime.value)*1000);
+                arrivalTime = (msToTime(travelTime));
+                distance = <div className="pickup-distance-active"><img src={walkIcon}/><p>{this.props.route.walkTime.text}</p></div>;
+          }
+          else {
+            arrivalTime = (msToTime(Date.now()+driveTime));
           }
       return (
         <div>
@@ -97,6 +103,7 @@ class ActiveRoute extends Component {
             <a href={this.state.orderCab}>
               <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
             </a>
+            <div className="walking-disclaimer">{walkingDisclaimer}</div>
             <div className="text-message">{this.state.inputElement}</div>
           </div>
         </div>
