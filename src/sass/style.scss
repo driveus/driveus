@@ -490,6 +490,7 @@ input[type=search] {
 }
 
 .selected-route-container {
+  padding: 10px 0;
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -503,6 +504,11 @@ input[type=search] {
   min-height: 250px;
   border-radius: $default-radius;
   box-shadow: 2px 2px 23px -2px rgba(0, 0, 0, 0.3);
+}
+
+.walking-disclaimer {
+  margin: 10px 0 0 0;
+  font-size: 12px; 
 }
 
 #order-btn {
