@@ -101,28 +101,19 @@ module.exports = function(app) {
 
   app.all('/charts/column', (req, res) => {
     analytics.columnChart((data) => {
-      res.json(data)
-      .catch((err) => {
-        console.error(err);
-      });
+      res.json(data);
     });
   });
 
   app.all('/charts/geo', (req, res) => {
     analytics.geoChart((data) => {
-      res.json(data)
-      .catch((err) => {
-        console.error(err);
-      });
+      res.json(data);
     });
   });
 
   app.all('/charts/scatter', (req, res) => {
     analytics.scatterChart((data) => {
-      res.json(data)
-      .catch((err) => {
-        console.error(err);
-      });
+      res.json(data);
     });
   });
 }
