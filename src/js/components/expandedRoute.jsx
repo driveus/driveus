@@ -12,7 +12,8 @@ class ExpandedRoute extends Component {
   setActiveRoute() {
     return this.props.selectRoute({
       route: this.props.route.minPrice,
-      style: this.props.classStyle
+      style: this.props.classStyle,
+      coords: this.props.route.minPrice_coords
     });
   }
 

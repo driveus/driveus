@@ -35,8 +35,8 @@ class ActiveRoute extends Component {
   orderRide() {
     let startAdd = this.props.currentAddress.start,
         endAdd = this.props.currentAddress.end,
-        startLat = this.props.currentCoords.start.lat,
-        startLng = this.props.currentCoords.start.lng,
+        startLat = this.props.coords.start.lat || this.props.currentCoords.start.lat,
+        startLng = this.props.coords.start.lng || this.props.currentCoords.start.lng,
         endLat = this.props.currentCoords.end.lat,
         endLng = this.props.currentCoords.end.lng;
     if(this.props.route.display_name.match(/uber/i)) {
@@ -117,6 +117,7 @@ function mapStateToProps(state) {
     currentCoords: state.currentCoords,
     route: state.activeRoute.route,
     style: state.activeRoute.style,
+    coords: state.activeRoute.coords,
     currentCoords: state.currentCoords,
     currentAddress: state.currentAddress
   };
