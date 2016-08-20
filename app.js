@@ -1,6 +1,8 @@
 // Module dependencies
 const express = require('express');
 const path = require('path');
+const http = require('http');
+
 if(process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv').config();
 }
@@ -23,6 +25,11 @@ function forceSsl(req, res, next) {
    }
    return next();
 };
+
+//Keep app alive
+setInterval(function() {
+    http.get("http://driveus.herokuapp.com");
+}, 1400000); 
 
 // Webpack in dev mode - Hot reloading
 const compiler = webpack(config);
