@@ -52,7 +52,7 @@ function reverseGeoCode(geoPoint) {
             return resp.results[0].geometry.location;
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
             return 'Reversing Geocode Failed';
           });
 }

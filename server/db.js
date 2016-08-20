@@ -3,8 +3,10 @@
 const massive = require('massive');
 const db = massive.connectSync({connectionString: process.env.DB_CONNSTRING});
 
+//Save the parsed array of ride objects to the 'uberhist' database
 function saveUber(parsedData, isExpandedSearch, city) {
   for (let ride of parsedData.rides) {
+    //throw out invalid rides
     if (!ride.duration || !ride.eta) {
       continue;
     }
@@ -22,10 +24,7 @@ function saveUber(parsedData, isExpandedSearch, city) {
                       expanded_search: isExpandedSearch,
                       city: city
                      };
-    if (queryObj.eta === '00:NaN:0' || queryObj.duration === '00:NaN:0') {
-      console.log('Failed to save:', queryObj);
-      break;
-    }
+
     db.uberhist.save(queryObj, (err) => {
       if (err) {
         console.log(err);
@@ -34,6 +33,7 @@ function saveUber(parsedData, isExpandedSearch, city) {
   }
 }
 
+//save the parsed array of rides to the 'lyfthist' database
 function saveLyft(parsedData, isExpandedSearch, city) {
   for (let ride of parsedData.rides) {
     const queryObj = {ride_type: ride.display_name,
@@ -53,12 +53,13 @@ function saveLyft(parsedData, isExpandedSearch, city) {
 
     db.lyfthist.save(queryObj, (err) => {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
     });
   }
 }
 
+//Convert a number of seconds to hh:mm:ss format
 function secondsToHMS(seconds) {
   const hours = Math.floor(seconds/3600);
   const minutes = Math.floor((seconds - hours * 3600) / 60);
