@@ -2,7 +2,7 @@ google.charts.load('current', {'packages': ['corechart', 'geochart']});
 google.charts.setOnLoadCallback(drawColumnChart);
 
 function drawColumnChart() {
-  const dataArray = [['City', 'Uber', 'Lyft']]
+  const dataArray = [['City', 'Uber', 'Lyft']];
   const options = {
   //The following values may need to be fine-tuned to your own screen size.
                    'width': 980,
@@ -55,11 +55,11 @@ function drawGeoChart() {
   $.get('/charts/geo', (data) => {
     for (let obj of data) {
       if (obj.city === 'San Francisco') {
-        dataArray.push([obj.city, parseFloat(obj.max),  1875]) //Compensate for excessive surge testing here
+        dataArray.push([obj.city, parseFloat(obj.max),  1875]); //Compensate for excessive surge testing here
       } else if (obj.city === 'Houston') {
-        dataArray.push([obj.city, parseFloat(obj.max),  parseInt(obj.count) * 2])  //compensate for no lyft
+        dataArray.push([obj.city, parseFloat(obj.max),  parseInt(obj.count) * 2]);  //compensate for no lyft
       } else {
-        dataArray.push([obj.city, parseFloat(obj.max),  parseInt(obj.count)])
+        dataArray.push([obj.city, parseFloat(obj.max),  parseInt(obj.count)]);
       }
     }
     console.log(dataArray);
