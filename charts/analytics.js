@@ -6,8 +6,8 @@ function drawColumnChart() {
   const options = {
   //The following values may need to be fine-tuned to your own screen size.
                    'width': 980,
-                   'height': 680,
-                   'chartArea': {width: '100%', height: '80%'},
+                   'height': 650,
+                   'chartArea': {width: '90%', height: '80%'},
                    'colors': ['#575757', '#EA0B8C'],
                    'legend': {position: 'bottom'},
                    'vAxis': {ticks: [{v:0,f:'$0'},
