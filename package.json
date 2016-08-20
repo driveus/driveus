@@ -32,7 +32,6 @@
     "json-loader": "^0.5.4",
     "massive": "^2.4.0",
     "null-loader": "^0.1.1",
-    "pg": "^6.0.3",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-favicon": "0.0.4",
