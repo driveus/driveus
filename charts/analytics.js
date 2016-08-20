@@ -3,8 +3,8 @@ google.charts.setOnLoadCallback(drawColumnChart);
 
 function drawColumnChart() {
   const dataArray = [['City', 'Uber', 'Lyft']]
-  const options = {'title': 'Price per mile of Lyft and Uber',
-                   //The following values may need to be fine-tuned to your own screen size.
+  const options = {
+  //The following values may need to be fine-tuned to your own screen size.
                    'width': 980,
                    'height': 680,
                    'chartArea': {width: '100%', height: '80%'},
