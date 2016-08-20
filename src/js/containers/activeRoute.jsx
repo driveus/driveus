@@ -78,8 +78,12 @@ class ActiveRoute extends Component {
           cost = this.props.route.avg_estimate ? '$' + (Math.round(this.props.route.avg_estimate/100)) : 'Metered',
           backgroundColor = this.state.style[this.props.style],
           classes = 'selected-route-container ' + backgroundColor,
+          walkingDisclaimer = null,
           distance;
           if (this.props.route.walkTime) {
+            if (this.props.route.walkTime.value/60 > eta) {
+              walkingDisclaimer = 'Due to walk time, we recommend you get closer before ordering'
+            }
             let travelTime = Date.now()+(driveTime+Math.round(this.props.route.walkTime.value)*1000);
                 arrivalTime = (msToTime(travelTime));
                 distance = <div className="pickup-distance-active"><img src={walkIcon}/><p>{this.props.route.walkTime.text}</p></div>;
@@ -99,6 +103,7 @@ class ActiveRoute extends Component {
             <a href={this.state.orderCab}>
               <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
             </a>
+            <div className="walking-disclaimer">{walkingDisclaimer}</div>
             <div className="text-message">{this.state.inputElement}</div>
           </div>
         </div>
