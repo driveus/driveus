@@ -23,7 +23,7 @@ export default function(state={routes:{close:null,medium:null,far:null},message:
       }
     case REQUEST_EXPANDED_ROUTES:
       return Object.assign({}, state, {
-        message: 'Searching for better routes...'
+        message: 'Searching for better routes'
       });
     case RECEIVE_EXPANDED_ROUTES:
       state.routes[action.name] = action.routes;

@@ -508,7 +508,10 @@ input[type=search] {
 
 .walking-disclaimer {
   margin: 10px 0 0 0;
-  font-size: 12px; 
+  font-size: 12px;
+  max-width: 80%;
+  color: #f3f3f5;
+  opacity: .6;
 }
 
 #order-btn {
