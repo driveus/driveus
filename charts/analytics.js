@@ -57,7 +57,11 @@ function drawGeoChart() {
       if (obj.city === 'San Francisco') {
         dataArray.push([obj.city, parseFloat(obj.max),  1875]); //Compensate for excessive surge testing here
       } else if (obj.city === 'Houston') {
+<<<<<<< HEAD
         dataArray.push([obj.city, parseFloat(obj.max),  parseInt(obj.count) * 2]);  //compensate for no lyft
+=======
+        dataArray.push([obj.city, parseFloat(obj.max),  parseInt(obj.count) * 2]); //compensate for no lyft
+>>>>>>> master
       } else {
         dataArray.push([obj.city, parseFloat(obj.max),  parseInt(obj.count)]);
       }
