@@ -17,7 +17,7 @@ class ExpandSearch extends Component {
       return (<div></div>);
     }
     return (
-      <div className='active-expand'>
+      <div className={this.props.classStyle}>
         <span>Surge detected! Search nearby for better deals?</span>
         <div>
           <button

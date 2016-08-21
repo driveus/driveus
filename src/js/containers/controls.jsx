@@ -104,15 +104,10 @@ class Controls extends Component {
     }
   }
   render() {
-    let expandSearch,
+    let isActive = 'inactive-expand',
     canExpand = null;
     if (this.props.surge > 1 && !this.state.startLocation && !this.state.endLocation) {
-      expandSearch = <ExpandSearch
-                      currentLocation={this.props.currentCoords}
-                      expandSearch={this.props.fetchExpanded}
-                      disableSurge={this.props.disableSurge}
-                      message={this.props.expandedRoutes.message}
-                      />
+      isActive = 'active-expand';
       canExpand = this.props.fetchExpanded;
     }
     return (
@@ -144,8 +139,15 @@ class Controls extends Component {
               />
           </div>
           <button className="form-btn"></button>
+
         </form>
-        {expandSearch}
+        <ExpandSearch
+          classStyle={isActive}
+          currentLocation={this.props.currentCoords}
+          expandSearch={this.props.fetchExpanded}
+          disableSurge={this.props.disableSurge}
+          message={this.props.expandedRoutes.message}
+          />
       </div>
     );
   }

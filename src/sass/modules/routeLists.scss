@@ -1,0 +1,88 @@
+.empty-message {
+  pointer-events: none;
+  height: 100%;
+  margin: 2em 0;
+  line-height: 1.5em;
+  color: gray;
+  h1 {
+    opacity: .3;
+    padding: 0px 15px;
+  }
+  display: inherit;
+  transition: all .3s ease .15s;
+  .list-message {
+    font-size: 30px;
+    line-height: 35px;
+  }
+  .empty-message-img {
+    margin-top: 3em;
+    opacity: 0.6;
+  }
+}
+
+
+.list-container {
+  height: 100%;
+  float: left;
+  flex: 1;
+  width: 33%;
+  position: absolute;
+  overflow: scroll;
+  background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
+  margin: $center;
+  div {
+    transition-duration: 400ms;
+  }
+  ul {
+    padding: 0px;
+  }
+}
+
+.uber-list-container {
+  box-sizing: border-box;
+  box-shadow: $default-box-shadow;
+  background-color: $uber-color-secondary;
+  overflow: hidden;
+  position: absolute;
+  width: 50%;
+  li {
+    transition-duration: 125ms;
+    &:nth-child(even) {
+      background-color: $uber-color-primary
+    }
+    &:nth-child(odd) {
+      background-color: $uber-color-secondary
+    }
+    &:hover {
+      background-color: $uber-color-hover;
+    }
+    &:active {
+      background-color: $uber-color-active;
+    }
+  }
+}
+
+.lyft-list-container {
+  box-sizing: border-box;
+  box-shadow: $default-box-shadow;
+  background-color: $lyft-color-primary;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  width: 50%;
+  li {
+    transition-duration: 125ms;
+    &:nth-child(even) {
+      background-color: $lyft-color-primary;
+    }
+    &:nth-child(odd) {
+      background-color: $lyft-color-secondary;
+    }
+    &:hover {
+      background-color: $lyft-color-hover;
+    }
+    &:active {
+      background-color: $lyft-color-active;
+    }
+  }
+}

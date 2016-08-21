@@ -1,0 +1,71 @@
+.lightbox-background {
+  background: black;
+  opacity: 0.5;
+  position: fixed;
+  z-index: 100;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+
+.selected-route-container {
+  padding: 10px 0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 25%;
+  right: 30%;
+  left: 30%;
+  color: #fff;
+  z-index: 101;
+  min-height: 250px;
+  border-radius: $default-radius;
+  box-shadow: 2px 2px 23px -2px rgba(0, 0, 0, 0.3);
+}
+
+.walking-disclaimer {
+  margin: 10px 0 0 0;
+  font-size: 12px;
+  max-width: 80%;
+  color: #f3f3f5;
+  opacity: .6;
+}
+
+#order-btn {
+  width: 100px;
+  height: 40px;
+  margin: 10px 5px 5px 5px;
+  background: none;
+  color: $off-white;
+  border: 1px solid $off-white;
+  transition-duration: 150ms;
+  &:hover {
+    background-color: #f2f2f2;
+    color: #222;
+  }
+  &:active {
+    box-shadow: inset 0px 0px 10px -2px rgba(0, 0, 0, 0.75);
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.text-message {
+  padding: 5px 20px;
+  font-size: 14px;
+}
+
+.pickup-distance-active {
+  display: flex;
+  align-items: center;
+  padding: 2px 20px;
+  margin-top: 5px;
+  img {
+    width: 20px;
+    margin-right: 5px;
+  }
+}
