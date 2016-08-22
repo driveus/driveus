@@ -19,33 +19,36 @@
   @import "./breakpoints/1024/wrappers.scss";
   @import "./breakpoints/1024/locationSearch.scss";
   @import "./breakpoints/1024/activeRoute.scss";
-  @import "./breakpoints/1024/routeLists.scss";
   @import "./breakpoints/1024/routeItems.scss";
+  @import "./breakpoints/1024/routeLists.scss";
+  @import "./breakpoints/1024/mapView.scss";
+}
 
-  // == Mobile Modules ======================= //
-  @media (min-width: 550px) {
+// == Logo resizing ======================== //
+@media(max-width: 640px) {
+  @import "./breakpoints/640/routeLists.scss";
+}
 
-    @import "./breakpoints/550/wrappers.scss";
-    @import "./breakpoints/550/locationSearch.scss";
-    @import "./breakpoints/550/mapView.scss";
-    @import "./breakpoints/550/activeRoute.scss";
-    @import "./breakpoints/550/routeItems.scss";
-    @import "./breakpoints/550/routeLists.scss";
-  }
+// == Non-Mobile Modules =================== //
+@media (min-width: 550px) {
 
-  // == Mobile Map Portrait ================== //
-  @media (max-width: 549px) {
+  @import "./breakpoints/550/wrappers.scss";
+  @import "./breakpoints/550/activeRoute.scss";
+  @import "./breakpoints/550/routeLists.scss";
+  @import "./breakpoints/550/routeItems.scss";
+}
 
-    @import "./breakpoints/549/wrappers.scss";
-    @import "./breakpoints/549/locationSearch.scss";
-    @import "./breakpoints/549/mapView.scss";
-  }
-  // == Logo resizing ======================== //
-  @media(max-width: 640px) {
-    @import "./breakpoints/640/routeLists.scss";
-  }
-  // == Logo resizing ======================== //
-  @media(max-width: 400px) {
-    @import "./breakpoints/400/routeLists.scss";
-  }
+// == Mobile Modules ======================= //
+@media (max-width: 549px) {
+
+  @import "./breakpoints/549/wrappers.scss";
+  @import "./breakpoints/549/routeLists.scss";
+  @import "./breakpoints/549/routeItems.scss";
+  @import "./breakpoints/549/locationSearch.scss";
+  @import "./breakpoints/549/mapView.scss";
+
+}
+// == Logo resizing ======================= //
+@media(max-width: 400px) {
+  @import "./breakpoints/400/routeLists.scss";
 }

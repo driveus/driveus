@@ -6,7 +6,7 @@
   padding: 5px;
   list-style-type: none;
   margin: 0px 2px 0px 2px;
-  min-height: 95px;
+  min-height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,6 +21,7 @@
 .travel-info {
   padding: 4px 0px;
   width: 90%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-around;
   img {
@@ -30,12 +31,13 @@
     margin-right: 5px;
   }
 
-  .driver-eta,
-  .route-duration {
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-  }
+}
+
+.driver-eta,
+.route-duration {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
 }
 
 .ride-info {

@@ -1,19 +1,14 @@
 .list-item {
-  height: auto;
+  min-height: 100px;
   padding: 7px;
   flex-direction: column;
   display: flex;
   align-items: center;
-  min-height: 88px;
   box-sizing: border-box;
 }
 .route-name {
-  font-size: 12px;
+  font-size: 14px;
   padding: 0;
-}
-.driver-eta,
-.route-duration {
-  font-size: 12px;
 }
 .route-cost {
   float: none;

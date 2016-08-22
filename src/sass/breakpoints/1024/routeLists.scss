@@ -1,4 +1,5 @@
 .empty-message {
+  font-size: 1.8em;
   h1 {
     display: none;
   }
@@ -8,14 +9,13 @@
   max-width: 230px;
   margin-top: 1.3em;
 }
+
 .list-container {
-  width: 100%;
-  order: 1;
-  position: relative;
-  border-top: 1px solid $secondary-color;
-  background: linear-gradient(0deg, white 0%, #f2f2f2 100%);
-  overflow: scroll;
+  width: 40%;
+  position: absolute;
 }
+
+
 .uber-list-container {
   overflow: scroll;
   height: 100%;

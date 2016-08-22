@@ -1,17 +1,19 @@
 .search-box {
   box-shadow: none;
   background: #29322f;
-  width: 100%;
   padding: 0;
   left: 0;
   right: 0;
   z-index: 99;
+  width: 40%;
 }
+
 .location-form {
   flex-direction: column;
   width: 100%;
   position: relative;
   input {
+    height: 3em;
     min-width: 0;
     margin: 0;
     padding: 0 10px 0 10px;
