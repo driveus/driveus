@@ -80,7 +80,7 @@ class ActiveRoute extends Component {
       let eta = Math.round(this.props.route.eta/60),
           driveTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
           etaMinutes = eta <= 1 ? 'minute' : 'minutes',
-          cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
+          cost = this.props.route.avg_estimate ? '$' + (Math.round(this.props.route.avg_estimate/100)) : 'Metered',
           backgroundColor = this.state.style[this.props.style],
           classes = 'selected-route-container ' + backgroundColor,
           walkingDisclaimer,

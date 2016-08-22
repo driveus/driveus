@@ -20,7 +20,7 @@ class Route extends Component {
         etaMessage = `${eta} min`,
         totalTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
         arrivalTime = (msToTime(Date.now()+totalTime)),
-        cost = this.props.route.high_estimate ? '$' + (Math.round(this.props.route.high_estimate/100)) : 'Metered',
+        cost = this.props.route.avg_estimate ? '$' + (Math.round(this.props.route.avg_estimate/100)) : 'Metered',
         disclaimer = this.props.carpool ? '\nMay make additional stops' : '',
         image = this.props.marker ? <img src={this.props.marker} className="marker-tag"/> : null;
     return (
