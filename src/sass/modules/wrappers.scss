@@ -1,0 +1,28 @@
+html,
+body {
+  height: 100%;
+  background-color: $primary-color;
+}
+#app {
+  height: inherit;
+}
+#wrapper {
+  height: inherit;
+}
+#container {
+  margin: $center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  text-align: center;
+  color: $header-text-color;
+  background-color: white;
+  transition: display 0.5s;
+}
+.information-view {
+  flex: 1;
+  position: relative;
+  overflow: scroll;
+  width: 100%;
+}

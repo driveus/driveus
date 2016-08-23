@@ -1,0 +1,20 @@
+.uber {
+  background-color: $uber-color-secondary;
+}
+
+.lyft {
+  background-color: $lyft-color-primary;
+}
+
+.expanded {
+  background-color: #426d7d;
+}
+
+.expanded-routes {
+  .price:hover {
+    background-color: #426d7d;
+  }
+  .time:hover {
+    background-color: #30b597;
+  }
+}
