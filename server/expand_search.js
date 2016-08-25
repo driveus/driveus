@@ -2,6 +2,7 @@
 const lyft = require('./lyft.js');
 const uber = require('./uber.js');
 const genRadius = require('./generate_radius.js');
+const Promise = require("bluebird");
 
 function checkIfOptimalPrice(rideOptions, optimalPrice) {
   if (!optimalPrice.ride) {
@@ -33,6 +34,7 @@ function expandSearch(startCoords, radius) {
   const promiseList = [];
 
   return genRadius.createGeoRadius(startCoords, radius) // generates a radius of GPS points around a starting point
+    .timeout(2000)
     .then((data) => {
       data.forEach((coordPair) => { // For all coordinates around starting point, generates Start and End pairs based on destination
         const newStartEnd = {
@@ -44,6 +46,11 @@ function expandSearch(startCoords, radius) {
       });
       return Promise.all(promiseList);
     })
+    .catch(Promise.TimeoutError, function(err) {
+      console.error("Encountered Timeout Error", err);
+      return err;
+    })
+    .timeout(5000)
     .then((data) => {
       let optimalPrice = {};
       data.forEach((option) => optimalPrice = checkIfOptimalPrice(option, optimalPrice));
@@ -52,6 +59,10 @@ function expandSearch(startCoords, radius) {
         minPrice_coords: optimalPrice.coords || null,
         radius: radius
       };
+    })
+    .catch(Promise.TimeoutError, function(err) {
+      console.error("Encountered Timeout Error", err);
+      return err;
     })
     .catch((err) => {
         console.error('Some Uber or Lyft call failed', err);

@@ -1,6 +1,7 @@
 'use strict';
 
 const rp = require("request-promise");
+const Promise = require("bluebird");
 
 Number.prototype.toRad = function() {
   return this * Math.PI / 180;
