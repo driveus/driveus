@@ -50,6 +50,9 @@ function reverseGeoCode(geoPoint) {
   };
   return rp(options)
           .then((resp) => {
+            if (resp.results.length === 0) {
+              return null;
+            }
             return resp.results[0].geometry.location;
           })
           .catch((err) => {

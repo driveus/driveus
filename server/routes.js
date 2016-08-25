@@ -62,7 +62,7 @@ module.exports = function(app) {
       unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
     })
     Promise.all(unresolvedPromises)
-      .timeout(7000)
+      .timeout(10000)
       .then((promises) => {
         for (let i = 1; i < promises.length; i++) {
           if (Object.keys(resultObj).length === 0) {
