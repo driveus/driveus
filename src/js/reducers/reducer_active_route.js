@@ -3,13 +3,13 @@ import {
   ROUTE_DESELECTED
 } from '../actions/types';
 
-export default function(state={route:null,class:null}, action) {
+export default function(state={route:null,class:null,coords:null}, action) {
   switch(action.type) {
     case ROUTE_SELECTED:
       return action.payload;
 
     case ROUTE_DESELECTED:
-      return {route:null,class:null};
+      return {route:null,class:null,coords:null};
   }
   return state;
 }

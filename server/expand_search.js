@@ -2,6 +2,7 @@
 const lyft = require('./lyft.js');
 const uber = require('./uber.js');
 const genRadius = require('./generate_radius.js');
+const Promise = require("bluebird");
 
 function checkIfOptimalPrice(rideOptions, optimalPrice) {
   if (!optimalPrice.ride) {
@@ -31,21 +32,27 @@ function checkIfOptimalPrice(rideOptions, optimalPrice) {
 // Receives the user's selected starting location
 function expandSearch(startCoords, radius) {
   const promiseList = [];
-  
-  // Generates a radius of GPS points around a starting point
-  return genRadius.createGeoRadius(startCoords, radius) 
+
+  return genRadius.createGeoRadius(startCoords, radius) // generates a radius of GPS points around a starting point
+    .timeout(7000)
     .then((data) => {
-      // For all coordinates around starting point, generates Start and End pairs based on destination
-      data.forEach((coordPair) => { 
-        const newStartEnd = {
-          start: coordPair,
-          end: startCoords.end
-        };
-        promiseList.push(lyft.lyftRequest(newStartEnd).then(lyft.parseLyft));
-        promiseList.push(uber.uberRequest(newStartEnd).then(uber.parseUber));
+      data.forEach((coordPair) => { // For all coordinates around starting point, generates Start and End pairs based on destination
+        if (coordPair) {
+          const newStartEnd = {
+            start: coordPair,
+            end: startCoords.end
+          };
+          promiseList.push(lyft.lyftRequest(newStartEnd).then(lyft.parseLyft));
+          promiseList.push(uber.uberRequest(newStartEnd).then(uber.parseUber));
+        }
       });
       return Promise.all(promiseList);
     })
+    .catch(Promise.TimeoutError, function(err) {
+      console.error("Encountered Timeout Error", err);
+      return err;
+    })
+    .timeout(7000)
     .then((data) => {
       let optimalPrice = {};
       data.forEach((option) => optimalPrice = checkIfOptimalPrice(option, optimalPrice));
@@ -54,6 +61,10 @@ function expandSearch(startCoords, radius) {
         minPrice_coords: optimalPrice.coords || null,
         radius: radius
       };
+    })
+    .catch(Promise.TimeoutError, function(err) {
+      console.error("Encountered Timeout Error", err);
+      return err;
     })
     .catch((err) => {
         console.error('Some Uber or Lyft call failed', err);

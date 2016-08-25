@@ -1,0 +1,55 @@
+.expanded-list {
+  background-color: #426d7d;
+}
+.expanded-message {
+  pointer-events: none;
+  font-size: 14px;
+  padding: 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+.expanded-routes {
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+}
+.expanded-list-item {
+  position: relative;
+  transition-duration: 200ms !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  width: 100%;
+  padding: 5px;
+  background-color: #375b69;
+  &:hover {
+    background-color: #567a88;
+  }
+  &:nth-child(even) {
+    background-color: #426d7d;
+    &:hover {
+      background-color: #567a88;
+    }
+  }
+  .travel-info {
+    margin: auto;
+    align-items: center;
+    padding-bottom: 2px;
+    div:first-child {
+      margin-bottom: 4px;
+    }
+  }
+  .ride-info {
+    padding-top: 3px;
+  }
+  .pickup-distance-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    padding: 4px 0px 0px;
+    img {
+      width: 12px;
+      margin-right: 3px;
+    }
+  }
+}

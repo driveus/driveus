@@ -9,6 +9,7 @@ const router = express.Router();
 const twilio_SID = "ACe98e01d0fea8ebb54402edd1abc0e724";  //No longer active,
 const twilio_token = "fae8053ee7a58761e3fdfa2ce8331aec";  // was for testing only
 const client = require('twilio')(twilio_SID,twilio_token);
+const Promise = require("bluebird");
 
 module.exports = function(app) {
   //Responds with array of Uber ride info
@@ -61,6 +62,7 @@ module.exports = function(app) {
       unresolvedPromises.push(expandSearch.expandSearch(coords, radius[1]))
     })
     Promise.all(unresolvedPromises)
+      .timeout(10000)
       .then((promises) => {
         for (let i = 1; i < promises.length; i++) {
           if (Object.keys(resultObj).length === 0) {
@@ -83,8 +85,13 @@ module.exports = function(app) {
         }
         res.json(resultObj);
       })
+      .catch(Promise.TimeoutError, function(err) {
+        console.error("Could retrieve ride results within 7s", err);
+        res.json(err);
+      })
       .catch((err) => {
         console.error('Some Uber or Lyft call failed:', err);
+        res.json(err);
       })
   });
 

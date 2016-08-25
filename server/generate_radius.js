@@ -1,6 +1,7 @@
 'use strict';
 
 const rp = require("request-promise");
+const Promise = require("bluebird");
 
 Number.prototype.toRad = function() {
   return this * Math.PI / 180;
@@ -49,6 +50,9 @@ function reverseGeoCode(geoPoint) {
   };
   return rp(options)
           .then((resp) => {
+            if (resp.results.length === 0) {
+              return null;
+            }
             return resp.results[0].geometry.location;
           })
           .catch((err) => {

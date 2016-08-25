@@ -1,0 +1,16 @@
+.list-item {
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  padding: $list-padding;
+}
+.ride-info {
+  width: 90%;
+  margin: 0 auto;
+  justify-content: flex-start;
+}
+.route-cost {
+  font-size: 18px;
+}
+.disclaimer {
+  margin: 0 auto;
+}
