@@ -2,9 +2,11 @@
 
 const db = require('./db.js');
 const rp = require('request-promise');
-let lyftToken;  //Expires every hour; we generate a new one before expiration
 
-//Uses our Lyft ID and Secret to generate a token valid for 1 hour to make API calls
+// Expires every hour; we generate a new one before expiration
+let lyftToken;  
+
+// Uses our Lyft ID and Secret to generate a token valid for 1 hour to make API calls
 function generateToken() {
   const authorziation = new Buffer(process.env.LYFT_ID + ':' + process.env.LYFT_SECRET).toString('base64');
   const options = {
@@ -30,10 +32,10 @@ function generateToken() {
 }
 
 generateToken();
-//Token expires every hour
+// Token expires every hour
 setInterval(generateToken, 3000000);
 
-//Input start & end coordinates, output a promise that will return Lyft ride info
+// Input start & end coordinates, output a promise that will return Lyft ride info
 function lyftRides(coords) {
   const options = {
     uri: `https://api.lyft.com/v1/cost?start_lat=${coords.start.lat}&start_lng=${coords.start.lng}&end_lat=${coords.end.lat}&end_lng=${coords.end.lng}`,
@@ -45,7 +47,7 @@ function lyftRides(coords) {
   return rp(options);
 }
 
-//Input start & end coordinates, output a promise that will return Lyft car ETAs
+// Input start & end coordinates, output a promise that will return Lyft car ETAs
 function lyftEtas(coords) {
   const options = {
     uri: `https://api.lyft.com/v1/eta?lat=${coords.start.lat}&lng=${coords.start.lng}`,
@@ -58,7 +60,7 @@ function lyftEtas(coords) {
 
 }
 
-//Input Lyft's responses from the rides & etas API calls, output an array
+// Input Lyft's responses from the rides & etas API calls, output an array
 // of ride options with all relevant properties combined from the two calls.
 
 function parseLyft(apiResponses, isExpandedSearch, city) {
@@ -82,7 +84,7 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
     return ride;
   });
 
-  //add the ETA to the corresponding object
+  // Add the ETA to the corresponding object
   for (let eta of etas) {
     for (let ride of rides) {
       if (eta.display_name === ride.display_name) {
@@ -91,7 +93,7 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
     }
   }
 
-  //Bug hotfix:
+  // Bug hotfix:
   rides.filter(function(ride) {
     for (let prop in ride) {
       if (prop === undefined) {
@@ -120,7 +122,7 @@ function parseLyft(apiResponses, isExpandedSearch, city) {
   }
   //*********END OF HARDCODED SURGE MULTIPLIER ******
 
-  //for determining whether to offer expanded search:
+  // For determining whether to offer expanded search:
   rides.forEach((ride) => {
     if (ride.display_name === 'Lyft Line' || ride.display_name === 'Lyft') {
       if (ride.price_multiplier > 1) { surgeCount++; }

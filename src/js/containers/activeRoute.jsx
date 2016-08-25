@@ -22,6 +22,7 @@ class ActiveRoute extends Component {
     }
     this.orderRide = this.orderRide.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.clearActiveRoute = this.clearActiveRoute.bind(this);
   }
 
   componentDidMount() {
@@ -35,13 +36,13 @@ class ActiveRoute extends Component {
   orderRide() {
     let startAdd = this.props.currentAddress.start,
         endAdd = this.props.currentAddress.end,
-        startLat = this.props.currentCoords.start.lat,
-        startLng = this.props.currentCoords.start.lng,
+        startLat = this.props.coords ? this.props.coords.start.lat : this.props.currentCoords.start.lat,
+        startLng = this.props.coords ? this.props.coords.start.lng : this.props.currentCoords.start.lng,
         endLat = this.props.currentCoords.end.lat,
         endLng = this.props.currentCoords.end.lng;
     if(this.props.route.display_name.match(/uber/i)) {
       let uberUrl = "uber://?client_id=37yHG1-x8iwme2fjogxoa3wU_4n2vWd5exCpEB8u&action=setPickup";
-      let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d`
+      let uberCoords = `&pickup[latitude]=${startLat}&pickup[longitude]=${startLng}&pickup[formatted_address]=${encodeURIComponent(startAdd)}&dropoff[latitude]=${endLat}&dropoff[longitude]=${endLng}&dropoff[formatted_address]=${encodeURIComponent(endAdd)}&product_id=${this.props.route.product_id}`
       let orderUber = uberUrl + uberCoords;
 
       if (!this.state.MobileBrowser) {
@@ -69,20 +70,28 @@ class ActiveRoute extends Component {
     this.setState({inputElement: 'We just texted you the link to your ride!'});
   }
 
+  clearActiveRoute() {
+    this.props.deselectRoute();
+    this.setState({ inputElement: null });
+  }
+
   render() {
     if (!this.props.route) { return <div></div>; }
       let eta = Math.round(this.props.route.eta/60),
           driveTime = Math.round((this.props.route.duration + this.props.route.eta))*1000,
-          arrivalTime,
           etaMinutes = eta <= 1 ? 'minute' : 'minutes',
           cost = this.props.route.avg_estimate ? '$' + (Math.round(this.props.route.avg_estimate/100)) : 'Metered',
           backgroundColor = this.state.style[this.props.style],
           classes = 'selected-route-container ' + backgroundColor,
-          walkingDisclaimer = null,
-          distance;
+          walkingDisclaimer,
+          distance,
+          arrivalTime;
           if (this.props.route.walkTime) {
             if (this.props.route.walkTime.value/60 > eta) {
-              walkingDisclaimer = 'Due to walk time, we recommend you get closer before ordering'
+              walkingDisclaimer =
+              <div className="walking-disclaimer">
+                Due to walk time, we recommend you get closer before ordering
+              </div>
             }
             let travelTime = Date.now()+(driveTime+Math.round(this.props.route.walkTime.value)*1000);
                 arrivalTime = (msToTime(travelTime));
@@ -93,7 +102,10 @@ class ActiveRoute extends Component {
           }
       return (
         <div>
-          <div onClick={() => {this.props.deselectRoute(); this.setState({inputElement: null})}} className="lightbox-background"></div>
+          <div
+            onClick={this.clearActiveRoute}
+            className="lightbox-background">
+          </div>
           <div className={classes}>
             <h1>{this.props.route.display_name}</h1>
             <h1>{cost}</h1>
@@ -103,7 +115,7 @@ class ActiveRoute extends Component {
             <a href={this.state.orderCab}>
               <button id="order-btn" onClick={this.orderRide}>Order Ride</button>
             </a>
-            <div className="walking-disclaimer">{walkingDisclaimer}</div>
+            {walkingDisclaimer}
             <div className="text-message">{this.state.inputElement}</div>
           </div>
         </div>
@@ -117,6 +129,7 @@ function mapStateToProps(state) {
     currentCoords: state.currentCoords,
     route: state.activeRoute.route,
     style: state.activeRoute.style,
+    coords: state.activeRoute.coords,
     currentCoords: state.currentCoords,
     currentAddress: state.currentAddress
   };

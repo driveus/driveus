@@ -1,0 +1,22 @@
+.list-item {
+  min-height: 100px;
+  padding: 7px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+.route-name {
+  font-size: 14px;
+  padding: 0;
+}
+.route-cost {
+  float: none;
+  font-size: 14px;
+  margin-bottom: 2px;
+  height: auto;
+  line-height: inherit;
+}
+.disclaimer {
+  font-size: 10px;
+}
